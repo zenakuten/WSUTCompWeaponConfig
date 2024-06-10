@@ -1,2 +1,2 @@
-# 3SPNWeaponConfig
-config options for 3SPN weapons
+# WSUTCompWeaponConfig
+config options for WSUTComp weapons
