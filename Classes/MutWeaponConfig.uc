@@ -130,7 +130,6 @@ simulated function ModifyShieldGun()
     if(!bModifyShieldGun)
         return;
 
-    /*
     class'ShieldFire'.default.FireRate = ShieldPrimary_FireRate;
     class'ShieldFire'.default.AmmoPerFire = ShieldPrimary_AmmoPerFire;
 
@@ -144,27 +143,6 @@ simulated function ModifyShieldGun()
     class'ShieldFire'.default.AutoFireTestFreq = ShieldPrimary_AutoFireTestFreq;
     class'ShieldFire'.default.FullyChargedTime = ShieldPrimary_FullyChargedTime;
     class'ShieldFire'.default.ChargingSoundVolume = ShieldPrimary_ChargingSoundVolume;
-
-    class'ShieldAltFire'.default.FireRate = ShieldSecondary_FireRate;
-    class'ShieldAltFire'.default.AmmoPerFire = ShieldSecondary_AmmoPerFire;
-    class'ShieldAltFire'.default.AmmoRegenTime = ShieldSecondary_AmmoRegenTime;
-    class'ShieldAltFire'.default.ChargeupTime = ShieldSecondary_ChargeupTime;
-    class'ShieldAltFire'.default.ShieldSoundVolume = ShieldSecondary_ShieldSoundVolume;
-    */
-
-    class'WeaponFire_Shield'.default.FireRate = ShieldPrimary_FireRate;
-    class'WeaponFire_Shield'.default.AmmoPerFire = ShieldPrimary_AmmoPerFire;
-
-    class'WeaponFire_Shield'.default.ShieldRange = ShieldPrimary_ShieldRange;
-    class'WeaponFire_Shield'.default.MinHoldTime = ShieldPrimary_MinHoldTime;
-    class'WeaponFire_Shield'.default.MinForce = ShieldPrimary_MinForce;
-    class'WeaponFire_Shield'.default.MaxForce = ShieldPrimary_MaxForce;
-    class'WeaponFire_Shield'.default.SelfForceScale = ShieldPrimary_SelfForceScale;
-    class'WeaponFire_Shield'.default.SelfDamageScale = ShieldPrimary_SelfDamageScale;
-    class'WeaponFire_Shield'.default.MinSelfDamage = ShieldPrimary_MinSelfDamage;
-    class'WeaponFire_Shield'.default.AutoFireTestFreq = ShieldPrimary_AutoFireTestFreq;
-    class'WeaponFire_Shield'.default.FullyChargedTime = ShieldPrimary_FullyChargedTime;
-    class'WeaponFire_Shield'.default.ChargingSoundVolume = ShieldPrimary_ChargingSoundVolume;
 
     class'ShieldAltFire'.default.FireRate = ShieldSecondary_FireRate;
     class'ShieldAltFire'.default.AmmoPerFire = ShieldSecondary_AmmoPerFire;
@@ -445,9 +423,9 @@ defaultproperties
 {
     bAddToServerPackages=true
     IconMaterialName="MutatorArt.nosym"
-    FriendlyName="3SPN Weapon Config 1.1"
-    FriendlyVersion="1.1"
-    Description="Configuration for 3SPN weapons"
+    FriendlyName="WSUTComp Weapon Config V5"
+    FriendlyVersion="V5"
+    Description="Configuration for WSUTComp weapons"
 
     bModifyShieldGun=true
     ShieldPrimary_FireRate=0.6
