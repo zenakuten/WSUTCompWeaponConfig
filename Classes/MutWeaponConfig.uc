@@ -420,8 +420,8 @@ defaultproperties
 {
     bAddToServerPackages=true
     IconMaterialName="MutatorArt.nosym"
-    FriendlyName="WSUTComp Weapon Config V6"
-    FriendlyVersion="V6"
+    FriendlyName="WSUTComp Weapon Config V9"
+    FriendlyVersion="V9"
     Description="Configuration for WSUTComp weapons"
 
     bModifyShieldGun=true
