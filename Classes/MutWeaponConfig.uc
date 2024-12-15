@@ -1,5 +1,7 @@
 
-class MutWeaponConfig extends Mutator;
+class MutWeaponConfig extends Mutator
+    config(WSUTCompWeaponConfig)
+    PerObjectConfig;
 
 var string FriendlyVersion;
 
