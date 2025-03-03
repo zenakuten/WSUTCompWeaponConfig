@@ -45,6 +45,132 @@ replication
         ShockRifle_BringUpTime, ShockRifle_PutDownTime, ShockRifle_MinReloadPct;    
 }
 
+function LoadFrom(MutWeaponConfig config)
+{
+    bModifyShockRifle = config.bModifyShockRifle;
+    ShockPrimary_TraceRange = config.ShockPrimary_TraceRange;
+    ShockPrimary_Momentum = config.ShockPrimary_Momentum;
+    ShockPrimary_AmmoPerFire = config.ShockPrimary_AmmoPerFire;
+    ShockPrimary_DamageMin = config.ShockPrimary_DamageMin;
+    ShockPrimary_DamageMax = config.ShockPrimary_DamageMax;
+    ShockPrimary_FireRate = config.ShockPrimary_FireRate;
+    ShockSecondary_AmmoPerFire = config.ShockSecondary_AmmoPerFire;
+    ShockSecondary_FireRate = config.ShockSecondary_FireRate;
+    ShockSecondary_ProjSpeed = config.ShockSecondary_ProjSpeed;
+    ShockSecondary_ProjMaxSpeed = config.ShockSecondary_ProjMaxSpeed;
+    ShockSecondary_ProjDamage = config.ShockSecondary_ProjDamage;
+    ShockSecondary_ProjDamageRadius = config.ShockSecondary_ProjDamageRadius;
+    ShockSecondary_ProjMomentumTransfer = config.ShockSecondary_ProjMomentumTransfer;
+    ShockSecondary_ProjComboDamage = config.ShockSecondary_ProjComboDamage;
+    ShockSecondary_ProjComboRadius = config.ShockSecondary_ProjComboRadius;
+    ShockSecondary_ProjComboMomentumTransfer = config.ShockSecondary_ProjComboMomentumTransfer;
+    ShockSecondary_ProjLifeSpan = config.ShockSecondary_ProjLifeSpan;
+    ShockSecondary_ProjComboAmmoCost = config.ShockSecondary_ProjComboAmmoCost;
+    ShockSecondary_ProjForceScale = config.ShockSecondary_ProjForceScale;
+    ShockSecondary_ProjForceRadius = config.ShockSecondary_ProjForceRadius;
+    ShockSecondary_ProjSoundRadius = config.ShockSecondary_ProjSoundRadius;
+    ShockSecondary_ProjSoundVolume = config.ShockSecondary_ProjSoundVolume;
+    ShockRifle_PutDownTime = config.ShockRifle_PutDownTime;
+    ShockRifle_BringUpTime = config.ShockRifle_BringUpTime;
+    ShockRifle_MinReloadPct = config.ShockRifle_MinReloadPct;
+}
+
+simulated function Modify()
+{
+    if(!bModifyShockRifle)
+        return;
+    
+    //stock
+    class'ShockBeamFire'.default.TraceRange = ShockPrimary_TraceRange;
+    class'ShockBeamFire'.default.Momentum = ShockPrimary_Momentum;
+    class'ShockBeamFire'.default.AmmoPerFire = ShockPrimary_AmmoPerFire;
+    class'ShockBeamFire'.default.DamageMin = ShockPrimary_DamageMin;
+    class'ShockBeamFire'.default.DamageMax = ShockPrimary_DamageMax;
+    class'ShockBeamFire'.default.FireRate = ShockPrimary_FireRate;
+    class'ShockProjFire'.default.AmmoPerFire = ShockSecondary_AmmoPerFire;
+    class'ShockProjFire'.default.FireRate = ShockSecondary_FireRate;
+    class'ShockProjectile'.default.Speed = ShockSecondary_ProjSpeed;
+    class'ShockProjectile'.default.MaxSpeed = ShockSecondary_ProjMaxSpeed;
+    class'ShockProjectile'.default.Damage = ShockSecondary_ProjDamage;
+    class'ShockProjectile'.default.DamageRadius = ShockSecondary_ProjDamageRadius;
+    class'ShockProjectile'.default.MomentumTransfer = ShockSecondary_ProjMomentumTransfer;
+    class'ShockProjectile'.default.ComboDamage = ShockSecondary_ProjComboDamage;
+    class'ShockProjectile'.default.ComboRadius = ShockSecondary_ProjComboRadius;
+    class'ShockProjectile'.default.ComboMomentumTransfer = ShockSecondary_ProjComboMomentumTransfer;
+    class'ShockProjectile'.default.LifeSpan = ShockSecondary_ProjLifeSpan;
+    class'ShockProjectile'.default.ComboAmmoCost = ShockSecondary_ProjComboAmmoCost;
+    class'ShockProjectile'.default.ForceScale = ShockSecondary_ProjForceScale;
+    class'ShockProjectile'.default.ForceRadius = ShockSecondary_ProjForceRadius;
+    class'ShockProjectile'.default.SoundRadius = ShockSecondary_ProjSoundRadius;
+    class'ShockProjectile'.default.SoundVolume = ShockSecondary_ProjSoundVolume;
+    class'ShockRifle'.default.PutDownTime = ShockRifle_PutDownTime;
+    class'ShockRifle'.default.BringUpTime = ShockRifle_BringUpTime;
+    class'ShockRifle'.default.MinReloadPct = ShockRifle_MinReloadPct;
+
+    class'ShockRifle'.default.PutDownAnimRate = class'ShockRifle'.default.PutDownAnimRate / (ShockRifle_PutDownTime / default.ShockRifle_PutDownTime);
+    class'ShockRifle'.default.SelectAnimRate = class'ShockRifle'.default.SelectAnimRate / (ShockRifle_BringUpTime / default.ShockRifle_BringUpTime);
+
+    //utcomp
+    class'UTComp_ShockBeamFire'.default.TraceRange = ShockPrimary_TraceRange;
+    class'UTComp_ShockBeamFire'.default.Momentum = ShockPrimary_Momentum;
+    class'UTComp_ShockBeamFire'.default.AmmoPerFire = ShockPrimary_AmmoPerFire;
+    class'UTComp_ShockBeamFire'.default.DamageMin = ShockPrimary_DamageMin;
+    class'UTComp_ShockBeamFire'.default.DamageMax = ShockPrimary_DamageMax;
+    class'UTComp_ShockBeamFire'.default.FireRate = ShockPrimary_FireRate;
+    class'UTComp_ShockProjFire'.default.AmmoPerFire = ShockSecondary_AmmoPerFire;
+    class'UTComp_ShockProjFire'.default.FireRate = ShockSecondary_FireRate;
+    class'UTComp_ShockProjectile'.default.Speed = ShockSecondary_ProjSpeed;
+    class'UTComp_ShockProjectile'.default.MaxSpeed = ShockSecondary_ProjMaxSpeed;
+    class'UTComp_ShockProjectile'.default.Damage = ShockSecondary_ProjDamage;
+    class'UTComp_ShockProjectile'.default.DamageRadius = ShockSecondary_ProjDamageRadius;
+    class'UTComp_ShockProjectile'.default.MomentumTransfer = ShockSecondary_ProjMomentumTransfer;
+    class'UTComp_ShockProjectile'.default.ComboDamage = ShockSecondary_ProjComboDamage;
+    class'UTComp_ShockProjectile'.default.ComboRadius = ShockSecondary_ProjComboRadius;
+    class'UTComp_ShockProjectile'.default.ComboMomentumTransfer = ShockSecondary_ProjComboMomentumTransfer;
+    class'UTComp_ShockProjectile'.default.LifeSpan = ShockSecondary_ProjLifeSpan;
+    class'UTComp_ShockProjectile'.default.ComboAmmoCost = ShockSecondary_ProjComboAmmoCost;
+    class'UTComp_ShockProjectile'.default.ForceScale = ShockSecondary_ProjForceScale;
+    class'UTComp_ShockProjectile'.default.ForceRadius = ShockSecondary_ProjForceRadius;
+    class'UTComp_ShockProjectile'.default.SoundRadius = ShockSecondary_ProjSoundRadius;
+    class'UTComp_ShockProjectile'.default.SoundVolume = ShockSecondary_ProjSoundVolume;
+    class'UTComp_ShockRifle'.default.PutDownTime = ShockRifle_PutDownTime;
+    class'UTComp_ShockRifle'.default.BringUpTime = ShockRifle_BringUpTime;
+    class'UTComp_ShockRifle'.default.MinReloadPct = ShockRifle_MinReloadPct;
+
+    class'UTComp_ShockRifle'.default.PutDownAnimRate = class'UTComp_ShockRifle'.default.PutDownAnimRate / (ShockRifle_PutDownTime / default.ShockRifle_PutDownTime);
+    class'UTComp_ShockRifle'.default.SelectAnimRate = class'UTComp_ShockRifle'.default.SelectAnimRate / (ShockRifle_BringUpTime / default.ShockRifle_BringUpTime);
+
+    //newnet
+    class'NewNet_ShockBeamFire'.default.TraceRange = ShockPrimary_TraceRange;
+    class'NewNet_ShockBeamFire'.default.Momentum = ShockPrimary_Momentum;
+    class'NewNet_ShockBeamFire'.default.AmmoPerFire = ShockPrimary_AmmoPerFire;
+    class'NewNet_ShockBeamFire'.default.DamageMin = ShockPrimary_DamageMin;
+    class'NewNet_ShockBeamFire'.default.DamageMax = ShockPrimary_DamageMax;
+    class'NewNet_ShockBeamFire'.default.FireRate = ShockPrimary_FireRate;
+    class'NewNet_ShockProjFire'.default.AmmoPerFire = ShockSecondary_AmmoPerFire;
+    class'NewNet_ShockProjFire'.default.FireRate = ShockSecondary_FireRate;
+    class'NewNet_ShockProjectile'.default.Speed = ShockSecondary_ProjSpeed;
+    class'NewNet_ShockProjectile'.default.MaxSpeed = ShockSecondary_ProjMaxSpeed;
+    class'NewNet_ShockProjectile'.default.Damage = ShockSecondary_ProjDamage;
+    class'NewNet_ShockProjectile'.default.DamageRadius = ShockSecondary_ProjDamageRadius;
+    class'NewNet_ShockProjectile'.default.MomentumTransfer = ShockSecondary_ProjMomentumTransfer;
+    class'NewNet_ShockProjectile'.default.ComboDamage = ShockSecondary_ProjComboDamage;
+    class'NewNet_ShockProjectile'.default.ComboRadius = ShockSecondary_ProjComboRadius;
+    class'NewNet_ShockProjectile'.default.ComboMomentumTransfer = ShockSecondary_ProjComboMomentumTransfer;
+    class'NewNet_ShockProjectile'.default.LifeSpan = ShockSecondary_ProjLifeSpan;
+    class'NewNet_ShockProjectile'.default.ComboAmmoCost = ShockSecondary_ProjComboAmmoCost;
+    class'NewNet_ShockProjectile'.default.ForceScale = ShockSecondary_ProjForceScale;
+    class'NewNet_ShockProjectile'.default.ForceRadius = ShockSecondary_ProjForceRadius;
+    class'NewNet_ShockProjectile'.default.SoundRadius = ShockSecondary_ProjSoundRadius;
+    class'NewNet_ShockProjectile'.default.SoundVolume = ShockSecondary_ProjSoundVolume;
+    class'NewNet_ShockRifle'.default.PutDownTime = ShockRifle_PutDownTime;
+    class'NewNet_ShockRifle'.default.BringUpTime = ShockRifle_BringUpTime;
+    class'NewNet_ShockRifle'.default.MinReloadPct = ShockRifle_MinReloadPct;
+
+    class'NewNet_ShockRifle'.default.PutDownAnimRate = class'NewNet_ShockRifle'.default.PutDownAnimRate / (ShockRifle_PutDownTime / default.ShockRifle_PutDownTime);
+    class'NewNet_ShockRifle'.default.SelectAnimRate = class'NewNet_ShockRifle'.default.SelectAnimRate / (ShockRifle_BringUpTime / default.ShockRifle_BringUpTime);
+}
+
 defaultproperties
 {
     bModifyShockRifle=false

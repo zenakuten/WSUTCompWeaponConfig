@@ -100,6 +100,7 @@ var config float SniperRifle_PutDownTime;
 var config float SniperRifle_BringUpTime;
 var config float SniperRifle_MinReloadPct;
 
+// load config and modify weapons server side
 function PostBeginPlay()
 {
     local WeaponConfigInfo weaponConfig;
@@ -107,20 +108,24 @@ function PostBeginPlay()
 
     weaponConfig = spawn(class'WeaponConfigInfo');
     weaponConfig.LoadFrom(self);
-    ModifyWeapons(weaponConfig);
+    weaponConfig.Modify();
     weaponConfig.Destroy();
 }
 
+// add rep info for new players
 function ModifyLogin(out string Portal, out string Options)
 {
     local Controller C, NewController;
 
+    // this creates the controller
     super.ModifyLogin(Portal, Options);
+
     if(Role == ROLE_Authority)
     {
         for(C=Level.ControllerList;C!=None;C=C.NextController)
             NewController = C;
 
+        // attach rep info to new controller
         AddRepInfo(NewController);
     }
 }
@@ -134,15 +139,18 @@ function AddRepInfo(Controller C)
 
     if(C.PlayerReplicationInfo.CustomReplicationInfo == None)
     {
+        // add new custom info
         weaponRI = spawn(class'WeaponConfigInfo', C.PlayerReplicationInfo.Owner);
         weaponRI.LoadFrom(self);
         C.PlayerReplicationInfo.CustomReplicationInfo = weaponRI;
     }
     else
     {
+        // or add to existing chain
         LRI = C.PlayerReplicationInfo.CustomReplicationInfo;
         while(LRI.NextReplicationInfo != None)
         {
+            // don't do anything if already added
             if(LRI.IsA('WeaponConfigInfo'))
                 return;
 
@@ -155,140 +163,9 @@ function AddRepInfo(Controller C)
     }
 }
 
-static function ModifyWeapons(WeaponConfigInfo weaponConfig)
-{
-    ModifyShieldGun(weaponConfig.ShieldConfig);
-    ModifyAssaultRifle(weaponConfig);
-    ModifyBioRifle(weaponConfig.BioConfig);
-    ModifyShockRifle(weaponConfig.ShockConfig);
-    ModifySniperRifle(weaponConfig.SniperConfig);
-}
-
-static function ModifyShieldGun(ShieldConfigInfo config)
-{
-    if(!config.bModifyShieldGun)
-        return;
-
-    class'ShieldFire'.default.FireRate = config.ShieldPrimary_FireRate;
-    class'ShieldFire'.default.AmmoPerFire = config.ShieldPrimary_AmmoPerFire;
-
-    class'ShieldFire'.default.ShieldRange = config.ShieldPrimary_ShieldRange;
-    class'ShieldFire'.default.MinHoldTime = config.ShieldPrimary_MinHoldTime;
-    class'ShieldFire'.default.MinForce = config.ShieldPrimary_MinForce;
-    class'ShieldFire'.default.MaxForce = config.ShieldPrimary_MaxForce;
-    class'ShieldFire'.default.SelfForceScale = config.ShieldPrimary_SelfForceScale;
-    class'ShieldFire'.default.SelfDamageScale = config.ShieldPrimary_SelfDamageScale;
-    class'ShieldFire'.default.MinSelfDamage = config.ShieldPrimary_MinSelfDamage;
-    class'ShieldFire'.default.AutoFireTestFreq = config.ShieldPrimary_AutoFireTestFreq;
-    class'ShieldFire'.default.FullyChargedTime = config.ShieldPrimary_FullyChargedTime;
-    class'ShieldFire'.default.ChargingSoundVolume = config.ShieldPrimary_ChargingSoundVolume;
-
-    class'ShieldAltFire'.default.FireRate = config.ShieldSecondary_FireRate;
-    class'ShieldAltFire'.default.AmmoPerFire = config.ShieldSecondary_AmmoPerFire;
-    class'ShieldAltFire'.default.AmmoRegenTime = config.ShieldSecondary_AmmoRegenTime;
-    class'ShieldAltFire'.default.ChargeupTime = config.ShieldSecondary_ChargeupTime;
-    class'ShieldAltFire'.default.ShieldSoundVolume = config.ShieldSecondary_ShieldSoundVolume;
-
-    class'UTComp_ShieldGun'.default.PutDownTime = config.ShieldGun_PutDownTime;
-    class'UTComp_ShieldGun'.default.BringUpTime = config.ShieldGun_BringUpTime;
-    class'UTComp_ShieldGun'.default.MinReloadPct = config.ShieldGun_MinReloadPct;
-
-    class'UTComp_ShieldGun'.default.PutDownAnimRate = class'ShieldGun'.default.PutDownAnimRate / (config.ShieldGun_PutDownTime / config.default.ShieldGun_PutDownTime);
-    class'UTComp_ShieldGun'.default.SelectAnimRate = class'ShieldGun'.default.SelectAnimRate / (config.ShieldGun_BringUpTime / config.default.ShieldGun_BringUpTime);
-}
-
-static function ModifyAssaultRifle(WeaponConfigInfo config)
-{
-    //TODO
-}
-
-static function ModifyBioRifle(BioConfigInfo config)
-{
-    if(!config.bModifyBioRifle)
-        return;
-
-    class'NewNet_BioFire'.default.FireRate = config.BioPrimary_FireRate;
-    class'NewNet_BioFire'.default.AmmoPerFire = config.BioPrimary_AmmoPerFire;
-    class'NewNet_BioChargedFire'.default.FireRate = config.BioSecondary_FireRate;
-    class'NewNet_BioChargedFire'.default.GoopUpRate = config.BioSecondary_GoopUpRate;
-    class'NewNet_BioChargedFire'.default.MaxGoopLoad = config.BioSecondary_MaxGoopLoad;
-    class'NewNet_BioGlob'.default.BaseDamage = config.Bio_ProjBaseDamage;
-    class'NewNet_BioGlob'.default.GloblingSpeed = config.Bio_ProjGloblingSpeed;
-    class'NewNet_BioGlob'.default.RestTime = config.Bio_ProjRestTime;
-    class'NewNet_BioGlob'.default.TouchDetonationDelay = config.Bio_ProjTouchDetinationDelay;
-    class'NewNet_BioGlob'.default.DripTime = config.Bio_ProjDripTime;
-    class'NewNet_BioGlob'.default.MaxGoopLevel = config.Bio_ProjMaxGoopLevel;
-    class'NewNet_BioGlob'.default.bMergeGlobs = config.Bio_ProjMergeGlobs;
-
-    class'NewNet_BioRifle'.default.PutDownTime = config.BioRifle_PutDownTime;
-    class'NewNet_BioRifle'.default.BringUpTime = config.BioRifle_BringUpTime;
-    class'NewNet_BioRifle'.default.MinReloadPct = config.BioRifle_MinReloadPct;
-
-    class'NewNet_BioRifle'.default.PutDownAnimRate = class'NewNet_BioRifle'.default.PutDownAnimRate / (config.BioRifle_PutDownTime / config.default.BioRifle_PutDownTime);
-    class'NewNet_BioRifle'.default.SelectAnimRate = class'NewNet_BioRifle'.default.SelectAnimRate / (config.BioRifle_BringUpTime / config.default.BioRifle_BringUpTime);
-}
-
-static function ModifyShockRifle(ShockConfigInfo config)
-{
-    if(!config.bModifyShockRifle)
-        return;
-
-    class'NewNet_ShockBeamFire'.default.TraceRange = config.ShockPrimary_TraceRange;
-    class'NewNet_ShockBeamFire'.default.Momentum = config.ShockPrimary_Momentum;
-    class'NewNet_ShockBeamFire'.default.AmmoPerFire = config.ShockPrimary_AmmoPerFire;
-    class'NewNet_ShockBeamFire'.default.DamageMin = config.ShockPrimary_DamageMin;
-    class'NewNet_ShockBeamFire'.default.DamageMax = config.ShockPrimary_DamageMax;
-    class'NewNet_ShockBeamFire'.default.FireRate = config.ShockPrimary_FireRate;
-    class'NewNet_ShockProjFire'.default.AmmoPerFire = config.ShockSecondary_AmmoPerFire;
-    class'NewNet_ShockProjFire'.default.FireRate = config.ShockSecondary_FireRate;
-    class'NewNet_ShockProjectile'.default.Speed = config.ShockSecondary_ProjSpeed;
-    class'NewNet_ShockProjectile'.default.MaxSpeed = config.ShockSecondary_ProjMaxSpeed;
-    class'NewNet_ShockProjectile'.default.Damage = config.ShockSecondary_ProjDamage;
-    class'NewNet_ShockProjectile'.default.DamageRadius = config.ShockSecondary_ProjDamageRadius;
-    class'NewNet_ShockProjectile'.default.MomentumTransfer = config.ShockSecondary_ProjMomentumTransfer;
-    class'NewNet_ShockProjectile'.default.ComboDamage = config.ShockSecondary_ProjComboDamage;
-    class'NewNet_ShockProjectile'.default.ComboRadius = config.ShockSecondary_ProjComboRadius;
-    class'NewNet_ShockProjectile'.default.ComboMomentumTransfer = config.ShockSecondary_ProjComboMomentumTransfer;
-    class'NewNet_ShockProjectile'.default.LifeSpan = config.ShockSecondary_ProjLifeSpan;
-    class'NewNet_ShockProjectile'.default.ComboAmmoCost = config.ShockSecondary_ProjComboAmmoCost;
-    class'NewNet_ShockProjectile'.default.ForceScale = config.ShockSecondary_ProjForceScale;
-    class'NewNet_ShockProjectile'.default.ForceRadius = config.ShockSecondary_ProjForceRadius;
-    class'NewNet_ShockProjectile'.default.SoundRadius = config.ShockSecondary_ProjSoundRadius;
-    class'NewNet_ShockProjectile'.default.SoundVolume = config.ShockSecondary_ProjSoundVolume;
-    class'NewNet_ShockRifle'.default.PutDownTime = config.ShockRifle_PutDownTime;
-    class'NewNet_ShockRifle'.default.BringUpTime = config.ShockRifle_BringUpTime;
-    class'NewNet_ShockRifle'.default.MinReloadPct = config.ShockRifle_MinReloadPct;
-
-    class'NewNet_ShockRifle'.default.PutDownAnimRate = class'NewNet_ShockRifle'.default.PutDownAnimRate / (config.ShockRifle_PutDownTime / config.default.ShockRifle_PutDownTime);
-    class'NewNet_ShockRifle'.default.SelectAnimRate = class'NewNet_ShockRifle'.default.SelectAnimRate / (config.ShockRifle_BringUpTime / config.default.ShockRifle_BringUpTime);
-}
-
-static function ModifySniperRifle(SniperConfigInfo config)
-{
-    if(!config.bModifySniperRifle)
-        return;
-
-    class'NewNet_SniperFire'.default.AmmoPerFire = config.SniperPrimary_AmmoPerFire;
-    class'NewNet_SniperFire'.default.DamageMin = config.SniperPrimary_DamageMin;
-    class'NewNet_SniperFire'.default.DamageMax = config.SniperPrimary_DamageMax;
-    class'NewNet_SniperFire'.default.TraceRange = config.SniperPrimary_TraceRange;
-    class'NewNet_SniperFire'.default.FireRate = config.SniperPrimary_FireRate;
-    class'NewNet_SniperFire'.default.NumArcs = config.SniperPrimary_NumArcs;
-    class'NewNet_SniperFire'.default.SecDamageMult = config.SniperPrimary_SecDamageMult;
-    class'NewNet_SniperFire'.default.SecTraceDist = config.SniperPrimary_SecTraceDist;
-    class'NewNet_SniperFire'.default.HeadshotDamageMult = config.SniperPrimary_HeadshotDamageMult;
-
-    class'NewNet_SniperRifle'.default.PutDownTime = config.SniperRifle_PutDownTime;
-    class'NewNet_SniperRifle'.default.BringUpTime = config.SniperRifle_BringUpTime;
-    class'NewNet_SniperRifle'.default.MinReloadPct = config.SniperRifle_MinReloadPct;
-
-    class'NewNet_SniperRifle'.default.PutDownAnimRate = class'NewNet_SniperRifle'.default.PutDownAnimRate / (config.SniperRifle_PutDownTime / config.default.SniperRifle_PutDownTime);
-    class'NewNet_SniperRifle'.default.SelectAnimRate = class'NewNet_SniperRifle'.default.SelectAnimRate / (config.SniperRifle_BringUpTime / config.default.SniperRifle_BringUpTime);
-}
-
 static function FillPlayInfo(PlayInfo PI)
 {
-    local byte Weight; // weight must be a byte (max value 127?)
+    local byte Weight; 
 
     Super.FillPlayInfo(PI);
     Weight = 1;

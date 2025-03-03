@@ -28,6 +28,95 @@ replication
         BioRifle_BringUpTime, BioRifle_PutDownTime, BioRifle_MinReloadPct;
 }
 
+function LoadFrom(MutWeaponConfig config)
+{
+    bModifyBioRifle = config.bModifyBioRifle;
+    BioPrimary_FireRate = config.BioPrimary_FireRate;
+    BioPrimary_AmmoPerFire = config.BioPrimary_AmmoPerFire;
+    BioSecondary_FireRate = config.BioSecondary_FireRate;
+    BioSecondary_GoopUpRate = config.BioSecondary_GoopUpRate;
+    BioSecondary_MaxGoopLoad = config.BioSecondary_MaxGoopLoad;
+    Bio_ProjBaseDamage = config.Bio_ProjBaseDamage;
+    Bio_ProjGloblingSpeed = config.Bio_ProjGloblingSpeed;
+    Bio_ProjRestTime = config.Bio_ProjRestTime;
+    Bio_ProjTouchDetinationDelay = config.Bio_ProjTouchDetinationDelay;
+    Bio_ProjDripTime = config.Bio_ProjDripTime;
+    Bio_ProjMaxGoopLevel = config.Bio_ProjMaxGoopLevel;
+    Bio_ProjMergeGlobs = config.Bio_ProjMergeGlobs;
+    BioRifle_PutDownTime = config.BioRifle_PutDownTime;
+    BioRifle_BringUpTime = config.BioRifle_BringUpTime;
+    BioRifle_MinReloadPct = config.BioRifle_MinReloadPct;
+}
+
+simulated function Modify()
+{
+    if(!bModifyBioRifle)
+        return;
+
+    // stock
+    class'BioFire'.default.FireRate = BioPrimary_FireRate;
+    class'BioFire'.default.AmmoPerFire = BioPrimary_AmmoPerFire;
+    class'BioChargedFire'.default.FireRate = BioSecondary_FireRate;
+    class'BioChargedFire'.default.GoopUpRate = BioSecondary_GoopUpRate;
+    class'BioChargedFire'.default.MaxGoopLoad = BioSecondary_MaxGoopLoad;
+    class'BioGlob'.default.BaseDamage = Bio_ProjBaseDamage;
+    class'BioGlob'.default.GloblingSpeed = Bio_ProjGloblingSpeed;
+    class'BioGlob'.default.RestTime = Bio_ProjRestTime;
+    class'BioGlob'.default.TouchDetonationDelay = Bio_ProjTouchDetinationDelay;
+    class'BioGlob'.default.DripTime = Bio_ProjDripTime;
+    class'BioGlob'.default.MaxGoopLevel = Bio_ProjMaxGoopLevel;
+    class'BioGlob'.default.bMergeGlobs = Bio_ProjMergeGlobs;
+
+    class'BioRifle'.default.PutDownTime = BioRifle_PutDownTime;
+    class'BioRifle'.default.BringUpTime = BioRifle_BringUpTime;
+    class'BioRifle'.default.MinReloadPct = BioRifle_MinReloadPct;
+
+    class'BioRifle'.default.PutDownAnimRate = class'BioRifle'.default.PutDownAnimRate / (BioRifle_PutDownTime / default.BioRifle_PutDownTime);
+    class'BioRifle'.default.SelectAnimRate = class'BioRifle'.default.SelectAnimRate / (BioRifle_BringUpTime / default.BioRifle_BringUpTime);
+
+    // utcomp (no netcode)
+    class'UTComp_BioFire'.default.FireRate = BioPrimary_FireRate;
+    class'UTComp_BioFire'.default.AmmoPerFire = BioPrimary_AmmoPerFire;
+    class'UTComp_BioChargedFire'.default.FireRate = BioSecondary_FireRate;
+    class'UTComp_BioChargedFire'.default.GoopUpRate = BioSecondary_GoopUpRate;
+    class'UTComp_BioChargedFire'.default.MaxGoopLoad = BioSecondary_MaxGoopLoad;
+    class'BioGlob'.default.BaseDamage = Bio_ProjBaseDamage;
+    class'BioGlob'.default.GloblingSpeed = Bio_ProjGloblingSpeed;
+    class'BioGlob'.default.RestTime = Bio_ProjRestTime;
+    class'BioGlob'.default.TouchDetonationDelay = Bio_ProjTouchDetinationDelay;
+    class'BioGlob'.default.DripTime = Bio_ProjDripTime;
+    class'BioGlob'.default.MaxGoopLevel = Bio_ProjMaxGoopLevel;
+    class'BioGlob'.default.bMergeGlobs = Bio_ProjMergeGlobs;
+
+    class'UTComp_BioRifle'.default.PutDownTime = BioRifle_PutDownTime;
+    class'UTComp_BioRifle'.default.BringUpTime = BioRifle_BringUpTime;
+    class'UTComp_BioRifle'.default.MinReloadPct = BioRifle_MinReloadPct;
+
+    class'UTComp_BioRifle'.default.PutDownAnimRate = class'UTComp_BioRifle'.default.PutDownAnimRate / (BioRifle_PutDownTime / default.BioRifle_PutDownTime);
+    class'UTComp_BioRifle'.default.SelectAnimRate = class'UTComp_BioRifle'.default.SelectAnimRate / (BioRifle_BringUpTime / default.BioRifle_BringUpTime);
+
+    // newnet
+    class'NewNet_BioFire'.default.FireRate = BioPrimary_FireRate;
+    class'NewNet_BioFire'.default.AmmoPerFire = BioPrimary_AmmoPerFire;
+    class'NewNet_BioChargedFire'.default.FireRate = BioSecondary_FireRate;
+    class'NewNet_BioChargedFire'.default.GoopUpRate = BioSecondary_GoopUpRate;
+    class'NewNet_BioChargedFire'.default.MaxGoopLoad = BioSecondary_MaxGoopLoad;
+    class'NewNet_BioGlob'.default.BaseDamage = Bio_ProjBaseDamage;
+    class'NewNet_BioGlob'.default.GloblingSpeed = Bio_ProjGloblingSpeed;
+    class'NewNet_BioGlob'.default.RestTime = Bio_ProjRestTime;
+    class'NewNet_BioGlob'.default.TouchDetonationDelay = Bio_ProjTouchDetinationDelay;
+    class'NewNet_BioGlob'.default.DripTime = Bio_ProjDripTime;
+    class'NewNet_BioGlob'.default.MaxGoopLevel = Bio_ProjMaxGoopLevel;
+    class'NewNet_BioGlob'.default.bMergeGlobs = Bio_ProjMergeGlobs;
+
+    class'NewNet_BioRifle'.default.PutDownTime = BioRifle_PutDownTime;
+    class'NewNet_BioRifle'.default.BringUpTime = BioRifle_BringUpTime;
+    class'NewNet_BioRifle'.default.MinReloadPct = BioRifle_MinReloadPct;
+
+    class'NewNet_BioRifle'.default.PutDownAnimRate = class'NewNet_BioRifle'.default.PutDownAnimRate / (BioRifle_PutDownTime / default.BioRifle_PutDownTime);
+    class'NewNet_BioRifle'.default.SelectAnimRate = class'NewNet_BioRifle'.default.SelectAnimRate / (BioRifle_BringUpTime / default.BioRifle_BringUpTime);
+}
+
 defaultproperties
 {
     bModifyBioRifle=false
