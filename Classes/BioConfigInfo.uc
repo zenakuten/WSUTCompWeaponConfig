@@ -13,7 +13,6 @@ var float Bio_ProjTouchDetinationDelay;
 var float Bio_ProjDripTime;
 var int Bio_ProjMaxGoopLevel;
 var bool Bio_ProjMergeGlobs;
-
 var float BioRifle_PutDownTime;
 var float BioRifle_BringUpTime;
 var float BioRifle_MinReloadPct;

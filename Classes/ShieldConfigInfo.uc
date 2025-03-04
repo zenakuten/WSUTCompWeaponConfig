@@ -1,7 +1,6 @@
 class ShieldConfigInfo extends ReplicationInfo;
 
 var bool bModifyShieldGun;
-
 var float ShieldPrimary_FireRate;
 var float ShieldPrimary_AmmoPerFire;
 var float ShieldPrimary_ShieldRange;
@@ -19,13 +18,11 @@ var bool ShieldPrimary_bAutoRelease;
 var bool ShieldPrimary_bStartedChargingForce;
 var	byte  ShieldPrimary_ChargingSoundVolume;
 var float ShieldPrimary_AutoHitTime;
-
 var float ShieldSecondary_FireRate;
 var float ShieldSecondary_AmmoPerFire;
 var float ShieldSecondary_AmmoRegenTime;
 var float ShieldSecondary_ChargeupTime;
 var byte ShieldSecondary_ShieldSoundVolume;
-
 var float ShieldGun_PutDownTime;
 var float ShieldGun_BringUpTime;
 var float ShieldGun_MinReloadPct;
@@ -79,10 +76,9 @@ simulated function Modify()
     if(!bModifyShieldGun)
         return;
 
-    // newnet and utcomp
+    // newnet and utcomp do not have custom weaponfire, they use the default impl
     class'ShieldFire'.default.FireRate = ShieldPrimary_FireRate;
     class'ShieldFire'.default.AmmoPerFire = ShieldPrimary_AmmoPerFire;
-
     class'ShieldFire'.default.ShieldRange = ShieldPrimary_ShieldRange;
     class'ShieldFire'.default.MinHoldTime = ShieldPrimary_MinHoldTime;
     class'ShieldFire'.default.MinForce = ShieldPrimary_MinForce;
@@ -93,26 +89,23 @@ simulated function Modify()
     class'ShieldFire'.default.AutoFireTestFreq = ShieldPrimary_AutoFireTestFreq;
     class'ShieldFire'.default.FullyChargedTime = ShieldPrimary_FullyChargedTime;
     class'ShieldFire'.default.ChargingSoundVolume = ShieldPrimary_ChargingSoundVolume;
-
     class'ShieldAltFire'.default.FireRate = ShieldSecondary_FireRate;
     class'ShieldAltFire'.default.AmmoPerFire = ShieldSecondary_AmmoPerFire;
     class'ShieldAltFire'.default.AmmoRegenTime = ShieldSecondary_AmmoRegenTime;
     class'ShieldAltFire'.default.ChargeupTime = ShieldSecondary_ChargeupTime;
     class'ShieldAltFire'.default.ShieldSoundVolume = ShieldSecondary_ShieldSoundVolume;
 
-    // stock
+    // stock shieldgun
     class'ShieldGun'.default.PutDownTime = ShieldGun_PutDownTime;
     class'ShieldGun'.default.BringUpTime = ShieldGun_BringUpTime;
     class'ShieldGun'.default.MinReloadPct = ShieldGun_MinReloadPct;
-
     class'ShieldGun'.default.PutDownAnimRate = class'ShieldGun'.default.PutDownAnimRate / (ShieldGun_PutDownTime / default.ShieldGun_PutDownTime);
     class'ShieldGun'.default.SelectAnimRate = class'ShieldGun'.default.SelectAnimRate / (ShieldGun_BringUpTime / default.ShieldGun_BringUpTime);
 
-    // utcomp
+    // utcomp shieldgun
     class'UTComp_ShieldGun'.default.PutDownTime = ShieldGun_PutDownTime;
     class'UTComp_ShieldGun'.default.BringUpTime = ShieldGun_BringUpTime;
     class'UTComp_ShieldGun'.default.MinReloadPct = ShieldGun_MinReloadPct;
-
     class'UTComp_ShieldGun'.default.PutDownAnimRate = class'ShieldGun'.default.PutDownAnimRate / (ShieldGun_PutDownTime / default.ShieldGun_PutDownTime);
     class'UTComp_ShieldGun'.default.SelectAnimRate = class'ShieldGun'.default.SelectAnimRate / (ShieldGun_BringUpTime / default.ShieldGun_BringUpTime);
 }
