@@ -60,8 +60,8 @@ simulated function Destroyed()
         BioConfig.Destroy();
     if(ShockConfig != None)
         ShockConfig.Destroy();
-    if(ShockConfig != None)
-        ShockConfig.Destroy();
+    if(SniperConfig != None)
+        SniperConfig.Destroy();
 
     super.Destroyed();
 }

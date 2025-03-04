@@ -1,14 +1,12 @@
 class ShockConfigInfo extends ReplicationInfo;
 
 var bool bModifyShockRifle;
-
 var int ShockPrimary_TraceRange;
 var float ShockPrimary_Momentum;
 var int ShockPrimary_AmmoPerFire;
 var int ShockPrimary_DamageMin;
 var int ShockPrimary_DamageMax;
 var float ShockPrimary_FireRate;
-
 var int ShockSecondary_AmmoPerFire;
 var float ShockSecondary_FireRate;
 var int ShockSecondary_ProjSpeed;
@@ -25,7 +23,6 @@ var int ShockSecondary_ProjForceScale;
 var int ShockSecondary_ProjForceRadius;
 var int ShockSecondary_ProjSoundRadius;
 var int ShockSecondary_ProjSoundVolume;
-
 var float ShockRifle_PutDownTime;
 var float ShockRifle_BringUpTime;
 var float ShockRifle_MinReloadPct;

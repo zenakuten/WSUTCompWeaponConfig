@@ -10,7 +10,6 @@ var int SniperPrimary_NumArcs;
 var float SniperPrimary_SecDamageMult;
 var int SniperPrimary_SecTraceDist;
 var float SniperPrimary_HeadshotDamageMult;
-
 var float SniperRifle_PutDownTime;
 var float SniperRifle_BringUpTime;
 var float SniperRifle_MinReloadPct;
@@ -57,11 +56,9 @@ simulated function Modify()
     class'SniperFire'.default.SecDamageMult = SniperPrimary_SecDamageMult;
     class'SniperFire'.default.SecTraceDist = SniperPrimary_SecTraceDist;
     class'SniperFire'.default.HeadshotDamageMult = SniperPrimary_HeadshotDamageMult;
-
     class'SniperRifle'.default.PutDownTime = SniperRifle_PutDownTime;
     class'SniperRifle'.default.BringUpTime = SniperRifle_BringUpTime;
     class'SniperRifle'.default.MinReloadPct = SniperRifle_MinReloadPct;
-
     class'SniperRifle'.default.PutDownAnimRate = class'SniperRifle'.default.PutDownAnimRate / (SniperRifle_PutDownTime / default.SniperRifle_PutDownTime);
     class'SniperRifle'.default.SelectAnimRate = class'SniperRifle'.default.SelectAnimRate / (SniperRifle_BringUpTime / default.SniperRifle_BringUpTime);
 
@@ -75,11 +72,9 @@ simulated function Modify()
     class'UTComp_SniperFire'.default.SecDamageMult = SniperPrimary_SecDamageMult;
     class'UTComp_SniperFire'.default.SecTraceDist = SniperPrimary_SecTraceDist;
     class'UTComp_SniperFire'.default.HeadshotDamageMult = SniperPrimary_HeadshotDamageMult;
-
     class'UTComp_SniperRifle'.default.PutDownTime = SniperRifle_PutDownTime;
     class'UTComp_SniperRifle'.default.BringUpTime = SniperRifle_BringUpTime;
     class'UTComp_SniperRifle'.default.MinReloadPct = SniperRifle_MinReloadPct;
-
     class'UTComp_SniperRifle'.default.PutDownAnimRate = class'UTComp_SniperRifle'.default.PutDownAnimRate / (SniperRifle_PutDownTime / default.SniperRifle_PutDownTime);
     class'UTComp_SniperRifle'.default.SelectAnimRate = class'UTComp_SniperRifle'.default.SelectAnimRate / (SniperRifle_BringUpTime / default.SniperRifle_BringUpTime);
 
@@ -93,11 +88,9 @@ simulated function Modify()
     class'NewNet_SniperFire'.default.SecDamageMult = SniperPrimary_SecDamageMult;
     class'NewNet_SniperFire'.default.SecTraceDist = SniperPrimary_SecTraceDist;
     class'NewNet_SniperFire'.default.HeadshotDamageMult = SniperPrimary_HeadshotDamageMult;
-
     class'NewNet_SniperRifle'.default.PutDownTime = SniperRifle_PutDownTime;
     class'NewNet_SniperRifle'.default.BringUpTime = SniperRifle_BringUpTime;
     class'NewNet_SniperRifle'.default.MinReloadPct = SniperRifle_MinReloadPct;
-
     class'NewNet_SniperRifle'.default.PutDownAnimRate = class'NewNet_SniperRifle'.default.PutDownAnimRate / (SniperRifle_PutDownTime / default.SniperRifle_PutDownTime);
     class'NewNet_SniperRifle'.default.SelectAnimRate = class'NewNet_SniperRifle'.default.SelectAnimRate / (SniperRifle_BringUpTime / default.SniperRifle_BringUpTime);
 }
