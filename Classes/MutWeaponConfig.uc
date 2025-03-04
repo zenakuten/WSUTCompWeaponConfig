@@ -195,7 +195,7 @@ static function FillPlayInfo(PlayInfo PI)
     Super.FillPlayInfo(PI);
     Weight = 1;
     // shield gun
-    PI.AddSetting("UTComp Weapon Config", "bModifyShieldGun", "Modify the Shield Gun (true)", 0, Weight++, "Check");
+    PI.AddSetting("UTComp Weapon Config", "bModifyShieldGun", "Modify the Shield Gun (false)", 0, Weight++, "Check");
     PI.AddSetting("UTComp Weapon Config", "ShieldGun_PutDownTime", "Shield Gun Put Down Time (0.33)", 0, Weight++, "Text", "8;0.0:999.0");
     PI.AddSetting("UTComp Weapon Config", "ShieldGun_BringUpTime", "Shield Gun Bring Up Time (0.33)", 0, Weight++, "Text", "8;0.0:999.0");
     PI.AddSetting("UTComp Weapon Config", "ShieldGun_MinReloadPct", "Shield Gun MinReloadPct (0.5)", 0, Weight++, "Text", "8;0.0:999.0");
@@ -218,7 +218,7 @@ static function FillPlayInfo(PlayInfo PI)
     PI.AddSetting("UTComp Weapon Config", "ShieldSecondary_ShieldSoundVolume", "Shield Secondary Sound Volume (220)", 0, Weight++, "Text", "4;0:1000");
 
     // assault rifle
-    PI.AddSetting("UTComp Weapon Config", "bModifyAssaultRifle", "Modify the Assault Rifle (true)", 0, Weight++, "Check");
+    PI.AddSetting("UTComp Weapon Config", "bModifyAssaultRifle", "Modify the Assault Rifle (false)", 0, Weight++, "Check");
     PI.AddSetting("UTComp Weapon Config", "AssaultRifle_PutDownTime", "Assault Rifle Put Down Time (0.33)", 0, Weight++, "Text", "8;0.0:999.0");
     PI.AddSetting("UTComp Weapon Config", "AssaultRifle_BringUpTime", "Assault Rifle Bring Up Time (0.33)", 0, Weight++, "Text", "8;0.0:999.0");
     PI.AddSetting("UTComp Weapon Config", "AssaultRifle_MinReloadPct", "Assault Rifle MinReloadPct (0.5)", 0, Weight++, "Text", "8;0.0:999.0");
@@ -250,7 +250,7 @@ static function FillPlayInfo(PlayInfo PI)
     PI.AddSetting("UTComp Weapon Config", "AssaultGrenade_MomentumTransfer", "Assault Grenade Momentum Transfer (75000.0)", 0, Weight++, "Text", "8;0.0:10000000");
 
     // bio
-    PI.AddSetting("UTComp Weapon Config", "bModifyBioRifle", "Modify the Bio Rifle (true)", 0, Weight++, "Check");
+    PI.AddSetting("UTComp Weapon Config", "bModifyBioRifle", "Modify the Bio Rifle (false)", 0, Weight++, "Check");
     PI.AddSetting("UTComp Weapon Config", "BioRifle_PutDownTime", "Bio Rifle Put Down Time (0.33)", 0, Weight++, "Text", "8;0.0:999.0");
     PI.AddSetting("UTComp Weapon Config", "BioRifle_BringUpTime", "Bio Rifle Bring Up Time (0.33)", 0, Weight++, "Text", "8;0.0:999.0");
     PI.AddSetting("UTComp Weapon Config", "BioRifle_MinReloadPct", "Bio Rifle MinReloadPct (0.5)", 0, Weight++, "Text", "8;0.0:999.0");
@@ -268,7 +268,7 @@ static function FillPlayInfo(PlayInfo PI)
     PI.AddSetting("UTComp Weapon Config", "Bio_ProjMergeGlobs", "Bio Projectile Merg Globs (true)", 0, Weight++, "Check");
 
     // shock
-    PI.AddSetting("UTComp Weapon Config", "bModifyShockRifle", "Modify the Shock Rifle (true)", 0, Weight++, "Check");
+    PI.AddSetting("UTComp Weapon Config", "bModifyShockRifle", "Modify the Shock Rifle (false)", 0, Weight++, "Check");
     PI.AddSetting("UTComp Weapon Config", "ShockRifle_PutDownTime", "Shock Rifle Put Down Time (0.33)", 0, Weight++, "Text", "8;0.0:999.0");
     PI.AddSetting("UTComp Weapon Config", "ShockRifle_BringUpTime", "Shock Rifle Bring Up Time (0.33)", 0, Weight++, "Text", "8;0.0:999.0");
     PI.AddSetting("UTComp Weapon Config", "ShockRifle_MinReloadPct", "Shock Rifle MinReloadPct (0.5)", 0, Weight++, "Text", "8;0.0:999.0");
@@ -297,7 +297,7 @@ static function FillPlayInfo(PlayInfo PI)
     PI.AddSetting("UTComp Weapon Config", "ShockSecondary_ProjSoundVolume", "Shock Projectile Sound Volume (50)", 0, Weight++, "Text", "5;0:10000");
 
     // lightning gun
-    PI.AddSetting("UTComp Weapon Config", "bModifySniperRifle", "Modify the Lightning Gun (true)", 0, Weight++, "Check");
+    PI.AddSetting("UTComp Weapon Config", "bModifySniperRifle", "Modify the Lightning Gun (false)", 0, Weight++, "Check");
     PI.AddSetting("UTComp Weapon Config", "SniperRifle_PutDownTime", "Lightning Gun Put Down Time (0.33)", 0, Weight++, "Text", "8;0.0:999.0");
     PI.AddSetting("UTComp Weapon Config", "SniperRifle_BringUpTime", "Lightning Gun Bring Up Time (0.36)", 0, Weight++, "Text", "8;0.0:999.0");
     PI.AddSetting("UTComp Weapon Config", "SniperRifle_MinReloadPct", "Shock Rifle MinReloadPct (0.25)", 0, Weight++, "Text", "8;0.0:999.0");
@@ -316,7 +316,7 @@ static event string GetDescriptionText(string PropName)
 {
     switch(PropName)
     {
-        case "bModifyShieldGun": return "Modify the Shield Gun (true)";
+        case "bModifyShieldGun": return "Modify the Shield Gun (false)";
         case "ShieldGun_PutDownTime": return "Shield Gun Put Down Time (0.33)";
         case "ShieldGun_BringUpTime": return "Shield Gun Bring Up Time (0.33)";
         case "ShieldGun_MinReloadPct": return "Shield Gun MinReloadPct (0.5)";
@@ -338,7 +338,7 @@ static event string GetDescriptionText(string PropName)
         case "ShieldSecondary_ChargeupTime": return "Shield Secondary Chargeup Time (3.0)";
         case "ShieldSecondary_ShieldSoundVolume": return "Shield Secondary Shield Sound Volume (220)";
 
-        case "bModifyAssaultRifle": return "Modify the Assault Rifle (true)";
+        case "bModifyAssaultRifle": return "Modify the Assault Rifle (false)";
         case "AssaultRifle_PutDownTime": return "Assault Rifle Put Down Time (0.33)";
         case "AssaultRifle_BringUpTime": return "Assault Rifle Bring Up Time (0.33)";
         case "AssaultRifle_MinReloadPct": return "Assault Rifle MinReloadPct (0.5)";
@@ -368,7 +368,7 @@ static event string GetDescriptionText(string PropName)
         case "AssaultGrenade_DamageRadius": return "Assault Grenade Damage Radius (220.0)";
         case "AssaultGrenade_MomentumTransfer": return "Assault Grenade Momentum Transfer (75000.0)";
 
-        case "bModifyBioRifle": return "Modify the Bio Rifle (true)"; 
+        case "bModifyBioRifle": return "Modify the Bio Rifle (false)"; 
         case "BioRifle_PutDownTime": return "Bio Rifle Put Down Time (0.33)";
         case "BioRifle_BringUpTime": return "Bio Rifle Bring Up Time (0.33)";
         case "BioRifle_MinReloadPct": return "Bio Rifle MinReloadPct (0.5)";
@@ -385,7 +385,7 @@ static event string GetDescriptionText(string PropName)
         case "Bio_ProjMaxGoopLevel": return "Bio Projectile Max Goop Level (5)"; 
         case "Bio_ProjMergeGlobs": return "Bio Projectile Merg Globs (true)"; 
 
-        case "bModifyShockRifle": return "Modify the Shock Rifle (true)";
+        case "bModifyShockRifle": return "Modify the Shock Rifle (false)";
         case "ShockRifle_PutDownTime": return "Shock Rifle Put Down Time (0.33)";
         case "ShockRifle_BringUpTime": return "Shock Rifle Bring Up Time (0.33)";
         case "ShockRifle_MinReloadPct": return "Shock Rifle MinReloadPct (0.5)";
@@ -412,7 +412,7 @@ static event string GetDescriptionText(string PropName)
         case "ShockSecondary_ProjSoundRadius": return "Shock Projectile Sound Radius (100)";
         case "ShockSecondary_ProjSoundVolume": return "Shock Projectile Sound Volume (50)";
 
-        case "bModifySniperRifle": return "Modify the Lightning Gun";
+        case "bModifySniperRifle": return "Modify the Lightning Gun (false)";
         case "SniperRifle_PutDownTime": return "Sniper Rifle Put Down Time (0.33)";
         case "SniperRifle_BringUpTime": return "Sniper Rifle Bring Up Time (0.36)";
         case "SniperRifle_MinReloadPct": return "Sniper Rifle MinReloadPct (0.25)";
@@ -450,7 +450,7 @@ defaultproperties
     bAlwaysRelevant=true
     bNetTemporary=true
 
-    bModifyShieldGun=true
+    bModifyShieldGun=false
     ShieldGun_BringUpTime=0.33
     ShieldGun_PutDownTime=0.33
     ShieldGun_MinReloadPct=0.5
@@ -502,7 +502,7 @@ defaultproperties
     AssaultGrenade_DamageRadius=220.0
     AssaultGrenade_MomentumTransfer=75000.0
 
-    bModifyBioRifle=true
+    bModifyBioRifle=false
     BioRifle_BringUpTime=0.33
     BioRifle_PutDownTime=0.33
     BioRifle_MinReloadPct=0.5
@@ -519,7 +519,7 @@ defaultproperties
     Bio_ProjMaxGoopLevel=5
     Bio_ProjMergeGlobs=true
 
-    bModifyShockRifle=true
+    bModifyShockRifle=false
     ShockRifle_BringUpTime=0.33
     ShockRifle_PutDownTime=0.33
     ShockRifle_MinReloadPct=0.5
@@ -546,7 +546,7 @@ defaultproperties
     ShockSecondary_ProjSoundRadius=100
     ShockSecondary_ProjSoundVolume=50
 
-    bModifySniperRifle=true
+    bModifySniperRifle=false
     SniperRifle_BringUpTime=0.36
     SniperRifle_PutDownTime=0.33
     SniperRifle_MinReloadPct=0.25
