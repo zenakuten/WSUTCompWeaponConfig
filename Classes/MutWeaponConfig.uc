@@ -110,6 +110,29 @@ var config float ShockRifle_PutDownTime;
 var config float ShockRifle_BringUpTime;
 var config float ShockRifle_MinReloadPct;
 
+//link
+var config bool bModifyLinkGun;
+var config int LinkPrimary_AmmoPerFire;
+var config float LinkPrimary_FireRate;
+var config float LinkProj_Damage;
+var config float LinkProj_DamageRadius;
+var config float LinkProj_Speed;
+var config float LinkProj_MaxSpeed;
+var config float LinkProj_MomentumTransfer;
+var config float LinkProj_LifeSpan;
+var config float LinkProj_CullDistance;
+var config int LinkSecondary_TraceRange;
+var config float LinkSecondary_MomentumTransfer;
+var config int LinkSecondary_AmmoPerFire;
+var config int LinkSecondary_Damage;
+var config float LinkSecondary_FireRate;
+var config float LinkSecondary_LinkFlexibility;
+var config float LinkSecondary_LinkBreakDelay;
+var config float LinkGun_PutDownTime;
+var config float LinkGun_BringUpTime;
+var config float LinkGun_MinReloadPct;
+
+
 // lightning gun
 var config bool bModifySniperRifle;
 var config int SniperPrimary_AmmoPerFire;
@@ -125,67 +148,27 @@ var config float SniperRifle_PutDownTime;
 var config float SniperRifle_BringUpTime;
 var config float SniperRifle_MinReloadPct;
 
-// load config and modify weapons server side
 function PostBeginPlay()
 {
     local WeaponConfigInfo weaponConfig;
+    local WeaponConfigRules weaponRules;
+
     super.PostBeginPlay();
 
+    // load config and modify weapons server side
     weaponConfig = spawn(class'WeaponConfigInfo');
     weaponConfig.LoadFrom(self);
     weaponConfig.Modify();
     weaponConfig.Destroy();
-}
 
-// add rep info for new players
-function ModifyLogin(out string Portal, out string Options)
-{
-    local Controller C, NewController;
+    // load game rules to configure weapons client side
+    weaponRules = spawn(class'WeaponConfigRules');
+    weaponRules.Config = self;
 
-    // this creates the controller
-    super.ModifyLogin(Portal, Options);
-
-    if(Role == ROLE_Authority)
-    {
-        for(C=Level.ControllerList;C!=None;C=C.NextController)
-            NewController = C;
-
-        // attach rep info to new controller
-        AddRepInfo(NewController);
-    }
-}
-
-function AddRepInfo(Controller C)
-{
-    local LinkedReplicationInfo LRI;
-    local WeaponConfigInfo weaponRI;
-    if(C == None || C.PlayerReplicationInfo == None)
-        return;
-
-    if(C.PlayerReplicationInfo.CustomReplicationInfo == None)
-    {
-        // add new custom info
-        weaponRI = spawn(class'WeaponConfigInfo', C.PlayerReplicationInfo.Owner);
-        weaponRI.LoadFrom(self);
-        C.PlayerReplicationInfo.CustomReplicationInfo = weaponRI;
-    }
-    else
-    {
-        // or add to existing chain
-        LRI = C.PlayerReplicationInfo.CustomReplicationInfo;
-        while(LRI.NextReplicationInfo != None)
-        {
-            // don't do anything if already added
-            if(LRI.IsA('WeaponConfigInfo'))
-                return;
-
-            LRI=LRI.NextReplicationInfo;
-        }
-
-        weaponRI = spawn(class'WeaponConfigInfo', C.PlayerReplicationInfo.Owner);
-        weaponRI.LoadFrom(self);
-        LRI.NextReplicationInfo = weaponRI;
-    }
+	if ( Level.Game.GameRulesModifiers == None )
+		Level.Game.GameRulesModifiers = weaponRules;
+	else    
+		Level.Game.GameRulesModifiers.AddGameRules(weaponRules);
 }
 
 static function FillPlayInfo(PlayInfo PI)
@@ -295,6 +278,28 @@ static function FillPlayInfo(PlayInfo PI)
     PI.AddSetting("UTComp Weapon Config", "ShockSecondary_ProjForceRadius", "Shock Projectile Force Radius (40.0)", 0, Weight++, "Text", "4;0.0:1000");
     PI.AddSetting("UTComp Weapon Config", "ShockSecondary_ProjSoundRadius", "Shock Projectile Sound Radius (100)", 0, Weight++, "Text", "5;0:10000");
     PI.AddSetting("UTComp Weapon Config", "ShockSecondary_ProjSoundVolume", "Shock Projectile Sound Volume (50)", 0, Weight++, "Text", "5;0:10000");
+
+    // linkgun
+    PI.AddSetting("UTComp Weapon Config", "bModifyLinkGun", "Modify the Link Gun (false)", 0, Weight++, "Check");
+    PI.AddSetting("UTComp Weapon Config", "LinkPrimary_AmmoPerFire", "Link Primary Ammo Per Fire (2)", 0, Weight++, "Text", "4;0:1000");
+    PI.AddSetting("UTComp Weapon Config", "LinkPrimary_FireRate", "Link Primary Fire Rate (0.12)", 0, Weight++, "Text", "8;0.0:1000");
+    PI.AddSetting("UTComp Weapon Config", "LinkProj_Damage", "Link Projectile Damage (30)", 0, Weight++, "Text", "5;0:10000");
+    PI.AddSetting("UTComp Weapon Config", "LinkProj_DamageRadius", "Link Projectile Damage Radius (0.0)", 0, Weight++, "Text", "8;0.0:10000000");
+    PI.AddSetting("UTComp Weapon Config", "LinkProj_Speed", "Link Projectile Speed (1000.0)", 0, Weight++, "Text", "8;0.0:10000000");
+    PI.AddSetting("UTComp Weapon Config", "LinkProj_MaxSpeed", "Link Projectile Max Speed (4000.0)", 0, Weight++, "Text", "8;0.0:10000000");
+    PI.AddSetting("UTComp Weapon Config", "LinkProj_MomentumTransfer", "Link Projectile Momentum Transfer (0.0)", 0, Weight++, "Text", "8;0.0:10000000");
+    PI.AddSetting("UTComp Weapon Config", "LinkProj_LifeSpan", "Link Projectile Life Span (3.0)", 0, Weight++, "Text", "8;0.0:10000000");
+    PI.AddSetting("UTComp Weapon Config", "LinkProj_CullDistance", "Link Projectile Cull Distance (3500.0)", 0, Weight++, "Text", "8;0.0:10000000");
+    PI.AddSetting("UTComp Weapon Config", "LinkSecondary_TraceRange", "Link Secondary Trace Range (1100.0)", 0, Weight++, "Text", "8;0.0:10000000");
+    PI.AddSetting("UTComp Weapon Config", "LinkSecondary_MomentumTransfer", "Link Secondary Momentum Transfer (2000.0)", 0, Weight++, "Text", "8;0.0:10000000");
+    PI.AddSetting("UTComp Weapon Config", "LinkSecondary_AmmoPerFire", "Link Secondary Ammo Per Fire (1)", 0, Weight++, "Text", "8;0:1000");
+    PI.AddSetting("UTComp Weapon Config", "LinkSecondary_Damage", "Link Secondary Damage (9)", 0, Weight++, "Text", "8;0:1000");
+    PI.AddSetting("UTComp Weapon Config", "LinkSecondary_FireRate", "Link Secondary Fire Rate (0.12)", 0, Weight++, "Text", "8;0.0:10000000");
+    PI.AddSetting("UTComp Weapon Config", "LinkSecondary_LinkFlexibility", "Link Secondary Link Flexibility (0.64)", 0, Weight++, "Text", "8;0.0:10000000");
+    PI.AddSetting("UTComp Weapon Config", "LinkSecondary_LinkBreakDelay", "Link Secondary Link Break Delay (0.5)", 0, Weight++, "Text", "8;0.0:10000000");
+    PI.AddSetting("UTComp Weapon Config", "LinkGun_PutDownTime", "Link Gun Put Down Time (0.33)", 0, Weight++, "Text", "8;0.0:10000000");
+    PI.AddSetting("UTComp Weapon Config", "LinkGun_BringUpTime", "Link Gun Bring Up Time (0.33)", 0, Weight++, "Text", "8;0.0:10000000");
+    PI.AddSetting("UTComp Weapon Config", "LinkGun_MinReloadPct", "Link Gun MinReloadPct (0.5)", 0, Weight++, "Text", "8;0.0:10000000");
 
     // lightning gun
     PI.AddSetting("UTComp Weapon Config", "bModifySniperRifle", "Modify the Lightning Gun (false)", 0, Weight++, "Check");
@@ -411,6 +416,27 @@ static event string GetDescriptionText(string PropName)
         case "ShockSecondary_ProjForceRadius": return "Shock Projectile Force Radius (40.0)";
         case "ShockSecondary_ProjSoundRadius": return "Shock Projectile Sound Radius (100)";
         case "ShockSecondary_ProjSoundVolume": return "Shock Projectile Sound Volume (50)";
+
+        case "bModifyLinkGun": return "Modify the Link Gun (false)";
+        case "LinkPrimary_AmmoPerFire": return "Link Primary Ammo Per Fire (2)";
+        case "LinkPrimary_FireRate": return "Link Primary Fire Rate (0.12)";
+        case "LinkProj_Damage": return "Link Projectile Damage (30)";
+        case "LinkProj_DamageRadius": return "Link Projectile Damage Radius (0.0)";
+        case "LinkProj_Speed": return "Link Projectile Speed (1000.0)";
+        case "LinkProj_MaxSpeed": return "Link Projectile Max Speed (4000.0)";
+        case "LinkProj_MomentumTransfer": return "Link Projectile Momentum Transfer (0.0)";
+        case "LinkProj_LifeSpan": return "Link Projectile Life Span (3.0)";
+        case "LinkProj_CullDistance": return "Link Projectile Cull Distance (3500.0)";
+        case "LinkSecondary_TraceRange": return "Link Secondary Trace Range (1100.0)";
+        case "LinkSecondary_MomentumTransfer": return "Link Secondary Momentum (2000.0)";
+        case "LinkSecondary_AmmoPerFire": return "Link Secondary Ammo Per Fire (1)";
+        case "LinkSecondary_Damage": return "Link Secondary Damage (9)";
+        case "LinkSecondary_FireRate": return "Link Secondary Fire Rate (0.12)";
+        case "LinkSecondary_LinkFlexibility": return "Link Secondary Link Flexibility (0.64)";
+        case "LinkSecondary_LinkBreakDelay": return "Link Secondary Link Break Delay (0.5)";
+        case "LinkGun_PutDownTime": return "Link Gun Put Down Time (0.33)";
+        case "LinkGun_BringUpTime": return "Link Gun Bring Up Time (0.33)";
+        case "LinkGun_MinReloadPct": return "Link Gun MinReloadPct (0.5)";
 
         case "bModifySniperRifle": return "Modify the Lightning Gun (false)";
         case "SniperRifle_PutDownTime": return "Sniper Rifle Put Down Time (0.33)";
@@ -545,6 +571,27 @@ defaultproperties
     ShockSecondary_ProjForceRadius=40.0
     ShockSecondary_ProjSoundRadius=100
     ShockSecondary_ProjSoundVolume=50
+
+    bModifyLinkGun=false
+    LinkPrimary_AmmoPerFire=2
+    LinkPrimary_FireRate=0.2
+    LinkProj_Damage=30
+    LinkProj_DamageRadius=0.0
+    LinkProj_Speed=1000.0
+    LinkProj_MaxSpeed=4000.0
+    LinkProj_MomentumTransfer=0
+    LinkProj_LifeSpan=3
+    LinkProj_CullDistance=+3500.0
+    LinkSecondary_TraceRange=1100.0
+    LinkSecondary_MomentumTransfer=2000.0
+    LinkSecondary_AmmoPerFire=1
+    LinkSecondary_Damage=9
+    LinkSecondary_FireRate=0.12
+    LinkSecondary_LinkFlexibility=0.64
+    LinkSecondary_LinkBreakDelay=0.5
+    LinkGun_PutDownTime=0.33
+    LinkGun_BringUpTime=0.33
+    LinkGun_MinReloadPct=0.5
 
     bModifySniperRifle=false
     SniperRifle_BringUpTime=0.36

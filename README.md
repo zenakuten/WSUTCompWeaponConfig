@@ -129,6 +129,34 @@ Each weapon has a modify toggle which defaults to false.  This must be set to tr
 <br />
 <br />
 
+## Link Gun
+| Property | Default Value |
+|----------|---------------|
+| Modify the Link Gun  | false |
+| Link Primary Ammo Per Fire  | 2 |
+| Link Primary Fire Rate  | 0.12 |
+| Link Projectile Damage  | 30 |
+| Link Projectile Damage Radius  | 0.0 |
+| Link Projectile Speed  | 1000.0 |
+| Link Projectile Max Speed  | 4000.0 |
+| Link Projectile Momentum Transfer  | 0.0 |
+| Link Projectile Life Span  | 3.0 |
+| Link Projectile Cull Distance  | 3500.0 |
+| Link Secondary Trace Range  | 1100.0 |
+| Link Secondary Momentum Transfer | 2000.0 |
+| Link Secondary Ammo Per Fire  | 1 |
+| Link Secondary Damage  | 9 |
+| Link Secondary Fire Rate  | 0.12 |
+| Link Secondary Link Flexibility  | 0.64 |
+| Link Secondary Link Break Delay  | 0.5 |
+| Link Gun Put Down Time  | 0.33 |
+| Link Gun Bring Up Time  | 0.33 |
+| Link Gun MinReloadPct  | 0.5 |
+
+<br />
+<br />
+<br />
+
 ## Lightning Gun
 | Property | Default Value |
 |----------|---------------|
