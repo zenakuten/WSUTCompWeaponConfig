@@ -132,6 +132,33 @@ var config float LinkGun_PutDownTime;
 var config float LinkGun_BringUpTime;
 var config float LinkGun_MinReloadPct;
 
+// minigun
+var config bool bModifyMinigun;
+var config float Minigun_PutDownTime;
+var config float Minigun_BringUpTime;
+var config float Minigun_MinReloadPct;
+var config int MinigunPrimary_DamageMin;
+var config int MinigunPrimary_DamageMax;
+var config float MinigunPrimary_TraceRange;
+var config float MinigunPrimary_Momentum;
+var config int MinigunPrimary_AmmoPerFire;
+var config int MinigunPrimary_RoundsPerRotation;
+var config float MinigunPrimary_BarrelRotationsPerSec;
+var config float MinigunPrimary_AimError;
+var config float MinigunPrimary_Spread;
+var config float MinigunPrimary_PreFireTime;
+var config float MinigunPrimary_WindupTime;
+var config int MinigunSecondary_DamageMin;
+var config int MinigunSecondary_DamageMax;
+var config float MinigunSecondary_TraceRange;
+var config float MinigunSecondary_Momentum;
+var config int MinigunSecondary_AmmoPerFire;
+var config int MinigunSecondary_RoundsPerRotation;
+var config float MinigunSecondary_BarrelRotationsPerSec;
+var config float MinigunSecondary_AimError;
+var config float MinigunSecondary_Spread;
+var config float MinigunSecondary_PreFireTime;
+var config float MinigunSecondary_WindupTime;
 
 // lightning gun
 var config bool bModifySniperRifle;
@@ -206,7 +233,7 @@ static function FillPlayInfo(PlayInfo PI)
     PI.AddSetting("UTComp Weapon Config", "AssaultRifle_BringUpTime", "Assault Rifle Bring Up Time (0.33)", 0, Weight++, "Text", "8;0.0:999.0");
     PI.AddSetting("UTComp Weapon Config", "AssaultRifle_MinReloadPct", "Assault Rifle MinReloadPct (0.5)", 0, Weight++, "Text", "8;0.0:999.0");
     PI.AddSetting("UTComp Weapon Config", "AssaultRifle_bDualMode", "Assault Rifle Dual Mode (false)", 0, Weight++, "Check");
-    PI.AddSetting("UTComp Weapon Config", "AssaultPrimary_TraceRange", "Assault Primary Trace Range (10000)", 0, Weight++, "Text", "7;0:1000000");
+    PI.AddSetting("UTComp Weapon Config", "AssaultPrimary_TraceRange", "Assault Primary Trace Range (10000.0)", 0, Weight++, "Text", "8;0.0:1000000");
     PI.AddSetting("UTComp Weapon Config", "AssaultPrimary_Momentum", "Assault Primary Momentum (0.0)", 0, Weight++, "Text", "9;-10000000.0:10000000");
     PI.AddSetting("UTComp Weapon Config", "AssaultPrimary_AmmoPerFire", "Assault Primary Ammo Per Fire (1)", 0, Weight++, "Text", "4;0:1000");
     PI.AddSetting("UTComp Weapon Config", "AssaultPrimary_DamageMin", "Assault Primary Damage Min (7)", 0, Weight++, "Text", "4;0:1000");
@@ -255,7 +282,7 @@ static function FillPlayInfo(PlayInfo PI)
     PI.AddSetting("UTComp Weapon Config", "ShockRifle_PutDownTime", "Shock Rifle Put Down Time (0.33)", 0, Weight++, "Text", "8;0.0:999.0");
     PI.AddSetting("UTComp Weapon Config", "ShockRifle_BringUpTime", "Shock Rifle Bring Up Time (0.33)", 0, Weight++, "Text", "8;0.0:999.0");
     PI.AddSetting("UTComp Weapon Config", "ShockRifle_MinReloadPct", "Shock Rifle MinReloadPct (0.5)", 0, Weight++, "Text", "8;0.0:999.0");
-    PI.AddSetting("UTComp Weapon Config", "ShockPrimary_TraceRange", "Shock Primary Trace Range (17000)", 0, Weight++, "Text", "7;0:1000000");
+    PI.AddSetting("UTComp Weapon Config", "ShockPrimary_TraceRange", "Shock Primary Trace Range (17000.0)", 0, Weight++, "Text", "8;0.0:1000000");
     PI.AddSetting("UTComp Weapon Config", "ShockPrimary_Momentum", "Shock Primary Momentum (60000.0)", 0, Weight++, "Text", "9;-10000000.0:10000000");
     PI.AddSetting("UTComp Weapon Config", "ShockPrimary_AmmoPerFire", "Shock Primary Ammo Per Fire (1)", 0, Weight++, "Text", "4;0:1000");
     PI.AddSetting("UTComp Weapon Config", "ShockPrimary_DamageMin", "Shock Primary Damage Min (45)", 0, Weight++, "Text", "4;0:1000");
@@ -278,6 +305,34 @@ static function FillPlayInfo(PlayInfo PI)
     PI.AddSetting("UTComp Weapon Config", "ShockSecondary_ProjForceRadius", "Shock Projectile Force Radius (40.0)", 0, Weight++, "Text", "4;0.0:1000");
     PI.AddSetting("UTComp Weapon Config", "ShockSecondary_ProjSoundRadius", "Shock Projectile Sound Radius (100)", 0, Weight++, "Text", "5;0:10000");
     PI.AddSetting("UTComp Weapon Config", "ShockSecondary_ProjSoundVolume", "Shock Projectile Sound Volume (50)", 0, Weight++, "Text", "5;0:10000");
+
+    // minigun
+    PI.AddSetting("UTComp Weapon Config", "bModifyMinigun", "Modify the Minigun (false)", 0, Weight++, "Check");
+    PI.AddSetting("UTComp Weapon Config", "Minigun_PutDownTime", "Minigun Put Down Time (0.33)", 0, Weight++, "Text", "8;0.0:999.0");
+    PI.AddSetting("UTComp Weapon Config", "Minigun_BringUpTime", "Minigun Bring Up Time (0.33)", 0, Weight++, "Text", "8;0.0:999.0");
+    PI.AddSetting("UTComp Weapon Config", "Minigun_MinReloadPct", "Minigun MinReloadPct (0.5)", 0, Weight++, "Text", "8;0.0:999.0");
+    PI.AddSetting("UTComp Weapon Config", "MinigunPrimary_DamageMin", "Minigun Primary Damage Min (7)", 0, Weight++, "Text", "4;0:1000");
+    PI.AddSetting("UTComp Weapon Config", "MinigunPrimary_DamageMax", "Minigun Primary Damage Max (8)", 0, Weight++, "Text", "4;0:1000");
+    PI.AddSetting("UTComp Weapon Config", "MinigunPrimary_TraceRange", "Minigun Primary Trace Range (10000.0)", 0, Weight++, "Text", "8;0.0:1000000");
+    PI.AddSetting("UTComp Weapon Config", "MinigunPrimary_Momentum", "Minigun Primary Momentum (0.0)", 0, Weight++, "Text", "9;-10000000.0:10000000");
+    PI.AddSetting("UTComp Weapon Config", "MinigunPrimary_AmmoPerFire", "Minigun Primary Ammo Per Fire (1)", 0, Weight++, "Text", "4;0:1000");
+    PI.AddSetting("UTComp Weapon Config", "MinigunPrimary_RoundsPerRotation", "Minigun Primary Rounds Per Rotation (5)", 0, Weight++, "Text", "4;0:1000");
+    PI.AddSetting("UTComp Weapon Config", "MinigunPrimary_BarrelRotationsPerSec", "Minigun Primary Barrel Rotations Per Sec (3.0)", 0, Weight++, "Text", "8;0.0:1000000");
+    PI.AddSetting("UTComp Weapon Config", "MinigunPrimary_AimError", "Minigun Primary Aim Error (900)", 0, Weight++, "Text", "4;0:9999");
+    PI.AddSetting("UTComp Weapon Config", "MinigunPrimary_Spread", "Minigun Primary Spread (0.08)", 0, Weight++, "Text", "4;0.0:1000");
+    PI.AddSetting("UTComp Weapon Config", "MinigunPrimary_PreFireTime", "Minigun Primary Pre Fire Time (0.27)", 0, Weight++, "Text", "4;0.0:1000");
+    PI.AddSetting("UTComp Weapon Config", "MinigunPrimary_WindupTime", "Minigun Primary Windup Time (0.27)", 0, Weight++, "Text", "4;0.0:1000");
+    PI.AddSetting("UTComp Weapon Config", "MinigunSecondary_DamageMin", "Minigun Secondary Damage Min (14)", 0, Weight++, "Text", "4;0:1000");
+    PI.AddSetting("UTComp Weapon Config", "MinigunSecondary_DamageMax", "Minigun Secondary Damage Max (16)", 0, Weight++, "Text", "4;0:1000");
+    PI.AddSetting("UTComp Weapon Config", "MinigunSecondary_TraceRange", "Minigun Secondary Trace Range (10000.0)", 0, Weight++, "Text", "8;0.0:1000000");
+    PI.AddSetting("UTComp Weapon Config", "MinigunSecondary_Momentum", "Minigun Secondary Momentum (0.0)", 0, Weight++, "Text", "9;-10000000.0:10000000");
+    PI.AddSetting("UTComp Weapon Config", "MinigunSecondary_AmmoPerFire", "Minigun Secondary Ammo Per Fire (1)", 0, Weight++, "Text", "4;0:1000");
+    PI.AddSetting("UTComp Weapon Config", "MinigunSecondary_RoundsPerRotation", "Minigun Secondary Rounds Per Rotation (5)", 0, Weight++, "Text", "4;0:1000");
+    PI.AddSetting("UTComp Weapon Config", "MinigunSecondary_BarrelRotationsPerSec", "Minigun Secondary Barrel Rotations Per Sec (1.0)", 0, Weight++, "Text", "8;0.0:1000000");
+    PI.AddSetting("UTComp Weapon Config", "MinigunSecondary_AimError", "Minigun Secondary Aim Error (900)", 0, Weight++, "Text", "4;0:9999");
+    PI.AddSetting("UTComp Weapon Config", "MinigunSecondary_Spread", "Minigun Secondary Spread (0.03)", 0, Weight++, "Text", "4;0.0:1000");
+    PI.AddSetting("UTComp Weapon Config", "MinigunSecondary_PreFireTime", "Minigun Secondary Pre Fire Time (0.15)", 0, Weight++, "Text", "4;0.0:1000");
+    PI.AddSetting("UTComp Weapon Config", "MinigunSecondary_WindupTime", "Minigun Secondary Windup Time (0.15)", 0, Weight++, "Text", "4;0.0:1000");
 
     // linkgun
     PI.AddSetting("UTComp Weapon Config", "bModifyLinkGun", "Modify the Link Gun (false)", 0, Weight++, "Check");
@@ -438,6 +493,33 @@ static event string GetDescriptionText(string PropName)
         case "LinkGun_BringUpTime": return "Link Gun Bring Up Time (0.33)";
         case "LinkGun_MinReloadPct": return "Link Gun MinReloadPct (0.5)";
 
+        case "bModifyMinigun": return "Modify the Minigun (false)";
+        case "Minigun_PutDownTime": return "Minigun Put Down Time (0.33)";
+        case "Minigun_BringUpTime": return "Minigun Bring Up Time (0.33)";
+        case "Minigun_MinReloadPct": return "Minigun MinReloadPct (0.5)";
+        case "MinigunPrimary_DamageMin": return "Minigun Primary Damage Min (7)";
+        case "MinigunPrimary_DamageMax": return "Minigun Primary Damage Max (8)";
+        case "MinigunPrimary_TraceRange": return "Minigun Primary Trace Range (10000.0)";
+        case "MinigunPrimary_Momentum": return "Minigun Primary Momentum (0.0)";
+        case "MinigunPrimary_AmmoPerFire": return "Minigun Primary Ammo Per Fire (1)";
+        case "MinigunPrimary_RoundsPerRotation": return "Minigun Primary Rounds Per Rotation (5)";
+        case "MinigunPrimary_BarrelRotationsPerSec": return "Minigun Primary Barrel Rotations Per Sec (3.0)";
+        case "MinigunPrimary_AimError": return "Minigun Primary Aim Error (900)";
+        case "MinigunPrimary_Spread": return "Minigun Primary Spread (0.08)";
+        case "MinigunPrimary_PreFireTime": return "Minigun Primary Pre Fire Time (0.27)";
+        case "MinigunPrimary_WindupTime": return "Minigun Primary Windup Time (0.27)";
+        case "MinigunSecondary_DamageMin": return "Minigun Secondary Damage Min (14)";
+        case "MinigunSecondary_DamageMax": return "Minigun Secondary Damage Max (16)";
+        case "MinigunSecondary_TraceRange": return "Minigun Secondary Trace Range (10000.0)";
+        case "MinigunSecondary_Momentum": return "Minigun Secondary Momentum (0.0)";
+        case "MinigunSecondary_AmmoPerFire": return "Minigun Secondary Ammo Per Fire (1)";
+        case "MinigunSecondary_RoundsPerRotation": return "Minigun Secondary Rounds Per Rotation (5)";
+        case "MinigunSecondary_BarrelRotationsPerSec": return "Minigun Secondary Barrel Rotations Per Sec (1.0)";
+        case "MinigunSecondary_AimError": return "Minigun Secondary Aim Error (900)";
+        case "MinigunSecondary_Spread": return "Minigun Secondary Spread (0.03)";
+        case "MinigunSecondary_PreFireTime": return "Minigun Secondary Pre Fire Time (0.15)";
+        case "MinigunSecondary_WindupTime": return "Minigun Secondary Windup Time (0.15)";
+
         case "bModifySniperRifle": return "Modify the Lightning Gun (false)";
         case "SniperRifle_PutDownTime": return "Sniper Rifle Put Down Time (0.33)";
         case "SniperRifle_BringUpTime": return "Sniper Rifle Bring Up Time (0.36)";
@@ -592,6 +674,33 @@ defaultproperties
     LinkGun_PutDownTime=0.33
     LinkGun_BringUpTime=0.33
     LinkGun_MinReloadPct=0.5
+
+    bModifyMinigun=false
+    Minigun_PutDownTime=0.33
+    Minigun_BringUpTime=0.33
+    Minigun_MinReloadPct=0.5
+    MinigunPrimary_DamageMin=7
+    MinigunPrimary_DamageMax=8
+    MinigunPrimary_TraceRange=10000.0
+    MinigunPrimary_Momentum=0.0
+    MinigunPrimary_AmmoPerFire=1
+    MinigunPrimary_RoundsPerRotation=5
+    MinigunPrimary_BarrelRotationsPerSec=3.0
+    MinigunPrimary_AimError=900.0
+    MinigunPrimary_Spread=0.08
+    MinigunPrimary_PreFireTime=0.27
+    MinigunPrimary_WindupTime=0.27
+    MinigunSecondary_DamageMin=14
+    MinigunSecondary_DamageMax=16
+    MinigunSecondary_TraceRange=10000.0
+    MinigunSecondary_Momentum=0.0
+    MinigunSecondary_AmmoPerFire=1
+    MinigunSecondary_RoundsPerRotation=5
+    MinigunSecondary_BarrelRotationsPerSec=1.0
+    MinigunSecondary_AimError=900.0
+    MinigunSecondary_Spread=0.03
+    MinigunSecondary_PreFireTime=0.15
+    MinigunSecondary_WindupTime=0.15
 
     bModifySniperRifle=false
     SniperRifle_BringUpTime=0.36
