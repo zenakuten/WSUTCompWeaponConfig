@@ -103,6 +103,9 @@ simulated function Modify()
     class'MinigunAltFire'.default.PreFireTime = MinigunSecondary_PreFireTime;
     class'MinigunAltFire'.default.WindupTime = MinigunSecondary_WindupTime;
 
+    class'Minigun'.default.PutDownAnimRate = class'Minigun'.default.PutDownAnimRate / (Minigun_PutDownTime / default.Minigun_PutDownTime);
+    class'Minigun'.default.SelectAnimRate = class'Minigun'.default.SelectAnimRate / (Minigun_BringUpTime / default.Minigun_BringUpTime);    
+
     // utcomp
     class'UTComp_Minigun'.default.PutDownTime = Minigun_PutDownTime;
     class'UTComp_Minigun'.default.BringUpTime = Minigun_BringUpTime;
@@ -130,6 +133,9 @@ simulated function Modify()
     class'UTComp_MinigunAltFire'.default.PreFireTime = MinigunSecondary_PreFireTime;
     class'UTComp_MinigunAltFire'.default.WindupTime = MinigunSecondary_WindupTime;
 
+    class'UTComp_Minigun'.default.PutDownAnimRate = class'Minigun'.default.PutDownAnimRate / (Minigun_PutDownTime / default.Minigun_PutDownTime);
+    class'UTComp_Minigun'.default.SelectAnimRate = class'Minigun'.default.SelectAnimRate / (Minigun_BringUpTime / default.Minigun_BringUpTime);    
+
     // NewNet
     class'NewNet_Minigun'.default.PutDownTime = Minigun_PutDownTime;
     class'NewNet_Minigun'.default.BringUpTime = Minigun_BringUpTime;
@@ -156,6 +162,9 @@ simulated function Modify()
     class'NewNet_MinigunAltFire'.default.Spread = MinigunSecondary_Spread;
     class'NewNet_MinigunAltFire'.default.PreFireTime = MinigunSecondary_PreFireTime;
     class'NewNet_MinigunAltFire'.default.WindupTime = MinigunSecondary_WindupTime;
+
+    class'NewNet_Minigun'.default.PutDownAnimRate = class'Minigun'.default.PutDownAnimRate / (Minigun_PutDownTime / default.Minigun_PutDownTime);
+    class'NewNet_Minigun'.default.SelectAnimRate = class'Minigun'.default.SelectAnimRate / (Minigun_BringUpTime / default.Minigun_BringUpTime);    
 }
 
 defaultproperties

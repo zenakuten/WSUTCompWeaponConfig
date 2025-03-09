@@ -110,6 +110,9 @@ simulated function Modify()
     class'FlakShell'.default.CullDistance = FlakShell_CullDistance;
     class'FlakShell'.default.LifeSpan = FlakShell_LifeSpan;
 
+    class'FlakCannon'.default.PutDownAnimRate = class'FlakCannon'.default.PutDownAnimRate / (FlakCannon_PutDownTime / default.FlakCannon_PutDownTime);
+    class'FlakCannon'.default.SelectAnimRate = class'FlakCannon'.default.SelectAnimRate / (FlakCannon_BringUpTime / default.FlakCannon_BringUpTime);    
+
     //utcomp
     class'UTComp_FlakCannon'.default.BringUpTime = FlakCannon_BringUpTime;
     class'UTComp_FlakCannon'.default.PutDownTime = FlakCannon_PutDownTime;
@@ -139,6 +142,9 @@ simulated function Modify()
     class'UTComp_FlakShell'.default.CullDistance = FlakShell_CullDistance;
     class'UTComp_FlakShell'.default.LifeSpan = FlakShell_LifeSpan;
 
+    class'UTComp_FlakCannon'.default.PutDownAnimRate = class'UTComp_FlakCannon'.default.PutDownAnimRate / (FlakCannon_PutDownTime / default.FlakCannon_PutDownTime);
+    class'UTComp_FlakCannon'.default.SelectAnimRate = class'UTComp_FlakCannon'.default.SelectAnimRate / (FlakCannon_BringUpTime / default.FlakCannon_BringUpTime);    
+
     //newnet
     class'NewNet_FlakCannon'.default.BringUpTime = FlakCannon_BringUpTime;
     class'NewNet_FlakCannon'.default.PutDownTime = FlakCannon_PutDownTime;
@@ -167,6 +173,9 @@ simulated function Modify()
     class'NewNet_FlakShell'.default.MomentumTransfer = FlakShell_MomentumTransfer;
     class'NewNet_FlakShell'.default.CullDistance = FlakShell_CullDistance;
     class'NewNet_FlakShell'.default.LifeSpan = FlakShell_LifeSpan;
+
+    class'NewNet_FlakCannon'.default.PutDownAnimRate = class'NewNet_FlakCannon'.default.PutDownAnimRate / (FlakCannon_PutDownTime / default.FlakCannon_PutDownTime);
+    class'NewNet_FlakCannon'.default.SelectAnimRate = class'NewNet_FlakCannon'.default.SelectAnimRate / (FlakCannon_BringUpTime / default.FlakCannon_BringUpTime);    
 }
 
 defaultproperties
