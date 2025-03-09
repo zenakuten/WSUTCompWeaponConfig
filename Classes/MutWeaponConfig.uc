@@ -948,7 +948,7 @@ defaultproperties
     FlakShell_MomentumTransfer=75000.0
     FlakShell_CullDistance=4000.0
     FlakShell_LifeSpan=6.0
-    
+
     bModifyRocketLauncher=false
     RocketLauncher_PutDownTime=0.33
     RocketLauncher_BringUpTime=0.33
