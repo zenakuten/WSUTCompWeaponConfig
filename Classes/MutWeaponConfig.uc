@@ -194,6 +194,35 @@ var config float FlakShell_MomentumTransfer;
 var config float FlakShell_CullDistance;
 var config float FlakShell_LifeSpan;
 
+// rocket launcher
+var config bool bModifyRocketLauncher;
+var config float RocketLauncher_PutDownTime;
+var config float RocketLauncher_BringUpTime;
+var config float RocketLauncher_MinReloadPct;
+var config float RocketLauncher_SeekCheckFreq;
+var config float RocketLauncher_SeekRange;
+var config float RocketLauncher_LockRequiredTime;
+var config float RocketLauncher_UnLockRequiredTime;
+var config float RocketLauncher_LockAim;
+var config int RocketPrimary_AmmoPerFire;
+var config float RocketPrimary_FireRate;
+var config int RocketSecondary_AmmoPerFire;
+var config float RocketSecondary_FireRate;
+var config float RocketSecondary_TightSpread;
+var config float RocketSecondary_LooseSpread;
+var config int RocketSecondary_MaxLoad;
+var config float RocketSecondary_MaxHoldTime;
+var config int RocketProj_Speed;
+var config int RocketProj_MaxSpeed;
+var config int RocketProj_Damage;
+var config int RocketProj_DamageRadius;
+var config int RocketProj_MomentumTransfer;
+var config int RocketProj_LifeSpan;
+var config float RocketProj_FlockRadius;
+var config float RocketProj_FlockStiffness;
+var config float RocketProj_FlockMaxForce;
+var config float RocketProj_FlockCurlForce;
+
 // lightning gun
 var config bool bModifySniperRifle;
 var config int SniperPrimary_AmmoPerFire;
@@ -453,6 +482,38 @@ static function FillPlayInfo(PlayInfo PI)
     PI.AddSetting("UTComp Weapon Config", "FlakShell_MomentumTransfer", "Flak Shell Momentum Transfer (75000.0)", 0, Weight++, "Text", "8;0.0:1000000");
     PI.AddSetting("UTComp Weapon Config", "FlakShell_CullDistance", "Flak Shell Cull Distance (4000.0)", 0, Weight++, "Text", "8;0.0:1000000");
     PI.AddSetting("UTComp Weapon Config", "FlakShell_LifeSpan", "Flak Shell Life Span (6.0)", 0, Weight++, "Text", "8;0.0:1000000");
+    PI.AddSetting("UTComp Weapon Config", "FlakCannon_PutDownTime", "FlakCannon Put Down Time (0.33)", 0, Weight++, "Text", "8;0.0:999.0");
+    PI.AddSetting("UTComp Weapon Config", "FlakCannon_BringUpTime", "FlakCannon Bring Up Time (0.33)", 0, Weight++, "Text", "8;0.0:999.0");
+    PI.AddSetting("UTComp Weapon Config", "FlakCannon_MinReloadPct", "FlakCannon MinReloadPct (0.5)", 0, Weight++, "Text", "8;0.0:999.0");
+
+    // rocket launcher
+    PI.AddSetting("UTComp Weapon Config", "bModifyRocketLauncher", "Modify the Rocket Launcher (false)", 0, Weight++, "Check");
+    PI.AddSetting("UTComp Weapon Config", "RocketLauncher_PutDownTime", "Rocket Launcher Put Down Time (0.33)", 0, Weight++, "Text", "8;0.0:999.0");
+    PI.AddSetting("UTComp Weapon Config", "RocketLauncher_BringUpTime", "Rocket Launcher Bring Up Time (0.33)", 0, Weight++, "Text", "8;0.0:999.0");
+    PI.AddSetting("UTComp Weapon Config", "RocketLauncher_MinReloadPct", "Rocket Launcher MinReloadPct (0.5)", 0, Weight++, "Text", "8;0.0:999.0");
+    PI.AddSetting("UTComp Weapon Config", "RocketLauncher_SeekCheckFreq", "Rocket Launcher Seek Check Freq (0.5)", 0, Weight++, "Text", "8;0.0:999.0");
+    PI.AddSetting("UTComp Weapon Config", "RocketLauncher_SeekRange", "Rocket Launcher Seek Range (8000.0)", 0, Weight++, "Text", "8;0.0:1000000");
+    PI.AddSetting("UTComp Weapon Config", "RocketLauncher_LockRequiredTime", "Rocket Launcher Lock Required Time (1.25)", 0, Weight++, "Text", "8;0.0:1000000");
+    PI.AddSetting("UTComp Weapon Config", "RocketLauncher_UnLockRequiredTime", "Rocket Launcher Unlock Required Time (0.5)", 0, Weight++, "Text", "8;0.0:1000000");
+    PI.AddSetting("UTComp Weapon Config", "RocketLauncher_LockAim", "Rocket Launcher Lock Aim (0.996)", 0, Weight++, "Text", "8;0.0:1000000");
+    PI.AddSetting("UTComp Weapon Config", "RocketPrimary_FireRate", "Rocket Primary Fire Rate (0.9)", 0, Weight++, "Text", "8;0.0:1000000");
+    PI.AddSetting("UTComp Weapon Config", "RocketPrimary_AmmoPerFire", "Rocket Primary Ammo Per Fire (1)", 0, Weight++, "Text", "8;0:1000000");
+    PI.AddSetting("UTComp Weapon Config", "RocketSecondary_FireRate", "Rocket Secondary Fire Rate (0.95)", 0, Weight++, "Text", "8;0.0:1000000");
+    PI.AddSetting("UTComp Weapon Config", "RocketSecondary_AmmoPerFire", "Rocket Secondary Ammo Per Fire (1)", 0, Weight++, "Text", "8;0:1000000");
+    PI.AddSetting("UTComp Weapon Config", "RocketSecondary_TightSpread", "Rocket Secondary Tight Spread (300.0)", 0, Weight++, "Text", "8;0.0:1000000");
+    PI.AddSetting("UTComp Weapon Config", "RocketSecondary_LooseSpread", "Rocket Secondary Loose Spread (1000.0)", 0, Weight++, "Text", "8;0.0:1000000");
+    PI.AddSetting("UTComp Weapon Config", "RocketSecondary_MaxLoad", "Rocket Secondary Max Load (3)", 0, Weight++, "Text", "8;0:1000000");
+    PI.AddSetting("UTComp Weapon Config", "RocketSecondary_MaxHoldTime", "Rocket Secondary Max Hold Time (2.3)", 0, Weight++, "Text", "8;0.0:1000000");
+    PI.AddSetting("UTComp Weapon Config", "RocketProj_Speed", "Rocket Projectile Speed (1350.0)", 0, Weight++, "Text", "8;0.0:1000000");
+    PI.AddSetting("UTComp Weapon Config", "RocketProj_MaxSpeed", "Rocket Projectile Max Speed (1350.0)", 0, Weight++, "Text", "8;0.0:1000000");
+    PI.AddSetting("UTComp Weapon Config", "RocketProj_Damage", "Rocket Projectile Damage (90)", 0, Weight++, "Text", "8;0:1000");
+    PI.AddSetting("UTComp Weapon Config", "RocketProj_DamageRadius", "Rocket Projectile Damage Radius (220.0)", 0, Weight++, "Text", "8;0.0:1000000");
+    PI.AddSetting("UTComp Weapon Config", "RocketProj_MomentumTransfer", "Rocket Projectile Momentum Transfer (50000.0)", 0, Weight++, "Text", "8;0.0:10000000");
+    PI.AddSetting("UTComp Weapon Config", "RocketProj_Lifespan", "Rocket Projectile Lifespan (8.0)", 0, Weight++, "Text", "8;0.0:10000000");
+    PI.AddSetting("UTComp Weapon Config", "RocketProj_FlockRadius", "Rocket Projectile Flock Radius (12.0)", 0, Weight++, "Text", "8;0.0:10000000");
+    PI.AddSetting("UTComp Weapon Config", "RocketProj_FlockStiffness", "Rocket Projectile Flock Stiffness (40.0)", 0, Weight++, "Text", "8;0.0:10000000");
+    PI.AddSetting("UTComp Weapon Config", "RocketProj_FlockMaxForce", "Rocket Projectile Flock Max Force (600.0)", 0, Weight++, "Text", "8;0.0:10000000");
+    PI.AddSetting("UTComp Weapon Config", "RocketProj_FlockCurlForce", "Rocket Projectile Flock Curl Force (450.0)", 0, Weight++, "Text", "8;0.0:10000000");
 
     // lightning gun
     PI.AddSetting("UTComp Weapon Config", "bModifySniperRifle", "Modify the Lightning Gun (false)", 0, Weight++, "Check");
@@ -645,6 +706,34 @@ static event string GetDescriptionText(string PropName)
         case "FlakShell_MomentumTransfer": return "Flak Shell Momentum Transfer (75000.0)";
         case "FlakShell_CullDistance": return "Flak Shell Cull Distance (4000.0)";
         case "FlakShell_LifeSpan": return "Flak Shell Life Span (6.0)";
+
+        case "bModifyRocketLauncher": return "Modify the Rocket Launcher (false)";
+        case "RocketLauncher_PutDownTime": return "Rocket Launcher Put Down Time (0.33)";
+        case "RocketLauncher_BringUpTime": return "Rocket Launcher Bring Up Time (0.33)";
+        case "RocketLauncher_MinReloadPct": return "Rocket Launcher MinReloadPct (0.5)";
+        case "RocketLauncher_SeekCheckFreq": return "Rocket Launcher Seek Check Freq (0.5)";
+        case "RocketLauncher_SeekRange": return "Rocket Launcher Seek Range (8000.0)";
+        case "RocketLauncher_LockRequiredTime": return "Rocket Launcher Lock Required Time (1.25)";
+        case "RocketLauncher_UnLockRequiredTime": return "Rocket Launcher Unlock Required Time (0.5)";
+        case "RocketLauncher_LockAim": return "Rocket Launcher Lock Aim (0.996)";
+        case "RocketPrimary_FireRate": return "Rocket Primary Fire Rate (0.9)";
+        case "RocketPrimary_AmmoPerFire": return "Rocket Primary Ammo Per Fire (1)";
+        case "RocketSecondary_FireRate": return "Rocket Secondary Fire Rate (0.95)";
+        case "RocketSecondary_AmmoPerFire": return "Rocket Secondary Ammo Per Fire (1)";
+        case "RocketSecondary_TightSpread": return "Rocket Secondary Tight Spread (300.0)";
+        case "RocketSecondary_LooseSpread": return "Rocket Secondary Loose Spread (1000.0)";
+        case "RocketSecondary_MaxLoad": return "Rocket Secondary Max Load (3)";
+        case "RocketSecondary_MaxHoldTime": return "Rocket Secondary Max Hold Time (2.3)";
+        case "RocketProj_Speed": return "Rocket Projectile Speed (1350.0)";
+        case "RocketProj_MaxSpeed": return "Rocket Projectile Max Speed (1350.0)";
+        case "RocketProj_Damage": return "Rocket Projectile Damage (90)";
+        case "RocketProj_DamageRadius": return "Rocket Projectile Damage Radius (220.0)";
+        case "RocketProj_MomentumTransfer": return "Rocket Projectile Momentum Transfer (50000.0)";
+        case "RocketProj_Lifespan": return "Rocket Projectile Lifespan (8.0)";
+        case "RocketProj_FlockRadius": return "Rocket Projectile Flock Radius (12.0)";
+        case "RocketProj_FlockStiffness": return "Rocket Projectile Flock Stiffness (40.0)";
+        case "RocketProj_FlockMaxForce": return "Rocket Projectile Flock Max Force (600.0)";
+        case "RocketProj_FlockCurlForce": return "Rocket Projectile Flock Curl Force (450.0)";
 
         case "bModifySniperRifle": return "Modify the Lightning Gun (false)";
         case "SniperRifle_PutDownTime": return "Sniper Rifle Put Down Time (0.33)";
@@ -859,6 +948,34 @@ defaultproperties
     FlakShell_MomentumTransfer=75000.0
     FlakShell_CullDistance=4000.0
     FlakShell_LifeSpan=6.0
+    
+    bModifyRocketLauncher=false
+    RocketLauncher_PutDownTime=0.33
+    RocketLauncher_BringUpTime=0.33
+    RocketLauncher_MinReloadPct=0.5
+    RocketLauncher_SeekCheckFreq=0.5
+    RocketLauncher_SeekRange=8000.0
+    RocketLauncher_LockRequiredTime=1.25
+    RocketLauncher_UnLockRequiredTime=0.5
+    RocketLauncher_LockAim=0.996
+    RocketPrimary_AmmoPerFire=1
+    RocketPrimary_FireRate=0.9
+    RocketSecondary_AmmoPerFire=1
+    RocketSecondary_FireRate=0.95
+    RocketSecondary_TightSpread=300.0
+    RocketSecondary_LooseSpread=1000.0
+    RocketSecondary_MaxLoad=3
+    RocketSecondary_MaxHoldTime=2.3
+    RocketProj_Speed=1350.0
+    RocketProj_MaxSpeed=1350.0
+    RocketProj_Damage=90.0
+    RocketProj_DamageRadius=220.0
+    RocketProj_MomentumTransfer=50000.0
+    RocketProj_LifeSpan=8.0
+    RocketProj_FlockRadius=12.0
+    RocketProj_FlockStiffness=40.0
+    RocketProj_FlockMaxForce=600.0
+    RocketProj_FlockCurlForce=450.0    
 
     bModifySniperRifle=false
     SniperRifle_BringUpTime=0.36
