@@ -6,12 +6,14 @@ var BioConfigInfo BioConfig;
 var ShockConfigInfo ShockConfig;
 var LinkConfigInfo LinkConfig;
 var MiniConfigInfo MiniConfig;
+var FlakConfigInfo FlakConfig;
 var SniperConfigInfo SniperConfig;
 
 replication
 {
     reliable if(Role == ROLE_Authority && bNetDirty)
-        ShieldConfig, AssaultConfig, BioConfig, ShockConfig, LinkConfig, MiniConfig, SniperConfig;
+        ShieldConfig, AssaultConfig, BioConfig, ShockConfig, LinkConfig, 
+        MiniConfig, FlakConfig, SniperConfig;
 }
 
 function PostBeginPlay()
@@ -23,6 +25,7 @@ function PostBeginPlay()
     ShockConfig = spawn(class'ShockConfigInfo', self.Owner);
     LinkConfig = spawn(class'LinkConfigInfo', self.Owner);
     MiniConfig = spawn(class'MiniConfigInfo', self.Owner);
+    FlakConfig = spawn(class'FlakConfigInfo', self.Owner);
     SniperConfig = spawn(class'SniperConfigInfo', self.Owner);
 }
 
@@ -43,6 +46,7 @@ function LoadFrom(MutWeaponConfig config)
     ShockConfig.LoadFrom(config);
     LinkConfig.LoadFrom(config);
     MiniConfig.LoadFrom(config);
+    FlakConfig.LoadFrom(config);
     SniperConfig.LoadFrom(config);
 }
 
@@ -54,6 +58,7 @@ simulated function Modify()
     ShockConfig.Modify();
     LinkConfig.Modify();
     MiniConfig.Modify();
+    FlakConfig.Modify();
     SniperConfig.Modify();
 }
 
@@ -71,6 +76,8 @@ simulated function Destroyed()
         LinkConfig.Destroy();
     if(MiniConfig != None)
         MiniConfig.Destroy();
+    if(FlakConfig != None)
+        FlakConfig.Destroy();
     if(SniperConfig != None)
         SniperConfig.Destroy();
 

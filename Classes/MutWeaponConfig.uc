@@ -5,6 +5,9 @@ class MutWeaponConfig extends Mutator
 
 var string FriendlyVersion;
 
+// global config
+var config bool bModifyWeapons;
+
 // shieldgun
 var config bool bModifyShieldGun;
 var config float ShieldPrimary_FireRate;
@@ -160,6 +163,37 @@ var config float MinigunSecondary_Spread;
 var config float MinigunSecondary_PreFireTime;
 var config float MinigunSecondary_WindupTime;
 
+// flak
+var config bool bModifyFlakCannon;
+var config float FlakCannon_BringUpTime;
+var config float FlakCannon_PutDownTime;
+var config float FlakCannon_MinReloadPct;
+var config int FlakPrimary_AmmoPerFire;
+var config float FlakPrimary_FireRate;
+var config int FlakPrimary_ProjPerFire;
+var config float FlakPrimary_Spread;
+var config byte FlakChunk_Bounces;
+var config float FlakChunk_DamageAtten;
+var config float FlakChunk_Speed;
+var config float FlakChunk_MaxSpeed;
+var config float FlakChunk_Damage;
+var config float FlakChunk_MomentumTransfer;
+var config float FlakChunk_CullDistance;
+var config float FlakChunk_LifeSpan;
+var config bool FlakChunk_Bounce;
+var config int FlakSecondary_AmmoPerFire;
+var config float FlakSecondary_FireRate;
+var config int FlakSecondary_ProjPerFire;
+var config float FlakSecondary_Spread;
+var config float FlakShell_TossZ;
+var config float FlakShell_Speed;
+var config float FlakShell_MaxSpeed;
+var config float FlakShell_Damage;
+var config float FlakShell_DamageRadius;
+var config float FlakShell_MomentumTransfer;
+var config float FlakShell_CullDistance;
+var config float FlakShell_LifeSpan;
+
 // lightning gun
 var config bool bModifySniperRifle;
 var config int SniperPrimary_AmmoPerFire;
@@ -179,8 +213,16 @@ function PostBeginPlay()
 {
     local WeaponConfigInfo weaponConfig;
     local WeaponConfigRules weaponRules;
+    local string Url;
 
     super.PostBeginPlay();
+    Url = Level.GetLocalURL();
+    Url = Mid(Url, InStr(Url, "?"));
+    ParseUrl(Url);
+
+    // do nothing if not enabled
+    if(!bModifyWeapons)
+        return;
 
     // load config and modify weapons server side
     weaponConfig = spawn(class'WeaponConfigInfo');
@@ -198,12 +240,40 @@ function PostBeginPlay()
 		Level.Game.GameRulesModifiers.AddGameRules(weaponRules);
 }
 
+function ParseURL(string Url)
+{
+   local array<string> Parts;
+   local int i;
+
+   local string ModifyWeapons;
+
+   Split(Url, "?", Parts);
+
+   for(i=0; i<Parts.Length; i++)
+   {
+       if(Parts[i]!="")
+       {
+           if(Left(Parts[i],Len("ModifyWeapons"))~= "ModifyWeapons")
+               ModifyWeapons=Right(Parts[i], Len(Parts[i])-Len("ModifyWeapons")-1);
+       }
+   }
+   if(ModifyWeapons !="" && (ModifyWeapons~="False" || ModifyWeapons~="True"))
+   {
+       default.bModifyWeapons = ModifyWeapons~="True";
+       bModifyWeapons = default.bModifyWeapons;
+   }
+}
+
 static function FillPlayInfo(PlayInfo PI)
 {
     local byte Weight; 
 
     Super.FillPlayInfo(PI);
     Weight = 1;
+
+    // global 
+    PI.AddSetting("UTComp Weapon Config", "bModifyWeapons", "Modify Weapons (false)", 0, Weight++, "Check");
+
     // shield gun
     PI.AddSetting("UTComp Weapon Config", "bModifyShieldGun", "Modify the Shield Gun (false)", 0, Weight++, "Check");
     PI.AddSetting("UTComp Weapon Config", "ShieldGun_PutDownTime", "Shield Gun Put Down Time (0.33)", 0, Weight++, "Text", "8;0.0:999.0");
@@ -356,6 +426,34 @@ static function FillPlayInfo(PlayInfo PI)
     PI.AddSetting("UTComp Weapon Config", "LinkGun_BringUpTime", "Link Gun Bring Up Time (0.33)", 0, Weight++, "Text", "8;0.0:10000000");
     PI.AddSetting("UTComp Weapon Config", "LinkGun_MinReloadPct", "Link Gun MinReloadPct (0.5)", 0, Weight++, "Text", "8;0.0:10000000");
 
+    // flak
+    PI.AddSetting("UTComp Weapon Config", "bModifyFlakCannon", "Modify the Flak Cannon (false)", 0, Weight++, "Check");
+    PI.AddSetting("UTComp Weapon Config", "FlakPrimary_AmmoPerFire", "Flak Primary Ammo Per Fire (1)", 0, Weight++, "Text", "4;0:1000");
+    PI.AddSetting("UTComp Weapon Config", "FlakPrimary_FireRate", "Flak Primary Fire Rate (0.95)", 0, Weight++, "Text", "8;0.0:1000");
+    PI.AddSetting("UTComp Weapon Config", "FlakPrimary_ProjPerFire", "Flak Primary Projectiles Per Fire (9)", 0, Weight++, "Text", "8;0:1000");
+    PI.AddSetting("UTComp Weapon Config", "FlakPrimary_Spread", "Flak Primary Spread (1400)", 0, Weight++, "Text", "8;0:10000");
+    PI.AddSetting("UTComp Weapon Config", "FlakChunk_Bounces", "Flak Chunk Bounces (1)", 0, Weight++, "Text", "8;0:1000");
+    PI.AddSetting("UTComp Weapon Config", "FlakChunk_DamageAtten", "Flak Chunk Damage Atten (0.5)", 0, Weight++, "Text", "8;0.0:1000");
+    PI.AddSetting("UTComp Weapon Config", "FlakChunk_Speed", "Flak Chunk Speed (2500)", 0, Weight++, "Text", "8;0.0:100000");
+    PI.AddSetting("UTComp Weapon Config", "FlakChunk_MaxSpeed", "Flak Chunk Max Speed (2700)", 0, Weight++, "Text", "8;0.0:100000");
+    PI.AddSetting("UTComp Weapon Config", "FlakChunk_Damage", "Flak Chunk Damage (13)", 0, Weight++, "Text", "8;0:1000");
+    PI.AddSetting("UTComp Weapon Config", "FlakChunk_MomentumTransfer", "Flak Chunk Momentum Transfer (10000.0)", 0, Weight++, "Text", "8;0.0:1000000");
+    PI.AddSetting("UTComp Weapon Config", "FlakChunk_CullDistance", "Flak Chunk Cull Distance (3000.0)", 0, Weight++, "Text", "8;0.0:1000000");
+    PI.AddSetting("UTComp Weapon Config", "FlakChunk_LifeSpan", "Flak Chunk Life Span (2.7)", 0, Weight++, "Text", "8;0.0:1000000");
+    PI.AddSetting("UTComp Weapon Config", "FlakChunk_Bounce", "Flak Chunk Bounce (true)", 0, Weight++, "Check");
+    PI.AddSetting("UTComp Weapon Config", "FlakSecondary_AmmoPerFire", "Flak Secondary Ammo Per Fire (1)", 0, Weight++, "Text", "4;0:1000");
+    PI.AddSetting("UTComp Weapon Config", "FlakSecondary_FireRate", "Flak Secondary Fire Rate (1.11)", 0, Weight++, "Text", "8;0.0:1000");
+    PI.AddSetting("UTComp Weapon Config", "FlakSecondary_ProjPerFire", "Flak Secondary Projectiles Per Fire (1)", 0, Weight++, "Text", "8;0:1000");
+    PI.AddSetting("UTComp Weapon Config", "FlakSecondary_Spread", "Flak Secondary Spread (0)", 0, Weight++, "Text", "8;0:10000");
+    PI.AddSetting("UTComp Weapon Config", "FlakShell_TossZ", "Flak Shell Toss Z (225.0)", 0, Weight++, "Text", "8;0.0:1000");
+    PI.AddSetting("UTComp Weapon Config", "FlakShell_Speed", "Flak Shell Speed (1200.0)", 0, Weight++, "Text", "8;0.0:100000");
+    PI.AddSetting("UTComp Weapon Config", "FlakShell_MaxSpeed", "Flak Shell Max Speed (1200.0)", 0, Weight++, "Text", "8;0.0:100000");
+    PI.AddSetting("UTComp Weapon Config", "FlakShell_Damage", "Flak Shell Damage (90)", 0, Weight++, "Text", "8;0:1000");
+    PI.AddSetting("UTComp Weapon Config", "FlakShell_DamageRadius", "Flak Shell Damage Radius (220.0)", 0, Weight++, "Text", "8;0.0:10000000");
+    PI.AddSetting("UTComp Weapon Config", "FlakShell_MomentumTransfer", "Flak Shell Momentum Transfer (75000.0)", 0, Weight++, "Text", "8;0.0:1000000");
+    PI.AddSetting("UTComp Weapon Config", "FlakShell_CullDistance", "Flak Shell Cull Distance (4000.0)", 0, Weight++, "Text", "8;0.0:1000000");
+    PI.AddSetting("UTComp Weapon Config", "FlakShell_LifeSpan", "Flak Shell Life Span (6.0)", 0, Weight++, "Text", "8;0.0:1000000");
+
     // lightning gun
     PI.AddSetting("UTComp Weapon Config", "bModifySniperRifle", "Modify the Lightning Gun (false)", 0, Weight++, "Check");
     PI.AddSetting("UTComp Weapon Config", "SniperRifle_PutDownTime", "Lightning Gun Put Down Time (0.33)", 0, Weight++, "Text", "8;0.0:999.0");
@@ -376,6 +474,7 @@ static event string GetDescriptionText(string PropName)
 {
     switch(PropName)
     {
+        case "bModifyWeapons": return "Modify Weapons (false)";
         case "bModifyShieldGun": return "Modify the Shield Gun (false)";
         case "ShieldGun_PutDownTime": return "Shield Gun Put Down Time (0.33)";
         case "ShieldGun_BringUpTime": return "Shield Gun Bring Up Time (0.33)";
@@ -520,6 +619,33 @@ static event string GetDescriptionText(string PropName)
         case "MinigunSecondary_PreFireTime": return "Minigun Secondary Pre Fire Time (0.15)";
         case "MinigunSecondary_WindupTime": return "Minigun Secondary Windup Time (0.15)";
 
+        case "bModifyFlakCannon": return "Modify the Flak Cannon (false)";
+        case "FlakPrimary_AmmoPerFire": return "Flak Primary Ammo Per Fire (1)";
+        case "FlakPrimary_FireRate": return "Flak Primary Fire Rate (0.95)";
+        case "FlakPrimary_ProjPerFire": return "Flak Primary Projectiles Per Fire (9)";
+        case "FlakPrimary_Spread": return "Flak Primary Spread (1400)";
+        case "FlakChunk_Bounces": return "Flak Chunk Bounces (1)";
+        case "FlakChunk_DamageAtten": return "Flak Chunk Damage Atten (0.5)";
+        case "FlakChunk_Speed": return "Flak Chunk Speed (2500)";
+        case "FlakChunk_MaxSpeed": return "Flak Chunk Max Speed (2700)";
+        case "FlakChunk_Damage": return "Flak Chunk Damage (13)";
+        case "FlakChunk_MomentumTransfer": return "Flak Chunk Momentum Transfer (10000.0)";
+        case "FlakChunk_CullDistance": return "Flak Chunk Cull Distance (3000.0)";
+        case "FlakChunk_LifeSpan": return "Flak Chunk Life Span (2.7)";
+        case "FlakChunk_Bounce": return "Flak Chunk Bounce (true)";
+        case "FlakSecondary_AmmoPerFire": return "Flak Secondary Ammo Per Fire (1)";
+        case "FlakSecondary_FireRate": return "Flak Secondary Fire Rate (1.11)";
+        case "FlakSecondary_ProjPerFire": return "Flak Secondary Projectiles Per Fire (1)";
+        case "FlakSecondary_Spread": return "Flak Secondary Spread (0)";
+        case "FlakShell_TossZ": return "Flak Shell Toss Z (225.0)";
+        case "FlakShell_Speed": return "Flak Shell Speed (1200.0)";
+        case "FlakShell_MaxSpeed": return "Flak Shell Max Speed (1200.0)";
+        case "FlakShell_Damage": return "Flak Shell Damage (90)";
+        case "FlakShell_DamageRadius": return "Flak Shell Damage Radius (220.0)";
+        case "FlakShell_MomentumTransfer": return "Flak Shell Momentum Transfer (75000.0)";
+        case "FlakShell_CullDistance": return "Flak Shell Cull Distance (4000.0)";
+        case "FlakShell_LifeSpan": return "Flak Shell Life Span (6.0)";
+
         case "bModifySniperRifle": return "Modify the Lightning Gun (false)";
         case "SniperRifle_PutDownTime": return "Sniper Rifle Put Down Time (0.33)";
         case "SniperRifle_BringUpTime": return "Sniper Rifle Bring Up Time (0.36)";
@@ -557,6 +683,8 @@ defaultproperties
     RemoteRole=ROLE_SimulatedProxy
     bAlwaysRelevant=true
     bNetTemporary=true
+
+    bModifyWeapons=false
 
     bModifyShieldGun=false
     ShieldGun_BringUpTime=0.33
@@ -701,6 +829,36 @@ defaultproperties
     MinigunSecondary_Spread=0.03
     MinigunSecondary_PreFireTime=0.15
     MinigunSecondary_WindupTime=0.15
+
+    bModifyFlakCannon=false
+    FlakCannon_BringUpTime=0.33
+    FlakCannon_PutDownTime=0.33
+    FlakCannon_MinReloadPct=0.5
+    FlakPrimary_AmmoPerFire=1
+    FlakPrimary_FireRate=0.95
+    FlakPrimary_ProjPerFire=9
+    FlakPrimary_Spread=1400
+    FlakChunk_Bounces=1
+    FlakChunk_DamageAtten=0.5
+    FlakChunk_Speed=2500
+    FlakChunk_MaxSpeed=2700
+    FlakChunk_Damage=13
+    FlakChunk_MomentumTransfer=10000.0
+    FlakChunk_CullDistance=3000.0
+    FlakChunk_LifeSpan=2.7
+    FlakChunk_Bounce=True
+    FlakSecondary_AmmoPerFire=1
+    FlakSecondary_FireRate=1.11
+    FlakSecondary_ProjPerFire=1
+    FlakSecondary_Spread=0.0
+    FlakShell_TossZ=225.0
+    FlakShell_Speed=1200.0
+    FlakShell_MaxSpeed=1200.0
+    FlakShell_Damage=90
+    FlakShell_DamageRadius=220.0
+    FlakShell_MomentumTransfer=75000.0
+    FlakShell_CullDistance=4000.0
+    FlakShell_LifeSpan=6.0
 
     bModifySniperRifle=false
     SniperRifle_BringUpTime=0.36
