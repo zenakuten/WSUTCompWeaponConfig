@@ -269,6 +269,19 @@ var config float ClassicSniperRifle_MinReloadPct;
 var config bool bGiveClassicSniperRifle;
 var config int ClassicSniperRifleAmmoGiven;
 
+//super shock
+var config bool bModifySuperShockRifle;
+var config int SuperShockPrimary_TraceRange;
+var config float SuperShockPrimary_Momentum;
+var config int SuperShockPrimary_AmmoPerFire;
+var config int SuperShockPrimary_DamageMin;
+var config int SuperShockPrimary_DamageMax;
+var config float SuperShockPrimary_FireRate;
+var config float SuperShockRifle_PutDownTime;
+var config float SuperShockRifle_BringUpTime;
+var config float SuperShockRifle_MinReloadPct;
+var config bool bGiveSuperShock;
+var config int SuperShockAmmoGiven;
 
 function PostBeginPlay()
 {
@@ -592,6 +605,21 @@ static function FillPlayInfo(PlayInfo PI)
     PI.AddSetting("UTComp Weapon Config", "ClassicSniperPrimary_HeadshotDamageMult", "Sniper Rifle Headshot Multiplier (2.0)", 0, Weight++, "Text", "4;0.0:1000");
     PI.AddSetting("UTComp Weapon Config", "bGiveClassicSniperRifle", "Give Sniper Rifle to Player (false)", 0, Weight++, "Check");
     PI.AddSetting("UTComp Weapon Config", "ClassicSniperRifleAmmoGiven", "Sniper Rifle Ammo Given (15)", 0, Weight++, "Text", "8;0:1000");
+
+    // super shock
+    PI.AddSetting("UTComp Weapon Config", "bModifySuperShockRifle", "Modify the Super Shock Rifle (false)", 0, Weight++, "Check");
+    PI.AddSetting("UTComp Weapon Config", "SuperShockRifle_PutDownTime", "Super Shock Rifle Put Down Time (0.33)", 0, Weight++, "Text", "8;0.0:999.0");
+    PI.AddSetting("UTComp Weapon Config", "SuperShockRifle_BringUpTime", "Super Shock Rifle Bring Up Time (0.33)", 0, Weight++, "Text", "8;0.0:999.0");
+    PI.AddSetting("UTComp Weapon Config", "SuperShockRifle_MinReloadPct", "Super Shock Rifle MinReloadPct (0.5)", 0, Weight++, "Text", "8;0.0:999.0");
+    PI.AddSetting("UTComp Weapon Config", "SuperShockPrimary_TraceRange", "Super Shock Primary Trace Range (17000.0)", 0, Weight++, "Text", "8;0.0:1000000");
+    PI.AddSetting("UTComp Weapon Config", "SuperShockPrimary_Momentum", "Super Shock Primary Momentum (60000.0)", 0, Weight++, "Text", "9;-10000000.0:10000000");
+    PI.AddSetting("UTComp Weapon Config", "SuperShockPrimary_AmmoPerFire", "Super Shock Primary Ammo Per Fire (1)", 0, Weight++, "Text", "4;0:1000");
+    PI.AddSetting("UTComp Weapon Config", "SuperShockPrimary_DamageMin", "Super Shock Primary Damage Min (45)", 0, Weight++, "Text", "4;0:1000");
+    PI.AddSetting("UTComp Weapon Config", "SuperShockPrimary_DamageMax", "Super Shock Primary Damage Max (45)", 0, Weight++, "Text", "4;0:1000");
+    PI.AddSetting("UTComp Weapon Config", "SuperShockPrimary_FireRate", "Super Shock Primary Fire Rate (0.7)", 0, Weight++, "Text", "4;0.0:1000");
+    PI.AddSetting("UTComp Weapon Config", "bGiveSuperShock", "Give Super Shock Rifle to Player (false)", 0, Weight++, "Check");
+    PI.AddSetting("UTComp Weapon Config", "SuperShockAmmoGiven", "Super Shock Rifle Ammo Given (20)", 0, Weight++, "Text", "8;0:1000");
+
 }
 
 static event string GetDescriptionText(string PropName)
@@ -832,19 +860,6 @@ static event string GetDescriptionText(string PropName)
         case "bGiveSniperRifle": return "Give Lightning Gun to Player (false)";
         case "SniperRifleAmmoGiven": return "Lightning Gun Ammo Given (15)";
 
-        case "bModifyClassicSniperRifle": return "Modify the Lightning Gun (false)";
-        case "ClassicSniperRifle_PutDownTime": return "Sniper Rifle Put Down Time (0.33)";
-        case "ClassicSniperRifle_BringUpTime": return "Sniper Rifle Bring Up Time (0.36)";
-        case "ClassicSniperRifle_MinReloadPct": return "Sniper Rifle MinReloadPct (0.25)";
-        case "ClassicSniperPrimary_AmmoPerFire": return "Sniper Rifle Ammo Per Fire (1)";
-        case "ClassicSniperPrimary_DamageMin": return "Sniper Rifle Damage Min (70)";
-        case "ClassicSniperPrimary_DamageMax": return "Sniper Rifle Damage Max (70)";
-        case "ClassicSniperPrimary_TraceRange": return "Sniper Rifle Trace Range (17000)";
-        case "ClassicSniperPrimary_FireRate": return "Sniper Rifle Fire Rate (1.6)";
-        case "ClassicSniperPrimary_HeadshotDamageMult": return "Sniper Rifle Headshot Multiplier (2.0)";
-        case "bGiveClassicSniperRifle": return "Give Sniper Rifle to Player (false)";
-        case "ClassicSniperRifleAmmoGiven": return "Sniper Rifle Ammo Given (15)";
-
         case "bModifyClassicSniperRifle": return "Modify the Sniper Rifle (false)";
         case "ClassicSniperRifle_PutDownTime": return "Sniper Rifle Put Down Time (0.58)";
         case "ClassicSniperRifle_BringUpTime": return "Sniper Rifle Bring Up Time (0.6)";
@@ -857,6 +872,19 @@ static event string GetDescriptionText(string PropName)
         case "ClassicSniperPrimary_HeadshotDamageMult": return "Sniper Rifle Headshot Multiplier (2.0)";
         case "bGiveClassicSniperRifle": return "Give Sniper Rifle to Player (false)";
         case "ClassicSniperRifleAmmoGiven": return "Sniper Rifle Ammo Given (15)";
+
+        case "bModifySuperShockRifle": return "Modify the Super Shock Rifle (false)";
+        case "SuperShockRifle_PutDownTime": return "Super Shock Rifle Put Down Time (0.33)";
+        case "SuperShockRifle_BringUpTime": return "Super Shock Rifle Bring Up Time (0.33)";
+        case "SuperShockRifle_MinReloadPct": return "Super Shock Rifle MinReloadPct (0.5)";
+        case "SuperShockPrimary_TraceRange": return "Super Shock primary trace range (17000)";
+        case "SuperShockPrimary_Momentum": return "Super Shock Primary Momentum (60000.0)";
+        case "SuperShockPrimary_AmmoPerFire": return "Super Shock Primary Ammo Per Fire (1)";
+        case "SuperShockPrimary_DamageMin": return "Super Shock Primary Damage Min (45)";
+        case "SuperShockPrimary_DamageMax": return "Super Shock Primary Damage Max (45)";
+        case "SuperShockPrimary_FireRate": return "Super Shock Primary Fire Rate (0.7)";
+        case "bGiveSuperShock": return "Give Super Shock Rifle to Player (false)";
+        case "SuperShockAmmoGiven": return "Super Shock Rifle Ammo Given (20)";
     }
 }
 
@@ -1209,4 +1237,17 @@ defaultproperties
     ClassicSniperPrimary_HeadshotDamageMult=2.0
     bGiveClassicSniperRifle=false
     ClassicSniperRifleAmmoGiven=15
+
+    bModifySuperShockRifle=false
+    SuperShockRifle_BringUpTime=0.33
+    SuperShockRifle_PutDownTime=0.33
+    SuperShockRifle_MinReloadPct=0.5
+    SuperShockPrimary_TraceRange=17000
+    SuperShockPrimary_Momentum=60000.0
+    SuperShockPrimary_AmmoPerFire=0
+    SuperShockPrimary_DamageMin=1000
+    SuperShockPrimary_DamageMax=1000
+    SuperShockPrimary_FireRate=1.1
+    bGiveSuperShock=false
+    SuperShockAmmoGiven=20
 }
