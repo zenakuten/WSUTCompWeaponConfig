@@ -304,6 +304,28 @@ var config float ONSGrenadeLauncher_MinReloadPct;
 var config bool bGiveONSGrenade;
 var config int ONSGrenadeAmmoGiven;
 
+// ONS Avril
+var config bool bModifyONSAvril;
+var config float ONSAvril_LockCheckFreq;
+var config float ONSAvril_MaxLockRange;
+var config float ONSAvril_LockAim;
+var config float ONSAvril_PutDownTime;
+var config float ONSAvril_BringUpTime;
+var config float ONSAvril_MinReloadPct;
+var config int ONSAvrilPrimary_AmmoPerFire;
+var config float ONSAvrilPrimary_FireRate;
+var config vector ONSAvrilPrimary_KickMomentum;
+var config float ONSAvrilProj_LeadTargetDelay;
+var config bool ONSAvrilProj_bProjTarget;
+var config float ONSAvrilProj_Speed;
+var config float ONSAvrilProj_MaxSpeed;
+var config float ONSAvrilProj_Damage;
+var config float ONSAvrilProj_DamageRadius;
+var config float ONSAvrilProj_MomentumTransfer;
+var config float ONSAvrilProj_LifeSpan;
+var config bool bGiveONSAvril;
+var config int ONSAvrilAmmoGiven;
+
 function PostBeginPlay()
 {
     local WeaponConfigInfo weaponConfig;
@@ -642,25 +664,47 @@ static function FillPlayInfo(PlayInfo PI)
     PI.AddSetting("UTComp Weapon Config", "SuperShockAmmoGiven", "Super Shock Rifle Ammo Given (20)", 0, Weight++, "Text", "8;0:1000");
 
     // ONS Grenade Launcher
-    PI.AddSetting("UTComp Weapon Config", "bModifyONSGrenade", "Modify the ONS Grenade Launcher (false)", 0, Weight++, "Check");
+    PI.AddSetting("UTComp Weapon Config", "bModifyONSGrenadeLauncher", "Modify the ONS Grenade Launcher (false)", 0, Weight++, "Check");
     PI.AddSetting("UTComp Weapon Config", "ONSGrenade_PutDownTime", "ONS Grenade Launcher Put Down Time (0.33)", 0, Weight++, "Text", "8;0.0:999.0");
     PI.AddSetting("UTComp Weapon Config", "ONSGrenade_BringUpTime", "ONS Grenade Launcher Bring Up Time (0.33)", 0, Weight++, "Text", "8;0.0:999.0");
     PI.AddSetting("UTComp Weapon Config", "ONSGrenade_MinReloadPct", "ONS Grenade Launcher MinReloadPct (0.5)", 0, Weight++, "Text", "8;0.0:999.0");
     PI.AddSetting("UTComp Weapon Config", "ONSGrenadePrimary_FireRate", "ONS Grenade Primary Fire Rate (0.33)", 0, Weight++, "Text", "8;0.0:999.0");
     PI.AddSetting("UTComp Weapon Config", "ONSGrenadePrimary_AmmoPerFire", "ONS Grenade Primary Ammo Per Fire (1)", 0, Weight++, "Text", "8;0:999");
     PI.AddSetting("UTComp Weapon Config", "ONSGrenadeProj_bBounce", "ONS Grenade Bounce (true)", 0, Weight++, "Check");
-    PI.AddSetting("UTComp Weapon Config", "ONSGrenadeProj_Speed", "ONS Grenade Speed (1200.0)", 0, Weight++, "Text", "8;0.0:10000000000");
-    PI.AddSetting("UTComp Weapon Config", "ONSGrenadeProj_MaxSpeed", "ONS Grenade Max Speed (1200.0)", 0, Weight++, "Text", "8;0.0:10000000000");
-    PI.AddSetting("UTComp Weapon Config", "ONSGrenadeProj_TossZ", "ONS Grenade TossZ (0.0)", 0, Weight++, "Text", "8;0.0:10000000000");
+    PI.AddSetting("UTComp Weapon Config", "ONSGrenadeProj_Speed", "ONS Grenade Speed (1200.0)", 0, Weight++, "Text", "8;0.0:10000000");
+    PI.AddSetting("UTComp Weapon Config", "ONSGrenadeProj_MaxSpeed", "ONS Grenade Max Speed (1200.0)", 0, Weight++, "Text", "8;0.0:10000000");
+    PI.AddSetting("UTComp Weapon Config", "ONSGrenadeProj_TossZ", "ONS Grenade TossZ (0.0)", 0, Weight++, "Text", "8;0.0:10000000");
     PI.AddSetting("UTComp Weapon Config", "ONSGrenadeProj_Damage", "ONS Grenade Damage (100.0)", 0, Weight++, "Text", "5;0.0:10000");
-    PI.AddSetting("UTComp Weapon Config", "ONSGrenadeProj_DamageRadius", "ONS Grenade Damage Radius (175.0)", 0, Weight++, "Text", "8;0.0:10000000000");
-    PI.AddSetting("UTComp Weapon Config", "ONSGrenadeProj_MomentumTransfer", "ONS Grenade Momentum Transfer (50000.0)", 0, Weight++, "Text", "8;0.0:1000000000");
-    PI.AddSetting("UTComp Weapon Config", "ONSGrenadeProj_CullDistance", "ONS Grenade Cull Distance (5000.0)", 0, Weight++, "Text", "8;0.0:1000000000");
-    PI.AddSetting("UTComp Weapon Config", "ONSGrenadeProj_LifeSpan", "ONS Grenade Life Span (0.0)", 0, Weight++, "Text", "8;0.0:1000000000");
-    PI.AddSetting("UTComp Weapon Config", "ONSGrenadeProj_DampenFactor", "ONS Grenade Dampen Factor (0.5)", 0, Weight++, "Text", "8;0.0:1000000000");
-    PI.AddSetting("UTComp Weapon Config", "ONSGrenadeProj_DampenFactor", "ONS Grenade Dampen Factor Parallel (0.8)", 0, Weight++, "Text", "8;0.0:1000000000");
+    PI.AddSetting("UTComp Weapon Config", "ONSGrenadeProj_DamageRadius", "ONS Grenade Damage Radius (175.0)", 0, Weight++, "Text", "8;0.0:10000000");
+    PI.AddSetting("UTComp Weapon Config", "ONSGrenadeProj_MomentumTransfer", "ONS Grenade Momentum Transfer (50000.0)", 0, Weight++, "Text", "8;0.0:1000000");
+    PI.AddSetting("UTComp Weapon Config", "ONSGrenadeProj_CullDistance", "ONS Grenade Cull Distance (5000.0)", 0, Weight++, "Text", "8;0.0:1000000");
+    PI.AddSetting("UTComp Weapon Config", "ONSGrenadeProj_LifeSpan", "ONS Grenade Life Span (0.0)", 0, Weight++, "Text", "8;0.0:1000000");
+    PI.AddSetting("UTComp Weapon Config", "ONSGrenadeProj_DampenFactor", "ONS Grenade Dampen Factor (0.5)", 0, Weight++, "Text", "8;0.0:1000000");
+    PI.AddSetting("UTComp Weapon Config", "ONSGrenadeProj_DampenFactor", "ONS Grenade Dampen Factor Parallel (0.8)", 0, Weight++, "Text", "8;0.0:1000000");
     PI.AddSetting("UTComp Weapon Config", "bGiveONSGrenade", "Give ONS Grenade Launcher to Player (false)", 0, Weight++, "Check");
     PI.AddSetting("UTComp Weapon Config", "ONSGrenadeAmmoGiven", "ONS Grenade Launcher Ammo Given (10)", 0, Weight++, "Text", "8;0:1000");
+
+    // ONS Avril Launcher
+    PI.AddSetting("UTComp Weapon Config", "bModifyONSAvril", "Modify the ONS Avril Launcher (false)", 0, Weight++, "Check");
+    PI.AddSetting("UTComp Weapon Config", "ONSAvril_LockCheckFreq", "ONS Avril Launcher Lock Check Freq (0.2)", 0, Weight++, "Text", "8;0.0:999.0");
+    PI.AddSetting("UTComp Weapon Config", "ONSAvril_MaxLockRange", "ONS Avril Launcher Max Lock Range (15000.0)", 0, Weight++, "Text", "8;0.0:999.0");
+    PI.AddSetting("UTComp Weapon Config", "ONSAvril_LockAim", "ONS Avril Launcher Lock Aim (0.996)", 0, Weight++, "Text", "8;0.0:999.0");
+    PI.AddSetting("UTComp Weapon Config", "ONSAvril_PutDownTime", "ONS Avril Launcher Put Down Time (0.33)", 0, Weight++, "Text", "8;0.0:999.0");
+    PI.AddSetting("UTComp Weapon Config", "ONSAvril_BringUpTime", "ONS Avril Launcher Bring Up Time (0.45)", 0, Weight++, "Text", "8;0.0:999.0");
+    PI.AddSetting("UTComp Weapon Config", "ONSAvril_MinReloadPct", "ONS Avril Launcher MinReloadPct (0.5)", 0, Weight++, "Text", "8;0.0:999.0");
+    PI.AddSetting("UTComp Weapon Config", "ONSAvrilPrimary_AmmoPerFire", "ONS Avril Primary Ammo Per Fire (1)", 0, Weight++, "Text", "8;0:999");
+    PI.AddSetting("UTComp Weapon Config", "ONSAvrilPrimary_FireRate", "ONS Avril Primary Fire Rate (4.0)", 0, Weight++, "Text", "8;0.0:999.0");
+    PI.AddSetting("UTComp Weapon Config", "ONSAvrilPrimary_KickMomentum", "ONS Avril Primary Kick Momentum ((X=-350.0,Z=175.0))", 0, Weight++, "Text");
+    PI.AddSetting("UTComp Weapon Config", "ONSAvrilPrimary_LeadTargetDelay", "ONS Avril Lead Target Delay (1.0)", 0, Weight++, "Text", "8;0.0:999.0");
+    PI.AddSetting("UTComp Weapon Config", "ONSAvrilProj_bProjTarget", "ONS Avril Projectile Target (true)", 0, Weight++, "Check");
+    PI.AddSetting("UTComp Weapon Config", "ONSAvrilProj_Speed", "ONS Avril Speed (550.0)", 0, Weight++, "Text", "8;0.0:10000000");
+    PI.AddSetting("UTComp Weapon Config", "ONSAvrilProj_MaxSpeed", "ONS Avril Max Speed (2800.0)", 0, Weight++, "Text", "8;0.0:10000000");
+    PI.AddSetting("UTComp Weapon Config", "ONSAvrilProj_Damage", "ONS Avril Damage (125.0)", 0, Weight++, "Text", "5;0.0:10000");
+    PI.AddSetting("UTComp Weapon Config", "ONSAvrilProj_DamageRadius", "ONS Avril Damage Radius (150.0)", 0, Weight++, "Text", "8;0.0:10000000");
+    PI.AddSetting("UTComp Weapon Config", "ONSAvrilProj_MomentumTransfer", "ONS Avril Momentum Transfer (50000.0)", 0, Weight++, "Text", "8;0.0:1000000");
+    PI.AddSetting("UTComp Weapon Config", "ONSAvrilProj_LifeSpan", "ONS Avril Life Span (7.0)", 0, Weight++, "Text", "8;0.0:1000000");
+    PI.AddSetting("UTComp Weapon Config", "bGiveONSAvril", "Give ONS Avril Launcher to Player (false)", 0, Weight++, "Check");
+    PI.AddSetting("UTComp Weapon Config", "ONSAvrilAmmoGiven", "ONS Avril Launcher Ammo Given (5)", 0, Weight++, "Text", "8;0:1000");
 
 }
 
@@ -928,7 +972,7 @@ static event string GetDescriptionText(string PropName)
         case "bGiveSuperShock": return "Give Super Shock Rifle to Player (false)";
         case "SuperShockAmmoGiven": return "Super Shock Rifle Ammo Given (20)";
         
-        case "bModifyONSGrenade": return "Modify the ONS Grenade Launcher (false)";
+        case "bModifyONSGrenadeLauncher": return "Modify the ONS Grenade Launcher (false)";
         case "ONSGrenade_PutDownTime": return "ONS Grenade Launcher Put Down Time (0.33)";
         case "ONSGrenade_BringUpTime": return "ONS Grenade Launcher Bring Up Time (0.33)";
         case "ONSGrenade_MinReloadPct": return "ONS Grenade Launcher MinReloadPct (0.5)";
@@ -947,6 +991,27 @@ static event string GetDescriptionText(string PropName)
         case "ONSGrenadeProj_DampenFactor": return "ONS Grenade Dampen Factor Parallel (0.8)";
         case "bGiveONSGrenade": return "Give ONS Grenade Launcher to Player (false)";
         case "ONSGrenadeAmmoGiven": return "ONS Grenade Launcher Ammo Given (10)";
+
+        case "bModifyONSAvril": return "Modify the ONS Avril Launcher (false)";
+        case "ONSAvril_LockCheckFreq": return "ONS Avril Launcher Lock Check Freq (0.2)";
+        case "ONSAvril_MaxLockRange": return "ONS Avril Launcher Max Lock Range (15000.0)";
+        case "ONSAvril_LockAim": return "ONS Avril Launcher Lock Aim (0.996)";
+        case "ONSAvril_PutDownTime": return "ONS Avril Launcher Put Down Time (0.33)";
+        case "ONSAvril_BringUpTime": return "ONS Avril Launcher Bring Up Time (0.45)";
+        case "ONSAvril_MinReloadPct": return "ONS Avril Launcher MinReloadPct (0.5)";
+        case "ONSAvrilPrimary_AmmoPerFire": return "ONS Avril Primary Ammo Per Fire (1)";
+        case "ONSAvrilPrimary_FireRate": return "ONS Avril Primary Fire Rate (4.0)";
+        case "ONSAvrilPrimary_KickMomentum": return "ONS Avril Primary Kick Momentum ((X=-350.0: returnZ=175.0)";
+        case "ONSAvrilPrimary_LeadTargetDelay": return "ONS Avril Lead Target Delay (1.0)";
+        case "ONSAvrilProj_bProjTarget": return "ONS Avril Projectile Target (true)";
+        case "ONSAvrilProj_Speed": return "ONS Avril Speed (550.0)";
+        case "ONSAvrilProj_MaxSpeed": return "ONS Avril Max Speed (2800.0)";
+        case "ONSAvrilProj_Damage": return "ONS Avril Damage (125.0)";
+        case "ONSAvrilProj_DamageRadius": return "ONS Avril Damage Radius (150.0)";
+        case "ONSAvrilProj_MomentumTransfer": return "ONS Avril Momentum Transfer (50000.0)";
+        case "ONSAvrilProj_LifeSpan": return "ONS Avril Life Span (7.0)";
+        case "bGiveONSAvril": return "Give ONS Avril Launcher to Player (false)";
+        case "ONSAvrilAmmoGiven": return "ONS Avril Launcher Ammo Given (5)";
     }
 }
 
@@ -1036,6 +1101,43 @@ function ModifyPlayer(Pawn Other)
 
         Other.CreateInventory("XWeapons.SniperRifle");
     }
+
+    if(bGiveClassicSniperRifle)
+    {
+        class'ClassicSniperRifle'.default.FireModeClass[0].default.AmmoClass.default.InitialAmount = Min(999, ClassicSniperRifleAmmoGiven);
+        class'ClassicSniperRifle'.default.FireModeClass[0].default.AmmoClass.default.MaxAmmo = 
+            Max(class'ClassicSniperRifle'.default.FireModeClass[0].default.AmmoClass.default.MaxAmmo, ClassicSniperRifleAmmoGiven);
+
+        Other.CreateInventory("XWeapons.ClassicSniperRifle");
+    }
+
+    if(bGiveSuperShock)
+    {
+        class'SuperShockRifle'.default.FireModeClass[0].default.AmmoClass.default.InitialAmount = Min(999, SuperShockAmmoGiven);
+        class'SuperShockRifle'.default.FireModeClass[0].default.AmmoClass.default.MaxAmmo = 
+            Max(class'SuperShockRifle'.default.FireModeClass[0].default.AmmoClass.default.MaxAmmo, SuperShockAmmoGiven);
+
+        Other.CreateInventory("XWeapons.SuperShockRifle");
+    }
+
+    if(bGiveONSGrenade)
+    {
+        class'ONSGrenadeLauncher'.default.FireModeClass[0].default.AmmoClass.default.InitialAmount = Min(999, ONSGrenadeAmmoGiven);
+        class'ONSGrenadeLauncher'.default.FireModeClass[0].default.AmmoClass.default.MaxAmmo = 
+            Max(class'ONSGrenadeLauncher'.default.FireModeClass[0].default.AmmoClass.default.MaxAmmo, ONSGrenadeAmmoGiven);
+
+        Other.CreateInventory("Onslaught.ONSGrenadeLauncher");
+    }
+
+    if(bGiveONSAvril)
+    {
+        class'ONSAvril'.default.FireModeClass[0].default.AmmoClass.default.InitialAmount = Min(999, ONSAvrilAmmoGiven);
+        class'ONSAvril'.default.FireModeClass[0].default.AmmoClass.default.MaxAmmo = 
+            Max(class'ONSAvril'.default.FireModeClass[0].default.AmmoClass.default.MaxAmmo, ONSAvrilAmmoGiven);
+
+        Other.CreateInventory("Onslaught.ONSAvril");
+    }
+
 
     super.ModifyPlayer(Other);
 
@@ -1332,4 +1434,25 @@ defaultproperties
     ONSGrenadeLauncher_MinReloadPct=0.5
     bGiveONSGrenade=false
     ONSGrenadeAmmoGiven=10
+
+    bModifyONSAvril=false
+    ONSAvril_LockCheckFreq=0.2
+    ONSAvril_MaxLockRange=15000.0
+    ONSAvril_LockAim=0.996
+    ONSAvril_PutDownTime=0.33
+    ONSAvril_BringUpTime=0.45
+    ONSAvril_MinReloadPct=0.5
+    ONSAvrilPrimary_AmmoPerFire=1
+    ONSAvrilPrimary_FireRate=4.0
+    ONSAvrilPrimary_KickMomentum=(X=-350.0,Z=175.0)
+    ONSAvrilProj_LeadTargetDelay=1.0
+    ONSAvrilProj_bProjTarget=true
+    ONSAvrilProj_Speed=550.0
+    ONSAvrilProj_MaxSpeed=2800.0
+    ONSAvrilProj_Damage=125.0
+    ONSAvrilProj_DamageRadius=150.0
+    ONSAvrilProj_MomentumTransfer=50000.0
+    ONSAvrilProj_LifeSpan=7.0
+    bGiveONSAvril=false
+    ONSAvrilAmmoGiven=5
 }
