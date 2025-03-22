@@ -326,6 +326,29 @@ var config float ONSAvrilProj_LifeSpan;
 var config bool bGiveONSAvril;
 var config int ONSAvrilAmmoGiven;
 
+// ONS mine layer
+var config bool bModifyONSMineLayer;
+var config float ONSMineLayer_ReloadDelay;
+var config int ONSMineLayer_MaxMines;
+var config float ONSMineLayer_PutDownTime;
+var config float ONSMineLayer_BringUpTime;
+var config float ONSMineLayer_MinReloadPct;
+var config int ONSMineLayerPrimary_AmmoPerFire;
+var config float ONSMineLayerPrimary_FireRate;
+var config float ONSMineProjectile_DetectionTimer;
+var config float ONSMineProjectile_ScurrySpeed;
+var config float ONSMineProjectile_ScurryAnimRate;
+var config int ONSMineProjectile_TargetLocFuzz;
+var config float ONSMineProjectile_Speed;
+var config float ONSMineProjectile_MaxSpeed;
+var config float ONSMineProjectile_Damage;
+var config float ONSMineProjectile_DamageRadius;
+var config float ONSMineProjectile_CullDistance;
+var config float ONSMineProjectile_MomentumTransfer;
+var config bool ONSMineProjectile_bBounce;
+var config bool bGiveONSMineLayer;
+var config int ONSMineLayerAmmoGiven;
+
 function PostBeginPlay()
 {
     local WeaponConfigInfo weaponConfig;
@@ -706,6 +729,29 @@ static function FillPlayInfo(PlayInfo PI)
     PI.AddSetting("UTComp Weapon Config", "bGiveONSAvril", "Give ONS Avril Launcher to Player (false)", 0, Weight++, "Check");
     PI.AddSetting("UTComp Weapon Config", "ONSAvrilAmmoGiven", "ONS Avril Launcher Ammo Given (5)", 0, Weight++, "Text", "8;0:1000");
 
+    // ONS Mine Layer
+    PI.AddSetting("UTComp Weapon Config", "bModifyONSMineLayer", "Modify the ONS Mine Layer (false)", 0, Weight++, "Check");
+    PI.AddSetting("UTComp Weapon Config", "ONSMineLayer_ReloadDelay", "ONS Mine Layer Lock Check Freq (0.2)", 0, Weight++, "Text", "8;0.0:999.0");
+    PI.AddSetting("UTComp Weapon Config", "ONSMineLayer_MaxMines", "ONS Mine Layer Max Mines (8)", 0, Weight++, "Text", "8;0:999");
+    PI.AddSetting("UTComp Weapon Config", "ONSMineLayer_PutDownTime", "ONS Mine Layer Put Down Time (0.40)", 0, Weight++, "Text", "8;0.0:999.0");
+    PI.AddSetting("UTComp Weapon Config", "ONSMineLayer_BringUpTime", "ONS Mine Layer Bring Up Time (0.35)", 0, Weight++, "Text", "8;0.0:999.0");
+    PI.AddSetting("UTComp Weapon Config", "ONSMineLayer_MinReloadPct", "ONS Mine Layer MinReloadPct (0.5)", 0, Weight++, "Text", "8;0.0:999.0");
+    PI.AddSetting("UTComp Weapon Config", "ONSMineLayerPrimary_AmmoPerFire", "ONS Mine Layer Ammo Per Fire (1)", 0, Weight++, "Text", "8;0:999");
+    PI.AddSetting("UTComp Weapon Config", "ONSMineLayerPrimary_FireRate", "ONSMineProjectile_CullDistance Mine Layer Fire Rate (4.0)", 0, Weight++, "Text", "8;0.0:999.0");
+    PI.AddSetting("UTComp Weapon Config", "ONSMineProjectile_DetectionTimer", "ONS Mine Detection Timer (0.5)", 0, Weight++, "Text", "8;0.0:10000000");
+    PI.AddSetting("UTComp Weapon Config", "ONSMineProjectile_ScurrySpeed", "ONS Mine Scurry Speed (525.0)", 0, Weight++, "Text", "8;0.0:10000000");
+    PI.AddSetting("UTComp Weapon Config", "ONSMineProjectile_ScurryAnimRate", "ONS Mine Scurry Anim Rate (4.1)", 0, Weight++, "Text", "8;0.0:10000000");
+    PI.AddSetting("UTComp Weapon Config", "ONSMineProjectile_TargetLocFuzz", "ONS Mine Target Lock Fuzz (250)", 0, Weight++, "Text", "8;0:10000000");
+    PI.AddSetting("UTComp Weapon Config", "ONSMineProjectile_bBounce", "ONS Mine Bounce (true)", 0, Weight++, "Check");
+    PI.AddSetting("UTComp Weapon Config", "ONSMineProjectile_Speed", "ONS Mine Speed (800.0)", 0, Weight++, "Text", "8;0.0:10000000");
+    PI.AddSetting("UTComp Weapon Config", "ONSMineProjectile_MaxSpeed", "ONS Mine Max Speed (2800.0)", 0, Weight++, "Text", "8;0.0:10000000");
+    PI.AddSetting("UTComp Weapon Config", "ONSMineProjectile_Damage", "ONS Mine Damage (95.0)", 0, Weight++, "Text", "5;0.0:10000");
+    PI.AddSetting("UTComp Weapon Config", "ONSMineProjectile_DamageRadius", "ONS Mine Damage Radius (250.0)", 0, Weight++, "Text", "8;0.0:10000000");
+    PI.AddSetting("UTComp Weapon Config", "ONSMineProjectile_MomentumTransfer", "ONS Mine Momentum Transfer (50000.0)", 0, Weight++, "Text", "8;0.0:1000000");
+    PI.AddSetting("UTComp Weapon Config", "ONSMineProjectile_CullDistance", "ONS Mine Cull Distance (6000.0)", 0, Weight++, "Text", "8;0.0:1000000");
+    PI.AddSetting("UTComp Weapon Config", "bGiveONSMineLayer", "Give ONS Mine Layer to Player (false)", 0, Weight++, "Check");
+    PI.AddSetting("UTComp Weapon Config", "ONSMineLayerAmmoGiven", "ONS Mine Layer Ammo Given (4)", 0, Weight++, "Text", "8;0:1000");
+
 }
 
 static event string GetDescriptionText(string PropName)
@@ -1012,6 +1058,27 @@ static event string GetDescriptionText(string PropName)
         case "ONSAvrilProj_LifeSpan": return "ONS Avril Life Span (7.0)";
         case "bGiveONSAvril": return "Give ONS Avril Launcher to Player (false)";
         case "ONSAvrilAmmoGiven": return "ONS Avril Launcher Ammo Given (5)";
+
+        case "ONSMineLayer_ReloadDelay": return "ONS Mine Layer Lock Check Freq (0.2)";
+        case "ONSMineLayer_MaxMines": return "ONS Mine Layer Max Mines (8)";
+        case "ONSMineLayer_PutDownTime": return "ONS Mine Layer Put Down Time (0.40)";
+        case "ONSMineLayer_BringUpTime": return "ONS Mine Layer Bring Up Time (0.35)";
+        case "ONSMineLayer_MinReloadPct": return "ONS Mine Layer MinReloadPct (0.5)";
+        case "ONSMineLayerPrimary_AmmoPerFire": return "ONS Mine Layer Ammo Per Fire (1)";
+        case "ONSMineLayerPrimary_FireRate": return "ONSMineProjectile_CullDistance Mine Layer Fire Rate (4.0)";
+        case "ONSMineProjectile_DetectionTimer": return "ONS Mine Detection Timer (0.5)";
+        case "ONSMineProjectile_ScurrySpeed": return "ONS Mine Scurry Speed (525.0)";
+        case "ONSMineProjectile_ScurryAnimRate": return "ONS Mine Scurry Anim Rate (4.1)";
+        case "ONSMineProjectile_TargetLocFuzz": return "ONS Mine Target Lock Fuzz (250)";
+        case "ONSMineProjectile_bBounce": return "ONS Mine Bounce (true)";
+        case "ONSMineProjectile_Speed": return "ONS Mine Speed (800.0)";
+        case "ONSMineProjectile_MaxSpeed": return "ONS Mine Max Speed (2800.0)";
+        case "ONSMineProjectile_Damage": return "ONS Mine Damage (95.0)";
+        case "ONSMineProjectile_DamageRadius": return "ONS Mine Damage Radius (250.0)";
+        case "ONSMineProjectile_MomentumTransfer": return "ONS Mine Momentum Transfer (50000.0)";
+        case "ONSMineProjectile_CullDistance": return "ONS Mine Cull Distance (6000.0)";
+        case "bGiveONSMineLayer": return "Give ONS Mine Layer to Player (false)";
+        case "ONSMineLayerAmmoGiven": return "ONS Mine Layer Ammo Given (4)";
     }
 }
 
@@ -1138,9 +1205,16 @@ function ModifyPlayer(Pawn Other)
         Other.CreateInventory("Onslaught.ONSAvril");
     }
 
+    if(bGiveONSMineLayer)
+    {
+        class'ONSMineLayer'.default.FireModeClass[0].default.AmmoClass.default.InitialAmount = Min(999, ONSMineLayerAmmoGiven);
+        class'ONSMineLayer'.default.FireModeClass[0].default.AmmoClass.default.MaxAmmo = 
+            Max(class'ONSMineLayer'.default.FireModeClass[0].default.AmmoClass.default.MaxAmmo, ONSMineLayerAmmoGiven);
+
+        Other.CreateInventory("Onslaught.ONSMineLayer");
+    }
 
     super.ModifyPlayer(Other);
-
 }
 
 defaultproperties
@@ -1455,4 +1529,26 @@ defaultproperties
     ONSAvrilProj_LifeSpan=7.0
     bGiveONSAvril=false
     ONSAvrilAmmoGiven=5
+
+    bModifyONSMineLayer=false
+    ONSMineLayer_ReloadDelay=0.4
+    ONSMineLayer_MaxMines=8
+    ONSMineLayer_PutDownTime=0.40
+    ONSMineLayer_BringUpTime=0.35
+    ONSMineLayer_MinReloadPct=0.5
+    ONSMineLayerPrimary_AmmoPerFire=1
+    ONSMineLayerPrimary_FireRate=1.1
+    ONSMineProjectile_DetectionTimer=0.5
+    ONSMineProjectile_ScurrySpeed=525.0
+    ONSMineProjectile_ScurryAnimRate=4.1
+    ONSMineProjectile_TargetLocFuzz=250
+    ONSMineProjectile_Speed=800.0
+    ONSMineProjectile_MaxSpeed=800.0
+    ONSMineProjectile_Damage=95.0
+    ONSMineProjectile_DamageRadius=250.0
+    ONSMineProjectile_CullDistance=6000.0
+    ONSMineProjectile_MomentumTransfer=50000.0
+    ONSMineProjectile_bBounce=true
+    bGiveONSMineLayer=false
+    ONSMineLayerAmmoGiven=4
 }

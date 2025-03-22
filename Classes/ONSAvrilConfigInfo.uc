@@ -1,23 +1,23 @@
 class ONSAvrilConfigInfo extends ReplicationInfo;
 
-var config bool bModifyONSAvril;
-var config float ONSAvril_LockCheckFreq;
-var config float ONSAvril_MaxLockRange;
-var config float ONSAvril_LockAim;
-var config float ONSAvril_PutDownTime;
-var config float ONSAvril_BringUpTime;
-var config float ONSAvril_MinReloadPct;
-var config int ONSAvrilPrimary_AmmoPerFire;
-var config float ONSAvrilPrimary_FireRate;
-var config vector ONSAvrilPrimary_KickMomentum;
-var config float ONSAvrilProj_LeadTargetDelay;
-var config bool ONSAvrilProj_bProjTarget;
-var config float ONSAvrilProj_Speed;
-var config float ONSAvrilProj_MaxSpeed;
-var config float ONSAvrilProj_Damage;
-var config float ONSAvrilProj_DamageRadius;
-var config float ONSAvrilProj_MomentumTransfer;
-var config float ONSAvrilProj_LifeSpan;
+var bool bModifyONSAvril;
+var float ONSAvril_LockCheckFreq;
+var float ONSAvril_MaxLockRange;
+var float ONSAvril_LockAim;
+var float ONSAvril_PutDownTime;
+var float ONSAvril_BringUpTime;
+var float ONSAvril_MinReloadPct;
+var int ONSAvrilPrimary_AmmoPerFire;
+var float ONSAvrilPrimary_FireRate;
+var vector ONSAvrilPrimary_KickMomentum;
+var float ONSAvrilProj_LeadTargetDelay;
+var bool ONSAvrilProj_bProjTarget;
+var float ONSAvrilProj_Speed;
+var float ONSAvrilProj_MaxSpeed;
+var float ONSAvrilProj_Damage;
+var float ONSAvrilProj_DamageRadius;
+var float ONSAvrilProj_MomentumTransfer;
+var float ONSAvrilProj_LifeSpan;
 
 replication
 {
