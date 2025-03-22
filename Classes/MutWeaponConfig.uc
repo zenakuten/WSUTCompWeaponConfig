@@ -255,6 +255,20 @@ var config float SniperRifle_MinReloadPct;
 var config bool bGiveSniperRifle;
 var config int SniperRifleAmmoGiven;
 
+// classic sniper rifle
+var config bool bModifyClassicSniperRifle;
+var config int ClassicSniperPrimary_AmmoPerFire;
+var config int ClassicSniperPrimary_DamageMin;
+var config int ClassicSniperPrimary_DamageMax;
+var config int ClassicSniperPrimary_TraceRange;
+var config float ClassicSniperPrimary_FireRate;
+var config float ClassicSniperPrimary_HeadshotDamageMult;
+var config float ClassicSniperRifle_PutDownTime;
+var config float ClassicSniperRifle_BringUpTime;
+var config float ClassicSniperRifle_MinReloadPct;
+var config bool bGiveClassicSniperRifle;
+var config int ClassicSniperRifleAmmoGiven;
+
 
 function PostBeginPlay()
 {
@@ -552,7 +566,7 @@ static function FillPlayInfo(PlayInfo PI)
     PI.AddSetting("UTComp Weapon Config", "bModifySniperRifle", "Modify the Lightning Gun (false)", 0, Weight++, "Check");
     PI.AddSetting("UTComp Weapon Config", "SniperRifle_PutDownTime", "Lightning Gun Put Down Time (0.33)", 0, Weight++, "Text", "8;0.0:999.0");
     PI.AddSetting("UTComp Weapon Config", "SniperRifle_BringUpTime", "Lightning Gun Bring Up Time (0.36)", 0, Weight++, "Text", "8;0.0:999.0");
-    PI.AddSetting("UTComp Weapon Config", "SniperRifle_MinReloadPct", "Shock Rifle MinReloadPct (0.25)", 0, Weight++, "Text", "8;0.0:999.0");
+    PI.AddSetting("UTComp Weapon Config", "SniperRifle_MinReloadPct", "Ligtning Gun MinReloadPct (0.25)", 0, Weight++, "Text", "8;0.0:999.0");
     PI.AddSetting("UTComp Weapon Config", "SniperPrimary_AmmoPerFire", "Lightning Gun Ammo Per Fire (1)", 0, Weight++, "Text", "4;0:1000");
     PI.AddSetting("UTComp Weapon Config", "SniperPrimary_DamageMin", "Lightning Gun Damage Min (70)", 0, Weight++, "Text", "4;0:1000");
     PI.AddSetting("UTComp Weapon Config", "SniperPrimary_DamageMax", "Lightning Gun Damage Max (70)", 0, Weight++, "Text", "4;0:1000");
@@ -564,6 +578,20 @@ static function FillPlayInfo(PlayInfo PI)
     PI.AddSetting("UTComp Weapon Config", "SniperPrimary_HeadshotDamageMult", "Lightning Gun Headshot Multiplier (2.0)", 0, Weight++, "Text", "4;0.0:1000");
     PI.AddSetting("UTComp Weapon Config", "bGiveSniperRifle", "Give Lightning Gun to Player (false)", 0, Weight++, "Check");
     PI.AddSetting("UTComp Weapon Config", "SniperRifleAmmoGiven", "Lightning Gun Ammo Given (15)", 0, Weight++, "Text", "8;0:1000");
+
+    // classic sniper rifle
+    PI.AddSetting("UTComp Weapon Config", "bModifyClassicSniperRifle", "Modify the Sniper Rifle (false)", 0, Weight++, "Check");
+    PI.AddSetting("UTComp Weapon Config", "ClassicSniperRifle_PutDownTime", "Sniper Rifle Put Down Time (0.58)", 0, Weight++, "Text", "8;0.0:999.0");
+    PI.AddSetting("UTComp Weapon Config", "ClassicSniperRifle_BringUpTime", "Sniper Rifle Bring Up Time (0.6)", 0, Weight++, "Text", "8;0.0:999.0");
+    PI.AddSetting("UTComp Weapon Config", "ClassicSniperRifle_MinReloadPct", "Sniper Rifle MinReloadPct (0.5)", 0, Weight++, "Text", "8;0.0:999.0");
+    PI.AddSetting("UTComp Weapon Config", "ClassicSniperPrimary_AmmoPerFire", "Sniper Rifle Ammo Per Fire (1)", 0, Weight++, "Text", "4;0:1000");
+    PI.AddSetting("UTComp Weapon Config", "ClassicSniperPrimary_DamageMin", "Sniper Rifle Damage Min (60)", 0, Weight++, "Text", "4;0:1000");
+    PI.AddSetting("UTComp Weapon Config", "ClassicSniperPrimary_DamageMax", "Sniper Rifle Damage Max (60)", 0, Weight++, "Text", "4;0:1000");
+    PI.AddSetting("UTComp Weapon Config", "ClassicSniperPrimary_TraceRange", "Sniper Rifle Trace Range (17000)", 0, Weight++, "Text", "6;0:100000");
+    PI.AddSetting("UTComp Weapon Config", "ClassicSniperPrimary_FireRate", "Sniper Rifle Fire Rate (1.33)", 0, Weight++, "Text", "4;0.0:1000");
+    PI.AddSetting("UTComp Weapon Config", "ClassicSniperPrimary_HeadshotDamageMult", "Sniper Rifle Headshot Multiplier (2.0)", 0, Weight++, "Text", "4;0.0:1000");
+    PI.AddSetting("UTComp Weapon Config", "bGiveClassicSniperRifle", "Give Sniper Rifle to Player (false)", 0, Weight++, "Check");
+    PI.AddSetting("UTComp Weapon Config", "ClassicSniperRifleAmmoGiven", "Sniper Rifle Ammo Given (15)", 0, Weight++, "Text", "8;0:1000");
 }
 
 static event string GetDescriptionText(string PropName)
@@ -803,6 +831,32 @@ static event string GetDescriptionText(string PropName)
         case "SniperPrimary_HeadshotDamageMult": return "Lightning Gun Headshot Multiplier (2.0)";
         case "bGiveSniperRifle": return "Give Lightning Gun to Player (false)";
         case "SniperRifleAmmoGiven": return "Lightning Gun Ammo Given (15)";
+
+        case "bModifyClassicSniperRifle": return "Modify the Lightning Gun (false)";
+        case "ClassicSniperRifle_PutDownTime": return "Sniper Rifle Put Down Time (0.33)";
+        case "ClassicSniperRifle_BringUpTime": return "Sniper Rifle Bring Up Time (0.36)";
+        case "ClassicSniperRifle_MinReloadPct": return "Sniper Rifle MinReloadPct (0.25)";
+        case "ClassicSniperPrimary_AmmoPerFire": return "Sniper Rifle Ammo Per Fire (1)";
+        case "ClassicSniperPrimary_DamageMin": return "Sniper Rifle Damage Min (70)";
+        case "ClassicSniperPrimary_DamageMax": return "Sniper Rifle Damage Max (70)";
+        case "ClassicSniperPrimary_TraceRange": return "Sniper Rifle Trace Range (17000)";
+        case "ClassicSniperPrimary_FireRate": return "Sniper Rifle Fire Rate (1.6)";
+        case "ClassicSniperPrimary_HeadshotDamageMult": return "Sniper Rifle Headshot Multiplier (2.0)";
+        case "bGiveClassicSniperRifle": return "Give Sniper Rifle to Player (false)";
+        case "ClassicSniperRifleAmmoGiven": return "Sniper Rifle Ammo Given (15)";
+
+        case "bModifyClassicSniperRifle": return "Modify the Sniper Rifle (false)";
+        case "ClassicSniperRifle_PutDownTime": return "Sniper Rifle Put Down Time (0.58)";
+        case "ClassicSniperRifle_BringUpTime": return "Sniper Rifle Bring Up Time (0.6)";
+        case "ClassicSniperRifle_MinReloadPct": return "Sniper Rifle MinReloadPct (0.5)";
+        case "ClassicSniperPrimary_AmmoPerFire": return "Sniper Rifle Ammo Per Fire (1)";
+        case "ClassicSniperPrimary_DamageMin": return "Sniper Rifle Damage Min (60)";
+        case "ClassicSniperPrimary_DamageMax": return "Sniper Rifle Damage Max (60)";
+        case "ClassicSniperPrimary_TraceRange": return "Sniper Rifle Trace Range (17000)";
+        case "ClassicSniperPrimary_FireRate": return "Sniper Rifle Fire Rate (1.33)";
+        case "ClassicSniperPrimary_HeadshotDamageMult": return "Sniper Rifle Headshot Multiplier (2.0)";
+        case "bGiveClassicSniperRifle": return "Give Sniper Rifle to Player (false)";
+        case "ClassicSniperRifleAmmoGiven": return "Sniper Rifle Ammo Given (15)";
     }
 }
 
@@ -1142,4 +1196,17 @@ defaultproperties
     SniperPrimary_HeadshotDamageMult=2.0
     bGiveSniperRifle=false
     SniperRifleAmmoGiven=15
+
+    bModifyClassicSniperRifle=false
+    ClassicSniperRifle_BringUpTime=0.6
+    ClassicSniperRifle_PutDownTime=0.58
+    ClassicSniperRifle_MinReloadPct=0.5
+    ClassicSniperPrimary_AmmoPerFire=1
+    ClassicSniperPrimary_DamageMin=60
+    ClassicSniperPrimary_DamageMax=60
+    ClassicSniperPrimary_TraceRange=17000
+    ClassicSniperPrimary_FireRate=1.33
+    ClassicSniperPrimary_HeadshotDamageMult=2.0
+    bGiveClassicSniperRifle=false
+    ClassicSniperRifleAmmoGiven=15
 }
