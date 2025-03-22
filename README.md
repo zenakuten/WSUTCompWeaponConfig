@@ -276,3 +276,122 @@ Each weapon has a modify toggle which defaults to false.  This must be set to tr
 | Lightning Gun Arc Damage Multiplier  | 0.5 |
 | Lightning Gun Arc Trace Distance  | 300 |
 | Lightning Gun Headshot Multiplier  | 2.0 |
+
+<br />
+<br />
+<br />
+
+## Sniper Rifle
+| Property | Default Value |
+|----------|---------------|
+| Modify the Sniper Rifle  | false |
+| Sniper Rifle Put Down Time  | 0.6 |
+| Sniper Rifle Bring Up Time  | 0.58 |
+| Sniper Rifle MinReloadPct  | 0.5 |
+| Sniper Rifle Ammo Per Fire  | 1 |
+| Sniper Rifle Damage Min  | 60 |
+| Sniper Rifle Damage Max  | 60 |
+| Sniper Rifle Trace Range  | 17000 |
+| Sniper Rifle Fire Rate  | 1.33 |
+| Sniper Rifle Headshot Multiplier  | 2.0 |
+
+<br />
+<br />
+<br />
+
+## Super Shock Rifle
+| Property | Default Value |
+|----------|---------------|
+| Modify the Super Shock Rifle  | false |
+| Super Shock Rifle Put Down Time  | 0.33 |
+| Super Shock Rifle Bring Up Time  | 0.33 |
+| Super Shock Rifle MinReloadPct  | 0.5 |
+| Super Shock primary trace range  | 17000 |
+| Super Shock Primary Momentum  | 60000.0 |
+| Super Shock Primary Ammo Per Fire  | 0 |
+| Super Shock Primary Damage Min  | 1000 |
+| Super Shock Primary Damage Max  | 1000 |
+| Super Shock Primary Fire Rate  | 1.1 |
+
+<br />
+<br />
+<br />
+
+## Grenade Launcher
+| Property | Default Value |
+|----------|---------------|
+| Modify the Grenade Launcher  | false |
+| Grenade Launcher Put Down Time  | 0.33 |
+| Grenade Launcher Bring Up Time  | 0.33 |
+| Grenade Launcher MinReloadPct  | 0.5 |
+| Grenade Projectile Speed  | 1200.0 |
+| Grenade Projectile Max Speed  | 1200.0 |
+| Grenade Projectile Toss Z  | 0.0 |
+| Grenade Projectile Damage  | 100.0 |
+| Grenade Projectile Damage Radius | 175.0 |
+| Grenade Projectile Momentum Transfer | 50000.0 |
+| Grenade Projectile Cull Distance | 5000.0 |
+| Grenade Projectile Life Span | 0.0 |
+| Grenade Projectile Dampen Factor | 0.5 |
+| Grenade Projectile Dampen Factor Parallel | 0.8 |
+
+<br />
+<br />
+<br />
+
+## Avril
+| Property | Default Value |
+|----------|---------------|
+| Modify the Avril  | false |
+| Avril Put Down Time  | 0.33 |
+| Avril Bring Up Time  | 0.45 |
+| Avril MinReloadPct  | 0.5 |
+| Avril Lock Check Freq  | 0.2 |
+| Avril Max Lock Range  | 15000.0 |
+| Avril Lock Aim  | 0.996 |
+| Avril Ammo Per Fire  | 1 |
+| Avril Fire Rate  | 4.0 |
+| Avril Kick Momentum  | (X=-350.0,Z=175.0) |
+| Avril Rocket Lead Target Delay | 1.0 |
+| Avril Rocket Proj Target | true |
+| Avril Rocket Speed  | 550.0 |
+| Avril Rocket Max Speed  | 2800.0 |
+| Avril Rocket Damage  | 125.0 |
+| Avril Rocket Damage Radius | 150.0 |
+| Avril Rocket Momentum Transfer | 50000.0 |
+| Avril Rocket Life Span | 7.0 |
+
+<br />
+<br />
+<br />
+
+## Mine Layer
+| Property | Default Value |
+|----------|---------------|
+| Modify the Mine Layer  | false |
+| Mine Layer Reload Delay | 0.4 |
+| Mine Layer Max Mines | 8 |
+| Mine Layer Put Down Time  | 0.40 |
+| Mine Layer Bring Up Time  | 0.35 |
+| Mine Layer MinReloadPct  | 0.5 |
+| Mine Layer Ammo Per Fire  | 1 |
+| Mine Layer Fire Rate  | 1.1 |
+| Mine Detection Timer | 0.5 |
+| Mine Scurry Speed | 525.0 |
+| Mine Scurry Anim Rate | 4.1 |
+| Mine Target Loc Fuzz | 250 |
+| Mine Speed  | 800.0 |
+| Mine Max Speed  | 800.0 |
+| Mine Damage  | 95.0 |
+| Mine Damage Radius | 250.0 |
+| Mine Momentum Transfer | 50000.0 |
+| Mine Cull Distance | 6000.0 |
+| Mine Life Span | 7.0 |
+
+<br />
+<br />
+<br />
+
+
+
+
