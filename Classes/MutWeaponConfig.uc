@@ -66,6 +66,9 @@ var config float AssaultGrenade_TossZ;
 var config float AssaultGrenade_Damage;
 var config float AssaultGrenade_DamageRadius;
 var config float AssaultGrenade_MomentumTransfer;
+var config bool bModifyAssaultAmmo;
+var config int AssaultRifleAmmoGiven;
+var config int AssaultGrenadesGiven;
 
 // bio rifle
 var config bool bModifyBioRifle;
@@ -84,6 +87,8 @@ var config bool Bio_ProjMergeGlobs;
 var config float BioRifle_PutDownTime;
 var config float BioRifle_BringUpTime;
 var config float BioRifle_MinReloadPct;
+var config bool bGiveBioRifle;
+var config int BioAmmoGiven;
 
 //shock
 var config bool bModifyShockRifle;
@@ -112,6 +117,8 @@ var config int ShockSecondary_ProjSoundVolume;
 var config float ShockRifle_PutDownTime;
 var config float ShockRifle_BringUpTime;
 var config float ShockRifle_MinReloadPct;
+var config bool bGiveShock;
+var config int ShockAmmoGiven;
 
 //link
 var config bool bModifyLinkGun;
@@ -134,6 +141,8 @@ var config float LinkSecondary_LinkBreakDelay;
 var config float LinkGun_PutDownTime;
 var config float LinkGun_BringUpTime;
 var config float LinkGun_MinReloadPct;
+var config bool bGiveLinkGun;
+var config int LinkGunAmmoGiven;
 
 // minigun
 var config bool bModifyMinigun;
@@ -162,6 +171,8 @@ var config float MinigunSecondary_AimError;
 var config float MinigunSecondary_Spread;
 var config float MinigunSecondary_PreFireTime;
 var config float MinigunSecondary_WindupTime;
+var config bool bGiveMinigun;
+var config int MinigunAmmoGiven;
 
 // flak
 var config bool bModifyFlakCannon;
@@ -193,6 +204,8 @@ var config float FlakShell_DamageRadius;
 var config float FlakShell_MomentumTransfer;
 var config float FlakShell_CullDistance;
 var config float FlakShell_LifeSpan;
+var config bool bGiveFlakCannon;
+var config int FlakCannonAmmoGiven;
 
 // rocket launcher
 var config bool bModifyRocketLauncher;
@@ -222,6 +235,8 @@ var config float RocketProj_FlockRadius;
 var config float RocketProj_FlockStiffness;
 var config float RocketProj_FlockMaxForce;
 var config float RocketProj_FlockCurlForce;
+var config bool bGiveRocketLauncher;
+var config int RocketLauncherAmmoGiven;
 
 // lightning gun
 var config bool bModifySniperRifle;
@@ -237,6 +252,9 @@ var config float SniperPrimary_HeadshotDamageMult;
 var config float SniperRifle_PutDownTime;
 var config float SniperRifle_BringUpTime;
 var config float SniperRifle_MinReloadPct;
+var config bool bGiveSniperRifle;
+var config int SniperRifleAmmoGiven;
+
 
 function PostBeginPlay()
 {
@@ -357,6 +375,9 @@ static function FillPlayInfo(PlayInfo PI)
     PI.AddSetting("UTComp Weapon Config", "AssaultGrenade_Damage", "Assault Grenade Damage (70.0)", 0, Weight++, "Text", "8;0.0:10000000");
     PI.AddSetting("UTComp Weapon Config", "AssaultGrenade_DamageRadius", "Assault Grenade Damage Radius (220.0)", 0, Weight++, "Text", "8;0.0:10000000");
     PI.AddSetting("UTComp Weapon Config", "AssaultGrenade_MomentumTransfer", "Assault Grenade Momentum Transfer (75000.0)", 0, Weight++, "Text", "8;0.0:10000000");
+    PI.AddSetting("UTComp Weapon Config", "bModifyAssaultAmmo", "Modify the Assault Rifle Ammo (false)", 0, Weight++, "Check");
+    PI.AddSetting("UTComp Weapon Config", "AssaultRifleAmmoGiven", "Assault Rifle Ammo (100)", 0, Weight++, "Text", "8;0:1000");
+    PI.AddSetting("UTComp Weapon Config", "AssaultGrenadesGiven", "Assault Rifle Grenades (4)", 0, Weight++, "Text", "8;0:1000");
 
     // bio
     PI.AddSetting("UTComp Weapon Config", "bModifyBioRifle", "Modify the Bio Rifle (false)", 0, Weight++, "Check");
@@ -375,6 +396,8 @@ static function FillPlayInfo(PlayInfo PI)
     PI.AddSetting("UTComp Weapon Config", "Bio_ProjDripTime", "Bio Projectile Drip Time (1.8)", 0, Weight++, "Text", "4;0.0:1000");
     PI.AddSetting("UTComp Weapon Config", "Bio_ProjMaxGoopLevel", "Bio Projectile Max Goop Level (5)", 0, Weight++, "Text", "4;0:1000");
     PI.AddSetting("UTComp Weapon Config", "Bio_ProjMergeGlobs", "Bio Projectile Merg Globs (true)", 0, Weight++, "Check");
+    PI.AddSetting("UTComp Weapon Config", "bGiveBioRifle", "Give Bio Rifle to Player (false)", 0, Weight++, "Check");
+    PI.AddSetting("UTComp Weapon Config", "BioAmmoGiven", "Bio Rifle Ammo Given (20)", 0, Weight++, "Text", "8;0:1000");
 
     // shock
     PI.AddSetting("UTComp Weapon Config", "bModifyShockRifle", "Modify the Shock Rifle (false)", 0, Weight++, "Check");
@@ -404,6 +427,32 @@ static function FillPlayInfo(PlayInfo PI)
     PI.AddSetting("UTComp Weapon Config", "ShockSecondary_ProjForceRadius", "Shock Projectile Force Radius (40.0)", 0, Weight++, "Text", "4;0.0:1000");
     PI.AddSetting("UTComp Weapon Config", "ShockSecondary_ProjSoundRadius", "Shock Projectile Sound Radius (100)", 0, Weight++, "Text", "5;0:10000");
     PI.AddSetting("UTComp Weapon Config", "ShockSecondary_ProjSoundVolume", "Shock Projectile Sound Volume (50)", 0, Weight++, "Text", "5;0:10000");
+    PI.AddSetting("UTComp Weapon Config", "bGiveShock", "Give Shock Rifle to Player (false)", 0, Weight++, "Check");
+    PI.AddSetting("UTComp Weapon Config", "ShockAmmoGiven", "Shock Rifle Ammo Given (20)", 0, Weight++, "Text", "8;0:1000");
+
+    // linkgun
+    PI.AddSetting("UTComp Weapon Config", "bModifyLinkGun", "Modify the Link Gun (false)", 0, Weight++, "Check");
+    PI.AddSetting("UTComp Weapon Config", "LinkPrimary_AmmoPerFire", "Link Primary Ammo Per Fire (2)", 0, Weight++, "Text", "4;0:1000");
+    PI.AddSetting("UTComp Weapon Config", "LinkPrimary_FireRate", "Link Primary Fire Rate (0.12)", 0, Weight++, "Text", "8;0.0:1000");
+    PI.AddSetting("UTComp Weapon Config", "LinkProj_Damage", "Link Projectile Damage (30)", 0, Weight++, "Text", "5;0:10000");
+    PI.AddSetting("UTComp Weapon Config", "LinkProj_DamageRadius", "Link Projectile Damage Radius (0.0)", 0, Weight++, "Text", "8;0.0:10000000");
+    PI.AddSetting("UTComp Weapon Config", "LinkProj_Speed", "Link Projectile Speed (1000.0)", 0, Weight++, "Text", "8;0.0:10000000");
+    PI.AddSetting("UTComp Weapon Config", "LinkProj_MaxSpeed", "Link Projectile Max Speed (4000.0)", 0, Weight++, "Text", "8;0.0:10000000");
+    PI.AddSetting("UTComp Weapon Config", "LinkProj_MomentumTransfer", "Link Projectile Momentum Transfer (0.0)", 0, Weight++, "Text", "8;0.0:10000000");
+    PI.AddSetting("UTComp Weapon Config", "LinkProj_LifeSpan", "Link Projectile Life Span (3.0)", 0, Weight++, "Text", "8;0.0:10000000");
+    PI.AddSetting("UTComp Weapon Config", "LinkProj_CullDistance", "Link Projectile Cull Distance (3500.0)", 0, Weight++, "Text", "8;0.0:10000000");
+    PI.AddSetting("UTComp Weapon Config", "LinkSecondary_TraceRange", "Link Secondary Trace Range (1100.0)", 0, Weight++, "Text", "8;0.0:10000000");
+    PI.AddSetting("UTComp Weapon Config", "LinkSecondary_MomentumTransfer", "Link Secondary Momentum Transfer (2000.0)", 0, Weight++, "Text", "8;0.0:10000000");
+    PI.AddSetting("UTComp Weapon Config", "LinkSecondary_AmmoPerFire", "Link Secondary Ammo Per Fire (1)", 0, Weight++, "Text", "8;0:1000");
+    PI.AddSetting("UTComp Weapon Config", "LinkSecondary_Damage", "Link Secondary Damage (9)", 0, Weight++, "Text", "8;0:1000");
+    PI.AddSetting("UTComp Weapon Config", "LinkSecondary_FireRate", "Link Secondary Fire Rate (0.12)", 0, Weight++, "Text", "8;0.0:10000000");
+    PI.AddSetting("UTComp Weapon Config", "LinkSecondary_LinkFlexibility", "Link Secondary Link Flexibility (0.64)", 0, Weight++, "Text", "8;0.0:10000000");
+    PI.AddSetting("UTComp Weapon Config", "LinkSecondary_LinkBreakDelay", "Link Secondary Link Break Delay (0.5)", 0, Weight++, "Text", "8;0.0:10000000");
+    PI.AddSetting("UTComp Weapon Config", "LinkGun_PutDownTime", "Link Gun Put Down Time (0.33)", 0, Weight++, "Text", "8;0.0:10000000");
+    PI.AddSetting("UTComp Weapon Config", "LinkGun_BringUpTime", "Link Gun Bring Up Time (0.33)", 0, Weight++, "Text", "8;0.0:10000000");
+    PI.AddSetting("UTComp Weapon Config", "LinkGun_MinReloadPct", "Link Gun MinReloadPct (0.5)", 0, Weight++, "Text", "8;0.0:10000000");
+    PI.AddSetting("UTComp Weapon Config", "bGiveLinkGun", "Give Link Gun to Player (false)", 0, Weight++, "Check");
+    PI.AddSetting("UTComp Weapon Config", "LinkGunAmmoGiven", "Link Gun Ammo Given (70)", 0, Weight++, "Text", "8;0:1000");
 
     // minigun
     PI.AddSetting("UTComp Weapon Config", "bModifyMinigun", "Modify the Minigun (false)", 0, Weight++, "Check");
@@ -432,28 +481,8 @@ static function FillPlayInfo(PlayInfo PI)
     PI.AddSetting("UTComp Weapon Config", "MinigunSecondary_Spread", "Minigun Secondary Spread (0.03)", 0, Weight++, "Text", "4;0.0:1000");
     PI.AddSetting("UTComp Weapon Config", "MinigunSecondary_PreFireTime", "Minigun Secondary Pre Fire Time (0.15)", 0, Weight++, "Text", "4;0.0:1000");
     PI.AddSetting("UTComp Weapon Config", "MinigunSecondary_WindupTime", "Minigun Secondary Windup Time (0.15)", 0, Weight++, "Text", "4;0.0:1000");
-
-    // linkgun
-    PI.AddSetting("UTComp Weapon Config", "bModifyLinkGun", "Modify the Link Gun (false)", 0, Weight++, "Check");
-    PI.AddSetting("UTComp Weapon Config", "LinkPrimary_AmmoPerFire", "Link Primary Ammo Per Fire (2)", 0, Weight++, "Text", "4;0:1000");
-    PI.AddSetting("UTComp Weapon Config", "LinkPrimary_FireRate", "Link Primary Fire Rate (0.12)", 0, Weight++, "Text", "8;0.0:1000");
-    PI.AddSetting("UTComp Weapon Config", "LinkProj_Damage", "Link Projectile Damage (30)", 0, Weight++, "Text", "5;0:10000");
-    PI.AddSetting("UTComp Weapon Config", "LinkProj_DamageRadius", "Link Projectile Damage Radius (0.0)", 0, Weight++, "Text", "8;0.0:10000000");
-    PI.AddSetting("UTComp Weapon Config", "LinkProj_Speed", "Link Projectile Speed (1000.0)", 0, Weight++, "Text", "8;0.0:10000000");
-    PI.AddSetting("UTComp Weapon Config", "LinkProj_MaxSpeed", "Link Projectile Max Speed (4000.0)", 0, Weight++, "Text", "8;0.0:10000000");
-    PI.AddSetting("UTComp Weapon Config", "LinkProj_MomentumTransfer", "Link Projectile Momentum Transfer (0.0)", 0, Weight++, "Text", "8;0.0:10000000");
-    PI.AddSetting("UTComp Weapon Config", "LinkProj_LifeSpan", "Link Projectile Life Span (3.0)", 0, Weight++, "Text", "8;0.0:10000000");
-    PI.AddSetting("UTComp Weapon Config", "LinkProj_CullDistance", "Link Projectile Cull Distance (3500.0)", 0, Weight++, "Text", "8;0.0:10000000");
-    PI.AddSetting("UTComp Weapon Config", "LinkSecondary_TraceRange", "Link Secondary Trace Range (1100.0)", 0, Weight++, "Text", "8;0.0:10000000");
-    PI.AddSetting("UTComp Weapon Config", "LinkSecondary_MomentumTransfer", "Link Secondary Momentum Transfer (2000.0)", 0, Weight++, "Text", "8;0.0:10000000");
-    PI.AddSetting("UTComp Weapon Config", "LinkSecondary_AmmoPerFire", "Link Secondary Ammo Per Fire (1)", 0, Weight++, "Text", "8;0:1000");
-    PI.AddSetting("UTComp Weapon Config", "LinkSecondary_Damage", "Link Secondary Damage (9)", 0, Weight++, "Text", "8;0:1000");
-    PI.AddSetting("UTComp Weapon Config", "LinkSecondary_FireRate", "Link Secondary Fire Rate (0.12)", 0, Weight++, "Text", "8;0.0:10000000");
-    PI.AddSetting("UTComp Weapon Config", "LinkSecondary_LinkFlexibility", "Link Secondary Link Flexibility (0.64)", 0, Weight++, "Text", "8;0.0:10000000");
-    PI.AddSetting("UTComp Weapon Config", "LinkSecondary_LinkBreakDelay", "Link Secondary Link Break Delay (0.5)", 0, Weight++, "Text", "8;0.0:10000000");
-    PI.AddSetting("UTComp Weapon Config", "LinkGun_PutDownTime", "Link Gun Put Down Time (0.33)", 0, Weight++, "Text", "8;0.0:10000000");
-    PI.AddSetting("UTComp Weapon Config", "LinkGun_BringUpTime", "Link Gun Bring Up Time (0.33)", 0, Weight++, "Text", "8;0.0:10000000");
-    PI.AddSetting("UTComp Weapon Config", "LinkGun_MinReloadPct", "Link Gun MinReloadPct (0.5)", 0, Weight++, "Text", "8;0.0:10000000");
+    PI.AddSetting("UTComp Weapon Config", "bGiveMinigun", "Give Minigun to Player (false)", 0, Weight++, "Check");
+    PI.AddSetting("UTComp Weapon Config", "MinigunAmmoGiven", "Minigun Ammo Given (150)", 0, Weight++, "Text", "8;0:1000");
 
     // flak
     PI.AddSetting("UTComp Weapon Config", "bModifyFlakCannon", "Modify the Flak Cannon (false)", 0, Weight++, "Check");
@@ -485,6 +514,8 @@ static function FillPlayInfo(PlayInfo PI)
     PI.AddSetting("UTComp Weapon Config", "FlakCannon_PutDownTime", "FlakCannon Put Down Time (0.33)", 0, Weight++, "Text", "8;0.0:999.0");
     PI.AddSetting("UTComp Weapon Config", "FlakCannon_BringUpTime", "FlakCannon Bring Up Time (0.33)", 0, Weight++, "Text", "8;0.0:999.0");
     PI.AddSetting("UTComp Weapon Config", "FlakCannon_MinReloadPct", "FlakCannon MinReloadPct (0.5)", 0, Weight++, "Text", "8;0.0:999.0");
+    PI.AddSetting("UTComp Weapon Config", "bGiveFlakCannon", "Give Flak Cannon to Player (false)", 0, Weight++, "Check");
+    PI.AddSetting("UTComp Weapon Config", "FlakCannonAmmoGiven", "Flak Cannon Ammo Given (15)", 0, Weight++, "Text", "8;0:1000");
 
     // rocket launcher
     PI.AddSetting("UTComp Weapon Config", "bModifyRocketLauncher", "Modify the Rocket Launcher (false)", 0, Weight++, "Check");
@@ -514,6 +545,8 @@ static function FillPlayInfo(PlayInfo PI)
     PI.AddSetting("UTComp Weapon Config", "RocketProj_FlockStiffness", "Rocket Projectile Flock Stiffness (40.0)", 0, Weight++, "Text", "8;0.0:10000000");
     PI.AddSetting("UTComp Weapon Config", "RocketProj_FlockMaxForce", "Rocket Projectile Flock Max Force (600.0)", 0, Weight++, "Text", "8;0.0:10000000");
     PI.AddSetting("UTComp Weapon Config", "RocketProj_FlockCurlForce", "Rocket Projectile Flock Curl Force (450.0)", 0, Weight++, "Text", "8;0.0:10000000");
+    PI.AddSetting("UTComp Weapon Config", "bGiveRocketLauncher", "Give Rocket Launcher to Player (false)", 0, Weight++, "Check");
+    PI.AddSetting("UTComp Weapon Config", "RocketLauncherAmmoGiven", "Rocket Launcher Ammo Given (12)", 0, Weight++, "Text", "8;0:1000");
 
     // lightning gun
     PI.AddSetting("UTComp Weapon Config", "bModifySniperRifle", "Modify the Lightning Gun (false)", 0, Weight++, "Check");
@@ -529,6 +562,8 @@ static function FillPlayInfo(PlayInfo PI)
     PI.AddSetting("UTComp Weapon Config", "SniperPrimary_SecDamageMult", "Lightning Gun Arc Damage Multiplier (0.5)", 0, Weight++, "Text", "4;0.0:1000");
     PI.AddSetting("UTComp Weapon Config", "SniperPrimary_SecTraceDist", "Lightning Gun Arc Trace Distance (300)", 0, Weight++, "Text", "6;0:100000");
     PI.AddSetting("UTComp Weapon Config", "SniperPrimary_HeadshotDamageMult", "Lightning Gun Headshot Multiplier (2.0)", 0, Weight++, "Text", "4;0.0:1000");
+    PI.AddSetting("UTComp Weapon Config", "bGiveSniperRifle", "Give Lightning Gun to Player (false)", 0, Weight++, "Check");
+    PI.AddSetting("UTComp Weapon Config", "SniperRifleAmmoGiven", "Lightning Gun Ammo Given (15)", 0, Weight++, "Text", "8;0:1000");
 }
 
 static event string GetDescriptionText(string PropName)
@@ -587,6 +622,9 @@ static event string GetDescriptionText(string PropName)
         case "AssaultGrenade_Damage": return "Assault Grenade Damage (70.0)";
         case "AssaultGrenade_DamageRadius": return "Assault Grenade Damage Radius (220.0)";
         case "AssaultGrenade_MomentumTransfer": return "Assault Grenade Momentum Transfer (75000.0)";
+        case "bModifyAssaultAmmo": return "Modify the Assault Rifle Ammo (false)";
+        case "AssaultRifleAmmoGiven": return "Assault Rifle Ammo (100)";
+        case "AssaultGrenadesGiven": return "Assault Rifle Grenades (4)";
 
         case "bModifyBioRifle": return "Modify the Bio Rifle (false)"; 
         case "BioRifle_PutDownTime": return "Bio Rifle Put Down Time (0.33)";
@@ -604,6 +642,8 @@ static event string GetDescriptionText(string PropName)
         case "Bio_ProjDripTime": return "Bio Projectile Drip Time (1.8)"; 
         case "Bio_ProjMaxGoopLevel": return "Bio Projectile Max Goop Level (5)"; 
         case "Bio_ProjMergeGlobs": return "Bio Projectile Merg Globs (true)"; 
+        case "bGiveBioRifle": return "Give Bio Rifle to Player (false)";
+        case "BioAmmoGiven": return "Bio Rifle Ammo Given (20)";
 
         case "bModifyShockRifle": return "Modify the Shock Rifle (false)";
         case "ShockRifle_PutDownTime": return "Shock Rifle Put Down Time (0.33)";
@@ -631,6 +671,8 @@ static event string GetDescriptionText(string PropName)
         case "ShockSecondary_ProjForceRadius": return "Shock Projectile Force Radius (40.0)";
         case "ShockSecondary_ProjSoundRadius": return "Shock Projectile Sound Radius (100)";
         case "ShockSecondary_ProjSoundVolume": return "Shock Projectile Sound Volume (50)";
+        case "bGiveShock": return "Give Shock Rifle to Player (false)";
+        case "ShockAmmoGiven": return "Shock Rifle Ammo Given (20)";
 
         case "bModifyLinkGun": return "Modify the Link Gun (false)";
         case "LinkPrimary_AmmoPerFire": return "Link Primary Ammo Per Fire (2)";
@@ -652,6 +694,8 @@ static event string GetDescriptionText(string PropName)
         case "LinkGun_PutDownTime": return "Link Gun Put Down Time (0.33)";
         case "LinkGun_BringUpTime": return "Link Gun Bring Up Time (0.33)";
         case "LinkGun_MinReloadPct": return "Link Gun MinReloadPct (0.5)";
+        case "bGiveLinkGun": return "Give Link Gun to Player (false)";
+        case "LinkGunAmmoGiven": return "Link Gun Ammo Given (70)";
 
         case "bModifyMinigun": return "Modify the Minigun (false)";
         case "Minigun_PutDownTime": return "Minigun Put Down Time (0.33)";
@@ -679,6 +723,8 @@ static event string GetDescriptionText(string PropName)
         case "MinigunSecondary_Spread": return "Minigun Secondary Spread (0.03)";
         case "MinigunSecondary_PreFireTime": return "Minigun Secondary Pre Fire Time (0.15)";
         case "MinigunSecondary_WindupTime": return "Minigun Secondary Windup Time (0.15)";
+        case "bGiveMinigun": return "Give Minigun to Player (false)";
+        case "MinigunAmmoGiven": return "Minigun Ammo Given (150)";
 
         case "bModifyFlakCannon": return "Modify the Flak Cannon (false)";
         case "FlakPrimary_AmmoPerFire": return "Flak Primary Ammo Per Fire (1)";
@@ -706,6 +752,11 @@ static event string GetDescriptionText(string PropName)
         case "FlakShell_MomentumTransfer": return "Flak Shell Momentum Transfer (75000.0)";
         case "FlakShell_CullDistance": return "Flak Shell Cull Distance (4000.0)";
         case "FlakShell_LifeSpan": return "Flak Shell Life Span (6.0)";
+        case "FlakCannon_PutDownTime": return "FlakCannon Put Down Time (0.33)";
+        case "FlakCannon_BringUpTime": return "FlakCannon Bring Up Time (0.33)";
+        case "FlakCannon_MinReloadPct": return "FlakCannon MinReloadPct (0.5)";
+        case "bGiveFlakCannon": return "Give Flak Cannon to Player (false)";
+        case "FlakCannonAmmoGiven": return "Flak Cannon Ammo Given (15)";
 
         case "bModifyRocketLauncher": return "Modify the Rocket Launcher (false)";
         case "RocketLauncher_PutDownTime": return "Rocket Launcher Put Down Time (0.33)";
@@ -734,6 +785,8 @@ static event string GetDescriptionText(string PropName)
         case "RocketProj_FlockStiffness": return "Rocket Projectile Flock Stiffness (40.0)";
         case "RocketProj_FlockMaxForce": return "Rocket Projectile Flock Max Force (600.0)";
         case "RocketProj_FlockCurlForce": return "Rocket Projectile Flock Curl Force (450.0)";
+        case "bGiveRocketLauncher": return "Give Rocket Launcher to Player (false)";
+        case "RocketLauncherAmmoGiven": return "Rocket Launcher Ammo Given (12)";
 
         case "bModifySniperRifle": return "Modify the Lightning Gun (false)";
         case "SniperRifle_PutDownTime": return "Sniper Rifle Put Down Time (0.33)";
@@ -748,6 +801,8 @@ static event string GetDescriptionText(string PropName)
         case "SniperPrimary_SecDamageMult": return "Lightning Gun Arc Damage Multiplier (0.5)";
         case "SniperPrimary_SecTraceDist": return "Lightning Gun Arc Trace Distance (300)";
         case "SniperPrimary_HeadshotDamageMult": return "Lightning Gun Headshot Multiplier (2.0)";
+        case "bGiveSniperRifle": return "Give Lightning Gun to Player (false)";
+        case "SniperRifleAmmoGiven": return "Lightning Gun Ammo Given (15)";
     }
 }
 
@@ -760,6 +815,86 @@ function GetServerDetails( out GameInfo.ServerResponseLine ServerState )
 	ServerState.ServerInfo.Length = i+1;
 	ServerState.ServerInfo[i].Key = "WSUTComp Weapon Config";
 	ServerState.ServerInfo[i].Value = FriendlyVersion;
+}
+
+function ModifyPlayer(Pawn Other)
+{
+    if(bModifyAssaultAmmo)
+    {
+        class'AssaultRifle'.default.FireModeClass[0].default.AmmoClass.default.InitialAmount = Min(999, AssaultRifleAmmoGiven);
+        class'AssaultRifle'.default.FireModeClass[0].default.AmmoClass.default.MaxAmmo = 
+            Max(class'AssaultRifle'.default.FireModeClass[0].default.AmmoClass.default.MaxAmmo, AssaultRifleAmmoGiven);
+
+        class'AssaultRifle'.default.FireModeClass[1].default.AmmoClass.default.InitialAmount = Min(999, AssaultGrenadesGiven);
+        class'AssaultRifle'.default.FireModeClass[1].default.AmmoClass.default.MaxAmmo = 
+            Max(class'AssaultRifle'.default.FireModeClass[1].default.AmmoClass.default.MaxAmmo, AssaultGrenadesGiven);
+    }
+
+    if(bGiveBioRifle)
+    {
+        class'BioRifle'.default.FireModeClass[0].default.AmmoClass.default.InitialAmount = Min(999, BioAmmoGiven);
+        class'BioRifle'.default.FireModeClass[0].default.AmmoClass.default.MaxAmmo = 
+            Max(class'BioRifle'.default.FireModeClass[0].default.AmmoClass.default.MaxAmmo, BioAmmoGiven);
+
+        Other.CreateInventory("XWeapons.BioRifle");
+    }
+
+    if(bGiveShock)
+    {
+        class'ShockRifle'.default.FireModeClass[0].default.AmmoClass.default.InitialAmount = Min(999, ShockAmmoGiven);
+        class'ShockRifle'.default.FireModeClass[0].default.AmmoClass.default.MaxAmmo = 
+            Max(class'ShockRifle'.default.FireModeClass[0].default.AmmoClass.default.MaxAmmo, ShockAmmoGiven);
+
+        Other.CreateInventory("XWeapons.ShockRifle");
+    }
+
+    if(bGiveLinkGun)
+    {
+        class'LinkGun'.default.FireModeClass[0].default.AmmoClass.default.InitialAmount = Min(999, LinkGunAmmoGiven);
+        class'LinkGun'.default.FireModeClass[0].default.AmmoClass.default.MaxAmmo = 
+            Max(class'LinkGun'.default.FireModeClass[0].default.AmmoClass.default.MaxAmmo, LinkGunAmmoGiven);
+
+        Other.CreateInventory("XWeapons.LinkGun");
+    }
+
+    if(bGiveMinigun)
+    {
+        class'Minigun'.default.FireModeClass[0].default.AmmoClass.default.InitialAmount = Min(999, MinigunAmmoGiven);
+        class'Minigun'.default.FireModeClass[0].default.AmmoClass.default.MaxAmmo = 
+            Max(class'Minigun'.default.FireModeClass[0].default.AmmoClass.default.MaxAmmo, MinigunAmmoGiven);
+
+        Other.CreateInventory("XWeapons.Minigun");
+    }
+
+    if(bGiveFlakCannon)
+    {
+        class'FlakCannon'.default.FireModeClass[0].default.AmmoClass.default.InitialAmount = Min(999, FlakCannonAmmoGiven);
+        class'FlakCannon'.default.FireModeClass[0].default.AmmoClass.default.MaxAmmo = 
+            Max(class'FlakCannon'.default.FireModeClass[0].default.AmmoClass.default.MaxAmmo, FlakCannonAmmoGiven);
+
+        Other.CreateInventory("XWeapons.FlakCannon");
+    }
+
+    if(bGiveRocketLauncher)
+    {
+        class'RocketLauncher'.default.FireModeClass[0].default.AmmoClass.default.InitialAmount = Min(999, RocketLauncherAmmoGiven);
+        class'RocketLauncher'.default.FireModeClass[0].default.AmmoClass.default.MaxAmmo = 
+            Max(class'RocketLauncher'.default.FireModeClass[0].default.AmmoClass.default.MaxAmmo, RocketLauncherAmmoGiven);
+
+        Other.CreateInventory("XWeapons.RocketLauncher");
+    }
+
+    if(bGiveSniperRifle)
+    {
+        class'SniperRifle'.default.FireModeClass[0].default.AmmoClass.default.InitialAmount = Min(999, SniperRifleAmmoGiven);
+        class'SniperRifle'.default.FireModeClass[0].default.AmmoClass.default.MaxAmmo = 
+            Max(class'SniperRifle'.default.FireModeClass[0].default.AmmoClass.default.MaxAmmo, SniperRifleAmmoGiven);
+
+        Other.CreateInventory("XWeapons.SniperRifle");
+    }
+
+    super.ModifyPlayer(Other);
+
 }
 
 defaultproperties
@@ -826,6 +961,9 @@ defaultproperties
     AssaultGrenade_Damage=70.0
     AssaultGrenade_DamageRadius=220.0
     AssaultGrenade_MomentumTransfer=75000.0
+    bModifyAssaultAmmo=false
+    AssaultRifleAmmoGiven=100
+    AssaultGrenadesGiven=4
 
     bModifyBioRifle=false
     BioRifle_BringUpTime=0.33
@@ -843,6 +981,8 @@ defaultproperties
     Bio_ProjDripTime=1.8
     Bio_ProjMaxGoopLevel=5
     Bio_ProjMergeGlobs=true
+    bGiveBioRifle=false
+    BioAmmoGiven=20
 
     bModifyShockRifle=false
     ShockRifle_BringUpTime=0.33
@@ -870,6 +1010,8 @@ defaultproperties
     ShockSecondary_ProjForceRadius=40.0
     ShockSecondary_ProjSoundRadius=100
     ShockSecondary_ProjSoundVolume=50
+    bGiveShock=false
+    ShockAmmoGiven=20
 
     bModifyLinkGun=false
     LinkPrimary_AmmoPerFire=2
@@ -891,6 +1033,8 @@ defaultproperties
     LinkGun_PutDownTime=0.33
     LinkGun_BringUpTime=0.33
     LinkGun_MinReloadPct=0.5
+    bGiveLinkgun=false
+    LinkGunAmmoGiven=70
 
     bModifyMinigun=false
     Minigun_PutDownTime=0.33
@@ -918,6 +1062,8 @@ defaultproperties
     MinigunSecondary_Spread=0.03
     MinigunSecondary_PreFireTime=0.15
     MinigunSecondary_WindupTime=0.15
+    bGiveMinigun=false
+    MinigunAmmoGiven=150
 
     bModifyFlakCannon=false
     FlakCannon_BringUpTime=0.33
@@ -948,6 +1094,8 @@ defaultproperties
     FlakShell_MomentumTransfer=75000.0
     FlakShell_CullDistance=4000.0
     FlakShell_LifeSpan=6.0
+    bGiveFlakCannon=false
+    FlakCannonAmmoGiven=15
 
     bModifyRocketLauncher=false
     RocketLauncher_PutDownTime=0.33
@@ -976,6 +1124,8 @@ defaultproperties
     RocketProj_FlockStiffness=40.0
     RocketProj_FlockMaxForce=600.0
     RocketProj_FlockCurlForce=450.0    
+    bGiveRocketLauncher=false
+    RocketLauncherAmmoGiven=12
 
     bModifySniperRifle=false
     SniperRifle_BringUpTime=0.36
@@ -990,4 +1140,6 @@ defaultproperties
     SniperPrimary_SecDamageMult=0.5
     SniperPrimary_SecTraceDist=300
     SniperPrimary_HeadshotDamageMult=2.0
+    bGiveSniperRifle=false
+    SniperRifleAmmoGiven=15
 }
