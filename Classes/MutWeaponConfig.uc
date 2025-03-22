@@ -269,7 +269,7 @@ var config float ClassicSniperRifle_MinReloadPct;
 var config bool bGiveClassicSniperRifle;
 var config int ClassicSniperRifleAmmoGiven;
 
-//super shock
+// super shock
 var config bool bModifySuperShockRifle;
 var config int SuperShockPrimary_TraceRange;
 var config float SuperShockPrimary_Momentum;
@@ -282,6 +282,27 @@ var config float SuperShockRifle_BringUpTime;
 var config float SuperShockRifle_MinReloadPct;
 var config bool bGiveSuperShock;
 var config int SuperShockAmmoGiven;
+
+// ONS Grenade Launcher
+var config bool bModifyONSGrenadeLauncher;
+var config int ONSGrenadePrimary_AmmoPerFire;
+var config float ONSGrenadePrimary_FireRate;
+var config bool ONSGrenadeProj_bBounce;
+var config float ONSGrenadeProj_Speed;
+var config float ONSGrenadeProj_MaxSpeed;
+var config float ONSGrenadeProj_TossZ;
+var config float ONSGrenadeProj_Damage;
+var config float ONSGrenadeProj_DamageRadius;
+var config float ONSGrenadeProj_MomentumTransfer;
+var config float ONSGrenadeProj_CullDistance;
+var config float ONSGrenadeProj_LifeSpan;
+var config float ONSGrenadeProj_DampenFactor;
+var config float ONSGrenadeProj_DampenFactorParallel;
+var config float ONSGrenadeLauncher_PutDownTime;
+var config float ONSGrenadeLauncher_BringUpTime;
+var config float ONSGrenadeLauncher_MinReloadPct;
+var config bool bGiveONSGrenade;
+var config int ONSGrenadeAmmoGiven;
 
 function PostBeginPlay()
 {
@@ -620,6 +641,27 @@ static function FillPlayInfo(PlayInfo PI)
     PI.AddSetting("UTComp Weapon Config", "bGiveSuperShock", "Give Super Shock Rifle to Player (false)", 0, Weight++, "Check");
     PI.AddSetting("UTComp Weapon Config", "SuperShockAmmoGiven", "Super Shock Rifle Ammo Given (20)", 0, Weight++, "Text", "8;0:1000");
 
+    // ONS Grenade Launcher
+    PI.AddSetting("UTComp Weapon Config", "bModifyONSGrenade", "Modify the ONS Grenade Launcher (false)", 0, Weight++, "Check");
+    PI.AddSetting("UTComp Weapon Config", "ONSGrenade_PutDownTime", "ONS Grenade Launcher Put Down Time (0.33)", 0, Weight++, "Text", "8;0.0:999.0");
+    PI.AddSetting("UTComp Weapon Config", "ONSGrenade_BringUpTime", "ONS Grenade Launcher Bring Up Time (0.33)", 0, Weight++, "Text", "8;0.0:999.0");
+    PI.AddSetting("UTComp Weapon Config", "ONSGrenade_MinReloadPct", "ONS Grenade Launcher MinReloadPct (0.5)", 0, Weight++, "Text", "8;0.0:999.0");
+    PI.AddSetting("UTComp Weapon Config", "ONSGrenadePrimary_FireRate", "ONS Grenade Primary Fire Rate (0.33)", 0, Weight++, "Text", "8;0.0:999.0");
+    PI.AddSetting("UTComp Weapon Config", "ONSGrenadePrimary_AmmoPerFire", "ONS Grenade Primary Ammo Per Fire (1)", 0, Weight++, "Text", "8;0:999");
+    PI.AddSetting("UTComp Weapon Config", "ONSGrenadeProj_bBounce", "ONS Grenade Bounce (true)", 0, Weight++, "Check");
+    PI.AddSetting("UTComp Weapon Config", "ONSGrenadeProj_Speed", "ONS Grenade Speed (1200.0)", 0, Weight++, "Text", "8;0.0:10000000000");
+    PI.AddSetting("UTComp Weapon Config", "ONSGrenadeProj_MaxSpeed", "ONS Grenade Max Speed (1200.0)", 0, Weight++, "Text", "8;0.0:10000000000");
+    PI.AddSetting("UTComp Weapon Config", "ONSGrenadeProj_TossZ", "ONS Grenade TossZ (0.0)", 0, Weight++, "Text", "8;0.0:10000000000");
+    PI.AddSetting("UTComp Weapon Config", "ONSGrenadeProj_Damage", "ONS Grenade Damage (100.0)", 0, Weight++, "Text", "5;0.0:10000");
+    PI.AddSetting("UTComp Weapon Config", "ONSGrenadeProj_DamageRadius", "ONS Grenade Damage Radius (175.0)", 0, Weight++, "Text", "8;0.0:10000000000");
+    PI.AddSetting("UTComp Weapon Config", "ONSGrenadeProj_MomentumTransfer", "ONS Grenade Momentum Transfer (50000.0)", 0, Weight++, "Text", "8;0.0:1000000000");
+    PI.AddSetting("UTComp Weapon Config", "ONSGrenadeProj_CullDistance", "ONS Grenade Cull Distance (5000.0)", 0, Weight++, "Text", "8;0.0:1000000000");
+    PI.AddSetting("UTComp Weapon Config", "ONSGrenadeProj_LifeSpan", "ONS Grenade Life Span (0.0)", 0, Weight++, "Text", "8;0.0:1000000000");
+    PI.AddSetting("UTComp Weapon Config", "ONSGrenadeProj_DampenFactor", "ONS Grenade Dampen Factor (0.5)", 0, Weight++, "Text", "8;0.0:1000000000");
+    PI.AddSetting("UTComp Weapon Config", "ONSGrenadeProj_DampenFactor", "ONS Grenade Dampen Factor Parallel (0.8)", 0, Weight++, "Text", "8;0.0:1000000000");
+    PI.AddSetting("UTComp Weapon Config", "bGiveONSGrenade", "Give ONS Grenade Launcher to Player (false)", 0, Weight++, "Check");
+    PI.AddSetting("UTComp Weapon Config", "ONSGrenadeAmmoGiven", "ONS Grenade Launcher Ammo Given (10)", 0, Weight++, "Text", "8;0:1000");
+
 }
 
 static event string GetDescriptionText(string PropName)
@@ -885,6 +927,26 @@ static event string GetDescriptionText(string PropName)
         case "SuperShockPrimary_FireRate": return "Super Shock Primary Fire Rate (0.7)";
         case "bGiveSuperShock": return "Give Super Shock Rifle to Player (false)";
         case "SuperShockAmmoGiven": return "Super Shock Rifle Ammo Given (20)";
+        
+        case "bModifyONSGrenade": return "Modify the ONS Grenade Launcher (false)";
+        case "ONSGrenade_PutDownTime": return "ONS Grenade Launcher Put Down Time (0.33)";
+        case "ONSGrenade_BringUpTime": return "ONS Grenade Launcher Bring Up Time (0.33)";
+        case "ONSGrenade_MinReloadPct": return "ONS Grenade Launcher MinReloadPct (0.5)";
+        case "ONSGrenadePrimary_FireRate": return "ONS Grenade Primary Fire Rate (0.33)";
+        case "ONSGrenadePrimary_AmmoPerFire": return "ONS Grenade Primary Ammo Per Fire (1)";
+        case "ONSGrenadeProj_bBounce": return "ONS Grenade Bounce (true)";
+        case "ONSGrenadeProj_Speed": return "ONS Grenade Speed (1200.0)";
+        case "ONSGrenadeProj_MaxSpeed": return "ONS Grenade Max Speed (1200.0)";
+        case "ONSGrenadeProj_TossZ": return "ONS Grenade TossZ (0.0)";
+        case "ONSGrenadeProj_Damage": return "ONS Grenade Damage (100.0)";
+        case "ONSGrenadeProj_DamageRadius": return "ONS Grenade Damage Radius (175.0)";
+        case "ONSGrenadeProj_MomentumTransfer": return "ONS Grenade Momentum Transfer (50000.0)";
+        case "ONSGrenadeProj_CullDistance": return "ONS Grenade Cull Distance (5000.0)";
+        case "ONSGrenadeProj_LifeSpan": return "ONS Grenade Life Span (0.0)";
+        case "ONSGrenadeProj_DampenFactor": return "ONS Grenade Dampen Factor (0.5)";
+        case "ONSGrenadeProj_DampenFactor": return "ONS Grenade Dampen Factor Parallel (0.8)";
+        case "bGiveONSGrenade": return "Give ONS Grenade Launcher to Player (false)";
+        case "ONSGrenadeAmmoGiven": return "ONS Grenade Launcher Ammo Given (10)";
     }
 }
 
@@ -1250,4 +1312,24 @@ defaultproperties
     SuperShockPrimary_FireRate=1.1
     bGiveSuperShock=false
     SuperShockAmmoGiven=20
+
+    bModifyONSGrenadeLauncher=false
+    ONSGrenadePrimary_AmmoPerFire=1
+    ONSGrenadePrimary_FireRate=0.65
+    ONSGrenadeProj_bBounce=true
+    ONSGrenadeProj_Speed=1200.0
+    ONSGrenadeProj_MaxSpeed=1200.0
+    ONSGrenadeProj_TossZ=0.0
+    ONSGrenadeProj_Damage=100.0
+    ONSGrenadeProj_DamageRadius=175.0
+    ONSGrenadeProj_MomentumTransfer=50000.0
+    ONSGrenadeProj_CullDistance=5000.0
+    ONSGrenadeProj_LifeSpan=0.0
+    ONSGrenadeProj_DampenFactor=0.5
+    ONSGrenadeProj_DampenFactorParallel=0.8
+    ONSGrenadeLauncher_PutDownTime=0.33
+    ONSGrenadeLauncher_BringUpTime=0.33
+    ONSGrenadeLauncher_MinReloadPct=0.5
+    bGiveONSGrenade=false
+    ONSGrenadeAmmoGiven=10
 }
