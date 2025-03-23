@@ -1,5 +1,7 @@
 # WSUTComp Weapon Config
 
+Mutator to allow you to modify all of the weapon parameters of each weapon, like fire rate, damage, etc. 
+
 ## Main Menu
 ![image](pics/MainMenu.png)
 
