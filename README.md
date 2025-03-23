@@ -1,14 +1,6 @@
 # WSUTComp Weapon Config
 
 Mutator to allow you to modify all of the weapon parameters of each weapon, like fire rate, damage, etc. 
-
-## Usage with WS3SPN / TAM
-
-Because WS3SPN also does some weapon modifications, there are some caveats:
-
-* If you use the give weapon feature to give a weapon already given by WS3SPN (e.g. shock), it is unknown which ammo value will take precidence (WS3SPN also configures ammo amounts).
-* WS3SPN has an option to "modify the shield gun" which changes the shield jump.  WS3SPN's settings will override the ShieldGun config values SelfForceScale, SelfDamageScale, MinSelfDamage. WS3SPN also has these settings.   
-
 ## Main Menu
 ![image](pics/MainMenu.png)
 
@@ -19,6 +11,14 @@ You can also cause the players to spawn with the weapon by checking the `Give <w
 For each configured weapon, there is a page to modify values
 
 ![image](pics/ShieldGun.png)
+
+## Usage with WS3SPN / TAM
+
+Because WS3SPN also does some weapon modifications, there are some caveats:
+
+* If you use the give weapon feature to give a weapon already given by WS3SPN (e.g. shock), it is unknown which ammo value will take precidence (WS3SPN also configures ammo amounts).
+* WS3SPN has an option to "modify the shield gun" which changes the shield jump.  WS3SPN's settings will override the ShieldGun config values SelfForceScale, SelfDamageScale, MinSelfDamage. WS3SPN also has these settings.   
+
 
 <br />
 
