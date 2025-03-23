@@ -1,10 +1,18 @@
 # WSUTComp Weapon Config
 
-### Options
+## Main Menu
+![image](pics/MainMenu.png)
 
-Each weapon has a modify toggle which defaults to false.  This must be set to true for config options to take effect.
+The first item `Modify Weapons (false)` must be set `true` for any weapon modifications to take effect.  This is here so you can globally toggle on/off weapon config. In addition to the global toggle, each individual weapon config can be enabled.  Here I am enabling weapon config, and only for the shield gun.   
+
+You can also cause the players to spawn with the weapon by checking the `Give <weapon> to Player` box, and adjust the ammo values.  
+
+For each configured weapon, there is a page to modify values
+![image](pics/ShieldGun.png)
+
 <br />
 
+## List of all Options
 ## Shield Gun
 | Property | Default Value |
 |----------|---------------|
