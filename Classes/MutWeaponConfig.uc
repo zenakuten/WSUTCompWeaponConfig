@@ -382,10 +382,14 @@ function PostBeginPlay()
 
 function ParseURL(string Url)
 {
-   local array<string> Parts;
-   local int i;
+    local array<string> Parts;
+    local int i;
 
-   local string ModifyWeapons;
+    local string ModifyWeapons, ModifyAssaultRifle, ModifyBioRifle, 
+        ModifyClassicSniperRifle, ModifyFlakCannon, ModifyLinkGun, 
+        ModifyMinigun, ModifyONSAvril, ModifyONSGrenadeLauncher, 
+        ModifyONSMineLayer, ModifyRocketLauncher, ModifyShieldGun, 
+        ModifyShockRifle, ModifySniperRifle, ModifySuperShockRifle;
 
    Split(Url, "?", Parts);
 
@@ -395,6 +399,34 @@ function ParseURL(string Url)
        {
            if(Left(Parts[i],Len("ModifyWeapons"))~= "ModifyWeapons")
                ModifyWeapons=Right(Parts[i], Len(Parts[i])-Len("ModifyWeapons")-1);
+           if(Left(Parts[i],Len("ModifyAssaultRifle"))~= "ModifyAssaultRifle")
+               ModifyAssaultRifle=Right(Parts[i], Len(Parts[i])-Len("ModifyAssaultRifle")-1);
+           if(Left(Parts[i],Len("ModifyBioRifle"))~= "ModifyBioRifle")
+               ModifyBioRifle=Right(Parts[i], Len(Parts[i])-Len("ModifyBioRifle")-1);
+           if(Left(Parts[i],Len("ModifyClassicSniperRifle"))~= "ModifyClassicSniperRifle")
+               ModifyBioRifle=Right(Parts[i], Len(Parts[i])-Len("ModifyClassicSniperRifle")-1);
+           if(Left(Parts[i],Len("ModifyFlakCannon"))~= "ModifyFlakCannon")
+               ModifyFlakCannon=Right(Parts[i], Len(Parts[i])-Len("ModifyFlakCannon")-1);
+           if(Left(Parts[i],Len("ModifyLinkGun"))~= "ModifyLinkGun")
+               ModifyLinkGun=Right(Parts[i], Len(Parts[i])-Len("ModifyLinkGun")-1);
+           if(Left(Parts[i],Len("ModifyMinigun"))~= "ModifyMinigun")
+               ModifyMinigun=Right(Parts[i], Len(Parts[i])-Len("ModifyMinigun")-1);
+           if(Left(Parts[i],Len("ModifyONSAvril"))~= "ModifyONSAvril")
+               ModifyONSAvril=Right(Parts[i], Len(Parts[i])-Len("ModifyONSAvril")-1);
+           if(Left(Parts[i],Len("ModifyONSGrenadeLauncher"))~= "ModifyONSGrenadeLauncher")
+               ModifyONSGrenadeLauncher=Right(Parts[i], Len(Parts[i])-Len("ModifyONSGrenadeLauncher")-1);
+           if(Left(Parts[i],Len("ModifyONSMineLayer"))~= "ModifyONSMineLayer")
+               ModifyONSMineLayer=Right(Parts[i], Len(Parts[i])-Len("ModifyONSMineLayer")-1);
+           if(Left(Parts[i],Len("ModifyRocketLauncher"))~= "ModifyRocketLauncher")
+               ModifyRocketLauncher=Right(Parts[i], Len(Parts[i])-Len("ModifyRocketLauncher")-1);
+           if(Left(Parts[i],Len("ModifyShieldGun"))~= "ModifyShieldGun")
+               ModifyShieldGun=Right(Parts[i], Len(Parts[i])-Len("ModifyShieldGun")-1);
+           if(Left(Parts[i],Len("ModifyShockRifle"))~= "ModifyShockRifle")
+               ModifyShockRifle=Right(Parts[i], Len(Parts[i])-Len("ModifyShockRifle")-1);
+           if(Left(Parts[i],Len("ModifySniperRifle"))~= "ModifySniperRifle")
+               ModifySniperRifle=Right(Parts[i], Len(Parts[i])-Len("ModifySniperRifle")-1);
+           if(Left(Parts[i],Len("ModifySuperShockRifle"))~= "ModifySuperShockRifle")
+               ModifySuperShockRifle=Right(Parts[i], Len(Parts[i])-Len("ModifySuperShockRifle")-1);
        }
    }
    if(ModifyWeapons !="" && (ModifyWeapons~="False" || ModifyWeapons~="True"))
@@ -402,6 +434,190 @@ function ParseURL(string Url)
        default.bModifyWeapons = ModifyWeapons~="True";
        bModifyWeapons = default.bModifyWeapons;
    }
+   if(ModifyAssaultRifle !="" && (ModifyAssaultRifle~="False" || ModifyAssaultRifle~="True"))
+   {
+       default.bModifyAssaultRifle = ModifyAssaultRifle~="True";
+       bModifyAssaultRifle = default.bModifyAssaultRifle;
+   }
+   if(ModifyBioRifle !="" && (ModifyBioRifle~="False" || ModifyBioRifle~="True"))
+   {
+       default.bModifyBioRifle = ModifyBioRifle~="True";
+       bModifyBioRifle = default.bModifyBioRifle;
+   }
+   if(ModifyClassicSniperRifle !="" && (ModifyClassicSniperRifle~="False" || ModifyClassicSniperRifle~="True"))
+   {
+       default.bModifyClassicSniperRifle = ModifyClassicSniperRifle~="True";
+       bModifyClassicSniperRifle = default.bModifyClassicSniperRifle;
+   }
+   if(ModifyFlakCannon !="" && (ModifyFlakCannon~="False" || ModifyFlakCannon~="True"))
+   {
+       default.bModifyFlakCannon = ModifyFlakCannon~="True";
+       bModifyFlakCannon = default.bModifyFlakCannon;
+   }
+   if(ModifyLinkGun !="" && (ModifyLinkGun~="False" || ModifyLinkGun~="True"))
+   {
+       default.bModifyLinkGun = ModifyLinkGun~="True";
+       bModifyLinkGun = default.bModifyLinkGun;
+   }
+   if(ModifyMinigun !="" && (ModifyMinigun~="False" || ModifyMinigun~="True"))
+   {
+       default.bModifyMinigun = ModifyMinigun~="True";
+       bModifyMinigun = default.bModifyMinigun;
+   }
+   if(ModifyONSAvril !="" && (ModifyONSAvril~="False" || ModifyONSAvril~="True"))
+   {
+       default.bModifyONSAvril = ModifyONSAvril~="True";
+       bModifyONSAvril = default.bModifyONSAvril;
+   }
+   if(ModifyONSGrenadeLauncher !="" && (ModifyONSGrenadeLauncher~="False" || ModifyONSGrenadeLauncher~="True"))
+   {
+       default.bModifyONSGrenadeLauncher = ModifyONSGrenadeLauncher~="True";
+       bModifyONSGrenadeLauncher = default.bModifyONSGrenadeLauncher;
+   }
+   if(ModifyONSMineLayer !="" && (ModifyONSMineLayer~="False" || ModifyONSMineLayer~="True"))
+   {
+       default.bModifyONSMineLayer = ModifyONSMineLayer~="True";
+       bModifyONSMineLayer = default.bModifyONSMineLayer;
+   }
+   if(ModifyRocketLauncher !="" && (ModifyRocketLauncher~="False" || ModifyRocketLauncher~="True"))
+   {
+       default.bModifyRocketLauncher = ModifyRocketLauncher~="True";
+       bModifyRocketLauncher = default.bModifyRocketLauncher;
+   }
+   if(ModifyShieldGun !="" && (ModifyShieldGun~="False" || ModifyShieldGun~="True"))
+   {
+       default.bModifyShieldGun = ModifyShieldGun~="True";
+       bModifyShieldGun = default.bModifyShieldGun;
+   }
+   if(ModifyShockRifle !="" && (ModifyShockRifle~="False" || ModifyShockRifle~="True"))
+   {
+       default.bModifyShockRifle = ModifyShockRifle~="True";
+       bModifyShockRifle = default.bModifyShockRifle;
+   }
+   if(ModifySniperRifle !="" && (ModifySniperRifle~="False" || ModifySniperRifle~="True"))
+   {
+       default.bModifySniperRifle = ModifySniperRifle~="True";
+       bModifySniperRifle = default.bModifySniperRifle;
+   }
+   if(ModifySuperShockRifle !="" && (ModifySuperShockRifle~="False" || ModifySuperShockRifle~="True"))
+   {
+       default.bModifySuperShockRifle = ModifySuperShockRifle~="True";
+       bModifySuperShockRifle = default.bModifySuperShockRifle;
+   }
+}
+
+function GetServerDetails( out GameInfo.ServerResponseLine ServerState )
+{
+    local int i;
+    local string Enabled, Disabled;
+
+    super.GetServerDetails(ServerState);
+
+    Enabled = "Enabled";
+    Disabled = "Enabled";
+
+	i = ServerState.ServerInfo.Length;
+	ServerState.ServerInfo.Length = i+1;
+	ServerState.ServerInfo[i].Key = "Modify Weapons";
+    if(bModifyWeapons)
+        ServerState.ServerInfo[i].Value = Enabled;
+    else
+        ServerState.ServerInfo[i].Value = Disabled;
+
+    if(bModifyWeapons)
+    {
+        if(bModifyAssaultRifle)
+        {
+            i++;
+            ServerState.ServerInfo.Length = i+1;
+            ServerState.ServerInfo[i].Key = "Modify AssaultRifle";
+            ServerState.ServerInfo[i].Value = Enabled;
+        }
+        if(bModifyClassicSniperRifle)
+        {
+            i++;
+            ServerState.ServerInfo.Length = i+1;
+            ServerState.ServerInfo[i].Key = "Modify SniperRifle";
+            ServerState.ServerInfo[i].Value = Enabled;
+        }
+        if(bModifyFlakCannon)
+        {
+            i++;
+            ServerState.ServerInfo.Length = i+1;
+            ServerState.ServerInfo[i].Key = "Modify FlakCannon";
+            ServerState.ServerInfo[i].Value = Enabled;
+        }
+        if(bModifyLinkGun)
+        {
+            i++;
+            ServerState.ServerInfo.Length = i+1;
+            ServerState.ServerInfo[i].Key = "Modify LinkGun";
+            ServerState.ServerInfo[i].Value = Enabled;
+        }
+        if(bModifyMinigun)
+        {
+            i++;
+            ServerState.ServerInfo.Length = i+1;
+            ServerState.ServerInfo[i].Key = "Modify Minigun";
+            ServerState.ServerInfo[i].Value = Enabled;
+        }
+        if(bModifyONSAvril)
+        {
+            i++;
+            ServerState.ServerInfo.Length = i+1;
+            ServerState.ServerInfo[i].Key = "Modify ONSAvril";
+            ServerState.ServerInfo[i].Value = Enabled;
+        }
+        if(bModifyONSGrenadeLauncher)
+        {
+            i++;
+            ServerState.ServerInfo.Length = i+1;
+            ServerState.ServerInfo[i].Key = "Modify ONSGrenadeLauncher";
+            ServerState.ServerInfo[i].Value = Enabled;
+        }
+        if(bModifyONSMineLayer)
+        {
+            i++;
+            ServerState.ServerInfo.Length = i+1;
+            ServerState.ServerInfo[i].Key = "Modify ONSMineLayer";
+            ServerState.ServerInfo[i].Value = Enabled;
+        }
+        if(bModifyRocketLauncher)
+        {
+            i++;
+            ServerState.ServerInfo.Length = i+1;
+            ServerState.ServerInfo[i].Key = "Modify RocketLauncher";
+            ServerState.ServerInfo[i].Value = Enabled;
+        }
+        if(bModifyShieldGun)
+        {
+            i++;
+            ServerState.ServerInfo.Length = i+1;
+            ServerState.ServerInfo[i].Key = "Modify ShieldGun";
+            ServerState.ServerInfo[i].Value = Enabled;
+        }
+        if(bModifyShockRifle)
+        {
+            i++;
+            ServerState.ServerInfo.Length = i+1;
+            ServerState.ServerInfo[i].Key = "Modify ShockRifle";
+            ServerState.ServerInfo[i].Value = Enabled;
+        }
+        if(bModifySniperRifle)
+        {
+            i++;
+            ServerState.ServerInfo.Length = i+1;
+            ServerState.ServerInfo[i].Key = "Modify LightningGun";
+            ServerState.ServerInfo[i].Value = Enabled;
+        }
+        if(bModifySuperShockRifle)
+        {
+            i++;
+            ServerState.ServerInfo.Length = i+1;
+            ServerState.ServerInfo[i].Key = "Modify SSR";
+            ServerState.ServerInfo[i].Value = Enabled;
+        }
+    }
 }
 
 static function FillPlayInfo(PlayInfo PI)
@@ -1104,17 +1320,6 @@ static event string GetDescriptionText(string PropName)
     }
 }
 
-function GetServerDetails( out GameInfo.ServerResponseLine ServerState )
-{
-    local int i;
-    super.GetServerDetails(ServerState);
-
-	i = ServerState.ServerInfo.Length;
-	ServerState.ServerInfo.Length = i+1;
-	ServerState.ServerInfo[i].Key = "WSUTComp Weapon Config";
-	ServerState.ServerInfo[i].Value = FriendlyVersion;
-}
-
 function ModifyPlayer(Pawn Other)
 {
     if(bModifyAssaultAmmo)
@@ -1243,8 +1448,8 @@ defaultproperties
 {
     bAddToServerPackages=true
     IconMaterialName="MutatorArt.nosym"
-    FriendlyName="WSUTComp Weapon Config V13"
-    FriendlyVersion="V13"
+    FriendlyName="WSUTComp Weapon Config V14"
+    FriendlyVersion="V14"
     Description="Configuration for WSUTComp weapons"
     RemoteRole=ROLE_SimulatedProxy
     bAlwaysRelevant=true
