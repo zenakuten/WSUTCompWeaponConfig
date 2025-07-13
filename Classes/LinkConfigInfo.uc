@@ -90,6 +90,13 @@ function LoadFrom(MutWeaponConfig config)
     class'NewNet_LinkGun'.default.PutDownTime = config.LinkGun_PutDownTime;
     class'NewNet_LinkGun'.default.BringUpTime = config.LinkGun_BringUpTime;
     class'NewNet_LinkGun'.default.MinReloadPct = config.LinkGun_MinReloadPct;
+    class'NewNet_LinkProjectile'.default.Damage = config.LinkProj_Damage;
+    class'NewNet_LinkProjectile'.default.DamageRadius = config.LinkProj_DamageRadius;
+    class'NewNet_LinkProjectile'.default.Speed = config.LinkProj_Speed;
+    class'NewNet_LinkProjectile'.default.MaxSpeed = config.LinkProj_MaxSpeed;
+    class'NewNet_LinkProjectile'.default.MomentumTransfer = config.LinkProj_MomentumTransfer;
+    class'NewNet_LinkProjectile'.default.LifeSpan = config.LinkProj_LifeSpan;
+    class'NewNet_LinkProjectile'.default.CullDistance = config.LinkProj_CullDistance;
 
     class'NewNet_LinkGun'.default.PutDownAnimRate = class'LinkGun'.default.PutDownAnimRate / (LinkGun_PutDownTime / default.LinkGun_PutDownTime);
     class'NewNet_LinkGun'.default.SelectAnimRate = class'LinkGun'.default.SelectAnimRate / (LinkGun_BringUpTime / default.LinkGun_BringUpTime);    

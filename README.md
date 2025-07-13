@@ -164,7 +164,7 @@ Because WS3SPN also does some weapon modifications, there are some caveats:
 | Link Secondary Momentum Transfer | 2000.0 |
 | Link Secondary Ammo Per Fire  | 1 |
 | Link Secondary Damage  | 9 |
-| Link Secondary Fire Rate  | 0.12 |
+| Link Secondary Fire Rate  | 0.2 |
 | Link Secondary Link Flexibility  | 0.64 |
 | Link Secondary Link Break Delay  | 0.5 |
 | Link Gun Put Down Time  | 0.33 |
@@ -342,6 +342,8 @@ Because WS3SPN also does some weapon modifications, there are some caveats:
 | Grenade Launcher Put Down Time  | 0.33 |
 | Grenade Launcher Bring Up Time  | 0.33 |
 | Grenade Launcher MinReloadPct  | 0.5 |
+| Grenade Launcher Primary Fire Rate  | 0.65 |
+| Grenade Launcher Ammo Per Fire | 1 |
 | Grenade Projectile Speed  | 1200.0 |
 | Grenade Projectile Max Speed  | 1200.0 |
 | Grenade Projectile Toss Z  | 0.0 |

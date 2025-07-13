@@ -784,7 +784,7 @@ static function FillPlayInfo(PlayInfo PI)
     Weight++;
     // linkgun
     PI.AddSetting("Weapon LinkGun", "LinkPrimary_AmmoPerFire", "Link Primary Ammo Per Fire (2)", Security, Weight, "Text", "4;0:1000",,False,True);
-    PI.AddSetting("Weapon LinkGun", "LinkPrimary_FireRate", "Link Primary Fire Rate (0.12)", Security, Weight, "Text", "8;0.0:1000",,False,True);
+    PI.AddSetting("Weapon LinkGun", "LinkPrimary_FireRate", "Link Primary Fire Rate (0.2)", Security, Weight, "Text", "8;0.0:1000",,False,True);
     PI.AddSetting("Weapon LinkGun", "LinkProj_Damage", "Link Projectile Damage (30)", Security, Weight, "Text", "5;0:10000",,False,True);
     PI.AddSetting("Weapon LinkGun", "LinkProj_DamageRadius", "Link Projectile Damage Radius (0.0)", Security, Weight, "Text", "8;0.0:10000000",,False,True);
     PI.AddSetting("Weapon LinkGun", "LinkProj_Speed", "Link Projectile Speed (1000.0)", Security, Weight, "Text", "8;0.0:10000000",,False,True);
@@ -935,7 +935,7 @@ static function FillPlayInfo(PlayInfo PI)
     PI.AddSetting("Weapon G.Launcher", "ONSGrenade_PutDownTime", "ONS Grenade Launcher Put Down Time (0.33)", Security, Weight, "Text", "8;0.0:999.0",,False,True);
     PI.AddSetting("Weapon G.Launcher", "ONSGrenade_BringUpTime", "ONS Grenade Launcher Bring Up Time (0.33)", Security, Weight, "Text", "8;0.0:999.0",,False,True);
     PI.AddSetting("Weapon G.Launcher", "ONSGrenade_MinReloadPct", "ONS Grenade Launcher MinReloadPct (0.5)", Security, Weight, "Text", "8;0.0:999.0",,False,True);
-    PI.AddSetting("Weapon G.Launcher", "ONSGrenadePrimary_FireRate", "ONS Grenade Primary Fire Rate (0.33)", Security, Weight, "Text", "8;0.0:999.0",,False,True);
+    PI.AddSetting("Weapon G.Launcher", "ONSGrenadePrimary_FireRate", "ONS Grenade Primary Fire Rate (0.65)", Security, Weight, "Text", "8;0.0:999.0",,False,True);
     PI.AddSetting("Weapon G.Launcher", "ONSGrenadePrimary_AmmoPerFire", "ONS Grenade Primary Ammo Per Fire (1)", Security, Weight, "Text", "8;0:999",,False,True);
     PI.AddSetting("Weapon G.Launcher", "ONSGrenadeProj_bBounce", "ONS Grenade Bounce (true)", Security, Weight, "Check",,,False,True);
     PI.AddSetting("Weapon G.Launcher", "ONSGrenadeProj_Speed", "ONS Grenade Speed (1200.0)", Security, Weight, "Text", "8;0.0:10000000",,False,True);
@@ -1102,7 +1102,7 @@ static event string GetDescriptionText(string PropName)
 
         case "bModifyLinkGun": return "Modify the Link Gun (false)";
         case "LinkPrimary_AmmoPerFire": return "Link Primary Ammo Per Fire (2)";
-        case "LinkPrimary_FireRate": return "Link Primary Fire Rate (0.12)";
+        case "LinkPrimary_FireRate": return "Link Primary Fire Rate (0.2)";
         case "LinkProj_Damage": return "Link Projectile Damage (30)";
         case "LinkProj_DamageRadius": return "Link Projectile Damage Radius (0.0)";
         case "LinkProj_Speed": return "Link Projectile Speed (1000.0)";
@@ -1260,7 +1260,7 @@ static event string GetDescriptionText(string PropName)
         case "ONSGrenade_PutDownTime": return "ONS Grenade Launcher Put Down Time (0.33)";
         case "ONSGrenade_BringUpTime": return "ONS Grenade Launcher Bring Up Time (0.33)";
         case "ONSGrenade_MinReloadPct": return "ONS Grenade Launcher MinReloadPct (0.5)";
-        case "ONSGrenadePrimary_FireRate": return "ONS Grenade Primary Fire Rate (0.33)";
+        case "ONSGrenadePrimary_FireRate": return "ONS Grenade Primary Fire Rate (0.65)";
         case "ONSGrenadePrimary_AmmoPerFire": return "ONS Grenade Primary Ammo Per Fire (1)";
         case "ONSGrenadeProj_bBounce": return "ONS Grenade Bounce (true)";
         case "ONSGrenadeProj_Speed": return "ONS Grenade Speed (1200.0)";
