@@ -4,7 +4,6 @@ var bool bModifyAssaultRifle;
 var float AssaultRifle_PutDownTime;
 var float AssaultRifle_BringUpTime;
 var float AssaultRifle_MinReloadPct;
-var bool AssaultRifle_bDualMode;
 var int AssaultPrimary_DamageMin;
 var int AssaultPrimary_DamageMax;
 var float AssaultPrimary_TraceRange;
@@ -34,7 +33,7 @@ replication
 {
     reliable if(bNetInitial && Role == ROLE_Authority)
         bModifyAssaultRifle,
-        AssaultRifle_PutDownTime, AssaultRifle_BringUpTime, AssaultRifle_MinReloadPct, AssaultRifle_bDualMode,
+        AssaultRifle_PutDownTime, AssaultRifle_BringUpTime, AssaultRifle_MinReloadPct,
         AssaultPrimary_DamageMin, AssaultPrimary_DamageMax, AssaultPrimary_TraceRange, AssaultPrimary_Momentum,
         AssaultPrimary_AmmoPerFire, AssaultPrimary_FireRate, AssaultPrimary_AimError, AssaultPrimary_Spread,
         AssaultSecondary_DamageAtten, AssaultSecondary_mScale, AssaultSecondary_mScaleMultiplier, AssaultSecondary_mSpeedMin,
@@ -49,7 +48,6 @@ function LoadFrom(MutWeaponConfig config)
     AssaultRifle_PutDownTime = config.AssaultRifle_PutDownTime;
     AssaultRifle_BringUpTime = config.AssaultRifle_BringUpTime;
     AssaultRifle_MinReloadPct = config.AssaultRifle_MinReloadPct;
-    AssaultRifle_bDualMode = config.AssaultRifle_bDualMode;
     AssaultPrimary_DamageMin = config.AssaultPrimary_DamageMin;
     AssaultPrimary_DamageMax = config.AssaultPrimary_DamageMax;
     AssaultPrimary_TraceRange = config.AssaultPrimary_TraceRange;
@@ -94,7 +92,6 @@ simulated function Modify()
     class'AssaultRifle'.default.PutDownTime = AssaultRifle_PutDownTime;
     class'AssaultRifle'.default.BringUpTime = AssaultRifle_BringUpTime;
     class'AssaultRifle'.default.MinReloadPct = AssaultRifle_MinReloadPct;
-    class'AssaultRifle'.default.bDualMode = AssaultRifle_bDualMode;
     class'AssaultFire'.default.DamageMin = AssaultPrimary_DamageMin;
     class'AssaultFire'.default.DamageMax = AssaultPrimary_DamageMax;
     class'AssaultFire'.default.TraceRange = AssaultPrimary_TraceRange;
@@ -120,7 +117,6 @@ simulated function Modify()
     class'UTComp_AssaultRifle'.default.PutDownTime = AssaultRifle_PutDownTime;
     class'UTComp_AssaultRifle'.default.BringUpTime = AssaultRifle_BringUpTime;
     class'UTComp_AssaultRifle'.default.MinReloadPct = AssaultRifle_MinReloadPct;
-    class'UTComp_AssaultRifle'.default.bDualMode = AssaultRifle_bDualMode;
     class'UTComp_AssaultFire'.default.DamageMin = AssaultPrimary_DamageMin;
     class'UTComp_AssaultFire'.default.DamageMax = AssaultPrimary_DamageMax;
     class'UTComp_AssaultFire'.default.TraceRange = AssaultPrimary_TraceRange;
@@ -146,7 +142,6 @@ simulated function Modify()
     class'NewNet_AssaultRifle'.default.PutDownTime = AssaultRifle_PutDownTime;
     class'NewNet_AssaultRifle'.default.BringUpTime = AssaultRifle_BringUpTime;
     class'NewNet_AssaultRifle'.default.MinReloadPct = AssaultRifle_MinReloadPct;
-    class'NewNet_AssaultRifle'.default.bDualMode = AssaultRifle_bDualMode;
     class'NewNet_AssaultFire'.default.DamageMin = AssaultPrimary_DamageMin;
     class'NewNet_AssaultFire'.default.DamageMax = AssaultPrimary_DamageMax;
     class'NewNet_AssaultFire'.default.TraceRange = AssaultPrimary_TraceRange;
@@ -175,7 +170,6 @@ defaultproperties
     AssaultRifle_PutDownTime=0.33
     AssaultRifle_BringUpTime=0.33
     AssaultRifle_MinReloadPct=0.5
-    AssaultRifle_bDualMode=false
     AssaultPrimary_DamageMin=7
     AssaultPrimary_DamageMax=7
     AssaultPrimary_TraceRange=10000.0

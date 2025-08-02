@@ -41,7 +41,6 @@ var config bool bModifyAssaultRifle;
 var config float AssaultRifle_PutDownTime;
 var config float AssaultRifle_BringUpTime;
 var config float AssaultRifle_MinReloadPct;
-var config bool AssaultRifle_bDualMode;
 var config int AssaultPrimary_DamageMin;
 var config int AssaultPrimary_DamageMax;
 var config float AssaultPrimary_TraceRange;
@@ -69,6 +68,7 @@ var config float AssaultGrenade_MomentumTransfer;
 var config bool bModifyAssaultAmmo;
 var config int AssaultRifleAmmoGiven;
 var config int AssaultGrenadesGiven;
+var config bool bGiveDualAssaultRifle;
 
 // bio rifle
 var config bool bModifyBioRifle;
@@ -672,6 +672,7 @@ static function FillPlayInfo(PlayInfo PI)
     PI.AddSetting("UTComp Weapon Config", "ONSAvrilAmmoGiven", "ONS Avril Launcher Ammo Given (5)", Security, Weight, "Text", "8;0:1000",,False,True);
     PI.AddSetting("UTComp Weapon Config", "bGiveONSMineLayer", "Give ONS Mine Layer to Player (false)", Security, Weight, "Check",,,False,True);
     PI.AddSetting("UTComp Weapon Config", "ONSMineLayerAmmoGiven", "ONS Mine Layer Ammo Given (4)", Security, Weight, "Text", "8;0:1000",,False,True);
+    PI.AddSetting("UTComp Weapon Config", "bGiveDualAssaultRifle", "Give Dual Assualt Rifle to Player (false)", Security, Weight, "Check",,,False,True);
 
 
     Weight++;
@@ -702,7 +703,6 @@ static function FillPlayInfo(PlayInfo PI)
     PI.AddSetting("Weapon AssaultRifle", "AssaultRifle_PutDownTime", "Assault Rifle Put Down Time (0.33)", Security, Weight, "Text", "8;0.0:999.0",,False,True);
     PI.AddSetting("Weapon AssaultRifle", "AssaultRifle_BringUpTime", "Assault Rifle Bring Up Time (0.33)", Security, Weight, "Text", "8;0.0:999.0",,False,True);
     PI.AddSetting("Weapon AssaultRifle", "AssaultRifle_MinReloadPct", "Assault Rifle MinReloadPct (0.5)", Security, Weight, "Text", "8;0.0:999.0",,False,True);
-    PI.AddSetting("Weapon AssaultRifle", "AssaultRifle_bDualMode", "Assault Rifle Dual Mode (false)", Security, Weight, "Check",,,False,True);
     PI.AddSetting("Weapon AssaultRifle", "AssaultPrimary_TraceRange", "Assault Primary Trace Range (10000.0)", Security, Weight, "Text", "8;0.0:1000000",,False,True);
     PI.AddSetting("Weapon AssaultRifle", "AssaultPrimary_Momentum", "Assault Primary Momentum (0.0)", Security, Weight, "Text", "9;-10000000.0:10000000",,False,True);
     PI.AddSetting("Weapon AssaultRifle", "AssaultPrimary_AmmoPerFire", "Assault Primary Ammo Per Fire (1)", Security, Weight, "Text", "4;0:1000",,False,True);
@@ -932,9 +932,9 @@ static function FillPlayInfo(PlayInfo PI)
 
     Weight++;
     // ONS Grenade Launcher
-    PI.AddSetting("Weapon G.Launcher", "ONSGrenade_PutDownTime", "ONS Grenade Launcher Put Down Time (0.33)", Security, Weight, "Text", "8;0.0:999.0",,False,True);
-    PI.AddSetting("Weapon G.Launcher", "ONSGrenade_BringUpTime", "ONS Grenade Launcher Bring Up Time (0.33)", Security, Weight, "Text", "8;0.0:999.0",,False,True);
-    PI.AddSetting("Weapon G.Launcher", "ONSGrenade_MinReloadPct", "ONS Grenade Launcher MinReloadPct (0.5)", Security, Weight, "Text", "8;0.0:999.0",,False,True);
+    PI.AddSetting("Weapon G.Launcher", "ONSGrenadeLauncher_PutDownTime", "ONS Grenade Launcher Put Down Time (0.33)", Security, Weight, "Text", "8;0.0:999.0",,False,True);
+    PI.AddSetting("Weapon G.Launcher", "ONSGrenadeLauncher_BringUpTime", "ONS Grenade Launcher Bring Up Time (0.33)", Security, Weight, "Text", "8;0.0:999.0",,False,True);
+    PI.AddSetting("Weapon G.Launcher", "ONSGrenadeLauncher_MinReloadPct", "ONS Grenade Launcher MinReloadPct (0.5)", Security, Weight, "Text", "8;0.0:999.0",,False,True);
     PI.AddSetting("Weapon G.Launcher", "ONSGrenadePrimary_FireRate", "ONS Grenade Primary Fire Rate (0.65)", Security, Weight, "Text", "8;0.0:999.0",,False,True);
     PI.AddSetting("Weapon G.Launcher", "ONSGrenadePrimary_AmmoPerFire", "ONS Grenade Primary Ammo Per Fire (1)", Security, Weight, "Text", "8;0:999",,False,True);
     PI.AddSetting("Weapon G.Launcher", "ONSGrenadeProj_bBounce", "ONS Grenade Bounce (true)", Security, Weight, "Check",,,False,True);
@@ -960,7 +960,7 @@ static function FillPlayInfo(PlayInfo PI)
     PI.AddSetting("Weapon Avril", "ONSAvrilPrimary_AmmoPerFire", "ONS Avril Primary Ammo Per Fire (1)", Security, Weight, "Text", "8;0:999",,False,True);
     PI.AddSetting("Weapon Avril", "ONSAvrilPrimary_FireRate", "ONS Avril Primary Fire Rate (4.0)", Security, Weight, "Text", "8;0.0:999.0",,False,True);
     PI.AddSetting("Weapon Avril", "ONSAvrilPrimary_KickMomentum", "ONS Avril Primary Kick Momentum ((X=-350.0,Z=175.0))", Security, Weight, "Text",,,False,True);
-    PI.AddSetting("Weapon Avril", "ONSAvrilPrimary_LeadTargetDelay", "ONS Avril Lead Target Delay (1.0)", Security, Weight, "Text", "8;0.0:999.0",,False,True);
+    PI.AddSetting("Weapon Avril", "ONSAvrilProj_LeadTargetDelay", "ONS Avril Lead Target Delay (1.0)", Security, Weight, "Text", "8;0.0:999.0",,False,True);
     PI.AddSetting("Weapon Avril", "ONSAvrilProj_bProjTarget", "ONS Avril Projectile Target (true)", Security, Weight, "Check",,,False,True);
     PI.AddSetting("Weapon Avril", "ONSAvrilProj_Speed", "ONS Avril Speed (550.0)", Security, Weight, "Text", "8;0.0:10000000",,False,True);
     PI.AddSetting("Weapon Avril", "ONSAvrilProj_MaxSpeed", "ONS Avril Max Speed (2800.0)", Security, Weight, "Text", "8;0.0:10000000",,False,True);
@@ -1023,7 +1023,6 @@ static event string GetDescriptionText(string PropName)
         case "AssaultRifle_PutDownTime": return "Assault Rifle Put Down Time (0.33)";
         case "AssaultRifle_BringUpTime": return "Assault Rifle Bring Up Time (0.33)";
         case "AssaultRifle_MinReloadPct": return "Assault Rifle MinReloadPct (0.5)";
-        case "AssaultRifle_bDualMode": return "Assault Rifle Dual Mode (false)";
         case "AssaultPrimary_TraceRange": return "Assault Primary Trace Range (10000)";
         case "AssaultPrimary_Momentum": return "Assault Primary Momentum (0.0)";
         case "AssaultPrimary_AmmoPerFire": return "Assault Primary Ammo Per Fire (1)";
@@ -1051,6 +1050,7 @@ static event string GetDescriptionText(string PropName)
         case "bModifyAssaultAmmo": return "Modify the Assault Rifle Ammo (false)";
         case "AssaultRifleAmmoGiven": return "Assault Rifle Ammo (100)";
         case "AssaultGrenadesGiven": return "Assault Rifle Grenades (4)";
+        case "bGiveDualAssaultRifle": return "Give Dual Assault Rifle to Player (false)";
 
         case "bModifyBioRifle": return "Modify the Bio Rifle (false)"; 
         case "BioRifle_PutDownTime": return "Bio Rifle Put Down Time (0.33)";
@@ -1257,9 +1257,9 @@ static event string GetDescriptionText(string PropName)
         case "SuperShockAmmoGiven": return "Super Shock Rifle Ammo Given (1)";
         
         case "bModifyONSGrenadeLauncher": return "Modify the ONS Grenade Launcher (false)";
-        case "ONSGrenade_PutDownTime": return "ONS Grenade Launcher Put Down Time (0.33)";
-        case "ONSGrenade_BringUpTime": return "ONS Grenade Launcher Bring Up Time (0.33)";
-        case "ONSGrenade_MinReloadPct": return "ONS Grenade Launcher MinReloadPct (0.5)";
+        case "ONSGrenadeLauncher_PutDownTime": return "ONS Grenade Launcher Put Down Time (0.33)";
+        case "ONSGrenadeLauncher_BringUpTime": return "ONS Grenade Launcher Bring Up Time (0.33)";
+        case "ONSGrenadeLauncher_MinReloadPct": return "ONS Grenade Launcher MinReloadPct (0.5)";
         case "ONSGrenadePrimary_FireRate": return "ONS Grenade Primary Fire Rate (0.65)";
         case "ONSGrenadePrimary_AmmoPerFire": return "ONS Grenade Primary Ammo Per Fire (1)";
         case "ONSGrenadeProj_bBounce": return "ONS Grenade Bounce (true)";
@@ -1286,7 +1286,7 @@ static event string GetDescriptionText(string PropName)
         case "ONSAvrilPrimary_AmmoPerFire": return "ONS Avril Primary Ammo Per Fire (1)";
         case "ONSAvrilPrimary_FireRate": return "ONS Avril Primary Fire Rate (4.0)";
         case "ONSAvrilPrimary_KickMomentum": return "ONS Avril Primary Kick Momentum ((X=-350.0: returnZ=175.0)";
-        case "ONSAvrilPrimary_LeadTargetDelay": return "ONS Avril Lead Target Delay (1.0)";
+        case "ONSAvrilProj_LeadTargetDelay": return "ONS Avril Lead Target Delay (1.0)";
         case "ONSAvrilProj_bProjTarget": return "ONS Avril Projectile Target (true)";
         case "ONSAvrilProj_Speed": return "ONS Avril Speed (550.0)";
         case "ONSAvrilProj_MaxSpeed": return "ONS Avril Max Speed (2800.0)";
@@ -1442,6 +1442,11 @@ function ModifyPlayer(Pawn Other)
     }
 
     super.ModifyPlayer(Other);
+
+    if(bGiveDualAssaultRifle)
+    {
+        Other.CreateInventory("XWeapons.AssaultRifle");
+    }
 }
 
 defaultproperties
@@ -1483,7 +1488,6 @@ defaultproperties
     AssaultRifle_PutDownTime=0.33
     AssaultRifle_BringUpTime=0.33
     AssaultRifle_MinReloadPct=0.5
-    AssaultRifle_bDualMode=false
     AssaultPrimary_DamageMin=7
     AssaultPrimary_DamageMax=7
     AssaultPrimary_TraceRange=10000.0
@@ -1511,6 +1515,7 @@ defaultproperties
     bModifyAssaultAmmo=false
     AssaultRifleAmmoGiven=100
     AssaultGrenadesGiven=4
+    bGiveDualAssaultRifle=false
 
     bModifyBioRifle=false
     BioRifle_BringUpTime=0.33
