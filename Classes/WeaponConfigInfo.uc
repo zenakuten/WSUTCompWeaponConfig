@@ -23,25 +23,6 @@ replication
         SuperShockConfig, ONSGrenadeConfig, ONSAvrilConfig, ONSMineLayerConfig;
 }
 
-function PostBeginPlay()
-{
-    super.PostBeginPlay();
-    ShieldConfig = spawn(class'ShieldConfigInfo', self.Owner);
-    AssaultConfig = spawn(class'AssaultConfigInfo', self.Owner);
-    BioConfig = spawn(class'BioConfigInfo', self.Owner);
-    ShockConfig = spawn(class'ShockConfigInfo', self.Owner);
-    LinkConfig = spawn(class'LinkConfigInfo', self.Owner);
-    MiniConfig = spawn(class'MiniConfigInfo', self.Owner);
-    FlakConfig = spawn(class'FlakConfigInfo', self.Owner);
-    RocketConfig = spawn(class'RocketConfigInfo', self.Owner);
-    SniperConfig = spawn(class'SniperConfigInfo', self.Owner);
-    ClassicSniperConfig = spawn(class'ClassicSniperConfigInfo', self.Owner);
-    SuperShockConfig = spawn(class'SuperShockConfigInfo', self.Owner);
-    ONSGrenadeConfig = spawn(class'ONSGrenadeConfigInfo', self.Owner);
-    ONSAvrilConfig = spawn(class'ONSAvrilConfigInfo', self.Owner);
-    ONSMineLayerConfig = spawn(class'ONSMineLayerConfigInfo', self.Owner);
-}
-
 simulated function PostNetBeginPlay()
 {
     super.PostNetBeginPlay();
@@ -53,38 +34,108 @@ simulated function PostNetBeginPlay()
 
 function LoadFrom(MutWeaponConfig config)
 {
-    ShieldConfig.LoadFrom(config);
-    AssaultConfig.LoadFrom(config);
-    BioConfig.LoadFrom(config);
-    ShockConfig.LoadFrom(config);
-    LinkConfig.LoadFrom(config);
-    MiniConfig.LoadFrom(config);
-    FlakConfig.LoadFrom(config);
-    RocketConfig.LoadFrom(config);
-    SniperConfig.LoadFrom(config);
-    ClassicSniperConfig.LoadFrom(config);
-    SuperShockConfig.LoadFrom(config);
-    ONSGrenadeConfig.LoadFrom(config);
-    ONSAvrilConfig.LoadFrom(config);
-    ONSMineLayerConfig.LoadFrom(config);
+    if(config.bModifyShieldGun)
+    {
+        ShieldConfig = spawn(class'ShieldConfigInfo', self.Owner);
+        ShieldConfig.LoadFrom(config);
+    }
+    if(config.bModifyAssaultRifle || config.bModifyAssaultAmmo)
+    {
+        AssaultConfig = spawn(class'AssaultConfigInfo', self.Owner);
+        AssaultConfig.LoadFrom(config);
+    }
+    if(config.bModifyBioRifle)
+    {
+        BioConfig = spawn(class'BioConfigInfo', self.Owner);
+        BioConfig.LoadFrom(config);
+    }
+    if(config.bModifyShockRifle)
+    {
+        ShockConfig = spawn(class'ShockConfigInfo', self.Owner);
+        ShockConfig.LoadFrom(config);
+    }
+    if(config.bModifyLinkGun)
+    {
+        LinkConfig = spawn(class'LinkConfigInfo', self.Owner);
+        LinkConfig.LoadFrom(config);
+    }
+    if(config.bModifyMinigun)
+    {
+        MiniConfig = spawn(class'MiniConfigInfo', self.Owner);
+        MiniConfig.LoadFrom(config);
+    }
+    if(config.bModifyFlakCannon)
+    {
+        FlakConfig = spawn(class'FlakConfigInfo', self.Owner);
+        FlakConfig.LoadFrom(config);
+    }
+    if(config.bModifyRocketLauncher)
+    {
+        RocketConfig = spawn(class'RocketConfigInfo', self.Owner);
+        RocketConfig.LoadFrom(config);
+    }
+    if(config.bModifySniperRifle)
+    {
+        SniperConfig = spawn(class'SniperConfigInfo', self.Owner);
+        SniperConfig.LoadFrom(config);
+    }
+    if(config.bModifyClassicSniperRifle)
+    {
+        ClassicSniperConfig = spawn(class'ClassicSniperConfigInfo', self.Owner);
+        ClassicSniperConfig.LoadFrom(config);
+    }
+    if(config.bModifySuperShockRifle)
+    {
+        SuperShockConfig = spawn(class'SuperShockConfigInfo', self.Owner);
+        SuperShockConfig.LoadFrom(config);
+    }
+    if(config.bModifyONSGrenadeLauncher)
+    {
+        ONSGrenadeConfig = spawn(class'ONSGrenadeConfigInfo', self.Owner);
+        ONSGrenadeConfig.LoadFrom(config);
+    }
+    if(config.bModifyONSAvril)
+    {
+        ONSAvrilConfig = spawn(class'ONSAvrilConfigInfo', self.Owner);
+        ONSAvrilConfig.LoadFrom(config);
+    }
+    if(config.bModifyONSMineLayer)
+    {
+        ONSMineLayerConfig = spawn(class'ONSMineLayerConfigInfo', self.Owner);
+        ONSMineLayerConfig.LoadFrom(config);
+    }
 }
 
 simulated function Modify()
 {
-    ShieldConfig.Modify();
-    AssaultConfig.Modify();
-    BioConfig.Modify();
-    ShockConfig.Modify();
-    LinkConfig.Modify();
-    MiniConfig.Modify();
-    FlakConfig.Modify();
-    RocketConfig.Modify();
-    SniperConfig.Modify();
-    ClassicSniperConfig.Modify();
-    SuperShockConfig.Modify();
-    ONSGrenadeConfig.Modify();
-    ONSAvrilConfig.Modify();
-    ONSMineLayerConfig.Modify();
+    if(ShieldConfig != None)
+        ShieldConfig.Modify();
+    if(AssaultConfig != None)
+        AssaultConfig.Modify();
+    if(BioConfig != None)
+        BioConfig.Modify();
+    if(ShockConfig != None)
+        ShockConfig.Modify();
+    if(LinkConfig != None)
+        LinkConfig.Modify();
+    if(MiniConfig != None)
+        MiniConfig.Modify();
+    if(FlakConfig != None)
+        FlakConfig.Modify();
+    if(RocketConfig != None)
+        RocketConfig.Modify();
+    if(SniperConfig != None)
+        SniperConfig.Modify();
+    if(ClassicSniperConfig != None)
+        ClassicSniperConfig.Modify();
+    if(SuperShockConfig != None)
+        SuperShockConfig.Modify();
+    if(ONSGrenadeConfig != None)
+        ONSGrenadeConfig.Modify();
+    if(ONSAvrilConfig != None)
+        ONSAvrilConfig.Modify();
+    if(ONSMineLayerConfig != None)
+        ONSMineLayerConfig.Modify();
 }
 
 simulated function Destroyed()
