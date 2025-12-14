@@ -17,7 +17,7 @@ var ONSMineLayerConfigInfo ONSMineLayerConfig;
 
 replication
 {
-    reliable if(Role == ROLE_Authority && bNetDirty)
+    reliable if(Role == ROLE_Authority && bNetInitial)
         ShieldConfig, AssaultConfig, BioConfig, ShockConfig, LinkConfig, 
         MiniConfig, FlakConfig, RocketConfig, SniperConfig, ClassicSniperConfig, 
         SuperShockConfig, ONSGrenadeConfig, ONSAvrilConfig, ONSMineLayerConfig;
@@ -27,9 +27,9 @@ simulated function PostNetBeginPlay()
 {
     super.PostNetBeginPlay();
     if(Role < ROLE_Authority)
-    {
         Modify();
-    }
+
+    bTearOff=true;
 }
 
 function LoadFrom(MutWeaponConfig config)
