@@ -30,7 +30,6 @@ function AddRepInfo(Controller C)
     if(C.PlayerReplicationInfo.CustomReplicationInfo == None)
     {
         // add new custom info
-        log("New custom info");
         weaponRI = spawn(class'WeaponConfigInfo', C.PlayerReplicationInfo.Owner);
         weaponRI.LoadFrom(Config);
         C.PlayerReplicationInfo.CustomReplicationInfo = weaponRI;
@@ -38,7 +37,6 @@ function AddRepInfo(Controller C)
     else
     {
         // or add to existing chain
-        log("existing custom info");
         LRI = C.PlayerReplicationInfo.CustomReplicationInfo;
         while(LRI.NextReplicationInfo != None)
         {
@@ -49,7 +47,6 @@ function AddRepInfo(Controller C)
             LRI=LRI.NextReplicationInfo;
         }
 
-        log("WeaponConfigInfo spawn for player "$C.PlayerReplicationInfo.PlayerName);
         weaponRI = spawn(class'WeaponConfigInfo', C.PlayerReplicationInfo.Owner);
         weaponRI.LoadFrom(Config);
         LRI.NextReplicationInfo = weaponRI;
