@@ -217,6 +217,7 @@ Because WS3SPN also does some weapon modifications, there are some caveats:
 |Flak Primary Fire Rate | 0.95 |
 |Flak Primary Projectiles Per Fire | 9 |
 |Flak Primary Spread | 1400 |
+|Flak Primary Spread Style | 1 |
 |Flak Chunk Bounces | 1 |
 |Flak Chunk Damage Atten | 0.5 |
 |Flak Chunk Speed | 2500 |

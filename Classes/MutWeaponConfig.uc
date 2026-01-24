@@ -183,6 +183,7 @@ var config int FlakPrimary_AmmoPerFire;
 var config float FlakPrimary_FireRate;
 var config int FlakPrimary_ProjPerFire;
 var config float FlakPrimary_Spread;
+var config int FlakPrimary_SpreadStyle;
 var config byte FlakChunk_Bounces;
 var config float FlakChunk_DamageAtten;
 var config float FlakChunk_Speed;
@@ -837,6 +838,7 @@ static function FillPlayInfo(PlayInfo PI)
     PI.AddSetting("Weapon FlakCannon", "FlakPrimary_FireRate", "Flak Primary Fire Rate (0.95)", Security, Weight, "Text", "8;0.0:1000",,False,True);
     PI.AddSetting("Weapon FlakCannon", "FlakPrimary_ProjPerFire", "Flak Primary Projectiles Per Fire (9)", Security, Weight, "Text", "8;0:1000",,False,True);
     PI.AddSetting("Weapon FlakCannon", "FlakPrimary_Spread", "Flak Primary Spread (1400)", Security, Weight, "Text", "8;0:10000",,False,True);
+    PI.AddSetting("Weapon FlakCannon", "FlakPrimary_SpreadStyle", "Flak Primary Spread Style (1)", Security, Weight, "Text", "8;0:10000",,False,True);
     PI.AddSetting("Weapon FlakCannon", "FlakChunk_Bounces", "Flak Chunk Bounces (1)", Security, Weight, "Text", "8;0:1000",,False,True);
     PI.AddSetting("Weapon FlakCannon", "FlakChunk_DamageAtten", "Flak Chunk Damage Atten (0.5)", Security, Weight, "Text", "8;0.0:1000",,False,True);
     PI.AddSetting("Weapon FlakCannon", "FlakChunk_Speed", "Flak Chunk Speed (2500)", Security, Weight, "Text", "8;0.0:100000",,False,True);
@@ -1157,6 +1159,7 @@ static event string GetDescriptionText(string PropName)
         case "FlakPrimary_FireRate": return "Flak Primary Fire Rate (0.95)";
         case "FlakPrimary_ProjPerFire": return "Flak Primary Projectiles Per Fire (9)";
         case "FlakPrimary_Spread": return "Flak Primary Spread (1400)";
+        case "FlakPrimary_SpreadStyle": return "Flak Primary Spread (1)";
         case "FlakChunk_Bounces": return "Flak Chunk Bounces (1)";
         case "FlakChunk_DamageAtten": return "Flak Chunk Damage Atten (0.5)";
         case "FlakChunk_Speed": return "Flak Chunk Speed (2500)";
@@ -1625,6 +1628,7 @@ defaultproperties
     FlakPrimary_FireRate=0.95
     FlakPrimary_ProjPerFire=9
     FlakPrimary_Spread=1400
+    FlakPrimary_SpreadStyle=1
     FlakChunk_Bounces=1
     FlakChunk_DamageAtten=0.5
     FlakChunk_Speed=2500
