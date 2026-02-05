@@ -949,7 +949,7 @@ static function FillPlayInfo(PlayInfo PI)
     PI.AddSetting("Weapon G.Launcher", "ONSGrenadeProj_CullDistance", "ONS Grenade Cull Distance (5000.0)", Security, Weight, "Text", "8;0.0:1000000",,False,True);
     PI.AddSetting("Weapon G.Launcher", "ONSGrenadeProj_LifeSpan", "ONS Grenade Life Span (0.0)", Security, Weight, "Text", "8;0.0:1000000",,False,True);
     PI.AddSetting("Weapon G.Launcher", "ONSGrenadeProj_DampenFactor", "ONS Grenade Dampen Factor (0.5)", Security, Weight, "Text", "8;0.0:1000000",,False,True);
-    PI.AddSetting("Weapon G.Launcher", "ONSGrenadeProj_DampenFactor", "ONS Grenade Dampen Factor Parallel (0.8)", Security, Weight, "Text", "8;0.0:1000000",,False,True);
+    PI.AddSetting("Weapon G.Launcher", "ONSGrenadeProj_DampenFactorParallel", "ONS Grenade Dampen Factor Parallel (0.8)", Security, Weight, "Text", "8;0.0:1000000",,False,True);
 
     Weight++;
     // ONS Avril Launcher
@@ -1300,6 +1300,7 @@ static event string GetDescriptionText(string PropName)
         case "bGiveONSAvril": return "Give ONS Avril Launcher to Player (false)";
         case "ONSAvrilAmmoGiven": return "ONS Avril Launcher Ammo Given (5)";
 
+        case "bModifyONSMineLayer": return "Modify the ONS Mine Layer (false)";
         case "ONSMineLayer_ReloadDelay": return "ONS Mine Layer Lock Check Freq (0.2)";
         case "ONSMineLayer_MaxMines": return "ONS Mine Layer Max Mines (8)";
         case "ONSMineLayer_PutDownTime": return "ONS Mine Layer Put Down Time (0.40)";
@@ -1456,8 +1457,8 @@ defaultproperties
 {
     bAddToServerPackages=true
     IconMaterialName="MutatorArt.nosym"
-    FriendlyName="WSUTComp Weapon Config V18"
-    FriendlyVersion="V18"
+    FriendlyName="WSUTComp Weapon Config V19"
+    FriendlyVersion="V19"
     Description="Configuration for WSUTComp weapons"
     RemoteRole=ROLE_SimulatedProxy
     bAlwaysRelevant=true
