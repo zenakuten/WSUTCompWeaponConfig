@@ -1457,8 +1457,8 @@ defaultproperties
 {
     bAddToServerPackages=true
     IconMaterialName="MutatorArt.nosym"
-    FriendlyName="WSUTComp Weapon Config V19"
-    FriendlyVersion="V19"
+    FriendlyName="WSUTComp Weapon Config V20"
+    FriendlyVersion="V20"
     Description="Configuration for WSUTComp weapons"
     RemoteRole=ROLE_SimulatedProxy
     bAlwaysRelevant=true
