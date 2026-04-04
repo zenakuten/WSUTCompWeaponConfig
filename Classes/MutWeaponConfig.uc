@@ -3,8 +3,6 @@ class MutWeaponConfig extends Mutator
     config(WSUTCompWeaponConfig)
     PerObjectConfig;
 
-var string FriendlyVersion;
-
 // global config
 var config bool bModifyWeapons;
 
@@ -1457,8 +1455,7 @@ defaultproperties
 {
     bAddToServerPackages=true
     IconMaterialName="MutatorArt.nosym"
-    FriendlyName="WSUTComp Weapon Config V19"
-    FriendlyVersion="V19"
+    FriendlyName="WSUTComp Weapon Config"
     Description="Configuration for WSUTComp weapons"
     RemoteRole=ROLE_SimulatedProxy
     bAlwaysRelevant=true
