@@ -47,6 +47,16 @@ function LoadFrom(MutWeaponConfig config)
     BioRifle_MinReloadPct = config.BioRifle_MinReloadPct;
 }
 
+simulated function PostNetBeginPlay()
+{
+    super.PostNetBeginPlay();
+    // Apply on the client when our own replicated data has arrived. The parent
+    // WeaponConfigInfo.PostNetBeginPlay can fire before this sub-object's reference
+    // replicates, so self-applying here is what actually configures the client.
+    if(Role < ROLE_Authority)
+        Modify();
+}
+
 simulated function Modify()
 {
     if(!bModifyBioRifle)

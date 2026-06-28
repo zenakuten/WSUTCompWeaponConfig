@@ -35,75 +35,106 @@ replication
 function LoadFrom(MutWeaponConfig config)
 {
     bModifyLinkGun = config.bModifyLinkGun;
-
-    // stock
-    class'LinkAltFire'.default.AmmoPerFire = config.LinkPrimary_AmmoPerFire;
-    class'LinkAltFire'.default.FireRate = config.LinkPrimary_FireRate;
-    class'LinkProjectile'.default.Damage = config.LinkProj_Damage;
-    class'LinkProjectile'.default.DamageRadius = config.LinkProj_DamageRadius;
-    class'LinkProjectile'.default.Speed = config.LinkProj_Speed;
-    class'LinkProjectile'.default.MaxSpeed = config.LinkProj_MaxSpeed;
-    class'LinkProjectile'.default.MomentumTransfer = config.LinkProj_MomentumTransfer;
-    class'LinkProjectile'.default.LifeSpan = config.LinkProj_LifeSpan;
-    class'LinkProjectile'.default.CullDistance = config.LinkProj_CullDistance;
-    class'LinkFire'.default.TraceRange = config.LinkSecondary_TraceRange;
-    class'LinkFire'.default.MomentumTransfer = config.LinkSecondary_MomentumTransfer;
-    class'LinkFire'.default.AmmoPerFire = config.LinkSecondary_AmmoPerFire;
-    class'LinkFire'.default.Damage = config.LinkSecondary_Damage;
-    class'LinkFire'.default.FireRate = config.LinkSecondary_FireRate;
-    class'LinkFire'.default.LinkFlexibility = config.LinkSecondary_LinkFlexibility;
-    class'LinkFire'.default.LinkBreakDelay = config.LinkSecondary_LinkBreakDelay;
-    class'LinkGun'.default.PutDownTime = config.LinkGun_PutDownTime;
-    class'LinkGun'.default.BringUpTime = config.LinkGun_BringUpTime;
-    class'LinkGun'.default.MinReloadPct = config.LinkGun_MinReloadPct;
-
-    class'LinkGun'.default.PutDownAnimRate = class'LinkGun'.default.PutDownAnimRate / (LinkGun_PutDownTime / default.LinkGun_PutDownTime);
-    class'LinkGun'.default.SelectAnimRate = class'LinkGun'.default.SelectAnimRate / (LinkGun_BringUpTime / default.LinkGun_BringUpTime);    
-
-    // utcomp
-    class'UTComp_LinkAltFire'.default.AmmoPerFire = config.LinkPrimary_AmmoPerFire;
-    class'UTComp_LinkAltFire'.default.FireRate = config.LinkPrimary_FireRate;
-    class'UTComp_LinkFire'.default.TraceRange = config.LinkSecondary_TraceRange;
-    class'UTComp_LinkFire'.default.MomentumTransfer = config.LinkSecondary_MomentumTransfer;
-    class'UTComp_LinkFire'.default.AmmoPerFire = config.LinkSecondary_AmmoPerFire;
-    class'UTComp_LinkFire'.default.Damage = config.LinkSecondary_Damage;
-    class'UTComp_LinkFire'.default.FireRate = config.LinkSecondary_FireRate;
-    class'UTComp_LinkFire'.default.LinkFlexibility = config.LinkSecondary_LinkFlexibility;
-    class'UTComp_LinkFire'.default.LinkBreakDelay = config.LinkSecondary_LinkBreakDelay;
-    class'UTComp_LinkGun'.default.PutDownTime = config.LinkGun_PutDownTime;
-    class'UTComp_LinkGun'.default.BringUpTime = config.LinkGun_BringUpTime;
-    class'UTComp_LinkGun'.default.MinReloadPct = config.LinkGun_MinReloadPct;
-
-    class'UTComp_LinkGun'.default.PutDownAnimRate = class'LinkGun'.default.PutDownAnimRate / (LinkGun_PutDownTime / default.LinkGun_PutDownTime);
-    class'UTComp_LinkGun'.default.SelectAnimRate = class'LinkGun'.default.SelectAnimRate / (LinkGun_BringUpTime / default.LinkGun_BringUpTime);    
-
-    // newnet
-    class'NewNet_LinkAltFire'.default.AmmoPerFire = config.LinkPrimary_AmmoPerFire;
-    class'NewNet_LinkAltFire'.default.FireRate = config.LinkPrimary_FireRate;
-    class'NewNet_LinkFire'.default.TraceRange = config.LinkSecondary_TraceRange;
-    class'NewNet_LinkFire'.default.MomentumTransfer = config.LinkSecondary_MomentumTransfer;
-    class'NewNet_LinkFire'.default.AmmoPerFire = config.LinkSecondary_AmmoPerFire;
-    class'NewNet_LinkFire'.default.Damage = config.LinkSecondary_Damage;
-    class'NewNet_LinkFire'.default.FireRate = config.LinkSecondary_FireRate;
-    class'NewNet_LinkFire'.default.LinkFlexibility = config.LinkSecondary_LinkFlexibility;
-    class'NewNet_LinkFire'.default.LinkBreakDelay = config.LinkSecondary_LinkBreakDelay;
-    class'NewNet_LinkGun'.default.PutDownTime = config.LinkGun_PutDownTime;
-    class'NewNet_LinkGun'.default.BringUpTime = config.LinkGun_BringUpTime;
-    class'NewNet_LinkGun'.default.MinReloadPct = config.LinkGun_MinReloadPct;
-    class'NewNet_LinkProjectile'.default.Damage = config.LinkProj_Damage;
-    class'NewNet_LinkProjectile'.default.DamageRadius = config.LinkProj_DamageRadius;
-    class'NewNet_LinkProjectile'.default.Speed = config.LinkProj_Speed;
-    class'NewNet_LinkProjectile'.default.MaxSpeed = config.LinkProj_MaxSpeed;
-    class'NewNet_LinkProjectile'.default.MomentumTransfer = config.LinkProj_MomentumTransfer;
-    class'NewNet_LinkProjectile'.default.LifeSpan = config.LinkProj_LifeSpan;
-    class'NewNet_LinkProjectile'.default.CullDistance = config.LinkProj_CullDistance;
-
-    class'NewNet_LinkGun'.default.PutDownAnimRate = class'LinkGun'.default.PutDownAnimRate / (LinkGun_PutDownTime / default.LinkGun_PutDownTime);
-    class'NewNet_LinkGun'.default.SelectAnimRate = class'LinkGun'.default.SelectAnimRate / (LinkGun_BringUpTime / default.LinkGun_BringUpTime);    
+    LinkPrimary_AmmoPerFire = config.LinkPrimary_AmmoPerFire;
+    LinkPrimary_FireRate = config.LinkPrimary_FireRate;
+    LinkProj_Damage = config.LinkProj_Damage;
+    LinkProj_DamageRadius = config.LinkProj_DamageRadius;
+    LinkProj_Speed = config.LinkProj_Speed;
+    LinkProj_MaxSpeed = config.LinkProj_MaxSpeed;
+    LinkProj_MomentumTransfer = config.LinkProj_MomentumTransfer;
+    LinkProj_LifeSpan = config.LinkProj_LifeSpan;
+    LinkProj_CullDistance = config.LinkProj_CullDistance;
+    LinkSecondary_TraceRange = config.LinkSecondary_TraceRange;
+    LinkSecondary_MomentumTransfer = config.LinkSecondary_MomentumTransfer;
+    LinkSecondary_AmmoPerFire = config.LinkSecondary_AmmoPerFire;
+    LinkSecondary_Damage = config.LinkSecondary_Damage;
+    LinkSecondary_FireRate = config.LinkSecondary_FireRate;
+    LinkSecondary_LinkFlexibility = config.LinkSecondary_LinkFlexibility;
+    LinkSecondary_LinkBreakDelay = config.LinkSecondary_LinkBreakDelay;
+    LinkGun_PutDownTime = config.LinkGun_PutDownTime;
+    LinkGun_BringUpTime = config.LinkGun_BringUpTime;
+    LinkGun_MinReloadPct = config.LinkGun_MinReloadPct;
 }
 
-function Modify()
+simulated function PostNetBeginPlay()
 {
+    super.PostNetBeginPlay();
+    // Apply on the client when our own replicated data has arrived. The parent
+    // WeaponConfigInfo.PostNetBeginPlay can fire before this sub-object's reference
+    // replicates, so self-applying here is what actually configures the client.
+    if(Role < ROLE_Authority)
+        Modify();
+}
+
+simulated function Modify()
+{
+    if(!bModifyLinkGun)
+        return;
+
+    // stock
+    class'LinkAltFire'.default.AmmoPerFire = LinkPrimary_AmmoPerFire;
+    class'LinkAltFire'.default.FireRate = LinkPrimary_FireRate;
+    class'LinkProjectile'.default.Damage = LinkProj_Damage;
+    class'LinkProjectile'.default.DamageRadius = LinkProj_DamageRadius;
+    class'LinkProjectile'.default.Speed = LinkProj_Speed;
+    class'LinkProjectile'.default.MaxSpeed = LinkProj_MaxSpeed;
+    class'LinkProjectile'.default.MomentumTransfer = LinkProj_MomentumTransfer;
+    class'LinkProjectile'.default.LifeSpan = LinkProj_LifeSpan;
+    class'LinkProjectile'.default.CullDistance = LinkProj_CullDistance;
+    class'LinkFire'.default.TraceRange = LinkSecondary_TraceRange;
+    class'LinkFire'.default.MomentumTransfer = LinkSecondary_MomentumTransfer;
+    class'LinkFire'.default.AmmoPerFire = LinkSecondary_AmmoPerFire;
+    class'LinkFire'.default.Damage = LinkSecondary_Damage;
+    class'LinkFire'.default.FireRate = LinkSecondary_FireRate;
+    class'LinkFire'.default.LinkFlexibility = LinkSecondary_LinkFlexibility;
+    class'LinkFire'.default.LinkBreakDelay = LinkSecondary_LinkBreakDelay;
+    class'LinkGun'.default.PutDownTime = LinkGun_PutDownTime;
+    class'LinkGun'.default.BringUpTime = LinkGun_BringUpTime;
+    class'LinkGun'.default.MinReloadPct = LinkGun_MinReloadPct;
+
+    class'LinkGun'.default.PutDownAnimRate = class'LinkGun'.default.PutDownAnimRate / (LinkGun_PutDownTime / default.LinkGun_PutDownTime);
+    class'LinkGun'.default.SelectAnimRate = class'LinkGun'.default.SelectAnimRate / (LinkGun_BringUpTime / default.LinkGun_BringUpTime);
+
+    // utcomp
+    class'UTComp_LinkAltFire'.default.AmmoPerFire = LinkPrimary_AmmoPerFire;
+    class'UTComp_LinkAltFire'.default.FireRate = LinkPrimary_FireRate;
+    class'UTComp_LinkFire'.default.TraceRange = LinkSecondary_TraceRange;
+    class'UTComp_LinkFire'.default.MomentumTransfer = LinkSecondary_MomentumTransfer;
+    class'UTComp_LinkFire'.default.AmmoPerFire = LinkSecondary_AmmoPerFire;
+    class'UTComp_LinkFire'.default.Damage = LinkSecondary_Damage;
+    class'UTComp_LinkFire'.default.FireRate = LinkSecondary_FireRate;
+    class'UTComp_LinkFire'.default.LinkFlexibility = LinkSecondary_LinkFlexibility;
+    class'UTComp_LinkFire'.default.LinkBreakDelay = LinkSecondary_LinkBreakDelay;
+    class'UTComp_LinkGun'.default.PutDownTime = LinkGun_PutDownTime;
+    class'UTComp_LinkGun'.default.BringUpTime = LinkGun_BringUpTime;
+    class'UTComp_LinkGun'.default.MinReloadPct = LinkGun_MinReloadPct;
+
+    class'UTComp_LinkGun'.default.PutDownAnimRate = class'LinkGun'.default.PutDownAnimRate / (LinkGun_PutDownTime / default.LinkGun_PutDownTime);
+    class'UTComp_LinkGun'.default.SelectAnimRate = class'LinkGun'.default.SelectAnimRate / (LinkGun_BringUpTime / default.LinkGun_BringUpTime);
+
+    // newnet
+    class'NewNet_LinkAltFire'.default.AmmoPerFire = LinkPrimary_AmmoPerFire;
+    class'NewNet_LinkAltFire'.default.FireRate = LinkPrimary_FireRate;
+    class'NewNet_LinkFire'.default.TraceRange = LinkSecondary_TraceRange;
+    class'NewNet_LinkFire'.default.MomentumTransfer = LinkSecondary_MomentumTransfer;
+    class'NewNet_LinkFire'.default.AmmoPerFire = LinkSecondary_AmmoPerFire;
+    class'NewNet_LinkFire'.default.Damage = LinkSecondary_Damage;
+    class'NewNet_LinkFire'.default.FireRate = LinkSecondary_FireRate;
+    class'NewNet_LinkFire'.default.LinkFlexibility = LinkSecondary_LinkFlexibility;
+    class'NewNet_LinkFire'.default.LinkBreakDelay = LinkSecondary_LinkBreakDelay;
+    class'NewNet_LinkGun'.default.PutDownTime = LinkGun_PutDownTime;
+    class'NewNet_LinkGun'.default.BringUpTime = LinkGun_BringUpTime;
+    class'NewNet_LinkGun'.default.MinReloadPct = LinkGun_MinReloadPct;
+    class'NewNet_LinkProjectile'.default.Damage = LinkProj_Damage;
+    class'NewNet_LinkProjectile'.default.DamageRadius = LinkProj_DamageRadius;
+    class'NewNet_LinkProjectile'.default.Speed = LinkProj_Speed;
+    class'NewNet_LinkProjectile'.default.MaxSpeed = LinkProj_MaxSpeed;
+    class'NewNet_LinkProjectile'.default.MomentumTransfer = LinkProj_MomentumTransfer;
+    class'NewNet_LinkProjectile'.default.LifeSpan = LinkProj_LifeSpan;
+    class'NewNet_LinkProjectile'.default.CullDistance = LinkProj_CullDistance;
+
+    class'NewNet_LinkGun'.default.PutDownAnimRate = class'LinkGun'.default.PutDownAnimRate / (LinkGun_PutDownTime / default.LinkGun_PutDownTime);
+    class'NewNet_LinkGun'.default.SelectAnimRate = class'LinkGun'.default.SelectAnimRate / (LinkGun_BringUpTime / default.LinkGun_BringUpTime);
 }
 
 defaultproperties

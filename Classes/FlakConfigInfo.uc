@@ -78,6 +78,16 @@ function LoadFrom(MutWeaponConfig config)
     FlakShell_LifeSpan = config.FlakShell_LifeSpan;
 }
 
+simulated function PostNetBeginPlay()
+{
+    super.PostNetBeginPlay();
+    // Apply on the client when our own replicated data has arrived. The parent
+    // WeaponConfigInfo.PostNetBeginPlay can fire before this sub-object's reference
+    // replicates, so self-applying here is what actually configures the client.
+    if(Role < ROLE_Authority)
+        Modify();
+}
+
 simulated function Modify()
 {
     if(!bModifyFlakCannon)
@@ -167,6 +177,18 @@ simulated function Modify()
     class'NewNet_FlakChunk'.default.CullDistance = FlakChunk_CullDistance;
     class'NewNet_FlakChunk'.default.LifeSpan = FlakChunk_LifeSpan;
     class'NewNet_FlakChunk'.default.bBounce = FlakChunk_Bounce;
+    // The client-side predicted fake chunk must use the same physics as the real
+    // chunk, or it flies at a different speed/trajectory and the fake->real handoff
+    // is visible.
+    class'NewNet_Fake_FlakChunk'.default.Bounces = FlakChunk_Bounces;
+    class'NewNet_Fake_FlakChunk'.default.DamageAtten = FlakChunk_DamageAtten;
+    class'NewNet_Fake_FlakChunk'.default.Speed = FlakChunk_Speed;
+    class'NewNet_Fake_FlakChunk'.default.MaxSpeed = FlakChunk_MaxSpeed;
+    class'NewNet_Fake_FlakChunk'.default.Damage = FlakChunk_Damage;
+    class'NewNet_Fake_FlakChunk'.default.MomentumTransfer = FlakChunk_MomentumTransfer;
+    class'NewNet_Fake_FlakChunk'.default.CullDistance = FlakChunk_CullDistance;
+    class'NewNet_Fake_FlakChunk'.default.LifeSpan = FlakChunk_LifeSpan;
+    class'NewNet_Fake_FlakChunk'.default.bBounce = FlakChunk_Bounce;
     class'NewNet_FlakAltFire'.default.AmmoPerFire = FlakSecondary_AmmoPerFire;
     class'NewNet_FlakAltFire'.default.FireRate = FlakSecondary_FireRate;
     class'NewNet_FlakAltFire'.default.ProjPerFire = FlakSecondary_ProjPerFire;

@@ -26,9 +26,10 @@ replication
 simulated function PostNetBeginPlay()
 {
     super.PostNetBeginPlay();
-    if(Role < ROLE_Authority)
-        Modify();
-
+    // Each sub-config self-applies in its own PostNetBeginPlay. The sub-object
+    // references here may not have replicated in yet, and fanning out Modify() to
+    // them would also risk double-applying non-idempotent settings (e.g. the weapon
+    // BringUp/PutDown anim-rate scaling), so we no longer call Modify() on the client.
     bTearOff=true;
 }
 
