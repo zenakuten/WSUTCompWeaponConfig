@@ -17,12 +17,12 @@ var float RocketSecondary_TightSpread;
 var float RocketSecondary_LooseSpread;
 var int RocketSecondary_MaxLoad;
 var float RocketSecondary_MaxHoldTime;
-var int RocketProj_Speed;
-var int RocketProj_MaxSpeed;
-var int RocketProj_Damage;
-var int RocketProj_DamageRadius;
-var int RocketProj_MomentumTransfer;
-var int RocketProj_LifeSpan;
+var float RocketProj_Speed;
+var float RocketProj_MaxSpeed;
+var float RocketProj_Damage;
+var float RocketProj_DamageRadius;
+var float RocketProj_MomentumTransfer;
+var float RocketProj_LifeSpan;
 var float RocketProj_FlockRadius;
 var float RocketProj_FlockStiffness;
 var float RocketProj_FlockMaxForce;
@@ -32,14 +32,13 @@ var float RocketProj_FlockCurlForce;
 replication
 {
     reliable if(Role == ROLE_Authority && bNetInitial)
-        bModifyRocketLauncher, RocketLauncher_BringUpTime, RocketLauncher_MinReloadPct, RocketLauncher_SeekCheckFreq,
+        bModifyRocketLauncher, RocketLauncher_PutDownTime, RocketLauncher_BringUpTime, RocketLauncher_MinReloadPct, RocketLauncher_SeekCheckFreq,
         RocketLauncher_SeekRange, RocketLauncher_LockRequiredTime, RocketLauncher_UnLockRequiredTime, RocketLauncher_LockAim,
         RocketPrimary_AmmoPerFire, RocketPrimary_FireRate, RocketSecondary_AmmoPerFire, RocketSecondary_FireRate,
         RocketSecondary_TightSpread, RocketSecondary_LooseSpread, RocketSecondary_MaxLoad, RocketSecondary_MaxHoldTime,
         RocketProj_Speed, RocketProj_MaxSpeed, RocketProj_Damage, RocketProj_DamageRadius,
         RocketProj_MomentumTransfer, RocketProj_LifeSpan, RocketProj_FlockRadius, RocketProj_FlockStiffness,
         RocketProj_FlockMaxForce, RocketProj_FlockCurlForce;
-
 }
 
 function LoadFrom(MutWeaponConfig config)
@@ -79,8 +78,7 @@ simulated function Modify()
         return;
 
     // default
-    class'RocketLauncher'.default.PutDownTime = RocketLauncher_PutDownTime;
-    class'RocketLauncher'.default.BringUpTime = RocketLauncher_BringUpTime;
+    SetSwitchTimes(class'RocketLauncher', RocketLauncher_PutDownTime, RocketLauncher_BringUpTime);
     class'RocketLauncher'.default.MinReloadPct = RocketLauncher_MinReloadPct;
     class'RocketLauncher'.default.SeekCheckFreq = RocketLauncher_SeekCheckFreq;
     class'RocketLauncher'.default.SeekRange = RocketLauncher_SeekRange;
@@ -95,20 +93,9 @@ simulated function Modify()
     class'RocketMultiFire'.default.LooseSpread = RocketSecondary_LooseSpread;
     class'RocketMultiFire'.default.MaxLoad = RocketSecondary_MaxLoad;
     class'RocketMultiFire'.default.MaxHoldTime = RocketSecondary_MaxHoldTime;
-    class'RocketProj'.default.Speed = RocketProj_Speed;
-    class'RocketProj'.default.MaxSpeed = RocketProj_MaxSpeed;
-    class'RocketProj'.default.Damage = RocketProj_Damage;
-    class'RocketProj'.default.DamageRadius = RocketProj_DamageRadius;
-    class'RocketProj'.default.MomentumTransfer = RocketProj_MomentumTransfer;
-    class'RocketProj'.default.LifeSpan = RocketProj_LifeSpan;
-    class'RocketProj'.default.FlockRadius = RocketProj_FlockRadius;
-    class'RocketProj'.default.FlockStiffness = RocketProj_FlockStiffness;
-    class'RocketProj'.default.FlockMaxForce = RocketProj_FlockMaxForce;
-    class'RocketProj'.default.FlockCurlForce = RocketProj_FlockCurlForce;
 
     // utcomp
-    class'UTComp_RocketLauncher'.default.PutDownTime = RocketLauncher_PutDownTime;
-    class'UTComp_RocketLauncher'.default.BringUpTime = RocketLauncher_BringUpTime;
+    SetSwitchTimes(class'UTComp_RocketLauncher', RocketLauncher_PutDownTime, RocketLauncher_BringUpTime);
     class'UTComp_RocketLauncher'.default.MinReloadPct = RocketLauncher_MinReloadPct;
     class'UTComp_RocketLauncher'.default.SeekCheckFreq = RocketLauncher_SeekCheckFreq;
     class'UTComp_RocketLauncher'.default.SeekRange = RocketLauncher_SeekRange;
@@ -123,20 +110,9 @@ simulated function Modify()
     class'UTComp_RocketMultiFire'.default.LooseSpread = RocketSecondary_LooseSpread;
     class'UTComp_RocketMultiFire'.default.MaxLoad = RocketSecondary_MaxLoad;
     class'UTComp_RocketMultiFire'.default.MaxHoldTime = RocketSecondary_MaxHoldTime;
-    class'UTComp_RocketProj'.default.Speed = RocketProj_Speed;
-    class'UTComp_RocketProj'.default.MaxSpeed = RocketProj_MaxSpeed;
-    class'UTComp_RocketProj'.default.Damage = RocketProj_Damage;
-    class'UTComp_RocketProj'.default.DamageRadius = RocketProj_DamageRadius;
-    class'UTComp_RocketProj'.default.MomentumTransfer = RocketProj_MomentumTransfer;
-    class'UTComp_RocketProj'.default.LifeSpan = RocketProj_LifeSpan;
-    class'UTComp_RocketProj'.default.FlockRadius = RocketProj_FlockRadius;
-    class'UTComp_RocketProj'.default.FlockStiffness = RocketProj_FlockStiffness;
-    class'UTComp_RocketProj'.default.FlockMaxForce = RocketProj_FlockMaxForce;
-    class'UTComp_RocketProj'.default.FlockCurlForce = RocketProj_FlockCurlForce;
 
     // newnet
-    class'NewNet_RocketLauncher'.default.PutDownTime = RocketLauncher_PutDownTime;
-    class'NewNet_RocketLauncher'.default.BringUpTime = RocketLauncher_BringUpTime;
+    SetSwitchTimes(class'NewNet_RocketLauncher', RocketLauncher_PutDownTime, RocketLauncher_BringUpTime);
     class'NewNet_RocketLauncher'.default.MinReloadPct = RocketLauncher_MinReloadPct;
     class'NewNet_RocketLauncher'.default.SeekCheckFreq = RocketLauncher_SeekCheckFreq;
     class'NewNet_RocketLauncher'.default.SeekRange = RocketLauncher_SeekRange;
@@ -151,16 +127,33 @@ simulated function Modify()
     class'NewNet_RocketMultiFire'.default.LooseSpread = RocketSecondary_LooseSpread;
     class'NewNet_RocketMultiFire'.default.MaxLoad = RocketSecondary_MaxLoad;
     class'NewNet_RocketMultiFire'.default.MaxHoldTime = RocketSecondary_MaxHoldTime;
-    class'NewNet_RocketProj'.default.Speed = RocketProj_Speed;
-    class'NewNet_RocketProj'.default.MaxSpeed = RocketProj_MaxSpeed;
-    class'NewNet_RocketProj'.default.Damage = RocketProj_Damage;
-    class'NewNet_RocketProj'.default.DamageRadius = RocketProj_DamageRadius;
-    class'NewNet_RocketProj'.default.MomentumTransfer = RocketProj_MomentumTransfer;
-    class'NewNet_RocketProj'.default.LifeSpan = RocketProj_LifeSpan;
-    class'NewNet_RocketProj'.default.FlockRadius = RocketProj_FlockRadius;
-    class'NewNet_RocketProj'.default.FlockStiffness = RocketProj_FlockStiffness;
-    class'NewNet_RocketProj'.default.FlockMaxForce = RocketProj_FlockMaxForce;
-    class'NewNet_RocketProj'.default.FlockCurlForce = RocketProj_FlockCurlForce;
+
+    // every rocket a launcher can spawn: stock locks fire SeekingRocketProj, UTComp_RocketLauncher
+    // fires UTComp_RocketProj for every rocket, NewNet fires NewNet_(Seeking)RocketProj or, on its
+    // old-net path, the TeamColor pair, and NewNet_Fake_RocketProj is the client-side prediction.
+    // Lock-on rockets live 10s in stock against 8s, so they keep that ratio.
+    ApplyRocket(class'RocketProj', RocketProj_LifeSpan);
+    ApplyRocket(class'UTComp_RocketProj', RocketProj_LifeSpan);
+    ApplyRocket(class'TeamColorRocketProj', RocketProj_LifeSpan);
+    ApplyRocket(class'NewNet_RocketProj', RocketProj_LifeSpan);
+    ApplyRocket(class'NewNet_Fake_RocketProj', RocketProj_LifeSpan);
+    ApplyRocket(class'SeekingRocketProj', RocketProj_LifeSpan * 1.25);
+    ApplyRocket(class'TeamColorSeekingRocketProj', RocketProj_LifeSpan * 1.25);
+    ApplyRocket(class'NewNet_SeekingRocketProj', RocketProj_LifeSpan * 1.25);
+}
+
+simulated final function ApplyRocket(class<RocketProj> P, float ProjLifeSpan)
+{
+    P.default.Speed = RocketProj_Speed;
+    P.default.MaxSpeed = RocketProj_MaxSpeed;
+    P.default.Damage = RocketProj_Damage;
+    P.default.DamageRadius = RocketProj_DamageRadius;
+    P.default.MomentumTransfer = RocketProj_MomentumTransfer;
+    P.default.LifeSpan = ProjLifeSpan;
+    P.default.FlockRadius = RocketProj_FlockRadius;
+    P.default.FlockStiffness = RocketProj_FlockStiffness;
+    P.default.FlockMaxForce = RocketProj_FlockMaxForce;
+    P.default.FlockCurlForce = RocketProj_FlockCurlForce;
 }
 
 defaultproperties
@@ -189,7 +182,7 @@ defaultproperties
     RocketProj_MomentumTransfer=50000.0
     RocketProj_LifeSpan=8.0
     RocketProj_FlockRadius=12.0
-    RocketProj_FlockStiffness=40.0
+    RocketProj_FlockStiffness=-40.0
     RocketProj_FlockMaxForce=600.0
     RocketProj_FlockCurlForce=450.0
 }

@@ -2,7 +2,7 @@ class ShieldConfigInfo extends WeaponConfigSubInfo;
 
 var bool bModifyShieldGun;
 var float ShieldPrimary_FireRate;
-var float ShieldPrimary_AmmoPerFire;
+var int ShieldPrimary_AmmoPerFire;
 var float ShieldPrimary_ShieldRange;
 var float ShieldPrimary_MinHoldTime;
 var float ShieldPrimary_MinForce;
@@ -16,7 +16,7 @@ var float ShieldPrimary_AutoFireTestFreq;
 var float ShieldPrimary_FullyChargedTime;
 var	byte  ShieldPrimary_ChargingSoundVolume;
 var float ShieldSecondary_FireRate;
-var float ShieldSecondary_AmmoPerFire;
+var int ShieldSecondary_AmmoPerFire;
 var float ShieldSecondary_AmmoRegenTime;
 var float ShieldSecondary_ChargeupTime;
 var byte ShieldSecondary_ShieldSoundVolume;

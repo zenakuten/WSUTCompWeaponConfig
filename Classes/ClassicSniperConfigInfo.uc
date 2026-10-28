@@ -4,7 +4,7 @@ var bool bModifyClassicSniperRifle;
 var int ClassicSniperPrimary_AmmoPerFire;
 var int ClassicSniperPrimary_DamageMin;
 var int ClassicSniperPrimary_DamageMax;
-var int ClassicSniperPrimary_TraceRange;
+var float ClassicSniperPrimary_TraceRange;
 var float ClassicSniperPrimary_FireRate;
 var float ClassicSniperPrimary_HeadshotDamageMult;
 var float ClassicSniperRifle_PutDownTime;

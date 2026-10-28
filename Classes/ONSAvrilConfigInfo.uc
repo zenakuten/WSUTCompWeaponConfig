@@ -62,8 +62,7 @@ simulated function Modify()
     class'ONSAvril'.default.LockCheckFreq = ONSAvril_LockCheckFreq;
     class'ONSAvril'.default.MaxLockRange = ONSAvril_MaxLockRange;
     class'ONSAvril'.default.LockAim = ONSAvril_LockAim;
-    class'ONSAvril'.default.PutDownTime = ONSAvril_PutDownTime;
-    class'ONSAvril'.default.BringUpTime = ONSAvril_BringUpTime;
+    SetSwitchTimes(class'ONSAvril', ONSAvril_PutDownTime, ONSAvril_BringUpTime);
     class'ONSAvril'.default.MinReloadPct = ONSAvril_MinReloadPct;
     class'ONSAvrilFire'.default.AmmoPerFire = ONSAvrilPrimary_AmmoPerFire;
     class'ONSAvrilFire'.default.FireRate = ONSAvrilPrimary_FireRate;
@@ -81,8 +80,7 @@ simulated function Modify()
     class'UTComp_ONSAvril'.default.LockCheckFreq = ONSAvril_LockCheckFreq;
     class'UTComp_ONSAvril'.default.MaxLockRange = ONSAvril_MaxLockRange;
     class'UTComp_ONSAvril'.default.LockAim = ONSAvril_LockAim;
-    class'UTComp_ONSAvril'.default.PutDownTime = ONSAvril_PutDownTime;
-    class'UTComp_ONSAvril'.default.BringUpTime = ONSAvril_BringUpTime;
+    SetSwitchTimes(class'UTComp_ONSAvril', ONSAvril_PutDownTime, ONSAvril_BringUpTime);
     class'UTComp_ONSAvril'.default.MinReloadPct = ONSAvril_MinReloadPct;
     class'UTComp_ONSAvrilFire'.default.AmmoPerFire = ONSAvrilPrimary_AmmoPerFire;
     class'UTComp_ONSAvrilFire'.default.FireRate = ONSAvrilPrimary_FireRate;
@@ -92,8 +90,7 @@ simulated function Modify()
     class'NewNet_ONSAvril'.default.LockCheckFreq = ONSAvril_LockCheckFreq;
     class'NewNet_ONSAvril'.default.MaxLockRange = ONSAvril_MaxLockRange;
     class'NewNet_ONSAvril'.default.LockAim = ONSAvril_LockAim;
-    class'NewNet_ONSAvril'.default.PutDownTime = ONSAvril_PutDownTime;
-    class'NewNet_ONSAvril'.default.BringUpTime = ONSAvril_BringUpTime;
+    SetSwitchTimes(class'NewNet_ONSAvril', ONSAvril_PutDownTime, ONSAvril_BringUpTime);
     class'NewNet_ONSAvril'.default.MinReloadPct = ONSAvril_MinReloadPct;
 }
 
@@ -105,7 +102,7 @@ defaultproperties
     ONSAvril_LockAim=0.996
     ONSAvril_PutDownTime=0.33
     ONSAvril_BringUpTime=0.45
-    ONSAvril_MinReloadPct=0.5
+    ONSAvril_MinReloadPct=0.0
     ONSAvrilPrimary_AmmoPerFire=1
     ONSAvrilPrimary_FireRate=4.0
     ONSAvrilPrimary_KickMomentum=(X=-350.0,Z=175.0)

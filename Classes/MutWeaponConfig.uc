@@ -9,7 +9,7 @@ var config bool bModifyWeapons;
 // shieldgun
 var config bool bModifyShieldGun;
 var config float ShieldPrimary_FireRate;
-var config float ShieldPrimary_AmmoPerFire;
+var config int ShieldPrimary_AmmoPerFire;
 var config float ShieldPrimary_ShieldRange;
 var config float ShieldPrimary_MinHoldTime;
 var config float ShieldPrimary_MinForce; 
@@ -23,7 +23,7 @@ var config float ShieldPrimary_AutoFireTestFreq;
 var config float ShieldPrimary_FullyChargedTime;
 var	config byte  ShieldPrimary_ChargingSoundVolume;
 var config float ShieldSecondary_FireRate;
-var config float ShieldSecondary_AmmoPerFire;
+var config int ShieldSecondary_AmmoPerFire;
 var config float ShieldSecondary_AmmoRegenTime;
 var config float ShieldSecondary_ChargeupTime;
 var config byte ShieldSecondary_ShieldSoundVolume;
@@ -45,10 +45,6 @@ var config float AssaultPrimary_FireRate;
 var config float AssaultPrimary_AimError;
 var config float AssaultPrimary_Spread;
 var config float AssaultSecondary_DamageAtten;
-var config float AssaultSecondary_mScale;
-var config float AssaultSecondary_mScaleMultiplier;
-var config float AssaultSecondary_mSpeedMin;
-var config float AssaultSecondary_mSpeedMax;
 var config float AssaultSecondary_mHoldSpeedMin;
 var config float AssaultSecondary_mHoldSpeedMax;
 var config float AssaultSecondary_mHoldSpeedGainPerSec;
@@ -56,7 +52,6 @@ var config float AssaultSecondary_mWaitTime;
 var config float AssaultGrenade_ExplodeTimer;
 var config float AssaultGrenade_DampenFactor;
 var config float AssaultGrenade_DampenFactorParallel;
-var config float AssaultGrenade_TossZ;
 var config float AssaultGrenade_Damage;
 var config float AssaultGrenade_DamageRadius;
 var config float AssaultGrenade_MomentumTransfer;
@@ -68,10 +63,10 @@ var config bool bGiveDualAssaultRifle;
 // bio rifle
 var config bool bModifyBioRifle;
 var config float BioPrimary_FireRate;
-var config float BioPrimary_AmmoPerFire;
+var config int BioPrimary_AmmoPerFire;
 var config float BioSecondary_FireRate;
 var config float BioSecondary_GoopUpRate;
-var config float BioSecondary_MaxGoopLoad;
+var config int BioSecondary_MaxGoopLoad;
 var config int Bio_ProjBaseDamage;
 var config float Bio_ProjGloblingSpeed;
 var config float Bio_ProjRestTime;
@@ -87,7 +82,7 @@ var config int BioAmmoGiven;
 
 //shock
 var config bool bModifyShockRifle;
-var config int ShockPrimary_TraceRange;
+var config float ShockPrimary_TraceRange;
 var config float ShockPrimary_Momentum;
 var config int ShockPrimary_AmmoPerFire;
 var config int ShockPrimary_DamageMin;
@@ -95,20 +90,20 @@ var config int ShockPrimary_DamageMax;
 var config float ShockPrimary_FireRate;
 var config int ShockSecondary_AmmoPerFire;
 var config float ShockSecondary_FireRate;
-var config int ShockSecondary_ProjSpeed;
-var config int ShockSecondary_ProjMaxSpeed;
-var config int ShockSecondary_ProjDamage;
-var config int ShockSecondary_ProjDamageRadius;
-var config int ShockSecondary_ProjMomentumTransfer;
-var config int ShockSecondary_ProjComboDamage;
-var config int ShockSecondary_ProjComboRadius;
-var config int ShockSecondary_ProjComboMomentumTransfer;
-var config int ShockSecondary_ProjLifeSpan;
+var config float ShockSecondary_ProjSpeed;
+var config float ShockSecondary_ProjMaxSpeed;
+var config float ShockSecondary_ProjDamage;
+var config float ShockSecondary_ProjDamageRadius;
+var config float ShockSecondary_ProjMomentumTransfer;
+var config float ShockSecondary_ProjComboDamage;
+var config float ShockSecondary_ProjComboRadius;
+var config float ShockSecondary_ProjComboMomentumTransfer;
+var config float ShockSecondary_ProjLifeSpan;
 var config int ShockSecondary_ProjComboAmmoCost;
-var config int ShockSecondary_ProjForceScale;
-var config int ShockSecondary_ProjForceRadius;
-var config int ShockSecondary_ProjSoundRadius;
-var config int ShockSecondary_ProjSoundVolume;
+var config float ShockSecondary_ProjForceScale;
+var config float ShockSecondary_ProjForceRadius;
+var config float ShockSecondary_ProjSoundRadius;
+var config byte ShockSecondary_ProjSoundVolume;
 var config float ShockRifle_PutDownTime;
 var config float ShockRifle_BringUpTime;
 var config float ShockRifle_MinReloadPct;
@@ -126,7 +121,7 @@ var config float LinkProj_MaxSpeed;
 var config float LinkProj_MomentumTransfer;
 var config float LinkProj_LifeSpan;
 var config float LinkProj_CullDistance;
-var config int LinkSecondary_TraceRange;
+var config float LinkSecondary_TraceRange;
 var config float LinkSecondary_MomentumTransfer;
 var config int LinkSecondary_AmmoPerFire;
 var config int LinkSecondary_Damage;
@@ -178,8 +173,7 @@ var config int FlakPrimary_AmmoPerFire;
 var config float FlakPrimary_FireRate;
 var config int FlakPrimary_ProjPerFire;
 var config float FlakPrimary_Spread;
-var config int FlakPrimary_SpreadStyle;
-var config byte FlakChunk_Bounces;
+var config byte FlakPrimary_SpreadStyle;
 var config float FlakChunk_DamageAtten;
 var config float FlakChunk_Speed;
 var config float FlakChunk_MaxSpeed;
@@ -221,12 +215,12 @@ var config float RocketSecondary_TightSpread;
 var config float RocketSecondary_LooseSpread;
 var config int RocketSecondary_MaxLoad;
 var config float RocketSecondary_MaxHoldTime;
-var config int RocketProj_Speed;
-var config int RocketProj_MaxSpeed;
-var config int RocketProj_Damage;
-var config int RocketProj_DamageRadius;
-var config int RocketProj_MomentumTransfer;
-var config int RocketProj_LifeSpan;
+var config float RocketProj_Speed;
+var config float RocketProj_MaxSpeed;
+var config float RocketProj_Damage;
+var config float RocketProj_DamageRadius;
+var config float RocketProj_MomentumTransfer;
+var config float RocketProj_LifeSpan;
 var config float RocketProj_FlockRadius;
 var config float RocketProj_FlockStiffness;
 var config float RocketProj_FlockMaxForce;
@@ -239,11 +233,11 @@ var config bool bModifySniperRifle;
 var config int SniperPrimary_AmmoPerFire;
 var config int SniperPrimary_DamageMin;
 var config int SniperPrimary_DamageMax;
-var config int SniperPrimary_TraceRange;
+var config float SniperPrimary_TraceRange;
 var config float SniperPrimary_FireRate;
 var config int SniperPrimary_NumArcs;
 var config float SniperPrimary_SecDamageMult;
-var config int SniperPrimary_SecTraceDist;
+var config float SniperPrimary_SecTraceDist;
 var config float SniperPrimary_HeadshotDamageMult;
 var config float SniperRifle_PutDownTime;
 var config float SniperRifle_BringUpTime;
@@ -256,7 +250,7 @@ var config bool bModifyClassicSniperRifle;
 var config int ClassicSniperPrimary_AmmoPerFire;
 var config int ClassicSniperPrimary_DamageMin;
 var config int ClassicSniperPrimary_DamageMax;
-var config int ClassicSniperPrimary_TraceRange;
+var config float ClassicSniperPrimary_TraceRange;
 var config float ClassicSniperPrimary_FireRate;
 var config float ClassicSniperPrimary_HeadshotDamageMult;
 var config float ClassicSniperRifle_PutDownTime;
@@ -267,7 +261,7 @@ var config int ClassicSniperRifleAmmoGiven;
 
 // super shock
 var config bool bModifySuperShockRifle;
-var config int SuperShockPrimary_TraceRange;
+var config float SuperShockPrimary_TraceRange;
 var config float SuperShockPrimary_Momentum;
 var config int SuperShockPrimary_AmmoPerFire;
 var config int SuperShockPrimary_DamageMin;
@@ -286,7 +280,6 @@ var config float ONSGrenadePrimary_FireRate;
 var config bool ONSGrenadeProj_bBounce;
 var config float ONSGrenadeProj_Speed;
 var config float ONSGrenadeProj_MaxSpeed;
-var config float ONSGrenadeProj_TossZ;
 var config float ONSGrenadeProj_Damage;
 var config float ONSGrenadeProj_DamageRadius;
 var config float ONSGrenadeProj_MomentumTransfer;
@@ -354,6 +347,9 @@ function PostBeginPlay()
     Url = Level.GetLocalURL();
     Url = Mid(Url, InStr(Url, "?"));
     ParseUrl(Url);
+
+    // ammo and give-weapon options are independent of bModifyWeapons
+    SetupAmmo();
 
     // do nothing if not enabled
     if(!bModifyWeapons)
@@ -665,7 +661,7 @@ static function FillPlayInfo(PlayInfo PI)
     PI.AddSetting("UTComp Weapon Config", "ONSAvrilAmmoGiven", "ONS Avril Launcher Ammo Given (5)", Security, Weight, "Text", "8;0:1000",,False,True);
     PI.AddSetting("UTComp Weapon Config", "bGiveONSMineLayer", "Give ONS Mine Layer to Player (false)", Security, Weight, "Check",,,False,True);
     PI.AddSetting("UTComp Weapon Config", "ONSMineLayerAmmoGiven", "ONS Mine Layer Ammo Given (4)", Security, Weight, "Text", "8;0:1000",,False,True);
-    PI.AddSetting("UTComp Weapon Config", "bGiveDualAssaultRifle", "Give Dual Assualt Rifle to Player (false)", Security, Weight, "Check",,,False,True);
+    PI.AddSetting("UTComp Weapon Config", "bGiveDualAssaultRifle", "Give Dual Assault Rifle to Player (false)", Security, Weight, "Check",,,False,True);
 
 
     Weight++;
@@ -674,56 +670,51 @@ static function FillPlayInfo(PlayInfo PI)
     PI.AddSetting("Weapon ShieldGun", "ShieldGun_BringUpTime", "Shield Gun Bring Up Time (0.33)", Security, Weight, "Text", "8;0.0:999.0",,False,True);
     PI.AddSetting("Weapon ShieldGun", "ShieldGun_MinReloadPct", "Shield Gun MinReloadPct (0.5)", Security, Weight, "Text", "8;0.0:999.0",,False,True);
     PI.AddSetting("Weapon ShieldGun", "ShieldPrimary_FireRate", "Shield Primary Fire Rate (0.6)", Security, Weight, "Text", "8;0.0:999.0",,False,True);
-    PI.AddSetting("Weapon ShieldGun", "ShieldPrimary_AmmoPerFire", "Shield Primary Ammo Per Fire (0)", Security, Weight, "Text", "8;0:999.0",,False,True);
+    PI.AddSetting("Weapon ShieldGun", "ShieldPrimary_AmmoPerFire", "Shield Primary Ammo Per Fire (0)", Security, Weight, "Text", "8;0:999",,False,True);
     PI.AddSetting("Weapon ShieldGun", "ShieldPrimary_ShieldRange", "Shield Primary Shield Range (112.0)", Security, Weight, "Text", "8;0.0:20000.0",,False,True);
     PI.AddSetting("Weapon ShieldGun", "ShieldPrimary_MinHoldTime", "Shield Primary Min Hold Time (0.4)", Security, Weight, "Text", "8;0.0:999.0",,False,True);
     PI.AddSetting("Weapon ShieldGun", "ShieldPrimary_MinForce", "Shield Primary Min Force (65000.0)", Security, Weight, "Text", "9;-10000000.0:10000000.0",,False,True);
     PI.AddSetting("Weapon ShieldGun", "ShieldPrimary_MaxForce", "Shield Primary Max Force (100000.0)", Security, Weight, "Text", "9;-10000000.0:10000000.0",,False,True);
     PI.AddSetting("Weapon ShieldGun", "ShieldPrimary_MinDamage", "Shield Primary Min Damage (40.0)", Security, Weight, "Text", "8;0.0:10000.0",,False,True);
     PI.AddSetting("Weapon ShieldGun", "ShieldPrimary_MaxDamage", "Shield Primary Max Damage (150.0)", Security, Weight, "Text", "8;0.0:10000.0",,False,True);
-    PI.AddSetting("Weapon ShieldGun", "ShieldPrimary_SelfForceScale", "Shield Primary Self Force Scale (1.0)", Security, Weight, "Text", "4;0.0:1000",,False,True);
-    PI.AddSetting("Weapon ShieldGun", "ShieldPrimary_SelfDamageScale", "Shield Primary Self Damage Scale (0.3)", Security, Weight, "Text", "4;0.0:1000",,False,True);
-    PI.AddSetting("Weapon ShieldGun", "ShieldPrimary_MinSelfDamage", "Shield Primary Minimum Self Damage (8)", Security, Weight, "Text", "4;0:1000",,False,True);
-    PI.AddSetting("Weapon ShieldGun", "ShieldPrimary_AutoFireTestFreq", "Shield Primary Auto Fire Test Frequency (0.15)", Security, Weight, "Text", "4;0.0:1000",,False,True);
-    PI.AddSetting("Weapon ShieldGun", "ShieldPrimary_FullyChargedTime", "Shield Primary Fully Charged Time (2.5)", Security, Weight, "Text", "4;0.0:1000",,False,True);
-    PI.AddSetting("Weapon ShieldGun", "ShieldPrimary_ChargingSoundVolume", "Shield Primary Charging Sound Volume (200)", Security, Weight, "Text", "4;0:1000",,False,True);
+    PI.AddSetting("Weapon ShieldGun", "ShieldPrimary_SelfForceScale", "Shield Primary Self Force Scale (1.0)", Security, Weight, "Text", "4;0.0:1000.0",,False,True);
+    PI.AddSetting("Weapon ShieldGun", "ShieldPrimary_SelfDamageScale", "Shield Primary Self Damage Scale (0.3)", Security, Weight, "Text", "4;0.0:1000.0",,False,True);
+    PI.AddSetting("Weapon ShieldGun", "ShieldPrimary_MinSelfDamage", "Shield Primary Min Self Damage (8.0)", Security, Weight, "Text", "4;0.0:1000.0",,False,True);
+    PI.AddSetting("Weapon ShieldGun", "ShieldPrimary_AutoFireTestFreq", "Shield Primary Auto Fire Test Frequency (0.15)", Security, Weight, "Text", "4;0.0:1000.0",,False,True);
+    PI.AddSetting("Weapon ShieldGun", "ShieldPrimary_FullyChargedTime", "Shield Primary Fully Charged Time (2.5)", Security, Weight, "Text", "4;0.0:1000.0",,False,True);
+    PI.AddSetting("Weapon ShieldGun", "ShieldPrimary_ChargingSoundVolume", "Shield Primary Charging Sound Volume (200)", Security, Weight, "Text", "3;0:255",,False,True);
     PI.AddSetting("Weapon ShieldGun", "ShieldSecondary_FireRate", "Shield Secondary Fire Rate (1.0)", Security, Weight, "Text", "8;0.0:999.0",,False,True);
-    PI.AddSetting("Weapon ShieldGun", "ShieldSecondary_AmmoPerFire", "Shield Secondary Ammo Per Fire (15)", Security, Weight, "Text", "8;0:999.0",,False,True);
+    PI.AddSetting("Weapon ShieldGun", "ShieldSecondary_AmmoPerFire", "Shield Secondary Ammo Per Fire (15)", Security, Weight, "Text", "8;0:999",,False,True);
     PI.AddSetting("Weapon ShieldGun", "ShieldSecondary_AmmoRegenTime", "Shield Secondary Ammo Regen Time (0.2)", Security, Weight, "Text", "8;0.0:999.0",,False,True);
     PI.AddSetting("Weapon ShieldGun", "ShieldSecondary_ChargeupTime", "Shield Secondary Chargeup Time (3.0)", Security, Weight, "Text", "8;0.0:999.0",,False,True);
-    PI.AddSetting("Weapon ShieldGun", "ShieldSecondary_ShieldSoundVolume", "Shield Secondary Sound Volume (220)", Security, Weight, "Text", "4;0:1000",,False,True);
+    PI.AddSetting("Weapon ShieldGun", "ShieldSecondary_ShieldSoundVolume", "Shield Secondary Shield Sound Volume (220)", Security, Weight, "Text", "3;0:255",,False,True);
 
     Weight++;
     // assault rifle
     PI.AddSetting("Weapon AssaultRifle", "AssaultRifle_PutDownTime", "Assault Rifle Put Down Time (0.33)", Security, Weight, "Text", "8;0.0:999.0",,False,True);
     PI.AddSetting("Weapon AssaultRifle", "AssaultRifle_BringUpTime", "Assault Rifle Bring Up Time (0.33)", Security, Weight, "Text", "8;0.0:999.0",,False,True);
     PI.AddSetting("Weapon AssaultRifle", "AssaultRifle_MinReloadPct", "Assault Rifle MinReloadPct (0.5)", Security, Weight, "Text", "8;0.0:999.0",,False,True);
-    PI.AddSetting("Weapon AssaultRifle", "AssaultPrimary_TraceRange", "Assault Primary Trace Range (10000.0)", Security, Weight, "Text", "8;0.0:1000000",,False,True);
-    PI.AddSetting("Weapon AssaultRifle", "AssaultPrimary_Momentum", "Assault Primary Momentum (0.0)", Security, Weight, "Text", "9;-10000000.0:10000000",,False,True);
+    PI.AddSetting("Weapon AssaultRifle", "AssaultPrimary_TraceRange", "Assault Primary Trace Range (10000.0)", Security, Weight, "Text", "8;0.0:1000000.0",,False,True);
+    PI.AddSetting("Weapon AssaultRifle", "AssaultPrimary_Momentum", "Assault Primary Momentum (0.0)", Security, Weight, "Text", "9;-10000000.0:10000000.0",,False,True);
     PI.AddSetting("Weapon AssaultRifle", "AssaultPrimary_AmmoPerFire", "Assault Primary Ammo Per Fire (1)", Security, Weight, "Text", "4;0:1000",,False,True);
     PI.AddSetting("Weapon AssaultRifle", "AssaultPrimary_DamageMin", "Assault Primary Damage Min (7)", Security, Weight, "Text", "4;0:1000",,False,True);
     PI.AddSetting("Weapon AssaultRifle", "AssaultPrimary_DamageMax", "Assault Primary Damage Max (7)", Security, Weight, "Text", "4;0:1000",,False,True);
-    PI.AddSetting("Weapon AssaultRifle", "AssaultPrimary_FireRate", "Assault Primary Fire Rate (0.16)", Security, Weight, "Text", "4;0.0:1000",,False,True);
-    PI.AddSetting("Weapon AssaultRifle", "AssaultPrimary_AimError", "Assault Primary Aim Error (800)", Security, Weight, "Text", "4;0:9999",,False,True);
-    PI.AddSetting("Weapon AssaultRifle", "AssaultPrimary_Spread", "Assault Primary Spread (0.02)", Security, Weight, "Text", "4;0.0:1000",,False,True);
+    PI.AddSetting("Weapon AssaultRifle", "AssaultPrimary_FireRate", "Assault Primary Fire Rate (0.16)", Security, Weight, "Text", "4;0.0:1000.0",,False,True);
+    PI.AddSetting("Weapon AssaultRifle", "AssaultPrimary_AimError", "Assault Primary Aim Error (800)", Security, Weight, "Text", "4;0.0:9999.0",,False,True);
+    PI.AddSetting("Weapon AssaultRifle", "AssaultPrimary_Spread", "Assault Primary Spread (0.02)", Security, Weight, "Text", "4;0.0:1000.0",,False,True);
 
     Weight++;
-    PI.AddSetting("Weapon AssaultRifle", "AssaultSecondary_DamageAtten", "Assault Secondary Damage Atten (1.0)", Security, Weight, "Text", "4;0.0:1000",,False,True);
-    PI.AddSetting("Weapon AssaultRifle", "AssaultSecondary_mScale", "Assault Secondary mScale (1.0)", Security, Weight, "Text", "4;0.0:1000",,False,True);
-    PI.AddSetting("Weapon AssaultRifle", "AssaultSecondary_mScaleMultiplier", "Assault Secondary mScaleMultiplier (0.9)", Security, Weight, "Text", "4;0.0:1000",,False,True);
-    PI.AddSetting("Weapon AssaultRifle", "AssaultSecondary_mSpeedMin", "Assault Secondary mSpeedMin (250)", Security, Weight, "Text", "8;0.0:10000000",,False,True);
-    PI.AddSetting("Weapon AssaultRifle", "AssaultSecondary_mSpeedMax", "Assault Secondary mSpeedMax (3000)", Security, Weight, "Text", "8;0.0:10000000",,False,True);
-    PI.AddSetting("Weapon AssaultRifle", "AssaultSecondary_mHoldSpeedMin", "Assault Secondary mHoldSpeedMin (850.0)", Security, Weight, "Text", "8;0.0:10000000",,False,True);
-    PI.AddSetting("Weapon AssaultRifle", "AssaultSecondary_mHoldSpeedMax", "Assault Secondary mHoldSpeedMax (1600.0)", Security, Weight, "Text", "8;0.0:10000000",,False,True);
-    PI.AddSetting("Weapon AssaultRifle", "AssaultSecondary_mHoldSpeedGainPerSec", "Assault Secondary mHoldSpeedGainPerSec (750.0)", Security, Weight, "Text", "8;0.0:10000000",,False,True);
-    PI.AddSetting("Weapon AssaultRifle", "AssaultSecondary_mWaitTime", "Assault Secondary mWaitTime (0.5)", Security, Weight, "Text", "8;0.0:10000000",,False,True);
-    PI.AddSetting("Weapon AssaultRifle", "AssaultGrenade_ExplodeTimer", "Assault Grenade Explode Timer (2.0)", Security, Weight, "Text", "8;0.0:10000000",,False,True);
-    PI.AddSetting("Weapon AssaultRifle", "AssaultGrenade_DampenFactor", "Assault Grenade Dampen Factor (0.5)", Security, Weight, "Text", "8;0.0:10000000",,False,True);
-    PI.AddSetting("Weapon AssaultRifle", "AssaultGrenade_DampenFactorParallel", "Assault Grenade Dampen Factor Parallel (0.8)", Security, Weight, "Text", "8;0.0:10000000",,False,True);
-    PI.AddSetting("Weapon AssaultRifle", "AssaultGrenade_TossZ", "Assault Grenade TossZ (0.0)", Security, Weight, "Text", "8;0.0:10000000",,False,True);
-    PI.AddSetting("Weapon AssaultRifle", "AssaultGrenade_Damage", "Assault Grenade Damage (70.0)", Security, Weight, "Text", "8;0.0:10000000",,False,True);
-    PI.AddSetting("Weapon AssaultRifle", "AssaultGrenade_DamageRadius", "Assault Grenade Damage Radius (220.0)", Security, Weight, "Text", "8;0.0:10000000",,False,True);
-    PI.AddSetting("Weapon AssaultRifle", "AssaultGrenade_MomentumTransfer", "Assault Grenade Momentum Transfer (75000.0)", Security, Weight, "Text", "8;0.0:10000000",,False,True);
+    PI.AddSetting("Weapon AssaultRifle", "AssaultSecondary_DamageAtten", "Assault Secondary Damage Atten (1.0)", Security, Weight, "Text", "4;0.0:1000.0",,False,True);
+    PI.AddSetting("Weapon AssaultRifle", "AssaultSecondary_mHoldSpeedMin", "Assault Secondary mHoldSpeedMin (850.0)", Security, Weight, "Text", "8;0.0:10000000.0",,False,True);
+    PI.AddSetting("Weapon AssaultRifle", "AssaultSecondary_mHoldSpeedMax", "Assault Secondary mHoldSpeedMax (1600.0)", Security, Weight, "Text", "8;0.0:10000000.0",,False,True);
+    PI.AddSetting("Weapon AssaultRifle", "AssaultSecondary_mHoldSpeedGainPerSec", "Assault Secondary mHoldSpeedGainPerSec (750.0)", Security, Weight, "Text", "8;0.0:10000000.0",,False,True);
+    PI.AddSetting("Weapon AssaultRifle", "AssaultSecondary_mWaitTime", "Assault Secondary mWaitTime (0.5)", Security, Weight, "Text", "8;0.0:10000000.0",,False,True);
+    PI.AddSetting("Weapon AssaultRifle", "AssaultGrenade_ExplodeTimer", "Assault Grenade Explode Timer (2.0)", Security, Weight, "Text", "8;0.0:10000000.0",,False,True);
+    PI.AddSetting("Weapon AssaultRifle", "AssaultGrenade_DampenFactor", "Assault Grenade Dampen Factor (0.5)", Security, Weight, "Text", "8;0.0:10000000.0",,False,True);
+    PI.AddSetting("Weapon AssaultRifle", "AssaultGrenade_DampenFactorParallel", "Assault Grenade Dampen Factor Parallel (0.8)", Security, Weight, "Text", "8;0.0:10000000.0",,False,True);
+    PI.AddSetting("Weapon AssaultRifle", "AssaultGrenade_Damage", "Assault Grenade Damage (70.0)", Security, Weight, "Text", "8;0.0:10000000.0",,False,True);
+    PI.AddSetting("Weapon AssaultRifle", "AssaultGrenade_DamageRadius", "Assault Grenade Damage Radius (220.0)", Security, Weight, "Text", "8;0.0:10000000.0",,False,True);
+    PI.AddSetting("Weapon AssaultRifle", "AssaultGrenade_MomentumTransfer", "Assault Grenade Momentum Transfer (75000.0)", Security, Weight, "Text", "8;0.0:10000000.0",,False,True);
     PI.AddSetting("Weapon AssaultRifle", "bModifyAssaultAmmo", "Modify the Assault Rifle Ammo (false)", Security, Weight, "Check",,,False,True);
     PI.AddSetting("Weapon AssaultRifle", "AssaultRifleAmmoGiven", "Assault Rifle Ammo (100)", Security, Weight, "Text", "8;0:1000",,False,True);
     PI.AddSetting("Weapon AssaultRifle", "AssaultGrenadesGiven", "Assault Rifle Grenades (4)", Security, Weight, "Text", "8;0:1000",,False,True);
@@ -738,65 +729,65 @@ static function FillPlayInfo(PlayInfo PI)
     PI.AddSetting("Weapon BioRifle", "BioSecondary_FireRate", "Bio Secondary Fire Rate  (0.33)", Security, Weight, "Text", "8;0.0:999.0",,False,True);
     PI.AddSetting("Weapon BioRifle", "BioSecondary_GoopUpRate", "Bio Secondary Goop Up Rate (0.25)", Security, Weight, "Text", "8;0.0:999.0",,False,True);
     PI.AddSetting("Weapon BioRifle", "BioSecondary_MaxGoopLoad", "Bio Secondary Max Goop Load (10)", Security, Weight, "Text", "4;0:1000",,False,True);
-    PI.AddSetting("Weapon BioRifle", "Bio_ProjBaseDamage", "Bio Projectile Base Damage (20.0)", Security, Weight, "Text", "4;0.0:1000",,False,True);
-    PI.AddSetting("Weapon BioRifle", "Bio_ProjGloblingSpeed", "Bio Projectile Globling Speed (200.0)", Security, Weight, "Text", "4;0.0:20000",,False,True);
-    PI.AddSetting("Weapon BioRifle", "Bio_ProjRestTime", "Bio Projectile Rest Time (2.25)", Security, Weight, "Text", "4;0.0:1000",,False,True);
-    PI.AddSetting("Weapon BioRifle", "Bio_ProjTouchDetinationDelay", "Bio Projectile Touch Detination Delay (0.15)", Security, Weight, "Text", "4;0.0:1000",,False,True);
+    PI.AddSetting("Weapon BioRifle", "Bio_ProjBaseDamage", "Bio Projectile Base Damage (20)", Security, Weight, "Text", "4;0:1000",,False,True);
+    PI.AddSetting("Weapon BioRifle", "Bio_ProjGloblingSpeed", "Bio Projectile Globling Speed (200.0)", Security, Weight, "Text", "4;0.0:20000.0",,False,True);
+    PI.AddSetting("Weapon BioRifle", "Bio_ProjRestTime", "Bio Projectile Rest Time (2.25)", Security, Weight, "Text", "4;0.0:1000.0",,False,True);
+    PI.AddSetting("Weapon BioRifle", "Bio_ProjTouchDetinationDelay", "Bio Projectile Touch Detonation Delay (0.15)", Security, Weight, "Text", "4;0.0:1000.0",,False,True);
 
-    PI.AddSetting("Weapon BioRifle", "Bio_ProjDripTime", "Bio Projectile Drip Time (1.8)", Security, Weight, "Text", "4;0.0:1000",,False,True);
+    PI.AddSetting("Weapon BioRifle", "Bio_ProjDripTime", "Bio Projectile Drip Time (1.8)", Security, Weight, "Text", "4;0.0:1000.0",,False,True);
     PI.AddSetting("Weapon BioRifle", "Bio_ProjMaxGoopLevel", "Bio Projectile Max Goop Level (5)", Security, Weight, "Text", "4;0:1000",,False,True);
-    PI.AddSetting("Weapon BioRifle", "Bio_ProjMergeGlobs", "Bio Projectile Merg Globs (true)", Security, Weight, "Check",,,False,True);
+    PI.AddSetting("Weapon BioRifle", "Bio_ProjMergeGlobs", "Bio Projectile Merge Globs (true)", Security, Weight, "Check",,,False,True);
 
     Weight++;
     // shock
     PI.AddSetting("Weapon ShockRifle", "ShockRifle_PutDownTime", "Shock Rifle Put Down Time (0.33)", Security, Weight, "Text", "8;0.0:999.0",,False,True);
     PI.AddSetting("Weapon ShockRifle", "ShockRifle_BringUpTime", "Shock Rifle Bring Up Time (0.33)", Security, Weight, "Text", "8;0.0:999.0",,False,True);
     PI.AddSetting("Weapon ShockRifle", "ShockRifle_MinReloadPct", "Shock Rifle MinReloadPct (0.5)", Security, Weight, "Text", "8;0.0:999.0",,False,True);
-    PI.AddSetting("Weapon ShockRifle", "ShockPrimary_TraceRange", "Shock Primary Trace Range (17000.0)", Security, Weight, "Text", "8;0.0:1000000",,False,True);
-    PI.AddSetting("Weapon ShockRifle", "ShockPrimary_Momentum", "Shock Primary Momentum (60000.0)", Security, Weight, "Text", "9;-10000000.0:10000000",,False,True);
+    PI.AddSetting("Weapon ShockRifle", "ShockPrimary_TraceRange", "Shock Primary Trace Range (17000.0)", Security, Weight, "Text", "8;0.0:1000000.0",,False,True);
+    PI.AddSetting("Weapon ShockRifle", "ShockPrimary_Momentum", "Shock Primary Momentum (60000.0)", Security, Weight, "Text", "9;-10000000.0:10000000.0",,False,True);
     PI.AddSetting("Weapon ShockRifle", "ShockPrimary_AmmoPerFire", "Shock Primary Ammo Per Fire (1)", Security, Weight, "Text", "4;0:1000",,False,True);
     PI.AddSetting("Weapon ShockRifle", "ShockPrimary_DamageMin", "Shock Primary Damage Min (45)", Security, Weight, "Text", "4;0:1000",,False,True);
     PI.AddSetting("Weapon ShockRifle", "ShockPrimary_DamageMax", "Shock Primary Damage Max (45)", Security, Weight, "Text", "4;0:1000",,False,True);
-    PI.AddSetting("Weapon ShockRifle", "ShockPrimary_FireRate", "Shock Primary Fire Rate (0.7)", Security, Weight, "Text", "4;0.0:1000",,False,True);
+    PI.AddSetting("Weapon ShockRifle", "ShockPrimary_FireRate", "Shock Primary Fire Rate (0.7)", Security, Weight, "Text", "4;0.0:1000.0",,False,True);
 
     PI.AddSetting("Weapon ShockRifle", "ShockSecondary_AmmoPerFire", "Shock Secondary Ammo Per Fire (1)", Security, Weight, "Text", "4;0:1000",,False,True);
-    PI.AddSetting("Weapon ShockRifle", "ShockSecondary_FireRate", "Shock Secondary Fire Rate (0.6)", Security, Weight, "Text", "4;0.0:1000",,False,True);
-    PI.AddSetting("Weapon ShockRifle", "ShockSecondary_ProjSpeed", "Shock Secondary Projectile Speed (1150)", Security, Weight, "Text", "6;0:100000",,False,True);
-    PI.AddSetting("Weapon ShockRifle", "ShockSecondary_ProjMaxSpeed", "Shock Secondary Projectile Max Speed (1150)", Security, Weight, "Text", "6;0:100000",,False,True);
-    PI.AddSetting("Weapon ShockRifle", "ShockSecondary_ProjDamage", "Shock Secondary Damage (45)", Security, Weight, "Text", "4;0:1000",,False,True);
-    PI.AddSetting("Weapon ShockRifle", "ShockSecondary_ProjDamageRadius", "Shock Secondary Damage Radius (150)", Security, Weight, "Text", "5;0:10000",,False,True);
-    PI.AddSetting("Weapon ShockRifle", "ShockSecondary_ProjMomentumTransfer", "Shock Secondary Momentum Transfer (70000)", Security, Weight, "Text", "9;-10000000:10000000",,False,True);
-    PI.AddSetting("Weapon ShockRifle", "ShockSecondary_ProjComboDamage", "Shock Combo Damage (200)", Security, Weight, "Text", "4;0:1000",,False,True);
-    PI.AddSetting("Weapon ShockRifle", "ShockSecondary_ProjComboRadius", "Shock Combo Damage Radius (275)", Security, Weight, "Text", "5;0:10000",,False,True);
-    PI.AddSetting("Weapon ShockRifle", "ShockSecondary_ProjComboMomentumTransfer", "Shock Combo Momentum Transfer (150000)", Security, Weight, "Text", "9;-10000000:10000000",,False,True);
-    PI.AddSetting("Weapon ShockRifle", "ShockSecondary_ProjLifeSpan", "Shock Secondary Projectile Lifespan (10.0)", Security, Weight, "Text", "4;0.0:1000",,False,True);
+    PI.AddSetting("Weapon ShockRifle", "ShockSecondary_FireRate", "Shock Secondary Fire Rate (0.6)", Security, Weight, "Text", "4;0.0:1000.0",,False,True);
+    PI.AddSetting("Weapon ShockRifle", "ShockSecondary_ProjSpeed", "Shock Secondary Projectile Speed (1150.0)", Security, Weight, "Text", "6;0.0:100000.0",,False,True);
+    PI.AddSetting("Weapon ShockRifle", "ShockSecondary_ProjMaxSpeed", "Shock Secondary Projectile Max Speed (1150.0)", Security, Weight, "Text", "6;0.0:100000.0",,False,True);
+    PI.AddSetting("Weapon ShockRifle", "ShockSecondary_ProjDamage", "Shock Secondary Damage (45.0)", Security, Weight, "Text", "4;0.0:1000.0",,False,True);
+    PI.AddSetting("Weapon ShockRifle", "ShockSecondary_ProjDamageRadius", "Shock Secondary Damage Radius (150.0)", Security, Weight, "Text", "5;0.0:10000.0",,False,True);
+    PI.AddSetting("Weapon ShockRifle", "ShockSecondary_ProjMomentumTransfer", "Shock Secondary Momentum Transfer (70000.0)", Security, Weight, "Text", "9;-10000000.0:10000000.0",,False,True);
+    PI.AddSetting("Weapon ShockRifle", "ShockSecondary_ProjComboDamage", "Shock Combo Damage (200.0)", Security, Weight, "Text", "4;0.0:1000.0",,False,True);
+    PI.AddSetting("Weapon ShockRifle", "ShockSecondary_ProjComboRadius", "Shock Combo Damage Radius (275.0)", Security, Weight, "Text", "5;0.0:10000.0",,False,True);
+    PI.AddSetting("Weapon ShockRifle", "ShockSecondary_ProjComboMomentumTransfer", "Shock Combo Momentum Transfer (150000.0)", Security, Weight, "Text", "9;-10000000.0:10000000.0",,False,True);
+    PI.AddSetting("Weapon ShockRifle", "ShockSecondary_ProjLifeSpan", "Shock Secondary Projectile Lifespan (10.0)", Security, Weight, "Text", "4;0.0:1000.0",,False,True);
     PI.AddSetting("Weapon ShockRifle", "ShockSecondary_ProjComboAmmoCost", "Shock Combo Ammo Cost (3)", Security, Weight, "Text", "4;0:1000",,False,True);
-    PI.AddSetting("Weapon ShockRifle", "ShockSecondary_ProjForceScale", "Shock Projectile Force Scale (5.0)", Security, Weight, "Text", "4;0.0:1000",,False,True);
-    PI.AddSetting("Weapon ShockRifle", "ShockSecondary_ProjForceRadius", "Shock Projectile Force Radius (40.0)", Security, Weight, "Text", "4;0.0:1000",,False,True);
-    PI.AddSetting("Weapon ShockRifle", "ShockSecondary_ProjSoundRadius", "Shock Projectile Sound Radius (100)", Security, Weight, "Text", "5;0:10000",,False,True);
-    PI.AddSetting("Weapon ShockRifle", "ShockSecondary_ProjSoundVolume", "Shock Projectile Sound Volume (50)", Security, Weight, "Text", "5;0:10000",,False,True);
+    PI.AddSetting("Weapon ShockRifle", "ShockSecondary_ProjForceScale", "Shock Projectile Force Scale (5.0)", Security, Weight, "Text", "4;0.0:1000.0",,False,True);
+    PI.AddSetting("Weapon ShockRifle", "ShockSecondary_ProjForceRadius", "Shock Projectile Force Radius (40.0)", Security, Weight, "Text", "4;0.0:1000.0",,False,True);
+    PI.AddSetting("Weapon ShockRifle", "ShockSecondary_ProjSoundRadius", "Shock Projectile Sound Radius (100.0)", Security, Weight, "Text", "5;0.0:10000.0",,False,True);
+    PI.AddSetting("Weapon ShockRifle", "ShockSecondary_ProjSoundVolume", "Shock Projectile Sound Volume (50)", Security, Weight, "Text", "3;0:255",,False,True);
 
     Weight++;
     // linkgun
     PI.AddSetting("Weapon LinkGun", "LinkPrimary_AmmoPerFire", "Link Primary Ammo Per Fire (2)", Security, Weight, "Text", "4;0:1000",,False,True);
-    PI.AddSetting("Weapon LinkGun", "LinkPrimary_FireRate", "Link Primary Fire Rate (0.2)", Security, Weight, "Text", "8;0.0:1000",,False,True);
-    PI.AddSetting("Weapon LinkGun", "LinkProj_Damage", "Link Projectile Damage (30)", Security, Weight, "Text", "5;0:10000",,False,True);
-    PI.AddSetting("Weapon LinkGun", "LinkProj_DamageRadius", "Link Projectile Damage Radius (0.0)", Security, Weight, "Text", "8;0.0:10000000",,False,True);
-    PI.AddSetting("Weapon LinkGun", "LinkProj_Speed", "Link Projectile Speed (1000.0)", Security, Weight, "Text", "8;0.0:10000000",,False,True);
-    PI.AddSetting("Weapon LinkGun", "LinkProj_MaxSpeed", "Link Projectile Max Speed (4000.0)", Security, Weight, "Text", "8;0.0:10000000",,False,True);
-    PI.AddSetting("Weapon LinkGun", "LinkProj_MomentumTransfer", "Link Projectile Momentum Transfer (0.0)", Security, Weight, "Text", "8;0.0:10000000",,False,True);
-    PI.AddSetting("Weapon LinkGun", "LinkProj_LifeSpan", "Link Projectile Life Span (3.0)", Security, Weight, "Text", "8;0.0:10000000",,False,True);
-    PI.AddSetting("Weapon LinkGun", "LinkProj_CullDistance", "Link Projectile Cull Distance (3500.0)", Security, Weight, "Text", "8;0.0:10000000",,False,True);
-    PI.AddSetting("Weapon LinkGun", "LinkSecondary_TraceRange", "Link Secondary Trace Range (1100.0)", Security, Weight, "Text", "8;0.0:10000000",,False,True);
-    PI.AddSetting("Weapon LinkGun", "LinkSecondary_MomentumTransfer", "Link Secondary Momentum Transfer (2000.0)", Security, Weight, "Text", "8;0.0:10000000",,False,True);
+    PI.AddSetting("Weapon LinkGun", "LinkPrimary_FireRate", "Link Primary Fire Rate (0.2)", Security, Weight, "Text", "8;0.0:1000.0",,False,True);
+    PI.AddSetting("Weapon LinkGun", "LinkProj_Damage", "Link Projectile Damage (30)", Security, Weight, "Text", "5;0.0:10000.0",,False,True);
+    PI.AddSetting("Weapon LinkGun", "LinkProj_DamageRadius", "Link Projectile Damage Radius (0.0)", Security, Weight, "Text", "8;0.0:10000000.0",,False,True);
+    PI.AddSetting("Weapon LinkGun", "LinkProj_Speed", "Link Projectile Speed (1000.0)", Security, Weight, "Text", "8;0.0:10000000.0",,False,True);
+    PI.AddSetting("Weapon LinkGun", "LinkProj_MaxSpeed", "Link Projectile Max Speed (4000.0)", Security, Weight, "Text", "8;0.0:10000000.0",,False,True);
+    PI.AddSetting("Weapon LinkGun", "LinkProj_MomentumTransfer", "Link Projectile Momentum Transfer (0.0)", Security, Weight, "Text", "8;0.0:10000000.0",,False,True);
+    PI.AddSetting("Weapon LinkGun", "LinkProj_LifeSpan", "Link Projectile Life Span (3.0)", Security, Weight, "Text", "8;0.0:10000000.0",,False,True);
+    PI.AddSetting("Weapon LinkGun", "LinkProj_CullDistance", "Link Projectile Cull Distance (3500.0)", Security, Weight, "Text", "8;0.0:10000000.0",,False,True);
+    PI.AddSetting("Weapon LinkGun", "LinkSecondary_TraceRange", "Link Secondary Trace Range (1100.0)", Security, Weight, "Text", "8;0.0:10000000.0",,False,True);
+    PI.AddSetting("Weapon LinkGun", "LinkSecondary_MomentumTransfer", "Link Secondary Momentum Transfer (2000.0)", Security, Weight, "Text", "8;0.0:10000000.0",,False,True);
     PI.AddSetting("Weapon LinkGun", "LinkSecondary_AmmoPerFire", "Link Secondary Ammo Per Fire (1)", Security, Weight, "Text", "8;0:1000",,False,True);
     PI.AddSetting("Weapon LinkGun", "LinkSecondary_Damage", "Link Secondary Damage (9)", Security, Weight, "Text", "8;0:1000",,False,True);
-    PI.AddSetting("Weapon LinkGun", "LinkSecondary_FireRate", "Link Secondary Fire Rate (0.12)", Security, Weight, "Text", "8;0.0:10000000",,False,True);
-    PI.AddSetting("Weapon LinkGun", "LinkSecondary_LinkFlexibility", "Link Secondary Link Flexibility (0.64)", Security, Weight, "Text", "8;0.0:10000000",,False,True);
-    PI.AddSetting("Weapon LinkGun", "LinkSecondary_LinkBreakDelay", "Link Secondary Link Break Delay (0.5)", Security, Weight, "Text", "8;0.0:10000000",,False,True);
-    PI.AddSetting("Weapon LinkGun", "LinkGun_PutDownTime", "Link Gun Put Down Time (0.33)", Security, Weight, "Text", "8;0.0:10000000",,False,True);
-    PI.AddSetting("Weapon LinkGun", "LinkGun_BringUpTime", "Link Gun Bring Up Time (0.33)", Security, Weight, "Text", "8;0.0:10000000",,False,True);
-    PI.AddSetting("Weapon LinkGun", "LinkGun_MinReloadPct", "Link Gun MinReloadPct (0.5)", Security, Weight, "Text", "8;0.0:10000000",,False,True);
+    PI.AddSetting("Weapon LinkGun", "LinkSecondary_FireRate", "Link Secondary Fire Rate (0.12)", Security, Weight, "Text", "8;0.0:10000000.0",,False,True);
+    PI.AddSetting("Weapon LinkGun", "LinkSecondary_LinkFlexibility", "Link Secondary Link Flexibility (0.64)", Security, Weight, "Text", "8;0.0:10000000.0",,False,True);
+    PI.AddSetting("Weapon LinkGun", "LinkSecondary_LinkBreakDelay", "Link Secondary Link Break Delay (0.5)", Security, Weight, "Text", "8;0.0:10000000.0",,False,True);
+    PI.AddSetting("Weapon LinkGun", "LinkGun_PutDownTime", "Link Gun Put Down Time (0.33)", Security, Weight, "Text", "8;0.0:10000000.0",,False,True);
+    PI.AddSetting("Weapon LinkGun", "LinkGun_BringUpTime", "Link Gun Bring Up Time (0.33)", Security, Weight, "Text", "8;0.0:10000000.0",,False,True);
+    PI.AddSetting("Weapon LinkGun", "LinkGun_MinReloadPct", "Link Gun MinReloadPct (0.5)", Security, Weight, "Text", "8;0.0:10000000.0",,False,True);
 
     Weight++;
     // minigun
@@ -805,58 +796,57 @@ static function FillPlayInfo(PlayInfo PI)
     PI.AddSetting("Weapon Minigun", "Minigun_MinReloadPct", "Minigun MinReloadPct (0.5)", Security, Weight, "Text", "8;0.0:999.0",,False,True);
     PI.AddSetting("Weapon Minigun", "MinigunPrimary_DamageMin", "Minigun Primary Damage Min (7)", Security, Weight, "Text", "4;0:1000",,False,True);
     PI.AddSetting("Weapon Minigun", "MinigunPrimary_DamageMax", "Minigun Primary Damage Max (8)", Security, Weight, "Text", "4;0:1000",,False,True);
-    PI.AddSetting("Weapon Minigun", "MinigunPrimary_TraceRange", "Minigun Primary Trace Range (10000.0)", Security, Weight, "Text", "8;0.0:1000000",,False,True);
-    PI.AddSetting("Weapon Minigun", "MinigunPrimary_Momentum", "Minigun Primary Momentum (0.0)", Security, Weight, "Text", "9;-10000000.0:10000000",,False,True);
+    PI.AddSetting("Weapon Minigun", "MinigunPrimary_TraceRange", "Minigun Primary Trace Range (10000.0)", Security, Weight, "Text", "8;0.0:1000000.0",,False,True);
+    PI.AddSetting("Weapon Minigun", "MinigunPrimary_Momentum", "Minigun Primary Momentum (0.0)", Security, Weight, "Text", "9;-10000000.0:10000000.0",,False,True);
     PI.AddSetting("Weapon Minigun", "MinigunPrimary_AmmoPerFire", "Minigun Primary Ammo Per Fire (1)", Security, Weight, "Text", "4;0:1000",,False,True);
     PI.AddSetting("Weapon Minigun", "MinigunPrimary_RoundsPerRotation", "Minigun Primary Rounds Per Rotation (5)", Security, Weight, "Text", "4;0:1000",,False,True);
-    PI.AddSetting("Weapon Minigun", "MinigunPrimary_BarrelRotationsPerSec", "Minigun Primary Barrel Rotations Per Sec (3.0)", Security, Weight, "Text", "8;0.0:1000000",,False,True);
-    PI.AddSetting("Weapon Minigun", "MinigunPrimary_AimError", "Minigun Primary Aim Error (900)", Security, Weight, "Text", "4;0:9999",,False,True);
-    PI.AddSetting("Weapon Minigun", "MinigunPrimary_Spread", "Minigun Primary Spread (0.08)", Security, Weight, "Text", "4;0.0:1000",,False,True);
-    PI.AddSetting("Weapon Minigun", "MinigunPrimary_PreFireTime", "Minigun Primary Pre Fire Time (0.27)", Security, Weight, "Text", "4;0.0:1000",,False,True);
-    PI.AddSetting("Weapon Minigun", "MinigunPrimary_WindupTime", "Minigun Primary Windup Time (0.27)", Security, Weight, "Text", "4;0.0:1000",,False,True);
+    PI.AddSetting("Weapon Minigun", "MinigunPrimary_BarrelRotationsPerSec", "Minigun Primary Barrel Rotations Per Sec (3.0)", Security, Weight, "Text", "8;0.0:1000000.0",,False,True);
+    PI.AddSetting("Weapon Minigun", "MinigunPrimary_AimError", "Minigun Primary Aim Error (900)", Security, Weight, "Text", "4;0.0:9999.0",,False,True);
+    PI.AddSetting("Weapon Minigun", "MinigunPrimary_Spread", "Minigun Primary Spread (0.08)", Security, Weight, "Text", "4;0.0:1000.0",,False,True);
+    PI.AddSetting("Weapon Minigun", "MinigunPrimary_PreFireTime", "Minigun Primary Pre Fire Time (0.27)", Security, Weight, "Text", "4;0.0:1000.0",,False,True);
+    PI.AddSetting("Weapon Minigun", "MinigunPrimary_WindupTime", "Minigun Primary Windup Time (0.27)", Security, Weight, "Text", "4;0.0:1000.0",,False,True);
     PI.AddSetting("Weapon Minigun", "MinigunSecondary_DamageMin", "Minigun Secondary Damage Min (14)", Security, Weight, "Text", "4;0:1000",,False,True);
     PI.AddSetting("Weapon Minigun", "MinigunSecondary_DamageMax", "Minigun Secondary Damage Max (16)", Security, Weight, "Text", "4;0:1000",,False,True);
-    PI.AddSetting("Weapon Minigun", "MinigunSecondary_TraceRange", "Minigun Secondary Trace Range (10000.0)", Security, Weight, "Text", "8;0.0:1000000",,False,True);
-    PI.AddSetting("Weapon Minigun", "MinigunSecondary_Momentum", "Minigun Secondary Momentum (0.0)", Security, Weight, "Text", "9;-10000000.0:10000000",,False,True);
+    PI.AddSetting("Weapon Minigun", "MinigunSecondary_TraceRange", "Minigun Secondary Trace Range (10000.0)", Security, Weight, "Text", "8;0.0:1000000.0",,False,True);
+    PI.AddSetting("Weapon Minigun", "MinigunSecondary_Momentum", "Minigun Secondary Momentum (0.0)", Security, Weight, "Text", "9;-10000000.0:10000000.0",,False,True);
     PI.AddSetting("Weapon Minigun", "MinigunSecondary_AmmoPerFire", "Minigun Secondary Ammo Per Fire (1)", Security, Weight, "Text", "4;0:1000",,False,True);
     PI.AddSetting("Weapon Minigun", "MinigunSecondary_RoundsPerRotation", "Minigun Secondary Rounds Per Rotation (5)", Security, Weight, "Text", "4;0:1000",,False,True);
-    PI.AddSetting("Weapon Minigun", "MinigunSecondary_BarrelRotationsPerSec", "Minigun Secondary Barrel Rotations Per Sec (1.0)", Security, Weight, "Text", "8;0.0:1000000",,False,True);
-    PI.AddSetting("Weapon Minigun", "MinigunSecondary_AimError", "Minigun Secondary Aim Error (900)", Security, Weight, "Text", "4;0:9999",,False,True);
-    PI.AddSetting("Weapon Minigun", "MinigunSecondary_Spread", "Minigun Secondary Spread (0.03)", Security, Weight, "Text", "4;0.0:1000",,False,True);
-    PI.AddSetting("Weapon Minigun", "MinigunSecondary_PreFireTime", "Minigun Secondary Pre Fire Time (0.15)", Security, Weight, "Text", "4;0.0:1000",,False,True);
-    PI.AddSetting("Weapon Minigun", "MinigunSecondary_WindupTime", "Minigun Secondary Windup Time (0.15)", Security, Weight, "Text", "4;0.0:1000",,False,True);
+    PI.AddSetting("Weapon Minigun", "MinigunSecondary_BarrelRotationsPerSec", "Minigun Secondary Barrel Rotations Per Sec (1.0)", Security, Weight, "Text", "8;0.0:1000000.0",,False,True);
+    PI.AddSetting("Weapon Minigun", "MinigunSecondary_AimError", "Minigun Secondary Aim Error (900)", Security, Weight, "Text", "4;0.0:9999.0",,False,True);
+    PI.AddSetting("Weapon Minigun", "MinigunSecondary_Spread", "Minigun Secondary Spread (0.03)", Security, Weight, "Text", "4;0.0:1000.0",,False,True);
+    PI.AddSetting("Weapon Minigun", "MinigunSecondary_PreFireTime", "Minigun Secondary Pre Fire Time (0.15)", Security, Weight, "Text", "4;0.0:1000.0",,False,True);
+    PI.AddSetting("Weapon Minigun", "MinigunSecondary_WindupTime", "Minigun Secondary Windup Time (0.15)", Security, Weight, "Text", "4;0.0:1000.0",,False,True);
 
     Weight++;
     // flak
     PI.AddSetting("Weapon FlakCannon", "FlakPrimary_AmmoPerFire", "Flak Primary Ammo Per Fire (1)", Security, Weight, "Text", "4;0:1000",,False,True);
-    PI.AddSetting("Weapon FlakCannon", "FlakPrimary_FireRate", "Flak Primary Fire Rate (0.95)", Security, Weight, "Text", "8;0.0:1000",,False,True);
+    PI.AddSetting("Weapon FlakCannon", "FlakPrimary_FireRate", "Flak Primary Fire Rate (0.8947)", Security, Weight, "Text", "8;0.0:1000.0",,False,True);
     PI.AddSetting("Weapon FlakCannon", "FlakPrimary_ProjPerFire", "Flak Primary Projectiles Per Fire (9)", Security, Weight, "Text", "8;0:1000",,False,True);
-    PI.AddSetting("Weapon FlakCannon", "FlakPrimary_Spread", "Flak Primary Spread (1400)", Security, Weight, "Text", "8;0:10000",,False,True);
-    PI.AddSetting("Weapon FlakCannon", "FlakPrimary_SpreadStyle", "Flak Primary Spread Style (1)", Security, Weight, "Text", "8;0:10000",,False,True);
-    PI.AddSetting("Weapon FlakCannon", "FlakChunk_Bounces", "Flak Chunk Bounces (1)", Security, Weight, "Text", "8;0:1000",,False,True);
-    PI.AddSetting("Weapon FlakCannon", "FlakChunk_DamageAtten", "Flak Chunk Damage Atten (0.5)", Security, Weight, "Text", "8;0.0:1000",,False,True);
-    PI.AddSetting("Weapon FlakCannon", "FlakChunk_Speed", "Flak Chunk Speed (2500)", Security, Weight, "Text", "8;0.0:100000",,False,True);
-    PI.AddSetting("Weapon FlakCannon", "FlakChunk_MaxSpeed", "Flak Chunk Max Speed (2700)", Security, Weight, "Text", "8;0.0:100000",,False,True);
-    PI.AddSetting("Weapon FlakCannon", "FlakChunk_Damage", "Flak Chunk Damage (13)", Security, Weight, "Text", "8;0:1000",,False,True);
-    PI.AddSetting("Weapon FlakCannon", "FlakChunk_MomentumTransfer", "Flak Chunk Momentum Transfer (10000.0)", Security, Weight, "Text", "8;0.0:1000000",,False,True);
-    PI.AddSetting("Weapon FlakCannon", "FlakChunk_CullDistance", "Flak Chunk Cull Distance (3000.0)", Security, Weight, "Text", "8;0.0:1000000",,False,True);
-    PI.AddSetting("Weapon FlakCannon", "FlakChunk_LifeSpan", "Flak Chunk Life Span (2.7)", Security, Weight, "Text", "8;0.0:1000000",,False,True);
+    PI.AddSetting("Weapon FlakCannon", "FlakPrimary_Spread", "Flak Primary Spread (1400)", Security, Weight, "Text", "8;0.0:10000.0",,False,True);
+    PI.AddSetting("Weapon FlakCannon", "FlakPrimary_SpreadStyle", "Flak Primary Spread Style (Random)", Security, Weight, "Select", "0;None;1;Random;2;Line;3;Ring",,False,True);
+    PI.AddSetting("Weapon FlakCannon", "FlakChunk_DamageAtten", "Flak Chunk Damage Atten Per Second (5.0)", Security, Weight, "Text", "8;0.0:1000.0",,False,True);
+    PI.AddSetting("Weapon FlakCannon", "FlakChunk_Speed", "Flak Chunk Speed (2500)", Security, Weight, "Text", "8;0.0:100000.0",,False,True);
+    PI.AddSetting("Weapon FlakCannon", "FlakChunk_MaxSpeed", "Flak Chunk Max Speed (2700)", Security, Weight, "Text", "8;0.0:100000.0",,False,True);
+    PI.AddSetting("Weapon FlakCannon", "FlakChunk_Damage", "Flak Chunk Damage (13.0)", Security, Weight, "Text", "8;0.0:1000.0",,False,True);
+    PI.AddSetting("Weapon FlakCannon", "FlakChunk_MomentumTransfer", "Flak Chunk Momentum Transfer (10000.0)", Security, Weight, "Text", "8;0.0:1000000.0",,False,True);
+    PI.AddSetting("Weapon FlakCannon", "FlakChunk_CullDistance", "Flak Chunk Cull Distance (3000.0)", Security, Weight, "Text", "8;0.0:1000000.0",,False,True);
+    PI.AddSetting("Weapon FlakCannon", "FlakChunk_LifeSpan", "Flak Chunk Life Span (2.7)", Security, Weight, "Text", "8;0.0:1000000.0",,False,True);
     PI.AddSetting("Weapon FlakCannon", "FlakChunk_Bounce", "Flak Chunk Bounce (true)", Security, Weight, "Check",,,False,True);
     PI.AddSetting("Weapon FlakCannon", "FlakSecondary_AmmoPerFire", "Flak Secondary Ammo Per Fire (1)", Security, Weight, "Text", "4;0:1000",,False,True);
-    PI.AddSetting("Weapon FlakCannon", "FlakSecondary_FireRate", "Flak Secondary Fire Rate (1.11)", Security, Weight, "Text", "8;0.0:1000",,False,True);
+    PI.AddSetting("Weapon FlakCannon", "FlakSecondary_FireRate", "Flak Secondary Fire Rate (1.11)", Security, Weight, "Text", "8;0.0:1000.0",,False,True);
     PI.AddSetting("Weapon FlakCannon", "FlakSecondary_ProjPerFire", "Flak Secondary Projectiles Per Fire (1)", Security, Weight, "Text", "8;0:1000",,False,True);
-    PI.AddSetting("Weapon FlakCannon", "FlakSecondary_Spread", "Flak Secondary Spread (0)", Security, Weight, "Text", "8;0:10000",,False,True);
-    PI.AddSetting("Weapon FlakCannon", "FlakShell_TossZ", "Flak Shell Toss Z (225.0)", Security, Weight, "Text", "8;0.0:1000",,False,True);
-    PI.AddSetting("Weapon FlakCannon", "FlakShell_Speed", "Flak Shell Speed (1200.0)", Security, Weight, "Text", "8;0.0:100000",,False,True);
-    PI.AddSetting("Weapon FlakCannon", "FlakShell_MaxSpeed", "Flak Shell Max Speed (1200.0)", Security, Weight, "Text", "8;0.0:100000",,False,True);
-    PI.AddSetting("Weapon FlakCannon", "FlakShell_Damage", "Flak Shell Damage (90)", Security, Weight, "Text", "8;0:1000",,False,True);
-    PI.AddSetting("Weapon FlakCannon", "FlakShell_DamageRadius", "Flak Shell Damage Radius (220.0)", Security, Weight, "Text", "8;0.0:10000000",,False,True);
-    PI.AddSetting("Weapon FlakCannon", "FlakShell_MomentumTransfer", "Flak Shell Momentum Transfer (75000.0)", Security, Weight, "Text", "8;0.0:1000000",,False,True);
-    PI.AddSetting("Weapon FlakCannon", "FlakShell_CullDistance", "Flak Shell Cull Distance (4000.0)", Security, Weight, "Text", "8;0.0:1000000",,False,True);
-    PI.AddSetting("Weapon FlakCannon", "FlakShell_LifeSpan", "Flak Shell Life Span (6.0)", Security, Weight, "Text", "8;0.0:1000000",,False,True);
-    PI.AddSetting("Weapon FlakCannon", "FlakCannon_PutDownTime", "FlakCannon Put Down Time (0.33)", Security, Weight, "Text", "8;0.0:999.0",,False,True);
-    PI.AddSetting("Weapon FlakCannon", "FlakCannon_BringUpTime", "FlakCannon Bring Up Time (0.33)", Security, Weight, "Text", "8;0.0:999.0",,False,True);
-    PI.AddSetting("Weapon FlakCannon", "FlakCannon_MinReloadPct", "FlakCannon MinReloadPct (0.5)", Security, Weight, "Text", "8;0.0:999.0",,False,True);
+    PI.AddSetting("Weapon FlakCannon", "FlakSecondary_Spread", "Flak Secondary Spread (0)", Security, Weight, "Text", "8;0.0:10000.0",,False,True);
+    PI.AddSetting("Weapon FlakCannon", "FlakShell_TossZ", "Flak Shell Toss Z (225.0)", Security, Weight, "Text", "8;0.0:1000.0",,False,True);
+    PI.AddSetting("Weapon FlakCannon", "FlakShell_Speed", "Flak Shell Speed (1200.0)", Security, Weight, "Text", "8;0.0:100000.0",,False,True);
+    PI.AddSetting("Weapon FlakCannon", "FlakShell_MaxSpeed", "Flak Shell Max Speed (2000.0)", Security, Weight, "Text", "8;0.0:100000.0",,False,True);
+    PI.AddSetting("Weapon FlakCannon", "FlakShell_Damage", "Flak Shell Damage (90.0)", Security, Weight, "Text", "8;0.0:1000.0",,False,True);
+    PI.AddSetting("Weapon FlakCannon", "FlakShell_DamageRadius", "Flak Shell Damage Radius (220.0)", Security, Weight, "Text", "8;0.0:10000000.0",,False,True);
+    PI.AddSetting("Weapon FlakCannon", "FlakShell_MomentumTransfer", "Flak Shell Momentum Transfer (75000.0)", Security, Weight, "Text", "8;0.0:1000000.0",,False,True);
+    PI.AddSetting("Weapon FlakCannon", "FlakShell_CullDistance", "Flak Shell Cull Distance (4000.0)", Security, Weight, "Text", "8;0.0:1000000.0",,False,True);
+    PI.AddSetting("Weapon FlakCannon", "FlakShell_LifeSpan", "Flak Shell Life Span (6.0)", Security, Weight, "Text", "8;0.0:1000000.0",,False,True);
+    PI.AddSetting("Weapon FlakCannon", "FlakCannon_PutDownTime", "Flak Cannon Put Down Time (0.33)", Security, Weight, "Text", "8;0.0:999.0",,False,True);
+    PI.AddSetting("Weapon FlakCannon", "FlakCannon_BringUpTime", "Flak Cannon Bring Up Time (0.33)", Security, Weight, "Text", "8;0.0:999.0",,False,True);
+    PI.AddSetting("Weapon FlakCannon", "FlakCannon_MinReloadPct", "Flak Cannon MinReloadPct (0.5)", Security, Weight, "Text", "8;0.0:999.0",,False,True);
 
     Weight++;
     // rocket launcher
@@ -864,43 +854,43 @@ static function FillPlayInfo(PlayInfo PI)
     PI.AddSetting("Weapon RocketLauncher", "RocketLauncher_BringUpTime", "Rocket Launcher Bring Up Time (0.33)", Security, Weight, "Text", "8;0.0:999.0",,False,True);
     PI.AddSetting("Weapon RocketLauncher", "RocketLauncher_MinReloadPct", "Rocket Launcher MinReloadPct (0.5)", Security, Weight, "Text", "8;0.0:999.0",,False,True);
     PI.AddSetting("Weapon RocketLauncher", "RocketLauncher_SeekCheckFreq", "Rocket Launcher Seek Check Freq (0.5)", Security, Weight, "Text", "8;0.0:999.0",,False,True);
-    PI.AddSetting("Weapon RocketLauncher", "RocketLauncher_SeekRange", "Rocket Launcher Seek Range (8000.0)", Security, Weight, "Text", "8;0.0:1000000",,False,True);
-    PI.AddSetting("Weapon RocketLauncher", "RocketLauncher_LockRequiredTime", "Rocket Launcher Lock Required Time (1.25)", Security, Weight, "Text", "8;0.0:1000000",,False,True);
-    PI.AddSetting("Weapon RocketLauncher", "RocketLauncher_UnLockRequiredTime", "Rocket Launcher Unlock Required Time (0.5)", Security, Weight, "Text", "8;0.0:1000000",,False,True);
-    PI.AddSetting("Weapon RocketLauncher", "RocketLauncher_LockAim", "Rocket Launcher Lock Aim (0.996)", Security, Weight, "Text", "8;0.0:1000000",,False,True);
-    PI.AddSetting("Weapon RocketLauncher", "RocketPrimary_FireRate", "Rocket Primary Fire Rate (0.9)", Security, Weight, "Text", "8;0.0:1000000",,False,True);
+    PI.AddSetting("Weapon RocketLauncher", "RocketLauncher_SeekRange", "Rocket Launcher Seek Range (8000.0)", Security, Weight, "Text", "8;0.0:1000000.0",,False,True);
+    PI.AddSetting("Weapon RocketLauncher", "RocketLauncher_LockRequiredTime", "Rocket Launcher Lock Required Time (1.25)", Security, Weight, "Text", "8;0.0:1000000.0",,False,True);
+    PI.AddSetting("Weapon RocketLauncher", "RocketLauncher_UnLockRequiredTime", "Rocket Launcher Unlock Required Time (0.5)", Security, Weight, "Text", "8;0.0:1000000.0",,False,True);
+    PI.AddSetting("Weapon RocketLauncher", "RocketLauncher_LockAim", "Rocket Launcher Lock Aim (0.996)", Security, Weight, "Text", "8;0.0:1000000.0",,False,True);
+    PI.AddSetting("Weapon RocketLauncher", "RocketPrimary_FireRate", "Rocket Primary Fire Rate (0.9)", Security, Weight, "Text", "8;0.0:1000000.0",,False,True);
     PI.AddSetting("Weapon RocketLauncher", "RocketPrimary_AmmoPerFire", "Rocket Primary Ammo Per Fire (1)", Security, Weight, "Text", "8;0:1000000",,False,True);
-    PI.AddSetting("Weapon RocketLauncher", "RocketSecondary_FireRate", "Rocket Secondary Fire Rate (0.95)", Security, Weight, "Text", "8;0.0:1000000",,False,True);
+    PI.AddSetting("Weapon RocketLauncher", "RocketSecondary_FireRate", "Rocket Secondary Fire Rate (0.95)", Security, Weight, "Text", "8;0.0:1000000.0",,False,True);
     PI.AddSetting("Weapon RocketLauncher", "RocketSecondary_AmmoPerFire", "Rocket Secondary Ammo Per Fire (1)", Security, Weight, "Text", "8;0:1000000",,False,True);
-    PI.AddSetting("Weapon RocketLauncher", "RocketSecondary_TightSpread", "Rocket Secondary Tight Spread (300.0)", Security, Weight, "Text", "8;0.0:1000000",,False,True);
-    PI.AddSetting("Weapon RocketLauncher", "RocketSecondary_LooseSpread", "Rocket Secondary Loose Spread (1000.0)", Security, Weight, "Text", "8;0.0:1000000",,False,True);
+    PI.AddSetting("Weapon RocketLauncher", "RocketSecondary_TightSpread", "Rocket Secondary Tight Spread (300.0)", Security, Weight, "Text", "8;0.0:1000000.0",,False,True);
+    PI.AddSetting("Weapon RocketLauncher", "RocketSecondary_LooseSpread", "Rocket Secondary Loose Spread (1000.0)", Security, Weight, "Text", "8;0.0:1000000.0",,False,True);
     PI.AddSetting("Weapon RocketLauncher", "RocketSecondary_MaxLoad", "Rocket Secondary Max Load (3)", Security, Weight, "Text", "8;0:1000000",,False,True);
-    PI.AddSetting("Weapon RocketLauncher", "RocketSecondary_MaxHoldTime", "Rocket Secondary Max Hold Time (2.3)", Security, Weight, "Text", "8;0.0:1000000",,False,True);
-    PI.AddSetting("Weapon RocketLauncher", "RocketProj_Speed", "Rocket Projectile Speed (1350.0)", Security, Weight, "Text", "8;0.0:1000000",,False,True);
-    PI.AddSetting("Weapon RocketLauncher", "RocketProj_MaxSpeed", "Rocket Projectile Max Speed (1350.0)", Security, Weight, "Text", "8;0.0:1000000",,False,True);
-    PI.AddSetting("Weapon RocketLauncher", "RocketProj_Damage", "Rocket Projectile Damage (90)", Security, Weight, "Text", "8;0:1000",,False,True);
-    PI.AddSetting("Weapon RocketLauncher", "RocketProj_DamageRadius", "Rocket Projectile Damage Radius (220.0)", Security, Weight, "Text", "8;0.0:1000000",,False,True);
-    PI.AddSetting("Weapon RocketLauncher", "RocketProj_MomentumTransfer", "Rocket Projectile Momentum Transfer (50000.0)", Security, Weight, "Text", "8;0.0:10000000",,False,True);
-    PI.AddSetting("Weapon RocketLauncher", "RocketProj_Lifespan", "Rocket Projectile Lifespan (8.0)", Security, Weight, "Text", "8;0.0:10000000",,False,True);
-    PI.AddSetting("Weapon RocketLauncher", "RocketProj_FlockRadius", "Rocket Projectile Flock Radius (12.0)", Security, Weight, "Text", "8;0.0:10000000",,False,True);
-    PI.AddSetting("Weapon RocketLauncher", "RocketProj_FlockStiffness", "Rocket Projectile Flock Stiffness (40.0)", Security, Weight, "Text", "8;0.0:10000000",,False,True);
-    PI.AddSetting("Weapon RocketLauncher", "RocketProj_FlockMaxForce", "Rocket Projectile Flock Max Force (600.0)", Security, Weight, "Text", "8;0.0:10000000",,False,True);
-    PI.AddSetting("Weapon RocketLauncher", "RocketProj_FlockCurlForce", "Rocket Projectile Flock Curl Force (450.0)", Security, Weight, "Text", "8;0.0:10000000",,False,True);
+    PI.AddSetting("Weapon RocketLauncher", "RocketSecondary_MaxHoldTime", "Rocket Secondary Max Hold Time (2.3)", Security, Weight, "Text", "8;0.0:1000000.0",,False,True);
+    PI.AddSetting("Weapon RocketLauncher", "RocketProj_Speed", "Rocket Projectile Speed (1350.0)", Security, Weight, "Text", "8;0.0:1000000.0",,False,True);
+    PI.AddSetting("Weapon RocketLauncher", "RocketProj_MaxSpeed", "Rocket Projectile Max Speed (1350.0)", Security, Weight, "Text", "8;0.0:1000000.0",,False,True);
+    PI.AddSetting("Weapon RocketLauncher", "RocketProj_Damage", "Rocket Projectile Damage (90.0)", Security, Weight, "Text", "8;0.0:1000.0",,False,True);
+    PI.AddSetting("Weapon RocketLauncher", "RocketProj_DamageRadius", "Rocket Projectile Damage Radius (220.0)", Security, Weight, "Text", "8;0.0:1000000.0",,False,True);
+    PI.AddSetting("Weapon RocketLauncher", "RocketProj_MomentumTransfer", "Rocket Projectile Momentum Transfer (50000.0)", Security, Weight, "Text", "8;0.0:10000000.0",,False,True);
+    PI.AddSetting("Weapon RocketLauncher", "RocketProj_LifeSpan", "Rocket Projectile Lifespan (8.0)", Security, Weight, "Text", "8;0.0:10000000.0",,False,True);
+    PI.AddSetting("Weapon RocketLauncher", "RocketProj_FlockRadius", "Rocket Projectile Flock Radius (12.0)", Security, Weight, "Text", "8;0.0:10000000.0",,False,True);
+    PI.AddSetting("Weapon RocketLauncher", "RocketProj_FlockStiffness", "Rocket Projectile Flock Stiffness (-40.0)", Security, Weight, "Text", "9;-10000000.0:10000000.0",,False,True);
+    PI.AddSetting("Weapon RocketLauncher", "RocketProj_FlockMaxForce", "Rocket Projectile Flock Max Force (600.0)", Security, Weight, "Text", "8;0.0:10000000.0",,False,True);
+    PI.AddSetting("Weapon RocketLauncher", "RocketProj_FlockCurlForce", "Rocket Projectile Flock Curl Force (450.0)", Security, Weight, "Text", "8;0.0:10000000.0",,False,True);
 
     Weight++;
     // lightning gun
     PI.AddSetting("Weapon LightningGun", "SniperRifle_PutDownTime", "Lightning Gun Put Down Time (0.33)", Security, Weight, "Text", "8;0.0:999.0",,False,True);
     PI.AddSetting("Weapon LightningGun", "SniperRifle_BringUpTime", "Lightning Gun Bring Up Time (0.36)", Security, Weight, "Text", "8;0.0:999.0",,False,True);
-    PI.AddSetting("Weapon LightningGun", "SniperRifle_MinReloadPct", "Ligtning Gun MinReloadPct (0.25)", Security, Weight, "Text", "8;0.0:999.0",,False,True);
+    PI.AddSetting("Weapon LightningGun", "SniperRifle_MinReloadPct", "Lightning Gun MinReloadPct (0.25)", Security, Weight, "Text", "8;0.0:999.0",,False,True);
     PI.AddSetting("Weapon LightningGun", "SniperPrimary_AmmoPerFire", "Lightning Gun Ammo Per Fire (1)", Security, Weight, "Text", "4;0:1000",,False,True);
     PI.AddSetting("Weapon LightningGun", "SniperPrimary_DamageMin", "Lightning Gun Damage Min (70)", Security, Weight, "Text", "4;0:1000",,False,True);
     PI.AddSetting("Weapon LightningGun", "SniperPrimary_DamageMax", "Lightning Gun Damage Max (70)", Security, Weight, "Text", "4;0:1000",,False,True);
-    PI.AddSetting("Weapon LightningGun", "SniperPrimary_TraceRange", "Lightning Gun Trace Range (17000)", Security, Weight, "Text", "6;0:100000",,False,True);
-    PI.AddSetting("Weapon LightningGun", "SniperPrimary_FireRate", "Lightning Gun Fire Rate (1.6)", Security, Weight, "Text", "4;0.0:1000",,False,True);
+    PI.AddSetting("Weapon LightningGun", "SniperPrimary_TraceRange", "Lightning Gun Trace Range (17000.0)", Security, Weight, "Text", "6;0.0:100000.0",,False,True);
+    PI.AddSetting("Weapon LightningGun", "SniperPrimary_FireRate", "Lightning Gun Fire Rate (1.6)", Security, Weight, "Text", "4;0.0:1000.0",,False,True);
     PI.AddSetting("Weapon LightningGun", "SniperPrimary_NumArcs", "Lightning Gun Num Arcs (3)", Security, Weight, "Text", "4;0:1000",,False,True);
-    PI.AddSetting("Weapon LightningGun", "SniperPrimary_SecDamageMult", "Lightning Gun Arc Damage Multiplier (0.5)", Security, Weight, "Text", "4;0.0:1000",,False,True);
-    PI.AddSetting("Weapon LightningGun", "SniperPrimary_SecTraceDist", "Lightning Gun Arc Trace Distance (300)", Security, Weight, "Text", "6;0:100000",,False,True);
-    PI.AddSetting("Weapon LightningGun", "SniperPrimary_HeadshotDamageMult", "Lightning Gun Headshot Multiplier (2.0)", Security, Weight, "Text", "4;0.0:1000",,False,True);
+    PI.AddSetting("Weapon LightningGun", "SniperPrimary_SecDamageMult", "Lightning Gun Arc Damage Multiplier (0.5)", Security, Weight, "Text", "4;0.0:1000.0",,False,True);
+    PI.AddSetting("Weapon LightningGun", "SniperPrimary_SecTraceDist", "Lightning Gun Arc Trace Distance (300.0)", Security, Weight, "Text", "6;0.0:100000.0",,False,True);
+    PI.AddSetting("Weapon LightningGun", "SniperPrimary_HeadshotDamageMult", "Lightning Gun Headshot Multiplier (2.0)", Security, Weight, "Text", "4;0.0:1000.0",,False,True);
 
     Weight++;
     // classic sniper rifle
@@ -910,21 +900,21 @@ static function FillPlayInfo(PlayInfo PI)
     PI.AddSetting("Weapon SniperRifle", "ClassicSniperPrimary_AmmoPerFire", "Sniper Rifle Ammo Per Fire (1)", Security, Weight, "Text", "4;0:1000",,False,True);
     PI.AddSetting("Weapon SniperRifle", "ClassicSniperPrimary_DamageMin", "Sniper Rifle Damage Min (60)", Security, Weight, "Text", "4;0:1000",,False,True);
     PI.AddSetting("Weapon SniperRifle", "ClassicSniperPrimary_DamageMax", "Sniper Rifle Damage Max (60)", Security, Weight, "Text", "4;0:1000",,False,True);
-    PI.AddSetting("Weapon SniperRifle", "ClassicSniperPrimary_TraceRange", "Sniper Rifle Trace Range (17000)", Security, Weight, "Text", "6;0:100000",,False,True);
-    PI.AddSetting("Weapon SniperRifle", "ClassicSniperPrimary_FireRate", "Sniper Rifle Fire Rate (1.33)", Security, Weight, "Text", "4;0.0:1000",,False,True);
-    PI.AddSetting("Weapon SniperRifle", "ClassicSniperPrimary_HeadshotDamageMult", "Sniper Rifle Headshot Multiplier (2.0)", Security, Weight, "Text", "4;0.0:1000",,False,True);
+    PI.AddSetting("Weapon SniperRifle", "ClassicSniperPrimary_TraceRange", "Sniper Rifle Trace Range (17000.0)", Security, Weight, "Text", "6;0.0:100000.0",,False,True);
+    PI.AddSetting("Weapon SniperRifle", "ClassicSniperPrimary_FireRate", "Sniper Rifle Fire Rate (1.33)", Security, Weight, "Text", "4;0.0:1000.0",,False,True);
+    PI.AddSetting("Weapon SniperRifle", "ClassicSniperPrimary_HeadshotDamageMult", "Sniper Rifle Headshot Multiplier (2.0)", Security, Weight, "Text", "4;0.0:1000.0",,False,True);
 
     Weight++;
     // super shock
     PI.AddSetting("Weapon SSR", "SuperShockRifle_PutDownTime", "Super Shock Rifle Put Down Time (0.33)", Security, Weight, "Text", "8;0.0:999.0",,False,True);
     PI.AddSetting("Weapon SSR", "SuperShockRifle_BringUpTime", "Super Shock Rifle Bring Up Time (0.33)", Security, Weight, "Text", "8;0.0:999.0",,False,True);
     PI.AddSetting("Weapon SSR", "SuperShockRifle_MinReloadPct", "Super Shock Rifle MinReloadPct (0.5)", Security, Weight, "Text", "8;0.0:999.0",,False,True);
-    PI.AddSetting("Weapon SSR", "SuperShockPrimary_TraceRange", "Super Shock Primary Trace Range (17000.0)", Security, Weight, "Text", "8;0.0:1000000",,False,True);
-    PI.AddSetting("Weapon SSR", "SuperShockPrimary_Momentum", "Super Shock Primary Momentum (60000.0)", Security, Weight, "Text", "9;-10000000.0:10000000",,False,True);
-    PI.AddSetting("Weapon SSR", "SuperShockPrimary_AmmoPerFire", "Super Shock Primary Ammo Per Fire (1)", Security, Weight, "Text", "4;0:1000",,False,True);
-    PI.AddSetting("Weapon SSR", "SuperShockPrimary_DamageMin", "Super Shock Primary Damage Min (45)", Security, Weight, "Text", "4;0:1000",,False,True);
-    PI.AddSetting("Weapon SSR", "SuperShockPrimary_DamageMax", "Super Shock Primary Damage Max (45)", Security, Weight, "Text", "4;0:1000",,False,True);
-    PI.AddSetting("Weapon SSR", "SuperShockPrimary_FireRate", "Super Shock Primary Fire Rate (0.7)", Security, Weight, "Text", "4;0.0:1000",,False,True);
+    PI.AddSetting("Weapon SSR", "SuperShockPrimary_TraceRange", "Super Shock Primary Trace Range (17000.0)", Security, Weight, "Text", "8;0.0:1000000.0",,False,True);
+    PI.AddSetting("Weapon SSR", "SuperShockPrimary_Momentum", "Super Shock Primary Momentum (100000.0)", Security, Weight, "Text", "9;-10000000.0:10000000.0",,False,True);
+    PI.AddSetting("Weapon SSR", "SuperShockPrimary_AmmoPerFire", "Super Shock Primary Ammo Per Fire (0)", Security, Weight, "Text", "4;0:1000",,False,True);
+    PI.AddSetting("Weapon SSR", "SuperShockPrimary_DamageMin", "Super Shock Primary Damage Min (1000)", Security, Weight, "Text", "5;0:10000",,False,True);
+    PI.AddSetting("Weapon SSR", "SuperShockPrimary_DamageMax", "Super Shock Primary Damage Max (1000)", Security, Weight, "Text", "5;0:10000",,False,True);
+    PI.AddSetting("Weapon SSR", "SuperShockPrimary_FireRate", "Super Shock Primary Fire Rate (1.1)", Security, Weight, "Text", "4;0.0:1000.0",,False,True);
 
     Weight++;
     // ONS Grenade Launcher
@@ -934,57 +924,56 @@ static function FillPlayInfo(PlayInfo PI)
     PI.AddSetting("Weapon G.Launcher", "ONSGrenadePrimary_FireRate", "ONS Grenade Primary Fire Rate (0.65)", Security, Weight, "Text", "8;0.0:999.0",,False,True);
     PI.AddSetting("Weapon G.Launcher", "ONSGrenadePrimary_AmmoPerFire", "ONS Grenade Primary Ammo Per Fire (1)", Security, Weight, "Text", "8;0:999",,False,True);
     PI.AddSetting("Weapon G.Launcher", "ONSGrenadeProj_bBounce", "ONS Grenade Bounce (true)", Security, Weight, "Check",,,False,True);
-    PI.AddSetting("Weapon G.Launcher", "ONSGrenadeProj_Speed", "ONS Grenade Speed (1200.0)", Security, Weight, "Text", "8;0.0:10000000",,False,True);
-    PI.AddSetting("Weapon G.Launcher", "ONSGrenadeProj_MaxSpeed", "ONS Grenade Max Speed (1200.0)", Security, Weight, "Text", "8;0.0:10000000",,False,True);
-    PI.AddSetting("Weapon G.Launcher", "ONSGrenadeProj_TossZ", "ONS Grenade TossZ (0.0)", Security, Weight, "Text", "8;0.0:10000000",,False,True);
-    PI.AddSetting("Weapon G.Launcher", "ONSGrenadeProj_Damage", "ONS Grenade Damage (100.0)", Security, Weight, "Text", "5;0.0:10000",,False,True);
-    PI.AddSetting("Weapon G.Launcher", "ONSGrenadeProj_DamageRadius", "ONS Grenade Damage Radius (175.0)", Security, Weight, "Text", "8;0.0:10000000",,False,True);
-    PI.AddSetting("Weapon G.Launcher", "ONSGrenadeProj_MomentumTransfer", "ONS Grenade Momentum Transfer (50000.0)", Security, Weight, "Text", "8;0.0:1000000",,False,True);
-    PI.AddSetting("Weapon G.Launcher", "ONSGrenadeProj_CullDistance", "ONS Grenade Cull Distance (5000.0)", Security, Weight, "Text", "8;0.0:1000000",,False,True);
-    PI.AddSetting("Weapon G.Launcher", "ONSGrenadeProj_LifeSpan", "ONS Grenade Life Span (0.0)", Security, Weight, "Text", "8;0.0:1000000",,False,True);
-    PI.AddSetting("Weapon G.Launcher", "ONSGrenadeProj_DampenFactor", "ONS Grenade Dampen Factor (0.5)", Security, Weight, "Text", "8;0.0:1000000",,False,True);
-    PI.AddSetting("Weapon G.Launcher", "ONSGrenadeProj_DampenFactorParallel", "ONS Grenade Dampen Factor Parallel (0.8)", Security, Weight, "Text", "8;0.0:1000000",,False,True);
+    PI.AddSetting("Weapon G.Launcher", "ONSGrenadeProj_Speed", "ONS Grenade Speed (1200.0)", Security, Weight, "Text", "8;0.0:10000000.0",,False,True);
+    PI.AddSetting("Weapon G.Launcher", "ONSGrenadeProj_MaxSpeed", "ONS Grenade Max Speed (1200.0)", Security, Weight, "Text", "8;0.0:10000000.0",,False,True);
+    PI.AddSetting("Weapon G.Launcher", "ONSGrenadeProj_Damage", "ONS Grenade Damage (100.0)", Security, Weight, "Text", "5;0.0:10000.0",,False,True);
+    PI.AddSetting("Weapon G.Launcher", "ONSGrenadeProj_DamageRadius", "ONS Grenade Damage Radius (175.0)", Security, Weight, "Text", "8;0.0:10000000.0",,False,True);
+    PI.AddSetting("Weapon G.Launcher", "ONSGrenadeProj_MomentumTransfer", "ONS Grenade Momentum Transfer (50000.0)", Security, Weight, "Text", "8;0.0:1000000.0",,False,True);
+    PI.AddSetting("Weapon G.Launcher", "ONSGrenadeProj_CullDistance", "ONS Grenade Cull Distance (5000.0)", Security, Weight, "Text", "8;0.0:1000000.0",,False,True);
+    PI.AddSetting("Weapon G.Launcher", "ONSGrenadeProj_LifeSpan", "ONS Grenade Life Span (0.0)", Security, Weight, "Text", "8;0.0:1000000.0",,False,True);
+    PI.AddSetting("Weapon G.Launcher", "ONSGrenadeProj_DampenFactor", "ONS Grenade Dampen Factor (0.5)", Security, Weight, "Text", "8;0.0:1000000.0",,False,True);
+    PI.AddSetting("Weapon G.Launcher", "ONSGrenadeProj_DampenFactorParallel", "ONS Grenade Dampen Factor Parallel (0.8)", Security, Weight, "Text", "8;0.0:1000000.0",,False,True);
 
     Weight++;
     // ONS Avril Launcher
     PI.AddSetting("Weapon Avril", "ONSAvril_LockCheckFreq", "ONS Avril Launcher Lock Check Freq (0.2)", Security, Weight, "Text", "8;0.0:999.0",,False,True);
-    PI.AddSetting("Weapon Avril", "ONSAvril_MaxLockRange", "ONS Avril Launcher Max Lock Range (15000.0)", Security, Weight, "Text", "8;0.0:999.0",,False,True);
+    PI.AddSetting("Weapon Avril", "ONSAvril_MaxLockRange", "ONS Avril Launcher Max Lock Range (15000.0)", Security, Weight, "Text", "8;0.0:1000000.0",,False,True);
     PI.AddSetting("Weapon Avril", "ONSAvril_LockAim", "ONS Avril Launcher Lock Aim (0.996)", Security, Weight, "Text", "8;0.0:999.0",,False,True);
     PI.AddSetting("Weapon Avril", "ONSAvril_PutDownTime", "ONS Avril Launcher Put Down Time (0.33)", Security, Weight, "Text", "8;0.0:999.0",,False,True);
     PI.AddSetting("Weapon Avril", "ONSAvril_BringUpTime", "ONS Avril Launcher Bring Up Time (0.45)", Security, Weight, "Text", "8;0.0:999.0",,False,True);
-    PI.AddSetting("Weapon Avril", "ONSAvril_MinReloadPct", "ONS Avril Launcher MinReloadPct (0.5)", Security, Weight, "Text", "8;0.0:999.0",,False,True);
+    PI.AddSetting("Weapon Avril", "ONSAvril_MinReloadPct", "ONS Avril Launcher MinReloadPct (0.0)", Security, Weight, "Text", "8;0.0:999.0",,False,True);
     PI.AddSetting("Weapon Avril", "ONSAvrilPrimary_AmmoPerFire", "ONS Avril Primary Ammo Per Fire (1)", Security, Weight, "Text", "8;0:999",,False,True);
     PI.AddSetting("Weapon Avril", "ONSAvrilPrimary_FireRate", "ONS Avril Primary Fire Rate (4.0)", Security, Weight, "Text", "8;0.0:999.0",,False,True);
     PI.AddSetting("Weapon Avril", "ONSAvrilPrimary_KickMomentum", "ONS Avril Primary Kick Momentum ((X=-350.0,Z=175.0))", Security, Weight, "Text",,,False,True);
     PI.AddSetting("Weapon Avril", "ONSAvrilProj_LeadTargetDelay", "ONS Avril Lead Target Delay (1.0)", Security, Weight, "Text", "8;0.0:999.0",,False,True);
     PI.AddSetting("Weapon Avril", "ONSAvrilProj_bProjTarget", "ONS Avril Projectile Target (true)", Security, Weight, "Check",,,False,True);
-    PI.AddSetting("Weapon Avril", "ONSAvrilProj_Speed", "ONS Avril Speed (550.0)", Security, Weight, "Text", "8;0.0:10000000",,False,True);
-    PI.AddSetting("Weapon Avril", "ONSAvrilProj_MaxSpeed", "ONS Avril Max Speed (2800.0)", Security, Weight, "Text", "8;0.0:10000000",,False,True);
-    PI.AddSetting("Weapon Avril", "ONSAvrilProj_Damage", "ONS Avril Damage (125.0)", Security, Weight, "Text", "5;0.0:10000",,False,True);
-    PI.AddSetting("Weapon Avril", "ONSAvrilProj_DamageRadius", "ONS Avril Damage Radius (150.0)", Security, Weight, "Text", "8;0.0:10000000",,False,True);
-    PI.AddSetting("Weapon Avril", "ONSAvrilProj_MomentumTransfer", "ONS Avril Momentum Transfer (50000.0)", Security, Weight, "Text", "8;0.0:1000000",,False,True);
-    PI.AddSetting("Weapon Avril", "ONSAvrilProj_LifeSpan", "ONS Avril Life Span (7.0)", Security, Weight, "Text", "8;0.0:1000000",,False,True);
+    PI.AddSetting("Weapon Avril", "ONSAvrilProj_Speed", "ONS Avril Speed (550.0)", Security, Weight, "Text", "8;0.0:10000000.0",,False,True);
+    PI.AddSetting("Weapon Avril", "ONSAvrilProj_MaxSpeed", "ONS Avril Max Speed (2800.0)", Security, Weight, "Text", "8;0.0:10000000.0",,False,True);
+    PI.AddSetting("Weapon Avril", "ONSAvrilProj_Damage", "ONS Avril Damage (125.0)", Security, Weight, "Text", "5;0.0:10000.0",,False,True);
+    PI.AddSetting("Weapon Avril", "ONSAvrilProj_DamageRadius", "ONS Avril Damage Radius (150.0)", Security, Weight, "Text", "8;0.0:10000000.0",,False,True);
+    PI.AddSetting("Weapon Avril", "ONSAvrilProj_MomentumTransfer", "ONS Avril Momentum Transfer (50000.0)", Security, Weight, "Text", "8;0.0:1000000.0",,False,True);
+    PI.AddSetting("Weapon Avril", "ONSAvrilProj_LifeSpan", "ONS Avril Life Span (7.0)", Security, Weight, "Text", "8;0.0:1000000.0",,False,True);
 
     Weight++;
     // ONS Mine Layer
-    PI.AddSetting("Weapon MineLayer", "ONSMineLayer_ReloadDelay", "ONS Mine Layer Lock Check Freq (0.2)", Security, Weight, "Text", "8;0.0:999.0",,False,True);
+    PI.AddSetting("Weapon MineLayer", "ONSMineLayer_ReloadDelay", "ONS Mine Layer Reload Delay (0.4)", Security, Weight, "Text", "8;0.0:999.0",,False,True);
     PI.AddSetting("Weapon MineLayer", "ONSMineLayer_MaxMines", "ONS Mine Layer Max Mines (8)", Security, Weight, "Text", "8;0:999",,False,True);
     PI.AddSetting("Weapon MineLayer", "ONSMineLayer_PutDownTime", "ONS Mine Layer Put Down Time (0.40)", Security, Weight, "Text", "8;0.0:999.0",,False,True);
     PI.AddSetting("Weapon MineLayer", "ONSMineLayer_BringUpTime", "ONS Mine Layer Bring Up Time (0.35)", Security, Weight, "Text", "8;0.0:999.0",,False,True);
     PI.AddSetting("Weapon MineLayer", "ONSMineLayer_MinReloadPct", "ONS Mine Layer MinReloadPct (0.5)", Security, Weight, "Text", "8;0.0:999.0",,False,True);
     PI.AddSetting("Weapon MineLayer", "ONSMineLayerPrimary_AmmoPerFire", "ONS Mine Layer Ammo Per Fire (1)", Security, Weight, "Text", "8;0:999",,False,True);
-    PI.AddSetting("Weapon MineLayer", "ONSMineLayerPrimary_FireRate", "Mine Layer Fire Rate (4.0)", Security, Weight, "Text", "8;0.0:999.0",,False,True);
-    PI.AddSetting("Weapon MineLayer", "ONSMineProjectile_DetectionTimer", "ONS Mine Detection Timer (0.5)", Security, Weight, "Text", "8;0.0:10000000",,False,True);
-    PI.AddSetting("Weapon MineLayer", "ONSMineProjectile_ScurrySpeed", "ONS Mine Scurry Speed (525.0)", Security, Weight, "Text", "8;0.0:10000000",,False,True);
-    PI.AddSetting("Weapon MineLayer", "ONSMineProjectile_ScurryAnimRate", "ONS Mine Scurry Anim Rate (4.1)", Security, Weight, "Text", "8;0.0:10000000",,False,True);
-    PI.AddSetting("Weapon MineLayer", "ONSMineProjectile_TargetLocFuzz", "ONS Mine Target Lock Fuzz (250)", Security, Weight, "Text", "8;0:10000000",,False,True);
+    PI.AddSetting("Weapon MineLayer", "ONSMineLayerPrimary_FireRate", "ONS Mine Layer Fire Rate (1.1)", Security, Weight, "Text", "8;0.0:999.0",,False,True);
+    PI.AddSetting("Weapon MineLayer", "ONSMineProjectile_DetectionTimer", "ONS Mine Detection Timer (0.5)", Security, Weight, "Text", "8;0.0:10000000.0",,False,True);
+    PI.AddSetting("Weapon MineLayer", "ONSMineProjectile_ScurrySpeed", "ONS Mine Scurry Speed (525.0)", Security, Weight, "Text", "8;0.0:10000000.0",,False,True);
+    PI.AddSetting("Weapon MineLayer", "ONSMineProjectile_ScurryAnimRate", "ONS Mine Scurry Anim Rate (4.1)", Security, Weight, "Text", "8;0.0:10000000.0",,False,True);
+    PI.AddSetting("Weapon MineLayer", "ONSMineProjectile_TargetLocFuzz", "ONS Mine Target Loc Fuzz (250)", Security, Weight, "Text", "8;0:10000000",,False,True);
     PI.AddSetting("Weapon MineLayer", "ONSMineProjectile_bBounce", "ONS Mine Bounce (true)", Security, Weight, "Check",,,False,True);
-    PI.AddSetting("Weapon MineLayer", "ONSMineProjectile_Speed", "ONS Mine Speed (800.0)", Security, Weight, "Text", "8;0.0:10000000",,False,True);
-    PI.AddSetting("Weapon MineLayer", "ONSMineProjectile_MaxSpeed", "ONS Mine Max Speed (2800.0)", Security, Weight, "Text", "8;0.0:10000000",,False,True);
-    PI.AddSetting("Weapon MineLayer", "ONSMineProjectile_Damage", "ONS Mine Damage (95.0)", Security, Weight, "Text", "5;0.0:10000",,False,True);
-    PI.AddSetting("Weapon MineLayer", "ONSMineProjectile_DamageRadius", "ONS Mine Damage Radius (250.0)", Security, Weight, "Text", "8;0.0:10000000",,False,True);
-    PI.AddSetting("Weapon MineLayer", "ONSMineProjectile_MomentumTransfer", "ONS Mine Momentum Transfer (50000.0)", Security, Weight, "Text", "8;0.0:1000000",,False,True);
-    PI.AddSetting("Weapon MineLayer", "ONSMineProjectile_CullDistance", "ONS Mine Cull Distance (6000.0)", Security, Weight, "Text", "8;0.0:1000000",,False,True);
+    PI.AddSetting("Weapon MineLayer", "ONSMineProjectile_Speed", "ONS Mine Speed (800.0)", Security, Weight, "Text", "8;0.0:10000000.0",,False,True);
+    PI.AddSetting("Weapon MineLayer", "ONSMineProjectile_MaxSpeed", "ONS Mine Max Speed (800.0)", Security, Weight, "Text", "8;0.0:10000000.0",,False,True);
+    PI.AddSetting("Weapon MineLayer", "ONSMineProjectile_Damage", "ONS Mine Damage (95.0)", Security, Weight, "Text", "5;0.0:10000.0",,False,True);
+    PI.AddSetting("Weapon MineLayer", "ONSMineProjectile_DamageRadius", "ONS Mine Damage Radius (250.0)", Security, Weight, "Text", "8;0.0:10000000.0",,False,True);
+    PI.AddSetting("Weapon MineLayer", "ONSMineProjectile_MomentumTransfer", "ONS Mine Momentum Transfer (50000.0)", Security, Weight, "Text", "8;0.0:1000000.0",,False,True);
+    PI.AddSetting("Weapon MineLayer", "ONSMineProjectile_CullDistance", "ONS Mine Cull Distance (6000.0)", Security, Weight, "Text", "8;0.0:1000000.0",,False,True);
 
 }
 
@@ -1007,7 +996,7 @@ static event string GetDescriptionText(string PropName)
         case "ShieldPrimary_MaxDamage": return "Shield Primary Max Damage (150.0)";
         case "ShieldPrimary_SelfForceScale": return "Shield Primary Self Force Scale (1.0)";
         case "ShieldPrimary_SelfDamageScale": return "Shield Primary Self Damage Scale (0.3)";
-        case "ShieldPrimary_MinSelfDamage": return "Shield Primary Min Self Damage (8)";
+        case "ShieldPrimary_MinSelfDamage": return "Shield Primary Min Self Damage (8.0)";
         case "ShieldPrimary_AutoFireTestFreq": return "Shield Primary Auto Fire Test Frequency (0.15)";
         case "ShieldPrimary_FullyChargedTime": return "Shield Primary Fully Charged Time (2.5)";
         case "ShieldPrimary_ChargingSoundVolume": return "Shield Primary Charging Sound Volume (200)";
@@ -1021,7 +1010,7 @@ static event string GetDescriptionText(string PropName)
         case "AssaultRifle_PutDownTime": return "Assault Rifle Put Down Time (0.33)";
         case "AssaultRifle_BringUpTime": return "Assault Rifle Bring Up Time (0.33)";
         case "AssaultRifle_MinReloadPct": return "Assault Rifle MinReloadPct (0.5)";
-        case "AssaultPrimary_TraceRange": return "Assault Primary Trace Range (10000)";
+        case "AssaultPrimary_TraceRange": return "Assault Primary Trace Range (10000.0)";
         case "AssaultPrimary_Momentum": return "Assault Primary Momentum (0.0)";
         case "AssaultPrimary_AmmoPerFire": return "Assault Primary Ammo Per Fire (1)";
         case "AssaultPrimary_DamageMin": return "Assault Primary Damage Min (7)";
@@ -1030,10 +1019,6 @@ static event string GetDescriptionText(string PropName)
         case "AssaultPrimary_AimError": return "Assault Primary Aim Error (800)";
         case "AssaultPrimary_Spread": return "Assault Primary Spread (0.02)";
         case "AssaultSecondary_DamageAtten": return "Assault Secondary Damage Atten (1.0)";
-        case "AssaultSecondary_mScale": return "Assault Secondary mScale (1.0)";
-        case "AssaultSecondary_mScaleMultiplier": return "Assault Secondary mScaleMultiplier (0.9)";
-        case "AssaultSecondary_mSpeedMin": return "Assault Secondary mSpeedMin (250)";
-        case "AssaultSecondary_mSpeedMax": return "Assault Secondary mSpeedMax (3000)";
         case "AssaultSecondary_mHoldSpeedMin": return "Assault Secondary mHoldSpeedMin (850.0)";
         case "AssaultSecondary_mHoldSpeedMax": return "Assault Secondary mHoldSpeedMax (1600.0)";
         case "AssaultSecondary_mHoldSpeedGainPerSec": return "Assault Secondary mHoldSpeedGainPerSec (750.0)";
@@ -1041,7 +1026,6 @@ static event string GetDescriptionText(string PropName)
         case "AssaultGrenade_ExplodeTimer": return "Assault Grenade Explode Timer (2.0)";
         case "AssaultGrenade_DampenFactor": return "Assault Grenade Dampen Factor (0.5)";
         case "AssaultGrenade_DampenFactorParallel": return "Assault Grenade Dampen Factor Parallel (0.8)";
-        case "AssaultGrenade_TossZ": return "Assault Grenade TossZ (0.0)";
         case "AssaultGrenade_Damage": return "Assault Grenade Damage (70.0)";
         case "AssaultGrenade_DamageRadius": return "Assault Grenade Damage Radius (220.0)";
         case "AssaultGrenade_MomentumTransfer": return "Assault Grenade Momentum Transfer (75000.0)";
@@ -1050,22 +1034,22 @@ static event string GetDescriptionText(string PropName)
         case "AssaultGrenadesGiven": return "Assault Rifle Grenades (4)";
         case "bGiveDualAssaultRifle": return "Give Dual Assault Rifle to Player (false)";
 
-        case "bModifyBioRifle": return "Modify the Bio Rifle (false)"; 
+        case "bModifyBioRifle": return "Modify the Bio Rifle (false)";
         case "BioRifle_PutDownTime": return "Bio Rifle Put Down Time (0.33)";
         case "BioRifle_BringUpTime": return "Bio Rifle Bring Up Time (0.33)";
         case "BioRifle_MinReloadPct": return "Bio Rifle MinReloadPct (0.5)";
-        case "BioPrimary_FireRate": return "Bio Primary Fire Rate (0.33)"; 
-        case "BioPrimary_AmmoPerFire": return "Bio Primary Ammo Per Fire (1)"; 
-        case "BioSecondary_FireRate": return "Bio Secondary Fire Rate  (0.33)"; 
-        case "BioSecondary_GoopUpRate": return "Bio Secondary Goop Up Rate (0.25)"; 
-        case "BioSecondary_MaxGoopLoad": return "Bio Secondary Max Goop Load (10)"; 
-        case "Bio_ProjBaseDamage": return "Bio Projectile Base Damage (20.0)"; 
-        case "Bio_ProjGloblingSpeed": return "Bio Projectile Globling Speed (200.0)"; 
-        case "Bio_ProjRestTime": return "Bio Projectile Rest Time (2.25)"; 
-        case "Bio_ProjTouchDetinationDelay": return "Bio Projectile Touch Detination Delay (0.15)"; 
-        case "Bio_ProjDripTime": return "Bio Projectile Drip Time (1.8)"; 
-        case "Bio_ProjMaxGoopLevel": return "Bio Projectile Max Goop Level (5)"; 
-        case "Bio_ProjMergeGlobs": return "Bio Projectile Merg Globs (true)"; 
+        case "BioPrimary_FireRate": return "Bio Primary Fire Rate (0.33)";
+        case "BioPrimary_AmmoPerFire": return "Bio Primary Ammo Per Fire (1)";
+        case "BioSecondary_FireRate": return "Bio Secondary Fire Rate  (0.33)";
+        case "BioSecondary_GoopUpRate": return "Bio Secondary Goop Up Rate (0.25)";
+        case "BioSecondary_MaxGoopLoad": return "Bio Secondary Max Goop Load (10)";
+        case "Bio_ProjBaseDamage": return "Bio Projectile Base Damage (20)";
+        case "Bio_ProjGloblingSpeed": return "Bio Projectile Globling Speed (200.0)";
+        case "Bio_ProjRestTime": return "Bio Projectile Rest Time (2.25)";
+        case "Bio_ProjTouchDetinationDelay": return "Bio Projectile Touch Detonation Delay (0.15)";
+        case "Bio_ProjDripTime": return "Bio Projectile Drip Time (1.8)";
+        case "Bio_ProjMaxGoopLevel": return "Bio Projectile Max Goop Level (5)";
+        case "Bio_ProjMergeGlobs": return "Bio Projectile Merge Globs (true)";
         case "bGiveBioRifle": return "Give Bio Rifle to Player (false)";
         case "BioAmmoGiven": return "Bio Rifle Ammo Given (20)";
 
@@ -1073,7 +1057,7 @@ static event string GetDescriptionText(string PropName)
         case "ShockRifle_PutDownTime": return "Shock Rifle Put Down Time (0.33)";
         case "ShockRifle_BringUpTime": return "Shock Rifle Bring Up Time (0.33)";
         case "ShockRifle_MinReloadPct": return "Shock Rifle MinReloadPct (0.5)";
-        case "ShockPrimary_TraceRange": return "Shock primary trace range (17000)";
+        case "ShockPrimary_TraceRange": return "Shock Primary Trace Range (17000.0)";
         case "ShockPrimary_Momentum": return "Shock Primary Momentum (60000.0)";
         case "ShockPrimary_AmmoPerFire": return "Shock Primary Ammo Per Fire (1)";
         case "ShockPrimary_DamageMin": return "Shock Primary Damage Min (45)";
@@ -1081,19 +1065,19 @@ static event string GetDescriptionText(string PropName)
         case "ShockPrimary_FireRate": return "Shock Primary Fire Rate (0.7)";
         case "ShockSecondary_AmmoPerFire": return "Shock Secondary Ammo Per Fire (1)";
         case "ShockSecondary_FireRate": return "Shock Secondary Fire Rate (0.6)";
-        case "ShockSecondary_ProjSpeed": return "Shock Secondary Projectile Speed (1150)";
-        case "ShockSecondary_ProjMaxSpeed": return "Shock Secondary Projectile Max Speed (1150)";
-        case "ShockSecondary_ProjDamage": return "Shock Secondary Damage (45)";
-        case "ShockSecondary_ProjDamageRadius": return "Shock Secondary Damage Radius (150)";
-        case "ShockSecondary_ProjMomentumTransfer": return "Shock Secondary Momentum Transfer (70000)";
-        case "ShockSecondary_ProjComboDamage": return "Shock Combo Damage (200)";
-        case "ShockSecondary_ProjComboRadius": return "Shock Combo Damage Radius (275)";
-        case "ShockSecondary_ProjComboMomentumTransfer": return "Shock Combo Momentum Transfer (150000)";
+        case "ShockSecondary_ProjSpeed": return "Shock Secondary Projectile Speed (1150.0)";
+        case "ShockSecondary_ProjMaxSpeed": return "Shock Secondary Projectile Max Speed (1150.0)";
+        case "ShockSecondary_ProjDamage": return "Shock Secondary Damage (45.0)";
+        case "ShockSecondary_ProjDamageRadius": return "Shock Secondary Damage Radius (150.0)";
+        case "ShockSecondary_ProjMomentumTransfer": return "Shock Secondary Momentum Transfer (70000.0)";
+        case "ShockSecondary_ProjComboDamage": return "Shock Combo Damage (200.0)";
+        case "ShockSecondary_ProjComboRadius": return "Shock Combo Damage Radius (275.0)";
+        case "ShockSecondary_ProjComboMomentumTransfer": return "Shock Combo Momentum Transfer (150000.0)";
         case "ShockSecondary_ProjLifeSpan": return "Shock Secondary Projectile Lifespan (10.0)";
         case "ShockSecondary_ProjComboAmmoCost": return "Shock Combo Ammo Cost (3)";
         case "ShockSecondary_ProjForceScale": return "Shock Projectile Force Scale (5.0)";
         case "ShockSecondary_ProjForceRadius": return "Shock Projectile Force Radius (40.0)";
-        case "ShockSecondary_ProjSoundRadius": return "Shock Projectile Sound Radius (100)";
+        case "ShockSecondary_ProjSoundRadius": return "Shock Projectile Sound Radius (100.0)";
         case "ShockSecondary_ProjSoundVolume": return "Shock Projectile Sound Volume (50)";
         case "bGiveShock": return "Give Shock Rifle to Player (false)";
         case "ShockAmmoGiven": return "Shock Rifle Ammo Given (20)";
@@ -1109,7 +1093,7 @@ static event string GetDescriptionText(string PropName)
         case "LinkProj_LifeSpan": return "Link Projectile Life Span (3.0)";
         case "LinkProj_CullDistance": return "Link Projectile Cull Distance (3500.0)";
         case "LinkSecondary_TraceRange": return "Link Secondary Trace Range (1100.0)";
-        case "LinkSecondary_MomentumTransfer": return "Link Secondary Momentum (2000.0)";
+        case "LinkSecondary_MomentumTransfer": return "Link Secondary Momentum Transfer (2000.0)";
         case "LinkSecondary_AmmoPerFire": return "Link Secondary Ammo Per Fire (1)";
         case "LinkSecondary_Damage": return "Link Secondary Damage (9)";
         case "LinkSecondary_FireRate": return "Link Secondary Fire Rate (0.12)";
@@ -1152,15 +1136,14 @@ static event string GetDescriptionText(string PropName)
 
         case "bModifyFlakCannon": return "Modify the Flak Cannon (false)";
         case "FlakPrimary_AmmoPerFire": return "Flak Primary Ammo Per Fire (1)";
-        case "FlakPrimary_FireRate": return "Flak Primary Fire Rate (0.95)";
+        case "FlakPrimary_FireRate": return "Flak Primary Fire Rate (0.8947)";
         case "FlakPrimary_ProjPerFire": return "Flak Primary Projectiles Per Fire (9)";
         case "FlakPrimary_Spread": return "Flak Primary Spread (1400)";
-        case "FlakPrimary_SpreadStyle": return "Flak Primary Spread (1)";
-        case "FlakChunk_Bounces": return "Flak Chunk Bounces (1)";
-        case "FlakChunk_DamageAtten": return "Flak Chunk Damage Atten (0.5)";
+        case "FlakPrimary_SpreadStyle": return "Flak Primary Spread Style (Random)";
+        case "FlakChunk_DamageAtten": return "Flak Chunk Damage Atten Per Second (5.0)";
         case "FlakChunk_Speed": return "Flak Chunk Speed (2500)";
         case "FlakChunk_MaxSpeed": return "Flak Chunk Max Speed (2700)";
-        case "FlakChunk_Damage": return "Flak Chunk Damage (13)";
+        case "FlakChunk_Damage": return "Flak Chunk Damage (13.0)";
         case "FlakChunk_MomentumTransfer": return "Flak Chunk Momentum Transfer (10000.0)";
         case "FlakChunk_CullDistance": return "Flak Chunk Cull Distance (3000.0)";
         case "FlakChunk_LifeSpan": return "Flak Chunk Life Span (2.7)";
@@ -1171,15 +1154,15 @@ static event string GetDescriptionText(string PropName)
         case "FlakSecondary_Spread": return "Flak Secondary Spread (0)";
         case "FlakShell_TossZ": return "Flak Shell Toss Z (225.0)";
         case "FlakShell_Speed": return "Flak Shell Speed (1200.0)";
-        case "FlakShell_MaxSpeed": return "Flak Shell Max Speed (1200.0)";
-        case "FlakShell_Damage": return "Flak Shell Damage (90)";
+        case "FlakShell_MaxSpeed": return "Flak Shell Max Speed (2000.0)";
+        case "FlakShell_Damage": return "Flak Shell Damage (90.0)";
         case "FlakShell_DamageRadius": return "Flak Shell Damage Radius (220.0)";
         case "FlakShell_MomentumTransfer": return "Flak Shell Momentum Transfer (75000.0)";
         case "FlakShell_CullDistance": return "Flak Shell Cull Distance (4000.0)";
         case "FlakShell_LifeSpan": return "Flak Shell Life Span (6.0)";
-        case "FlakCannon_PutDownTime": return "FlakCannon Put Down Time (0.33)";
-        case "FlakCannon_BringUpTime": return "FlakCannon Bring Up Time (0.33)";
-        case "FlakCannon_MinReloadPct": return "FlakCannon MinReloadPct (0.5)";
+        case "FlakCannon_PutDownTime": return "Flak Cannon Put Down Time (0.33)";
+        case "FlakCannon_BringUpTime": return "Flak Cannon Bring Up Time (0.33)";
+        case "FlakCannon_MinReloadPct": return "Flak Cannon MinReloadPct (0.5)";
         case "bGiveFlakCannon": return "Give Flak Cannon to Player (false)";
         case "FlakCannonAmmoGiven": return "Flak Cannon Ammo Given (15)";
 
@@ -1202,29 +1185,29 @@ static event string GetDescriptionText(string PropName)
         case "RocketSecondary_MaxHoldTime": return "Rocket Secondary Max Hold Time (2.3)";
         case "RocketProj_Speed": return "Rocket Projectile Speed (1350.0)";
         case "RocketProj_MaxSpeed": return "Rocket Projectile Max Speed (1350.0)";
-        case "RocketProj_Damage": return "Rocket Projectile Damage (90)";
+        case "RocketProj_Damage": return "Rocket Projectile Damage (90.0)";
         case "RocketProj_DamageRadius": return "Rocket Projectile Damage Radius (220.0)";
         case "RocketProj_MomentumTransfer": return "Rocket Projectile Momentum Transfer (50000.0)";
-        case "RocketProj_Lifespan": return "Rocket Projectile Lifespan (8.0)";
+        case "RocketProj_LifeSpan": return "Rocket Projectile Lifespan (8.0)";
         case "RocketProj_FlockRadius": return "Rocket Projectile Flock Radius (12.0)";
-        case "RocketProj_FlockStiffness": return "Rocket Projectile Flock Stiffness (40.0)";
+        case "RocketProj_FlockStiffness": return "Rocket Projectile Flock Stiffness (-40.0)";
         case "RocketProj_FlockMaxForce": return "Rocket Projectile Flock Max Force (600.0)";
         case "RocketProj_FlockCurlForce": return "Rocket Projectile Flock Curl Force (450.0)";
         case "bGiveRocketLauncher": return "Give Rocket Launcher to Player (false)";
         case "RocketLauncherAmmoGiven": return "Rocket Launcher Ammo Given (12)";
 
         case "bModifySniperRifle": return "Modify the Lightning Gun (false)";
-        case "SniperRifle_PutDownTime": return "Sniper Rifle Put Down Time (0.33)";
-        case "SniperRifle_BringUpTime": return "Sniper Rifle Bring Up Time (0.36)";
-        case "SniperRifle_MinReloadPct": return "Sniper Rifle MinReloadPct (0.25)";
+        case "SniperRifle_PutDownTime": return "Lightning Gun Put Down Time (0.33)";
+        case "SniperRifle_BringUpTime": return "Lightning Gun Bring Up Time (0.36)";
+        case "SniperRifle_MinReloadPct": return "Lightning Gun MinReloadPct (0.25)";
         case "SniperPrimary_AmmoPerFire": return "Lightning Gun Ammo Per Fire (1)";
         case "SniperPrimary_DamageMin": return "Lightning Gun Damage Min (70)";
         case "SniperPrimary_DamageMax": return "Lightning Gun Damage Max (70)";
-        case "SniperPrimary_TraceRange": return "Lightning Gun Trace Range (17000)";
+        case "SniperPrimary_TraceRange": return "Lightning Gun Trace Range (17000.0)";
         case "SniperPrimary_FireRate": return "Lightning Gun Fire Rate (1.6)";
         case "SniperPrimary_NumArcs": return "Lightning Gun Num Arcs (3)";
         case "SniperPrimary_SecDamageMult": return "Lightning Gun Arc Damage Multiplier (0.5)";
-        case "SniperPrimary_SecTraceDist": return "Lightning Gun Arc Trace Distance (300)";
+        case "SniperPrimary_SecTraceDist": return "Lightning Gun Arc Trace Distance (300.0)";
         case "SniperPrimary_HeadshotDamageMult": return "Lightning Gun Headshot Multiplier (2.0)";
         case "bGiveSniperRifle": return "Give Lightning Gun to Player (false)";
         case "SniperRifleAmmoGiven": return "Lightning Gun Ammo Given (15)";
@@ -1236,7 +1219,7 @@ static event string GetDescriptionText(string PropName)
         case "ClassicSniperPrimary_AmmoPerFire": return "Sniper Rifle Ammo Per Fire (1)";
         case "ClassicSniperPrimary_DamageMin": return "Sniper Rifle Damage Min (60)";
         case "ClassicSniperPrimary_DamageMax": return "Sniper Rifle Damage Max (60)";
-        case "ClassicSniperPrimary_TraceRange": return "Sniper Rifle Trace Range (17000)";
+        case "ClassicSniperPrimary_TraceRange": return "Sniper Rifle Trace Range (17000.0)";
         case "ClassicSniperPrimary_FireRate": return "Sniper Rifle Fire Rate (1.33)";
         case "ClassicSniperPrimary_HeadshotDamageMult": return "Sniper Rifle Headshot Multiplier (2.0)";
         case "bGiveClassicSniperRifle": return "Give Sniper Rifle to Player (false)";
@@ -1246,12 +1229,12 @@ static event string GetDescriptionText(string PropName)
         case "SuperShockRifle_PutDownTime": return "Super Shock Rifle Put Down Time (0.33)";
         case "SuperShockRifle_BringUpTime": return "Super Shock Rifle Bring Up Time (0.33)";
         case "SuperShockRifle_MinReloadPct": return "Super Shock Rifle MinReloadPct (0.5)";
-        case "SuperShockPrimary_TraceRange": return "Super Shock primary trace range (17000)";
-        case "SuperShockPrimary_Momentum": return "Super Shock Primary Momentum (60000.0)";
-        case "SuperShockPrimary_AmmoPerFire": return "Super Shock Primary Ammo Per Fire (1)";
-        case "SuperShockPrimary_DamageMin": return "Super Shock Primary Damage Min (45)";
-        case "SuperShockPrimary_DamageMax": return "Super Shock Primary Damage Max (45)";
-        case "SuperShockPrimary_FireRate": return "Super Shock Primary Fire Rate (0.7)";
+        case "SuperShockPrimary_TraceRange": return "Super Shock Primary Trace Range (17000.0)";
+        case "SuperShockPrimary_Momentum": return "Super Shock Primary Momentum (100000.0)";
+        case "SuperShockPrimary_AmmoPerFire": return "Super Shock Primary Ammo Per Fire (0)";
+        case "SuperShockPrimary_DamageMin": return "Super Shock Primary Damage Min (1000)";
+        case "SuperShockPrimary_DamageMax": return "Super Shock Primary Damage Max (1000)";
+        case "SuperShockPrimary_FireRate": return "Super Shock Primary Fire Rate (1.1)";
         case "bGiveSuperShock": return "Give Super Shock Rifle to Player (false)";
         case "SuperShockAmmoGiven": return "Super Shock Rifle Ammo Given (1)";
         
@@ -1264,7 +1247,6 @@ static event string GetDescriptionText(string PropName)
         case "ONSGrenadeProj_bBounce": return "ONS Grenade Bounce (true)";
         case "ONSGrenadeProj_Speed": return "ONS Grenade Speed (1200.0)";
         case "ONSGrenadeProj_MaxSpeed": return "ONS Grenade Max Speed (1200.0)";
-        case "ONSGrenadeProj_TossZ": return "ONS Grenade TossZ (0.0)";
         case "ONSGrenadeProj_Damage": return "ONS Grenade Damage (100.0)";
         case "ONSGrenadeProj_DamageRadius": return "ONS Grenade Damage Radius (175.0)";
         case "ONSGrenadeProj_MomentumTransfer": return "ONS Grenade Momentum Transfer (50000.0)";
@@ -1281,10 +1263,10 @@ static event string GetDescriptionText(string PropName)
         case "ONSAvril_LockAim": return "ONS Avril Launcher Lock Aim (0.996)";
         case "ONSAvril_PutDownTime": return "ONS Avril Launcher Put Down Time (0.33)";
         case "ONSAvril_BringUpTime": return "ONS Avril Launcher Bring Up Time (0.45)";
-        case "ONSAvril_MinReloadPct": return "ONS Avril Launcher MinReloadPct (0.5)";
+        case "ONSAvril_MinReloadPct": return "ONS Avril Launcher MinReloadPct (0.0)";
         case "ONSAvrilPrimary_AmmoPerFire": return "ONS Avril Primary Ammo Per Fire (1)";
         case "ONSAvrilPrimary_FireRate": return "ONS Avril Primary Fire Rate (4.0)";
-        case "ONSAvrilPrimary_KickMomentum": return "ONS Avril Primary Kick Momentum ((X=-350.0: returnZ=175.0)";
+        case "ONSAvrilPrimary_KickMomentum": return "ONS Avril Primary Kick Momentum ((X=-350.0,Z=175.0))";
         case "ONSAvrilProj_LeadTargetDelay": return "ONS Avril Lead Target Delay (1.0)";
         case "ONSAvrilProj_bProjTarget": return "ONS Avril Projectile Target (true)";
         case "ONSAvrilProj_Speed": return "ONS Avril Speed (550.0)";
@@ -1297,20 +1279,20 @@ static event string GetDescriptionText(string PropName)
         case "ONSAvrilAmmoGiven": return "ONS Avril Launcher Ammo Given (5)";
 
         case "bModifyONSMineLayer": return "Modify the ONS Mine Layer (false)";
-        case "ONSMineLayer_ReloadDelay": return "ONS Mine Layer Lock Check Freq (0.2)";
+        case "ONSMineLayer_ReloadDelay": return "ONS Mine Layer Reload Delay (0.4)";
         case "ONSMineLayer_MaxMines": return "ONS Mine Layer Max Mines (8)";
         case "ONSMineLayer_PutDownTime": return "ONS Mine Layer Put Down Time (0.40)";
         case "ONSMineLayer_BringUpTime": return "ONS Mine Layer Bring Up Time (0.35)";
         case "ONSMineLayer_MinReloadPct": return "ONS Mine Layer MinReloadPct (0.5)";
         case "ONSMineLayerPrimary_AmmoPerFire": return "ONS Mine Layer Ammo Per Fire (1)";
-        case "ONSMineLayerPrimary_FireRate": return "ONS Mine Layer Fire Rate (4.0)";
+        case "ONSMineLayerPrimary_FireRate": return "ONS Mine Layer Fire Rate (1.1)";
         case "ONSMineProjectile_DetectionTimer": return "ONS Mine Detection Timer (0.5)";
         case "ONSMineProjectile_ScurrySpeed": return "ONS Mine Scurry Speed (525.0)";
         case "ONSMineProjectile_ScurryAnimRate": return "ONS Mine Scurry Anim Rate (4.1)";
-        case "ONSMineProjectile_TargetLocFuzz": return "ONS Mine Target Lock Fuzz (250)";
+        case "ONSMineProjectile_TargetLocFuzz": return "ONS Mine Target Loc Fuzz (250)";
         case "ONSMineProjectile_bBounce": return "ONS Mine Bounce (true)";
         case "ONSMineProjectile_Speed": return "ONS Mine Speed (800.0)";
-        case "ONSMineProjectile_MaxSpeed": return "ONS Mine Max Speed (2800.0)";
+        case "ONSMineProjectile_MaxSpeed": return "ONS Mine Max Speed (800.0)";
         case "ONSMineProjectile_Damage": return "ONS Mine Damage (95.0)";
         case "ONSMineProjectile_DamageRadius": return "ONS Mine Damage Radius (250.0)";
         case "ONSMineProjectile_MomentumTransfer": return "ONS Mine Momentum Transfer (50000.0)";
@@ -1320,133 +1302,109 @@ static event string GetDescriptionText(string PropName)
     }
 }
 
-function ModifyPlayer(Pawn Other)
+// Class-default ammo only has to be written once. ModifyPlayer runs after AddDefaultInventory,
+// so writing it there left the first spawn of each map on the stock amounts.
+function SetupAmmo()
 {
     if(bModifyAssaultAmmo)
     {
-        class'AssaultRifle'.default.FireModeClass[0].default.AmmoClass.default.InitialAmount = Min(999, AssaultRifleAmmoGiven);
-        class'AssaultRifle'.default.FireModeClass[0].default.AmmoClass.default.MaxAmmo = 
-            Max(class'AssaultRifle'.default.FireModeClass[0].default.AmmoClass.default.MaxAmmo, AssaultRifleAmmoGiven);
-
-        class'AssaultRifle'.default.FireModeClass[1].default.AmmoClass.default.InitialAmount = Min(999, AssaultGrenadesGiven);
-        class'AssaultRifle'.default.FireModeClass[1].default.AmmoClass.default.MaxAmmo = 
-            Max(class'AssaultRifle'.default.FireModeClass[1].default.AmmoClass.default.MaxAmmo, AssaultGrenadesGiven);
+        SetAmmo(class'AssaultRifle'.default.FireModeClass[0].default.AmmoClass, AssaultRifleAmmoGiven);
+        SetAmmo(class'AssaultRifle'.default.FireModeClass[1].default.AmmoClass, AssaultGrenadesGiven);
     }
-
     if(bGiveBioRifle)
-    {
-        class'BioRifle'.default.FireModeClass[0].default.AmmoClass.default.InitialAmount = Min(999, BioAmmoGiven);
-        class'BioRifle'.default.FireModeClass[0].default.AmmoClass.default.MaxAmmo = 
-            Max(class'BioRifle'.default.FireModeClass[0].default.AmmoClass.default.MaxAmmo, BioAmmoGiven);
-
-        Other.CreateInventory("XWeapons.BioRifle");
-    }
-
+        SetAmmo(class'BioRifle'.default.FireModeClass[0].default.AmmoClass, BioAmmoGiven);
     if(bGiveShock)
-    {
-        class'ShockRifle'.default.FireModeClass[0].default.AmmoClass.default.InitialAmount = Min(999, ShockAmmoGiven);
-        class'ShockRifle'.default.FireModeClass[0].default.AmmoClass.default.MaxAmmo = 
-            Max(class'ShockRifle'.default.FireModeClass[0].default.AmmoClass.default.MaxAmmo, ShockAmmoGiven);
-
-        Other.CreateInventory("XWeapons.ShockRifle");
-    }
-
+        SetAmmo(class'ShockRifle'.default.FireModeClass[0].default.AmmoClass, ShockAmmoGiven);
     if(bGiveLinkGun)
-    {
-        class'LinkGun'.default.FireModeClass[0].default.AmmoClass.default.InitialAmount = Min(999, LinkGunAmmoGiven);
-        class'LinkGun'.default.FireModeClass[0].default.AmmoClass.default.MaxAmmo = 
-            Max(class'LinkGun'.default.FireModeClass[0].default.AmmoClass.default.MaxAmmo, LinkGunAmmoGiven);
-
-        Other.CreateInventory("XWeapons.LinkGun");
-    }
-
+        SetAmmo(class'LinkGun'.default.FireModeClass[0].default.AmmoClass, LinkGunAmmoGiven);
     if(bGiveMinigun)
-    {
-        class'Minigun'.default.FireModeClass[0].default.AmmoClass.default.InitialAmount = Min(999, MinigunAmmoGiven);
-        class'Minigun'.default.FireModeClass[0].default.AmmoClass.default.MaxAmmo = 
-            Max(class'Minigun'.default.FireModeClass[0].default.AmmoClass.default.MaxAmmo, MinigunAmmoGiven);
-
-        Other.CreateInventory("XWeapons.Minigun");
-    }
-
+        SetAmmo(class'Minigun'.default.FireModeClass[0].default.AmmoClass, MinigunAmmoGiven);
     if(bGiveFlakCannon)
-    {
-        class'FlakCannon'.default.FireModeClass[0].default.AmmoClass.default.InitialAmount = Min(999, FlakCannonAmmoGiven);
-        class'FlakCannon'.default.FireModeClass[0].default.AmmoClass.default.MaxAmmo = 
-            Max(class'FlakCannon'.default.FireModeClass[0].default.AmmoClass.default.MaxAmmo, FlakCannonAmmoGiven);
-
-        Other.CreateInventory("XWeapons.FlakCannon");
-    }
-
+        SetAmmo(class'FlakCannon'.default.FireModeClass[0].default.AmmoClass, FlakCannonAmmoGiven);
     if(bGiveRocketLauncher)
-    {
-        class'RocketLauncher'.default.FireModeClass[0].default.AmmoClass.default.InitialAmount = Min(999, RocketLauncherAmmoGiven);
-        class'RocketLauncher'.default.FireModeClass[0].default.AmmoClass.default.MaxAmmo = 
-            Max(class'RocketLauncher'.default.FireModeClass[0].default.AmmoClass.default.MaxAmmo, RocketLauncherAmmoGiven);
-
-        Other.CreateInventory("XWeapons.RocketLauncher");
-    }
-
+        SetAmmo(class'RocketLauncher'.default.FireModeClass[0].default.AmmoClass, RocketLauncherAmmoGiven);
     if(bGiveSniperRifle)
-    {
-        class'SniperRifle'.default.FireModeClass[0].default.AmmoClass.default.InitialAmount = Min(999, SniperRifleAmmoGiven);
-        class'SniperRifle'.default.FireModeClass[0].default.AmmoClass.default.MaxAmmo = 
-            Max(class'SniperRifle'.default.FireModeClass[0].default.AmmoClass.default.MaxAmmo, SniperRifleAmmoGiven);
-
-        Other.CreateInventory("XWeapons.SniperRifle");
-    }
-
+        SetAmmo(class'SniperRifle'.default.FireModeClass[0].default.AmmoClass, SniperRifleAmmoGiven);
     if(bGiveClassicSniperRifle)
-    {
-        class'ClassicSniperRifle'.default.FireModeClass[0].default.AmmoClass.default.InitialAmount = Min(999, ClassicSniperRifleAmmoGiven);
-        class'ClassicSniperRifle'.default.FireModeClass[0].default.AmmoClass.default.MaxAmmo = 
-            Max(class'ClassicSniperRifle'.default.FireModeClass[0].default.AmmoClass.default.MaxAmmo, ClassicSniperRifleAmmoGiven);
-
-        Other.CreateInventory("XWeapons.ClassicSniperRifle");
-    }
-
+        SetAmmo(class'ClassicSniperRifle'.default.FireModeClass[0].default.AmmoClass, ClassicSniperRifleAmmoGiven);
     if(bGiveSuperShock)
-    {
-        class'SuperShockRifle'.default.FireModeClass[0].default.AmmoClass.default.InitialAmount = Min(999, SuperShockAmmoGiven);
-        class'SuperShockRifle'.default.FireModeClass[0].default.AmmoClass.default.MaxAmmo = 
-            Max(class'SuperShockRifle'.default.FireModeClass[0].default.AmmoClass.default.MaxAmmo, SuperShockAmmoGiven);
-
-        Other.CreateInventory("XWeapons.SuperShockRifle");
-    }
-
+        SetAmmo(class'SuperShockRifle'.default.FireModeClass[0].default.AmmoClass, SuperShockAmmoGiven);
     if(bGiveONSGrenade)
-    {
-        class'ONSGrenadeLauncher'.default.FireModeClass[0].default.AmmoClass.default.InitialAmount = Min(999, ONSGrenadeAmmoGiven);
-        class'ONSGrenadeLauncher'.default.FireModeClass[0].default.AmmoClass.default.MaxAmmo = 
-            Max(class'ONSGrenadeLauncher'.default.FireModeClass[0].default.AmmoClass.default.MaxAmmo, ONSGrenadeAmmoGiven);
-
-        Other.CreateInventory("Onslaught.ONSGrenadeLauncher");
-    }
-
+        SetAmmo(class'ONSGrenadeLauncher'.default.FireModeClass[0].default.AmmoClass, ONSGrenadeAmmoGiven);
     if(bGiveONSAvril)
-    {
-        class'ONSAvril'.default.FireModeClass[0].default.AmmoClass.default.InitialAmount = Min(999, ONSAvrilAmmoGiven);
-        class'ONSAvril'.default.FireModeClass[0].default.AmmoClass.default.MaxAmmo = 
-            Max(class'ONSAvril'.default.FireModeClass[0].default.AmmoClass.default.MaxAmmo, ONSAvrilAmmoGiven);
-
-        Other.CreateInventory("Onslaught.ONSAvril");
-    }
-
+        SetAmmo(class'ONSAvril'.default.FireModeClass[0].default.AmmoClass, ONSAvrilAmmoGiven);
     if(bGiveONSMineLayer)
-    {
-        class'ONSMineLayer'.default.FireModeClass[0].default.AmmoClass.default.InitialAmount = Min(999, ONSMineLayerAmmoGiven);
-        class'ONSMineLayer'.default.FireModeClass[0].default.AmmoClass.default.MaxAmmo = 
-            Max(class'ONSMineLayer'.default.FireModeClass[0].default.AmmoClass.default.MaxAmmo, ONSMineLayerAmmoGiven);
+        SetAmmo(class'ONSMineLayer'.default.FireModeClass[0].default.AmmoClass, ONSMineLayerAmmoGiven);
+}
 
+static final function SetAmmo(class<Ammunition> A, int Amount)
+{
+    A.default.InitialAmount = Min(999, Amount);
+    A.default.MaxAmmo = Max(A.default.MaxAmmo, Amount);
+}
+
+function ModifyPlayer(Pawn Other)
+{
+    if(bGiveBioRifle)
+        Other.CreateInventory("XWeapons.BioRifle");
+    if(bGiveShock)
+        Other.CreateInventory("XWeapons.ShockRifle");
+    if(bGiveLinkGun)
+        Other.CreateInventory("XWeapons.LinkGun");
+    if(bGiveMinigun)
+        Other.CreateInventory("XWeapons.Minigun");
+    if(bGiveFlakCannon)
+        Other.CreateInventory("XWeapons.FlakCannon");
+    if(bGiveRocketLauncher)
+        Other.CreateInventory("XWeapons.RocketLauncher");
+    if(bGiveSniperRifle)
+        Other.CreateInventory("XWeapons.SniperRifle");
+    if(bGiveClassicSniperRifle)
+        Other.CreateInventory("UTClassic.ClassicSniperRifle");
+    if(bGiveSuperShock)
+        Other.CreateInventory("XWeapons.SuperShockRifle");
+    if(bGiveONSGrenade)
+        Other.CreateInventory("Onslaught.ONSGrenadeLauncher");
+    if(bGiveONSAvril)
+        Other.CreateInventory("Onslaught.ONSAvril");
+    if(bGiveONSMineLayer)
         Other.CreateInventory("Onslaught.ONSMineLayer");
-    }
 
     super.ModifyPlayer(Other);
 
     if(bGiveDualAssaultRifle)
+        GiveDualAssaultRifle(Other);
+}
+
+// CreateInventory skips a class the pawn already holds (subclasses included), so the second rifle
+// is applied the way AssaultRifle.HandlePickupQuery does when a player picks one up
+function GiveDualAssaultRifle(Pawn Other)
+{
+    local AssaultRifle AR;
+    local WeaponFire F;
+
+    AR = AssaultRifle(Other.FindInventoryType(class'AssaultRifle'));
+    if(AR == None)
     {
         Other.CreateInventory("XWeapons.AssaultRifle");
+        AR = AssaultRifle(Other.FindInventoryType(class'AssaultRifle'));
+        if(AR == None)
+            return;
     }
+    if(AR.bDualMode)
+        return;
+
+    AR.bDualMode = true;
+    if(Other.Weapon == AR)
+        AR.AttachToPawn(Other);
+    F = AR.GetFireMode(0);
+    if(Level.GRI.WeaponBerserk > 1.0)
+        AR.CheckSuperBerserk();
+    else
+        F.FireRate = F.default.FireRate * 0.55;
+    F.Spread = F.default.Spread * 1.5;
+    if(xPawn(Other) != None && xPawn(Other).bBerserk)
+        AR.StartBerserk();
 }
 
 defaultproperties
@@ -1498,10 +1456,6 @@ defaultproperties
     AssaultPrimary_AimError=800.0
     AssaultPrimary_Spread=0.02
     AssaultSecondary_DamageAtten=1.0
-    AssaultSecondary_mScale=1.0
-    AssaultSecondary_mScaleMultiplier=0.9
-    AssaultSecondary_mSpeedMin=250.0
-    AssaultSecondary_mSpeedMax=3000.0
     AssaultSecondary_mHoldSpeedMin=850.0
     AssaultSecondary_mHoldSpeedMax=1600.0
     AssaultSecondary_mHoldSpeedGainPerSec=750.0
@@ -1509,7 +1463,6 @@ defaultproperties
     AssaultGrenade_ExplodeTimer=2.0
     AssaultGrenade_DampenFactor=0.5
     AssaultGrenade_DampenFactorParallel=0.8
-    AssaultGrenade_TossZ=0.0
     AssaultGrenade_Damage=70.0
     AssaultGrenade_DamageRadius=220.0
     AssaultGrenade_MomentumTransfer=75000.0
@@ -1623,12 +1576,11 @@ defaultproperties
     FlakCannon_PutDownTime=0.33
     FlakCannon_MinReloadPct=0.5
     FlakPrimary_AmmoPerFire=1
-    FlakPrimary_FireRate=0.95
+    FlakPrimary_FireRate=0.8947
     FlakPrimary_ProjPerFire=9
     FlakPrimary_Spread=1400
     FlakPrimary_SpreadStyle=1
-    FlakChunk_Bounces=1
-    FlakChunk_DamageAtten=0.5
+    FlakChunk_DamageAtten=5.0
     FlakChunk_Speed=2500
     FlakChunk_MaxSpeed=2700
     FlakChunk_Damage=13
@@ -1642,7 +1594,7 @@ defaultproperties
     FlakSecondary_Spread=0.0
     FlakShell_TossZ=225.0
     FlakShell_Speed=1200.0
-    FlakShell_MaxSpeed=1200.0
+    FlakShell_MaxSpeed=2000.0
     FlakShell_Damage=90
     FlakShell_DamageRadius=220.0
     FlakShell_MomentumTransfer=75000.0
@@ -1675,7 +1627,7 @@ defaultproperties
     RocketProj_MomentumTransfer=50000.0
     RocketProj_LifeSpan=8.0
     RocketProj_FlockRadius=12.0
-    RocketProj_FlockStiffness=40.0
+    RocketProj_FlockStiffness=-40.0
     RocketProj_FlockMaxForce=600.0
     RocketProj_FlockCurlForce=450.0    
     bGiveRocketLauncher=false
@@ -1715,7 +1667,7 @@ defaultproperties
     SuperShockRifle_PutDownTime=0.33
     SuperShockRifle_MinReloadPct=0.5
     SuperShockPrimary_TraceRange=17000
-    SuperShockPrimary_Momentum=60000.0
+    SuperShockPrimary_Momentum=100000.0
     SuperShockPrimary_AmmoPerFire=0
     SuperShockPrimary_DamageMin=1000
     SuperShockPrimary_DamageMax=1000
@@ -1729,7 +1681,6 @@ defaultproperties
     ONSGrenadeProj_bBounce=true
     ONSGrenadeProj_Speed=1200.0
     ONSGrenadeProj_MaxSpeed=1200.0
-    ONSGrenadeProj_TossZ=0.0
     ONSGrenadeProj_Damage=100.0
     ONSGrenadeProj_DamageRadius=175.0
     ONSGrenadeProj_MomentumTransfer=50000.0
@@ -1749,7 +1700,7 @@ defaultproperties
     ONSAvril_LockAim=0.996
     ONSAvril_PutDownTime=0.33
     ONSAvril_BringUpTime=0.45
-    ONSAvril_MinReloadPct=0.5
+    ONSAvril_MinReloadPct=0.0
     ONSAvrilPrimary_AmmoPerFire=1
     ONSAvrilPrimary_FireRate=4.0
     ONSAvrilPrimary_KickMomentum=(X=-350.0,Z=175.0)

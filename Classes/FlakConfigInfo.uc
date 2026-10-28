@@ -8,8 +8,7 @@ var int FlakPrimary_AmmoPerFire;
 var float FlakPrimary_FireRate;
 var int FlakPrimary_ProjPerFire;
 var float FlakPrimary_Spread;
-var int FlakPrimary_SpreadStyle;
-var byte FlakChunk_Bounces;
+var byte FlakPrimary_SpreadStyle;
 var float FlakChunk_DamageAtten;
 var float FlakChunk_Speed;
 var float FlakChunk_MaxSpeed;
@@ -36,7 +35,7 @@ replication
     reliable if(Role == ROLE_Authority && bNetInitial)
         bModifyFlakCannon, FlakCannon_BringUpTime, FlakCannon_PutDownTime, FlakCannon_MinReloadPct,
         FlakPrimary_AmmoPerFire, FlakPrimary_FireRate, FlakPrimary_ProjPerFire, FlakPrimary_Spread,
-        FlakPrimary_SpreadStyle, FlakChunk_Bounces, FlakChunk_DamageAtten, FlakChunk_Speed, FlakChunk_MaxSpeed,
+        FlakPrimary_SpreadStyle, FlakChunk_DamageAtten, FlakChunk_Speed, FlakChunk_MaxSpeed,
         FlakChunk_Damage, FlakChunk_MomentumTransfer, FlakChunk_CullDistance, FlakChunk_LifeSpan,
         FlakChunk_Bounce, FlakSecondary_AmmoPerFire, FlakSecondary_FireRate, FlakSecondary_ProjPerFire,
         FlakSecondary_Spread, FlakShell_TossZ, FlakShell_Speed, FlakShell_MaxSpeed,
@@ -55,7 +54,6 @@ function LoadFrom(MutWeaponConfig config)
     FlakPrimary_ProjPerFire = config.FlakPrimary_ProjPerFire;
     FlakPrimary_Spread = config.FlakPrimary_Spread;
     FlakPrimary_SpreadStyle = config.FlakPrimary_SpreadStyle;
-    FlakChunk_Bounces = config.FlakChunk_Bounces;
     FlakChunk_DamageAtten = config.FlakChunk_DamageAtten;
     FlakChunk_Speed = config.FlakChunk_Speed;
     FlakChunk_MaxSpeed = config.FlakChunk_MaxSpeed;
@@ -91,26 +89,10 @@ simulated function Modify()
     class'FlakFire'.default.ProjPerFire = FlakPrimary_ProjPerFire;
     class'FlakFire'.default.Spread = FlakPrimary_Spread;
     class'FlakFire'.default.SpreadStyle = ESpreadStyle(FlakPrimary_SpreadStyle);
-    class'FlakChunk'.default.Bounces = FlakChunk_Bounces;
-    class'FlakChunk'.default.DamageAtten = FlakChunk_DamageAtten;
-    class'FlakChunk'.default.Speed = FlakChunk_Speed;
-    class'FlakChunk'.default.MaxSpeed = FlakChunk_MaxSpeed;
-    class'FlakChunk'.default.Damage = FlakChunk_Damage;
-    class'FlakChunk'.default.MomentumTransfer = FlakChunk_MomentumTransfer;
-    class'FlakChunk'.default.CullDistance = FlakChunk_CullDistance;
-    class'FlakChunk'.default.LifeSpan = FlakChunk_LifeSpan;
-    class'FlakChunk'.default.bBounce = FlakChunk_Bounce;
     class'FlakAltFire'.default.AmmoPerFire = FlakSecondary_AmmoPerFire;
     class'FlakAltFire'.default.FireRate = FlakSecondary_FireRate;
     class'FlakAltFire'.default.ProjPerFire = FlakSecondary_ProjPerFire;
     class'FlakAltFire'.default.Spread = FlakSecondary_Spread;
-    class'FlakShell'.default.TossZ = FlakShell_TossZ;
-    class'FlakShell'.default.Speed = FlakShell_Speed;
-    class'FlakShell'.default.MaxSpeed = FlakShell_MaxSpeed;
-    class'FlakShell'.default.Damage = FlakShell_Damage;
-    class'FlakShell'.default.MomentumTransfer = FlakShell_MomentumTransfer;
-    class'FlakShell'.default.CullDistance = FlakShell_CullDistance;
-    class'FlakShell'.default.LifeSpan = FlakShell_LifeSpan;
 
     //utcomp
     SetSwitchTimes(class'UTComp_FlakCannon', FlakCannon_PutDownTime, FlakCannon_BringUpTime);
@@ -120,26 +102,10 @@ simulated function Modify()
     class'UTComp_FlakFire'.default.ProjPerFire = FlakPrimary_ProjPerFire;
     class'UTComp_FlakFire'.default.Spread = FlakPrimary_Spread;
     class'UTComp_FlakFire'.default.SpreadStyle = ESpreadStyle(FlakPrimary_SpreadStyle);
-    class'UTComp_FlakChunk'.default.Bounces = FlakChunk_Bounces;
-    class'UTComp_FlakChunk'.default.DamageAtten = FlakChunk_DamageAtten;
-    class'UTComp_FlakChunk'.default.Speed = FlakChunk_Speed;
-    class'UTComp_FlakChunk'.default.MaxSpeed = FlakChunk_MaxSpeed;
-    class'UTComp_FlakChunk'.default.Damage = FlakChunk_Damage;
-    class'UTComp_FlakChunk'.default.MomentumTransfer = FlakChunk_MomentumTransfer;
-    class'UTComp_FlakChunk'.default.CullDistance = FlakChunk_CullDistance;
-    class'UTComp_FlakChunk'.default.LifeSpan = FlakChunk_LifeSpan;
-    class'UTComp_FlakChunk'.default.bBounce = FlakChunk_Bounce;
     class'UTComp_FlakAltFire'.default.AmmoPerFire = FlakSecondary_AmmoPerFire;
     class'UTComp_FlakAltFire'.default.FireRate = FlakSecondary_FireRate;
     class'UTComp_FlakAltFire'.default.ProjPerFire = FlakSecondary_ProjPerFire;
     class'UTComp_FlakAltFire'.default.Spread = FlakSecondary_Spread;
-    class'UTComp_FlakShell'.default.TossZ = FlakShell_TossZ;
-    class'UTComp_FlakShell'.default.Speed = FlakShell_Speed;
-    class'UTComp_FlakShell'.default.MaxSpeed = FlakShell_MaxSpeed;
-    class'UTComp_FlakShell'.default.Damage = FlakShell_Damage;
-    class'UTComp_FlakShell'.default.MomentumTransfer = FlakShell_MomentumTransfer;
-    class'UTComp_FlakShell'.default.CullDistance = FlakShell_CullDistance;
-    class'UTComp_FlakShell'.default.LifeSpan = FlakShell_LifeSpan;
 
     //newnet
     SetSwitchTimes(class'NewNet_FlakCannon', FlakCannon_PutDownTime, FlakCannon_BringUpTime);
@@ -149,38 +115,50 @@ simulated function Modify()
     class'NewNet_FlakFire'.default.ProjPerFire = FlakPrimary_ProjPerFire;
     class'NewNet_FlakFire'.default.Spread = FlakPrimary_Spread;
     class'NewNet_FlakFire'.default.SpreadStyle = ESpreadStyle(FlakPrimary_SpreadStyle);
-    class'NewNet_FlakChunk'.default.Bounces = FlakChunk_Bounces;
-    class'NewNet_FlakChunk'.default.DamageAtten = FlakChunk_DamageAtten;
-    class'NewNet_FlakChunk'.default.Speed = FlakChunk_Speed;
-    class'NewNet_FlakChunk'.default.MaxSpeed = FlakChunk_MaxSpeed;
-    class'NewNet_FlakChunk'.default.Damage = FlakChunk_Damage;
-    class'NewNet_FlakChunk'.default.MomentumTransfer = FlakChunk_MomentumTransfer;
-    class'NewNet_FlakChunk'.default.CullDistance = FlakChunk_CullDistance;
-    class'NewNet_FlakChunk'.default.LifeSpan = FlakChunk_LifeSpan;
-    class'NewNet_FlakChunk'.default.bBounce = FlakChunk_Bounce;
-    // The client-side predicted fake chunk must use the same physics as the real
-    // chunk, or it flies at a different speed/trajectory and the fake->real handoff
-    // is visible.
-    class'NewNet_Fake_FlakChunk'.default.Bounces = FlakChunk_Bounces;
-    class'NewNet_Fake_FlakChunk'.default.DamageAtten = FlakChunk_DamageAtten;
-    class'NewNet_Fake_FlakChunk'.default.Speed = FlakChunk_Speed;
-    class'NewNet_Fake_FlakChunk'.default.MaxSpeed = FlakChunk_MaxSpeed;
-    class'NewNet_Fake_FlakChunk'.default.Damage = FlakChunk_Damage;
-    class'NewNet_Fake_FlakChunk'.default.MomentumTransfer = FlakChunk_MomentumTransfer;
-    class'NewNet_Fake_FlakChunk'.default.CullDistance = FlakChunk_CullDistance;
-    class'NewNet_Fake_FlakChunk'.default.LifeSpan = FlakChunk_LifeSpan;
-    class'NewNet_Fake_FlakChunk'.default.bBounce = FlakChunk_Bounce;
     class'NewNet_FlakAltFire'.default.AmmoPerFire = FlakSecondary_AmmoPerFire;
     class'NewNet_FlakAltFire'.default.FireRate = FlakSecondary_FireRate;
     class'NewNet_FlakAltFire'.default.ProjPerFire = FlakSecondary_ProjPerFire;
     class'NewNet_FlakAltFire'.default.Spread = FlakSecondary_Spread;
-    class'NewNet_FlakShell'.default.TossZ = FlakShell_TossZ;
-    class'NewNet_FlakShell'.default.Speed = FlakShell_Speed;
-    class'NewNet_FlakShell'.default.MaxSpeed = FlakShell_MaxSpeed;
-    class'NewNet_FlakShell'.default.Damage = FlakShell_Damage;
-    class'NewNet_FlakShell'.default.MomentumTransfer = FlakShell_MomentumTransfer;
-    class'NewNet_FlakShell'.default.CullDistance = FlakShell_CullDistance;
-    class'NewNet_FlakShell'.default.LifeSpan = FlakShell_LifeSpan;
+
+    // stock fires FlakChunk/FlakShell, utcomp and newnet fire their own subclasses, and the
+    // TeamColorFlakShell that newnet shells derive from bursts into TeamColorFlakChunk.
+    // The client-side predicted fakes must use the same physics as the real projectiles,
+    // or they fly at a different speed/trajectory and the fake->real handoff is visible.
+    ApplyChunk(class'FlakChunk');
+    ApplyChunk(class'TeamColorFlakChunk');
+    ApplyChunk(class'UTComp_FlakChunk');
+    ApplyChunk(class'NewNet_FlakChunk');
+    ApplyChunk(class'NewNet_Fake_FlakChunk');
+    // stock FlakShell.Explode hard-codes a 220 radius, the others read DamageRadius
+    ApplyShell(class'FlakShell');
+    ApplyShell(class'TeamColorFlakShell');
+    ApplyShell(class'UTComp_FlakShell');
+    ApplyShell(class'NewNet_FlakShell');
+    ApplyShell(class'NewNet_Fake_FlakShell');
+}
+
+simulated final function ApplyChunk(class<FlakChunk> C)
+{
+    C.default.DamageAtten = FlakChunk_DamageAtten;
+    C.default.Speed = FlakChunk_Speed;
+    C.default.MaxSpeed = FlakChunk_MaxSpeed;
+    C.default.Damage = FlakChunk_Damage;
+    C.default.MomentumTransfer = FlakChunk_MomentumTransfer;
+    C.default.CullDistance = FlakChunk_CullDistance;
+    C.default.LifeSpan = FlakChunk_LifeSpan;
+    C.default.bBounce = FlakChunk_Bounce;
+}
+
+simulated final function ApplyShell(class<FlakShell> S)
+{
+    S.default.TossZ = FlakShell_TossZ;
+    S.default.Speed = FlakShell_Speed;
+    S.default.MaxSpeed = FlakShell_MaxSpeed;
+    S.default.Damage = FlakShell_Damage;
+    S.default.DamageRadius = FlakShell_DamageRadius;
+    S.default.MomentumTransfer = FlakShell_MomentumTransfer;
+    S.default.CullDistance = FlakShell_CullDistance;
+    S.default.LifeSpan = FlakShell_LifeSpan;
 }
 
 defaultproperties
@@ -190,12 +168,11 @@ defaultproperties
     FlakCannon_PutDownTime=0.33
     FlakCannon_MinReloadPct=0.5
     FlakPrimary_AmmoPerFire=1
-    FlakPrimary_FireRate=0.95
+    FlakPrimary_FireRate=0.8947
     FlakPrimary_ProjPerFire=9
     FlakPrimary_Spread=1400
     FlakPrimary_SpreadStyle=1
-    FlakChunk_Bounces=1
-    FlakChunk_DamageAtten=0.5
+    FlakChunk_DamageAtten=5.0
     FlakChunk_Speed=2500
     FlakChunk_MaxSpeed=2700
     FlakChunk_Damage=13
@@ -209,7 +186,7 @@ defaultproperties
     FlakSecondary_Spread=0.0
     FlakShell_TossZ=225.0
     FlakShell_Speed=1200.0
-    FlakShell_MaxSpeed=1200.0
+    FlakShell_MaxSpeed=2000.0
     FlakShell_Damage=90
     FlakShell_DamageRadius=220.0
     FlakShell_MomentumTransfer=75000.0

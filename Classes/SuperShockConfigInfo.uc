@@ -1,7 +1,7 @@
 class SuperShockConfigInfo extends WeaponConfigSubInfo;
 
 var bool bModifySuperShockRifle;
-var int SuperShockPrimary_TraceRange;
+var float SuperShockPrimary_TraceRange;
 var float SuperShockPrimary_Momentum;
 var int SuperShockPrimary_AmmoPerFire;
 var int SuperShockPrimary_DamageMin;
@@ -77,7 +77,7 @@ defaultproperties
     SuperShockRifle_PutDownTime=0.33
     SuperShockRifle_MinReloadPct=0.5
     SuperShockPrimary_TraceRange=17000
-    SuperShockPrimary_Momentum=60000.0
+    SuperShockPrimary_Momentum=100000.0
     SuperShockPrimary_AmmoPerFire=0
     SuperShockPrimary_DamageMin=1000
     SuperShockPrimary_DamageMax=1000

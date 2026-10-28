@@ -10,7 +10,7 @@ var float LinkProj_MaxSpeed;
 var float LinkProj_MomentumTransfer;
 var float LinkProj_LifeSpan;
 var float LinkProj_CullDistance;
-var int LinkSecondary_TraceRange;
+var float LinkSecondary_TraceRange;
 var float LinkSecondary_MomentumTransfer;
 var int LinkSecondary_AmmoPerFire;
 var int LinkSecondary_Damage;
@@ -64,13 +64,6 @@ simulated function Modify()
     // stock
     class'LinkAltFire'.default.AmmoPerFire = LinkPrimary_AmmoPerFire;
     class'LinkAltFire'.default.FireRate = LinkPrimary_FireRate;
-    class'LinkProjectile'.default.Damage = LinkProj_Damage;
-    class'LinkProjectile'.default.DamageRadius = LinkProj_DamageRadius;
-    class'LinkProjectile'.default.Speed = LinkProj_Speed;
-    class'LinkProjectile'.default.MaxSpeed = LinkProj_MaxSpeed;
-    class'LinkProjectile'.default.MomentumTransfer = LinkProj_MomentumTransfer;
-    class'LinkProjectile'.default.LifeSpan = LinkProj_LifeSpan;
-    class'LinkProjectile'.default.CullDistance = LinkProj_CullDistance;
     class'LinkFire'.default.TraceRange = LinkSecondary_TraceRange;
     class'LinkFire'.default.MomentumTransfer = LinkSecondary_MomentumTransfer;
     class'LinkFire'.default.AmmoPerFire = LinkSecondary_AmmoPerFire;
@@ -106,13 +99,23 @@ simulated function Modify()
     class'NewNet_LinkFire'.default.LinkBreakDelay = LinkSecondary_LinkBreakDelay;
     SetSwitchTimes(class'NewNet_LinkGun', LinkGun_PutDownTime, LinkGun_BringUpTime);
     class'NewNet_LinkGun'.default.MinReloadPct = LinkGun_MinReloadPct;
-    class'NewNet_LinkProjectile'.default.Damage = LinkProj_Damage;
-    class'NewNet_LinkProjectile'.default.DamageRadius = LinkProj_DamageRadius;
-    class'NewNet_LinkProjectile'.default.Speed = LinkProj_Speed;
-    class'NewNet_LinkProjectile'.default.MaxSpeed = LinkProj_MaxSpeed;
-    class'NewNet_LinkProjectile'.default.MomentumTransfer = LinkProj_MomentumTransfer;
-    class'NewNet_LinkProjectile'.default.LifeSpan = LinkProj_LifeSpan;
-    class'NewNet_LinkProjectile'.default.CullDistance = LinkProj_CullDistance;
+
+    // stock and utcomp fire LinkProjectile, newnet fires NewNet_LinkProjectile and predicts
+    // it client side with NewNet_Fake_LinkProjectile, which must fly like the real one
+    ApplyLinkProj(class'LinkProjectile');
+    ApplyLinkProj(class'NewNet_LinkProjectile');
+    ApplyLinkProj(class'NewNet_Fake_LinkProjectile');
+}
+
+simulated final function ApplyLinkProj(class<LinkProjectile> P)
+{
+    P.default.Damage = LinkProj_Damage;
+    P.default.DamageRadius = LinkProj_DamageRadius;
+    P.default.Speed = LinkProj_Speed;
+    P.default.MaxSpeed = LinkProj_MaxSpeed;
+    P.default.MomentumTransfer = LinkProj_MomentumTransfer;
+    P.default.LifeSpan = LinkProj_LifeSpan;
+    P.default.CullDistance = LinkProj_CullDistance;
 }
 
 defaultproperties
