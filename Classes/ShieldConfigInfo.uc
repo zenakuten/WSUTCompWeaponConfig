@@ -1,4 +1,4 @@
-class ShieldConfigInfo extends ReplicationInfo;
+class ShieldConfigInfo extends WeaponConfigSubInfo;
 
 var bool bModifyShieldGun;
 var float ShieldPrimary_FireRate;
@@ -71,16 +71,6 @@ function LoadFrom(MutWeaponConfig config)
     ShieldGun_MinReloadPct = config.ShieldGun_MinReloadPct;
 }
 
-simulated function PostNetBeginPlay()
-{
-    super.PostNetBeginPlay();
-    // Apply on the client when our own replicated data has arrived. The parent
-    // WeaponConfigInfo.PostNetBeginPlay can fire before this sub-object's reference
-    // replicates, so self-applying here is what actually configures the client.
-    if(Role < ROLE_Authority)
-        Modify();
-}
-
 simulated function Modify()
 {
     if(!bModifyShieldGun)
@@ -106,18 +96,12 @@ simulated function Modify()
     class'ShieldAltFire'.default.ShieldSoundVolume = ShieldSecondary_ShieldSoundVolume;
 
     // stock shieldgun
-    class'ShieldGun'.default.PutDownTime = ShieldGun_PutDownTime;
-    class'ShieldGun'.default.BringUpTime = ShieldGun_BringUpTime;
+    SetSwitchTimes(class'ShieldGun', ShieldGun_PutDownTime, ShieldGun_BringUpTime);
     class'ShieldGun'.default.MinReloadPct = ShieldGun_MinReloadPct;
-    class'ShieldGun'.default.PutDownAnimRate = class'ShieldGun'.default.PutDownAnimRate / (ShieldGun_PutDownTime / default.ShieldGun_PutDownTime);
-    class'ShieldGun'.default.SelectAnimRate = class'ShieldGun'.default.SelectAnimRate / (ShieldGun_BringUpTime / default.ShieldGun_BringUpTime);
 
     // utcomp shieldgun
-    class'UTComp_ShieldGun'.default.PutDownTime = ShieldGun_PutDownTime;
-    class'UTComp_ShieldGun'.default.BringUpTime = ShieldGun_BringUpTime;
+    SetSwitchTimes(class'UTComp_ShieldGun', ShieldGun_PutDownTime, ShieldGun_BringUpTime);
     class'UTComp_ShieldGun'.default.MinReloadPct = ShieldGun_MinReloadPct;
-    class'UTComp_ShieldGun'.default.PutDownAnimRate = class'ShieldGun'.default.PutDownAnimRate / (ShieldGun_PutDownTime / default.ShieldGun_PutDownTime);
-    class'UTComp_ShieldGun'.default.SelectAnimRate = class'ShieldGun'.default.SelectAnimRate / (ShieldGun_BringUpTime / default.ShieldGun_BringUpTime);
 }
 
 defaultproperties

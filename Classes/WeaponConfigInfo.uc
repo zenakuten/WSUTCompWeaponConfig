@@ -1,4 +1,6 @@
-class WeaponConfigInfo extends LinkedReplicationInfo;
+// Server-only container, spawned once by MutWeaponConfig. It is not replicated itself; the
+// sub-infos it spawns are, and each one applies itself on the client.
+class WeaponConfigInfo extends Info;
 
 var ShieldConfigInfo ShieldConfig;
 var AssaultConfigInfo AssaultConfig;
@@ -15,24 +17,6 @@ var ONSGrenadeConfigInfo ONSGrenadeConfig;
 var ONSAvrilConfigInfo ONSAvrilConfig;
 var ONSMineLayerConfigInfo ONSMineLayerConfig;
 
-replication
-{
-    reliable if(Role == ROLE_Authority && bNetInitial)
-        ShieldConfig, AssaultConfig, BioConfig, ShockConfig, LinkConfig, 
-        MiniConfig, FlakConfig, RocketConfig, SniperConfig, ClassicSniperConfig, 
-        SuperShockConfig, ONSGrenadeConfig, ONSAvrilConfig, ONSMineLayerConfig;
-}
-
-simulated function PostNetBeginPlay()
-{
-    super.PostNetBeginPlay();
-    // Each sub-config self-applies in its own PostNetBeginPlay. The sub-object
-    // references here may not have replicated in yet, and fanning out Modify() to
-    // them would also risk double-applying non-idempotent settings (e.g. the weapon
-    // BringUp/PutDown anim-rate scaling), so we no longer call Modify() on the client.
-    bTearOff=true;
-}
-
 function LoadFrom(MutWeaponConfig config)
 {
     if(config.bModifyShieldGun)
@@ -40,7 +24,8 @@ function LoadFrom(MutWeaponConfig config)
         ShieldConfig = spawn(class'ShieldConfigInfo', self.Owner);
         ShieldConfig.LoadFrom(config);
     }
-    if(config.bModifyAssaultRifle || config.bModifyAssaultAmmo)
+    // assault ammo is applied server side in MutWeaponConfig.ModifyPlayer, not by this info
+    if(config.bModifyAssaultRifle)
     {
         AssaultConfig = spawn(class'AssaultConfigInfo', self.Owner);
         AssaultConfig.LoadFrom(config);
@@ -107,7 +92,7 @@ function LoadFrom(MutWeaponConfig config)
     }
 }
 
-simulated function Modify()
+function Modify()
 {
     if(ShieldConfig != None)
         ShieldConfig.Modify();
@@ -139,7 +124,7 @@ simulated function Modify()
         ONSMineLayerConfig.Modify();
 }
 
-simulated function Destroyed()
+function Destroyed()
 {
     if(ShieldConfig != None)
         ShieldConfig.Destroy();

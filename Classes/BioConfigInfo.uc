@@ -1,4 +1,4 @@
-class BioConfigInfo extends ReplicationInfo;
+class BioConfigInfo extends WeaponConfigSubInfo;
 
 var bool bModifyBioRifle;
 var float BioPrimary_FireRate;
@@ -47,16 +47,6 @@ function LoadFrom(MutWeaponConfig config)
     BioRifle_MinReloadPct = config.BioRifle_MinReloadPct;
 }
 
-simulated function PostNetBeginPlay()
-{
-    super.PostNetBeginPlay();
-    // Apply on the client when our own replicated data has arrived. The parent
-    // WeaponConfigInfo.PostNetBeginPlay can fire before this sub-object's reference
-    // replicates, so self-applying here is what actually configures the client.
-    if(Role < ROLE_Authority)
-        Modify();
-}
-
 simulated function Modify()
 {
     if(!bModifyBioRifle)
@@ -76,12 +66,8 @@ simulated function Modify()
     class'BioGlob'.default.MaxGoopLevel = Bio_ProjMaxGoopLevel;
     class'BioGlob'.default.bMergeGlobs = Bio_ProjMergeGlobs;
 
-    class'BioRifle'.default.PutDownTime = BioRifle_PutDownTime;
-    class'BioRifle'.default.BringUpTime = BioRifle_BringUpTime;
+    SetSwitchTimes(class'BioRifle', BioRifle_PutDownTime, BioRifle_BringUpTime);
     class'BioRifle'.default.MinReloadPct = BioRifle_MinReloadPct;
-
-    class'BioRifle'.default.PutDownAnimRate = class'BioRifle'.default.PutDownAnimRate / (BioRifle_PutDownTime / default.BioRifle_PutDownTime);
-    class'BioRifle'.default.SelectAnimRate = class'BioRifle'.default.SelectAnimRate / (BioRifle_BringUpTime / default.BioRifle_BringUpTime);
 
     // utcomp (no netcode)
     class'UTComp_BioFire'.default.FireRate = BioPrimary_FireRate;
@@ -97,12 +83,8 @@ simulated function Modify()
     class'BioGlob'.default.MaxGoopLevel = Bio_ProjMaxGoopLevel;
     class'BioGlob'.default.bMergeGlobs = Bio_ProjMergeGlobs;
 
-    class'UTComp_BioRifle'.default.PutDownTime = BioRifle_PutDownTime;
-    class'UTComp_BioRifle'.default.BringUpTime = BioRifle_BringUpTime;
+    SetSwitchTimes(class'UTComp_BioRifle', BioRifle_PutDownTime, BioRifle_BringUpTime);
     class'UTComp_BioRifle'.default.MinReloadPct = BioRifle_MinReloadPct;
-
-    class'UTComp_BioRifle'.default.PutDownAnimRate = class'UTComp_BioRifle'.default.PutDownAnimRate / (BioRifle_PutDownTime / default.BioRifle_PutDownTime);
-    class'UTComp_BioRifle'.default.SelectAnimRate = class'UTComp_BioRifle'.default.SelectAnimRate / (BioRifle_BringUpTime / default.BioRifle_BringUpTime);
 
     // newnet
     class'NewNet_BioFire'.default.FireRate = BioPrimary_FireRate;
@@ -118,12 +100,8 @@ simulated function Modify()
     class'NewNet_BioGlob'.default.MaxGoopLevel = Bio_ProjMaxGoopLevel;
     class'NewNet_BioGlob'.default.bMergeGlobs = Bio_ProjMergeGlobs;
 
-    class'NewNet_BioRifle'.default.PutDownTime = BioRifle_PutDownTime;
-    class'NewNet_BioRifle'.default.BringUpTime = BioRifle_BringUpTime;
+    SetSwitchTimes(class'NewNet_BioRifle', BioRifle_PutDownTime, BioRifle_BringUpTime);
     class'NewNet_BioRifle'.default.MinReloadPct = BioRifle_MinReloadPct;
-
-    class'NewNet_BioRifle'.default.PutDownAnimRate = class'NewNet_BioRifle'.default.PutDownAnimRate / (BioRifle_PutDownTime / default.BioRifle_PutDownTime);
-    class'NewNet_BioRifle'.default.SelectAnimRate = class'NewNet_BioRifle'.default.SelectAnimRate / (BioRifle_BringUpTime / default.BioRifle_BringUpTime);
 }
 
 defaultproperties

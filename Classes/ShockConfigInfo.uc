@@ -1,4 +1,4 @@
-class ShockConfigInfo extends ReplicationInfo;
+class ShockConfigInfo extends WeaponConfigSubInfo;
 
 var bool bModifyShockRifle;
 var int ShockPrimary_TraceRange;
@@ -72,16 +72,6 @@ function LoadFrom(MutWeaponConfig config)
     ShockRifle_MinReloadPct = config.ShockRifle_MinReloadPct;
 }
 
-simulated function PostNetBeginPlay()
-{
-    super.PostNetBeginPlay();
-    // Apply on the client when our own replicated data has arrived. The parent
-    // WeaponConfigInfo.PostNetBeginPlay can fire before this sub-object's reference
-    // replicates, so self-applying here is what actually configures the client.
-    if(Role < ROLE_Authority)
-        Modify();
-}
-
 simulated function Modify()
 {
     if(!bModifyShockRifle)
@@ -110,12 +100,8 @@ simulated function Modify()
     class'ShockProjectile'.default.ForceRadius = ShockSecondary_ProjForceRadius;
     class'ShockProjectile'.default.SoundRadius = ShockSecondary_ProjSoundRadius;
     class'ShockProjectile'.default.SoundVolume = ShockSecondary_ProjSoundVolume;
-    class'ShockRifle'.default.PutDownTime = ShockRifle_PutDownTime;
-    class'ShockRifle'.default.BringUpTime = ShockRifle_BringUpTime;
+    SetSwitchTimes(class'ShockRifle', ShockRifle_PutDownTime, ShockRifle_BringUpTime);
     class'ShockRifle'.default.MinReloadPct = ShockRifle_MinReloadPct;
-
-    class'ShockRifle'.default.PutDownAnimRate = class'ShockRifle'.default.PutDownAnimRate / (ShockRifle_PutDownTime / default.ShockRifle_PutDownTime);
-    class'ShockRifle'.default.SelectAnimRate = class'ShockRifle'.default.SelectAnimRate / (ShockRifle_BringUpTime / default.ShockRifle_BringUpTime);
 
     //utcomp
     class'UTComp_ShockBeamFire'.default.TraceRange = ShockPrimary_TraceRange;
@@ -140,12 +126,8 @@ simulated function Modify()
     class'UTComp_ShockProjectile'.default.ForceRadius = ShockSecondary_ProjForceRadius;
     class'UTComp_ShockProjectile'.default.SoundRadius = ShockSecondary_ProjSoundRadius;
     class'UTComp_ShockProjectile'.default.SoundVolume = ShockSecondary_ProjSoundVolume;
-    class'UTComp_ShockRifle'.default.PutDownTime = ShockRifle_PutDownTime;
-    class'UTComp_ShockRifle'.default.BringUpTime = ShockRifle_BringUpTime;
+    SetSwitchTimes(class'UTComp_ShockRifle', ShockRifle_PutDownTime, ShockRifle_BringUpTime);
     class'UTComp_ShockRifle'.default.MinReloadPct = ShockRifle_MinReloadPct;
-
-    class'UTComp_ShockRifle'.default.PutDownAnimRate = class'UTComp_ShockRifle'.default.PutDownAnimRate / (ShockRifle_PutDownTime / default.ShockRifle_PutDownTime);
-    class'UTComp_ShockRifle'.default.SelectAnimRate = class'UTComp_ShockRifle'.default.SelectAnimRate / (ShockRifle_BringUpTime / default.ShockRifle_BringUpTime);
 
     //newnet
     class'NewNet_ShockBeamFire'.default.TraceRange = ShockPrimary_TraceRange;
@@ -170,12 +152,8 @@ simulated function Modify()
     class'NewNet_ShockProjectile'.default.ForceRadius = ShockSecondary_ProjForceRadius;
     class'NewNet_ShockProjectile'.default.SoundRadius = ShockSecondary_ProjSoundRadius;
     class'NewNet_ShockProjectile'.default.SoundVolume = ShockSecondary_ProjSoundVolume;
-    class'NewNet_ShockRifle'.default.PutDownTime = ShockRifle_PutDownTime;
-    class'NewNet_ShockRifle'.default.BringUpTime = ShockRifle_BringUpTime;
+    SetSwitchTimes(class'NewNet_ShockRifle', ShockRifle_PutDownTime, ShockRifle_BringUpTime);
     class'NewNet_ShockRifle'.default.MinReloadPct = ShockRifle_MinReloadPct;
-
-    class'NewNet_ShockRifle'.default.PutDownAnimRate = class'NewNet_ShockRifle'.default.PutDownAnimRate / (ShockRifle_PutDownTime / default.ShockRifle_PutDownTime);
-    class'NewNet_ShockRifle'.default.SelectAnimRate = class'NewNet_ShockRifle'.default.SelectAnimRate / (ShockRifle_BringUpTime / default.ShockRifle_BringUpTime);
 }
 
 defaultproperties

@@ -1,4 +1,4 @@
-class ONSAvrilConfigInfo extends ReplicationInfo;
+class ONSAvrilConfigInfo extends WeaponConfigSubInfo;
 
 var bool bModifyONSAvril;
 var float ONSAvril_LockCheckFreq;
@@ -51,16 +51,6 @@ function LoadFrom(MutWeaponConfig config)
     ONSAvrilProj_DamageRadius = config.ONSAvrilProj_DamageRadius;
     ONSAvrilProj_MomentumTransfer = config.ONSAvrilProj_MomentumTransfer;
     ONSAvrilProj_LifeSpan = config.ONSAvrilProj_LifeSpan;
-}
-
-simulated function PostNetBeginPlay()
-{
-    super.PostNetBeginPlay();
-    // Apply on the client when our own replicated data has arrived. The parent
-    // WeaponConfigInfo.PostNetBeginPlay can fire before this sub-object's reference
-    // replicates, so self-applying here is what actually configures the client.
-    if(Role < ROLE_Authority)
-        Modify();
 }
 
 simulated function Modify()

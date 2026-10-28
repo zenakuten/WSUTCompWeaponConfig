@@ -351,7 +351,6 @@ var config int ONSMineLayerAmmoGiven;
 function PostBeginPlay()
 {
     local WeaponConfigInfo weaponConfig;
-    local WeaponConfigRules weaponRules;
     local string Url;
 
     super.PostBeginPlay();
@@ -363,20 +362,11 @@ function PostBeginPlay()
     if(!bModifyWeapons)
         return;
 
-    // load config and modify weapons server side
+    // load config and modify weapons server side. the container stays alive for the map:
+    // its sub-infos are spawned once for the whole server and replicate to every client
     weaponConfig = spawn(class'WeaponConfigInfo');
     weaponConfig.LoadFrom(self);
     weaponConfig.Modify();
-    weaponConfig.Destroy();
-
-    // load game rules to configure weapons client side
-    weaponRules = spawn(class'WeaponConfigRules');
-    weaponRules.Config = self;
-
-	if ( Level.Game.GameRulesModifiers == None )
-		Level.Game.GameRulesModifiers = weaponRules;
-	else    
-		Level.Game.GameRulesModifiers.AddGameRules(weaponRules);
 }
 
 function ParseURL(string Url)

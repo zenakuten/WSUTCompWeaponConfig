@@ -1,4 +1,4 @@
-class AssaultConfigInfo extends ReplicationInfo;
+class AssaultConfigInfo extends WeaponConfigSubInfo;
 
 var bool bModifyAssaultRifle;
 var float AssaultRifle_PutDownTime;
@@ -74,16 +74,6 @@ function LoadFrom(MutWeaponConfig config)
     AssaultGrenade_MomentumTransfer = config.AssaultGrenade_MomentumTransfer;
 }
 
-simulated function PostNetBeginPlay()
-{
-    super.PostNetBeginPlay();
-    // Apply on the client when our own replicated data has arrived. The parent
-    // WeaponConfigInfo.PostNetBeginPlay can fire before this sub-object's reference
-    // replicates, so self-applying here is what actually configures the client.
-    if(Role < ROLE_Authority)
-        Modify();
-}
-
 simulated function Modify()
 {
     if(!bModifyAssaultRifle)
@@ -99,8 +89,7 @@ simulated function Modify()
     class'Grenade'.default.MomentumTransfer = AssaultGrenade_MomentumTransfer;
     
     //stock weapon
-    class'AssaultRifle'.default.PutDownTime = AssaultRifle_PutDownTime;
-    class'AssaultRifle'.default.BringUpTime = AssaultRifle_BringUpTime;
+    SetSwitchTimes(class'AssaultRifle', AssaultRifle_PutDownTime, AssaultRifle_BringUpTime);
     class'AssaultRifle'.default.MinReloadPct = AssaultRifle_MinReloadPct;
     class'AssaultFire'.default.DamageMin = AssaultPrimary_DamageMin;
     class'AssaultFire'.default.DamageMax = AssaultPrimary_DamageMax;
@@ -120,12 +109,8 @@ simulated function Modify()
     class'AssaultGrenade'.default.mHoldSpeedGainPerSec = AssaultSecondary_mHoldSpeedGainPerSec;
     class'AssaultGrenade'.default.mWaitTime = AssaultSecondary_mWaitTime;
 
-    class'AssaultRifle'.default.PutDownAnimRate = class'AssaultRifle'.default.PutDownAnimRate / (AssaultRifle_PutDownTime / default.AssaultRifle_PutDownTime);
-    class'AssaultRifle'.default.SelectAnimRate = class'AssaultRifle'.default.SelectAnimRate / (AssaultRifle_BringUpTime / default.AssaultRifle_BringUpTime);
-
     //utcomp
-    class'UTComp_AssaultRifle'.default.PutDownTime = AssaultRifle_PutDownTime;
-    class'UTComp_AssaultRifle'.default.BringUpTime = AssaultRifle_BringUpTime;
+    SetSwitchTimes(class'UTComp_AssaultRifle', AssaultRifle_PutDownTime, AssaultRifle_BringUpTime);
     class'UTComp_AssaultRifle'.default.MinReloadPct = AssaultRifle_MinReloadPct;
     class'UTComp_AssaultFire'.default.DamageMin = AssaultPrimary_DamageMin;
     class'UTComp_AssaultFire'.default.DamageMax = AssaultPrimary_DamageMax;
@@ -145,12 +130,8 @@ simulated function Modify()
     class'UTComp_AssaultGrenade'.default.mHoldSpeedGainPerSec = AssaultSecondary_mHoldSpeedGainPerSec;
     class'UTComp_AssaultGrenade'.default.mWaitTime = AssaultSecondary_mWaitTime;
 
-    class'UTComp_AssaultRifle'.default.PutDownAnimRate = class'UTComp_AssaultRifle'.default.PutDownAnimRate / (AssaultRifle_PutDownTime / default.AssaultRifle_PutDownTime);
-    class'UTComp_AssaultRifle'.default.SelectAnimRate = class'UTComp_AssaultRifle'.default.SelectAnimRate / (AssaultRifle_BringUpTime / default.AssaultRifle_BringUpTime);
-
     //newnet weapon
-    class'NewNet_AssaultRifle'.default.PutDownTime = AssaultRifle_PutDownTime;
-    class'NewNet_AssaultRifle'.default.BringUpTime = AssaultRifle_BringUpTime;
+    SetSwitchTimes(class'NewNet_AssaultRifle', AssaultRifle_PutDownTime, AssaultRifle_BringUpTime);
     class'NewNet_AssaultRifle'.default.MinReloadPct = AssaultRifle_MinReloadPct;
     class'NewNet_AssaultFire'.default.DamageMin = AssaultPrimary_DamageMin;
     class'NewNet_AssaultFire'.default.DamageMax = AssaultPrimary_DamageMax;
@@ -169,9 +150,6 @@ simulated function Modify()
     class'NewNet_AssaultGrenade'.default.mHoldSpeedMax = AssaultSecondary_mHoldSpeedMax;
     class'NewNet_AssaultGrenade'.default.mHoldSpeedGainPerSec = AssaultSecondary_mHoldSpeedGainPerSec;
     class'NewNet_AssaultGrenade'.default.mWaitTime = AssaultSecondary_mWaitTime;
-
-    class'NewNet_AssaultRifle'.default.PutDownAnimRate = class'NewNet_AssaultRifle'.default.PutDownAnimRate / (AssaultRifle_PutDownTime / default.AssaultRifle_PutDownTime);
-    class'NewNet_AssaultRifle'.default.SelectAnimRate = class'NewNet_AssaultRifle'.default.SelectAnimRate / (AssaultRifle_BringUpTime / default.AssaultRifle_BringUpTime);
 }
 
 defaultproperties

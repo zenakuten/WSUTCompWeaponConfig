@@ -1,4 +1,4 @@
-class RocketConfigInfo extends ReplicationInfo;
+class RocketConfigInfo extends WeaponConfigSubInfo;
 
 var bool bModifyRocketLauncher;
 var float RocketLauncher_PutDownTime;
@@ -71,16 +71,6 @@ function LoadFrom(MutWeaponConfig config)
     RocketProj_FlockStiffness = config.RocketProj_FlockStiffness;
     RocketProj_FlockMaxForce = config.RocketProj_FlockMaxForce;
     RocketProj_FlockCurlForce = config.RocketProj_FlockCurlForce;
-}
-
-simulated function PostNetBeginPlay()
-{
-    super.PostNetBeginPlay();
-    // Apply on the client when our own replicated data has arrived. The parent
-    // WeaponConfigInfo.PostNetBeginPlay can fire before this sub-object's reference
-    // replicates, so self-applying here is what actually configures the client.
-    if(Role < ROLE_Authority)
-        Modify();
 }
 
 simulated function Modify()

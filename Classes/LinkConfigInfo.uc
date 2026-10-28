@@ -1,4 +1,4 @@
-class LinkConfigInfo extends ReplicationInfo;
+class LinkConfigInfo extends WeaponConfigSubInfo;
 
 var bool bModifyLinkGun;
 var int LinkPrimary_AmmoPerFire;
@@ -56,16 +56,6 @@ function LoadFrom(MutWeaponConfig config)
     LinkGun_MinReloadPct = config.LinkGun_MinReloadPct;
 }
 
-simulated function PostNetBeginPlay()
-{
-    super.PostNetBeginPlay();
-    // Apply on the client when our own replicated data has arrived. The parent
-    // WeaponConfigInfo.PostNetBeginPlay can fire before this sub-object's reference
-    // replicates, so self-applying here is what actually configures the client.
-    if(Role < ROLE_Authority)
-        Modify();
-}
-
 simulated function Modify()
 {
     if(!bModifyLinkGun)
@@ -88,12 +78,8 @@ simulated function Modify()
     class'LinkFire'.default.FireRate = LinkSecondary_FireRate;
     class'LinkFire'.default.LinkFlexibility = LinkSecondary_LinkFlexibility;
     class'LinkFire'.default.LinkBreakDelay = LinkSecondary_LinkBreakDelay;
-    class'LinkGun'.default.PutDownTime = LinkGun_PutDownTime;
-    class'LinkGun'.default.BringUpTime = LinkGun_BringUpTime;
+    SetSwitchTimes(class'LinkGun', LinkGun_PutDownTime, LinkGun_BringUpTime);
     class'LinkGun'.default.MinReloadPct = LinkGun_MinReloadPct;
-
-    class'LinkGun'.default.PutDownAnimRate = class'LinkGun'.default.PutDownAnimRate / (LinkGun_PutDownTime / default.LinkGun_PutDownTime);
-    class'LinkGun'.default.SelectAnimRate = class'LinkGun'.default.SelectAnimRate / (LinkGun_BringUpTime / default.LinkGun_BringUpTime);
 
     // utcomp
     class'UTComp_LinkAltFire'.default.AmmoPerFire = LinkPrimary_AmmoPerFire;
@@ -105,12 +91,8 @@ simulated function Modify()
     class'UTComp_LinkFire'.default.FireRate = LinkSecondary_FireRate;
     class'UTComp_LinkFire'.default.LinkFlexibility = LinkSecondary_LinkFlexibility;
     class'UTComp_LinkFire'.default.LinkBreakDelay = LinkSecondary_LinkBreakDelay;
-    class'UTComp_LinkGun'.default.PutDownTime = LinkGun_PutDownTime;
-    class'UTComp_LinkGun'.default.BringUpTime = LinkGun_BringUpTime;
+    SetSwitchTimes(class'UTComp_LinkGun', LinkGun_PutDownTime, LinkGun_BringUpTime);
     class'UTComp_LinkGun'.default.MinReloadPct = LinkGun_MinReloadPct;
-
-    class'UTComp_LinkGun'.default.PutDownAnimRate = class'LinkGun'.default.PutDownAnimRate / (LinkGun_PutDownTime / default.LinkGun_PutDownTime);
-    class'UTComp_LinkGun'.default.SelectAnimRate = class'LinkGun'.default.SelectAnimRate / (LinkGun_BringUpTime / default.LinkGun_BringUpTime);
 
     // newnet
     class'NewNet_LinkAltFire'.default.AmmoPerFire = LinkPrimary_AmmoPerFire;
@@ -122,8 +104,7 @@ simulated function Modify()
     class'NewNet_LinkFire'.default.FireRate = LinkSecondary_FireRate;
     class'NewNet_LinkFire'.default.LinkFlexibility = LinkSecondary_LinkFlexibility;
     class'NewNet_LinkFire'.default.LinkBreakDelay = LinkSecondary_LinkBreakDelay;
-    class'NewNet_LinkGun'.default.PutDownTime = LinkGun_PutDownTime;
-    class'NewNet_LinkGun'.default.BringUpTime = LinkGun_BringUpTime;
+    SetSwitchTimes(class'NewNet_LinkGun', LinkGun_PutDownTime, LinkGun_BringUpTime);
     class'NewNet_LinkGun'.default.MinReloadPct = LinkGun_MinReloadPct;
     class'NewNet_LinkProjectile'.default.Damage = LinkProj_Damage;
     class'NewNet_LinkProjectile'.default.DamageRadius = LinkProj_DamageRadius;
@@ -132,9 +113,6 @@ simulated function Modify()
     class'NewNet_LinkProjectile'.default.MomentumTransfer = LinkProj_MomentumTransfer;
     class'NewNet_LinkProjectile'.default.LifeSpan = LinkProj_LifeSpan;
     class'NewNet_LinkProjectile'.default.CullDistance = LinkProj_CullDistance;
-
-    class'NewNet_LinkGun'.default.PutDownAnimRate = class'LinkGun'.default.PutDownAnimRate / (LinkGun_PutDownTime / default.LinkGun_PutDownTime);
-    class'NewNet_LinkGun'.default.SelectAnimRate = class'LinkGun'.default.SelectAnimRate / (LinkGun_BringUpTime / default.LinkGun_BringUpTime);
 }
 
 defaultproperties

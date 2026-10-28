@@ -1,4 +1,4 @@
-class ClassicSniperConfigInfo extends ReplicationInfo;
+class ClassicSniperConfigInfo extends WeaponConfigSubInfo;
 
 var bool bModifyClassicSniperRifle;
 var int ClassicSniperPrimary_AmmoPerFire;
@@ -34,16 +34,6 @@ function LoadFrom(MutWeaponConfig config)
     ClassicSniperRifle_MinReloadPct = config.ClassicSniperRifle_MinReloadPct;    
 }
 
-simulated function PostNetBeginPlay()
-{
-    super.PostNetBeginPlay();
-    // Apply on the client when our own replicated data has arrived. The parent
-    // WeaponConfigInfo.PostNetBeginPlay can fire before this sub-object's reference
-    // replicates, so self-applying here is what actually configures the client.
-    if(Role < ROLE_Authority)
-        Modify();
-}
-
 simulated function Modify()
 {
     if(!bModifyClassicSniperRifle)
@@ -56,11 +46,8 @@ simulated function Modify()
     class'ClassicSniperFire'.default.TraceRange = ClassicSniperPrimary_TraceRange;
     class'ClassicSniperFire'.default.FireRate = ClassicSniperPrimary_FireRate;
     class'ClassicSniperFire'.default.HeadshotDamageMult = ClassicSniperPrimary_HeadshotDamageMult;
-    class'ClassicSniperRifle'.default.PutDownTime = ClassicSniperRifle_PutDownTime;
-    class'ClassicSniperRifle'.default.BringUpTime = ClassicSniperRifle_BringUpTime;
+    SetSwitchTimes(class'ClassicSniperRifle', ClassicSniperRifle_PutDownTime, ClassicSniperRifle_BringUpTime);
     class'ClassicSniperRifle'.default.MinReloadPct = ClassicSniperRifle_MinReloadPct;
-    class'ClassicSniperRifle'.default.PutDownAnimRate = class'ClassicSniperRifle'.default.PutDownAnimRate / (ClassicSniperRifle_PutDownTime / default.ClassicSniperRifle_PutDownTime);
-    class'ClassicSniperRifle'.default.SelectAnimRate = class'ClassicSniperRifle'.default.SelectAnimRate / (ClassicSniperRifle_BringUpTime / default.ClassicSniperRifle_BringUpTime);
 
     //utcomp
     class'UTComp_ClassicSniperFire'.default.AmmoPerFire = ClassicSniperPrimary_AmmoPerFire;
@@ -69,11 +56,8 @@ simulated function Modify()
     class'UTComp_ClassicSniperFire'.default.TraceRange = ClassicSniperPrimary_TraceRange;
     class'UTComp_ClassicSniperFire'.default.FireRate = ClassicSniperPrimary_FireRate;
     class'UTComp_ClassicSniperFire'.default.HeadshotDamageMult = ClassicSniperPrimary_HeadshotDamageMult;
-    class'UTComp_ClassicSniperRifle'.default.PutDownTime = ClassicSniperRifle_PutDownTime;
-    class'UTComp_ClassicSniperRifle'.default.BringUpTime = ClassicSniperRifle_BringUpTime;
+    SetSwitchTimes(class'UTComp_ClassicSniperRifle', ClassicSniperRifle_PutDownTime, ClassicSniperRifle_BringUpTime);
     class'UTComp_ClassicSniperRifle'.default.MinReloadPct = ClassicSniperRifle_MinReloadPct;
-    class'UTComp_ClassicSniperRifle'.default.PutDownAnimRate = class'UTComp_ClassicSniperRifle'.default.PutDownAnimRate / (ClassicSniperRifle_PutDownTime / default.ClassicSniperRifle_PutDownTime);
-    class'UTComp_ClassicSniperRifle'.default.SelectAnimRate = class'UTComp_ClassicSniperRifle'.default.SelectAnimRate / (ClassicSniperRifle_BringUpTime / default.ClassicSniperRifle_BringUpTime);
 
     //newnet
     class'NewNet_ClassicSniperFire'.default.AmmoPerFire = ClassicSniperPrimary_AmmoPerFire;
@@ -82,11 +66,8 @@ simulated function Modify()
     class'NewNet_ClassicSniperFire'.default.TraceRange = ClassicSniperPrimary_TraceRange;
     class'NewNet_ClassicSniperFire'.default.FireRate = ClassicSniperPrimary_FireRate;
     class'NewNet_ClassicSniperFire'.default.HeadshotDamageMult = ClassicSniperPrimary_HeadshotDamageMult;
-    class'NewNet_ClassicSniperRifle'.default.PutDownTime = ClassicSniperRifle_PutDownTime;
-    class'NewNet_ClassicSniperRifle'.default.BringUpTime = ClassicSniperRifle_BringUpTime;
+    SetSwitchTimes(class'NewNet_ClassicSniperRifle', ClassicSniperRifle_PutDownTime, ClassicSniperRifle_BringUpTime);
     class'NewNet_ClassicSniperRifle'.default.MinReloadPct = ClassicSniperRifle_MinReloadPct;
-    class'NewNet_ClassicSniperRifle'.default.PutDownAnimRate = class'NewNet_ClassicSniperRifle'.default.PutDownAnimRate / (ClassicSniperRifle_PutDownTime / default.ClassicSniperRifle_PutDownTime);
-    class'NewNet_ClassicSniperRifle'.default.SelectAnimRate = class'NewNet_ClassicSniperRifle'.default.SelectAnimRate / (ClassicSniperRifle_BringUpTime / default.ClassicSniperRifle_BringUpTime);
 }
 
 defaultproperties

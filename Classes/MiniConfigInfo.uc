@@ -1,4 +1,4 @@
-class MiniConfigInfo extends ReplicationInfo;
+class MiniConfigInfo extends WeaponConfigSubInfo;
 
 var bool bModifyMinigun;
 var float Minigun_PutDownTime;
@@ -71,24 +71,13 @@ function LoadFrom(MutWeaponConfig config)
     MinigunSecondary_WindupTime = config.MinigunSecondary_WindupTime;
 }
 
-simulated function PostNetBeginPlay()
-{
-    super.PostNetBeginPlay();
-    // Apply on the client when our own replicated data has arrived. The parent
-    // WeaponConfigInfo.PostNetBeginPlay can fire before this sub-object's reference
-    // replicates, so self-applying here is what actually configures the client.
-    if(Role < ROLE_Authority)
-        Modify();
-}
-
 simulated function Modify()
 {
     if(!bModifyMinigun)
         return;
 
     // stock
-    class'Minigun'.default.PutDownTime = Minigun_PutDownTime;
-    class'Minigun'.default.BringUpTime = Minigun_BringUpTime;
+    SetSwitchTimes(class'Minigun', Minigun_PutDownTime, Minigun_BringUpTime);
     class'Minigun'.default.MinReloadPct = Minigun_MinReloadPct;
     class'MinigunFire'.default.DamageMin = MinigunPrimary_DamageMin;
     class'MinigunFire'.default.DamageMax = MinigunPrimary_DamageMax;
@@ -113,12 +102,8 @@ simulated function Modify()
     class'MinigunAltFire'.default.PreFireTime = MinigunSecondary_PreFireTime;
     class'MinigunAltFire'.default.WindupTime = MinigunSecondary_WindupTime;
 
-    class'Minigun'.default.PutDownAnimRate = class'Minigun'.default.PutDownAnimRate / (Minigun_PutDownTime / default.Minigun_PutDownTime);
-    class'Minigun'.default.SelectAnimRate = class'Minigun'.default.SelectAnimRate / (Minigun_BringUpTime / default.Minigun_BringUpTime);    
-
     // utcomp
-    class'UTComp_Minigun'.default.PutDownTime = Minigun_PutDownTime;
-    class'UTComp_Minigun'.default.BringUpTime = Minigun_BringUpTime;
+    SetSwitchTimes(class'UTComp_Minigun', Minigun_PutDownTime, Minigun_BringUpTime);
     class'UTComp_Minigun'.default.MinReloadPct = Minigun_MinReloadPct;
     class'UTComp_MinigunFire'.default.DamageMin = MinigunPrimary_DamageMin;
     class'UTComp_MinigunFire'.default.DamageMax = MinigunPrimary_DamageMax;
@@ -143,12 +128,8 @@ simulated function Modify()
     class'UTComp_MinigunAltFire'.default.PreFireTime = MinigunSecondary_PreFireTime;
     class'UTComp_MinigunAltFire'.default.WindupTime = MinigunSecondary_WindupTime;
 
-    class'UTComp_Minigun'.default.PutDownAnimRate = class'Minigun'.default.PutDownAnimRate / (Minigun_PutDownTime / default.Minigun_PutDownTime);
-    class'UTComp_Minigun'.default.SelectAnimRate = class'Minigun'.default.SelectAnimRate / (Minigun_BringUpTime / default.Minigun_BringUpTime);    
-
     // NewNet
-    class'NewNet_Minigun'.default.PutDownTime = Minigun_PutDownTime;
-    class'NewNet_Minigun'.default.BringUpTime = Minigun_BringUpTime;
+    SetSwitchTimes(class'NewNet_Minigun', Minigun_PutDownTime, Minigun_BringUpTime);
     class'NewNet_Minigun'.default.MinReloadPct = Minigun_MinReloadPct;
     class'NewNet_MinigunFire'.default.DamageMin = MinigunPrimary_DamageMin;
     class'NewNet_MinigunFire'.default.DamageMax = MinigunPrimary_DamageMax;
@@ -172,9 +153,6 @@ simulated function Modify()
     class'NewNet_MinigunAltFire'.default.Spread = MinigunSecondary_Spread;
     class'NewNet_MinigunAltFire'.default.PreFireTime = MinigunSecondary_PreFireTime;
     class'NewNet_MinigunAltFire'.default.WindupTime = MinigunSecondary_WindupTime;
-
-    class'NewNet_Minigun'.default.PutDownAnimRate = class'Minigun'.default.PutDownAnimRate / (Minigun_PutDownTime / default.Minigun_PutDownTime);
-    class'NewNet_Minigun'.default.SelectAnimRate = class'Minigun'.default.SelectAnimRate / (Minigun_BringUpTime / default.Minigun_BringUpTime);    
 }
 
 defaultproperties

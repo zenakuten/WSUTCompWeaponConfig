@@ -1,4 +1,4 @@
-class ONSMineLayerConfigInfo extends ReplicationInfo;
+class ONSMineLayerConfigInfo extends WeaponConfigSubInfo;
 
 var bool bModifyONSMineLayer;
 var float ONSMineLayer_ReloadDelay;
@@ -51,16 +51,6 @@ function LoadFrom(MutWeaponConfig config)
     ONSMineProjectile_CullDistance  = config.ONSMineProjectile_CullDistance;
     ONSMineProjectile_MomentumTransfer  = config.ONSMineProjectile_MomentumTransfer;
     ONSMineProjectile_bBounce  = config.ONSMineProjectile_bBounce;
-}
-
-simulated function PostNetBeginPlay()
-{
-    super.PostNetBeginPlay();
-    // Apply on the client when our own replicated data has arrived. The parent
-    // WeaponConfigInfo.PostNetBeginPlay can fire before this sub-object's reference
-    // replicates, so self-applying here is what actually configures the client.
-    if(Role < ROLE_Authority)
-        Modify();
 }
 
 simulated function Modify()
