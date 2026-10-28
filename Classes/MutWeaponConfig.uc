@@ -21,10 +21,7 @@ var config float ShieldPrimary_SelfDamageScale;
 var config float ShieldPrimary_MinSelfDamage;
 var config float ShieldPrimary_AutoFireTestFreq;
 var config float ShieldPrimary_FullyChargedTime;
-var config bool ShieldPrimary_bAutoRelease;
-var config bool ShieldPrimary_bStartedChargingForce;
 var	config byte  ShieldPrimary_ChargingSoundVolume;
-var config float ShieldPrimary_AutoHitTime;
 var config float ShieldSecondary_FireRate;
 var config float ShieldSecondary_AmmoPerFire;
 var config float ShieldSecondary_AmmoRegenTime;
@@ -393,7 +390,7 @@ function ParseURL(string Url)
            if(Left(Parts[i],Len("ModifyBioRifle"))~= "ModifyBioRifle")
                ModifyBioRifle=Right(Parts[i], Len(Parts[i])-Len("ModifyBioRifle")-1);
            if(Left(Parts[i],Len("ModifyClassicSniperRifle"))~= "ModifyClassicSniperRifle")
-               ModifyBioRifle=Right(Parts[i], Len(Parts[i])-Len("ModifyClassicSniperRifle")-1);
+               ModifyClassicSniperRifle=Right(Parts[i], Len(Parts[i])-Len("ModifyClassicSniperRifle")-1);
            if(Left(Parts[i],Len("ModifyFlakCannon"))~= "ModifyFlakCannon")
                ModifyFlakCannon=Right(Parts[i], Len(Parts[i])-Len("ModifyFlakCannon")-1);
            if(Left(Parts[i],Len("ModifyLinkGun"))~= "ModifyLinkGun")
@@ -503,7 +500,7 @@ function GetServerDetails( out GameInfo.ServerResponseLine ServerState )
     super.GetServerDetails(ServerState);
 
     Enabled = "Enabled";
-    Disabled = "Enabled";
+    Disabled = "Disabled";
 
 	i = ServerState.ServerInfo.Length;
 	ServerState.ServerInfo.Length = i+1;
@@ -522,11 +519,18 @@ function GetServerDetails( out GameInfo.ServerResponseLine ServerState )
             ServerState.ServerInfo[i].Key = "Modify AssaultRifle";
             ServerState.ServerInfo[i].Value = Enabled;
         }
+        if(bModifyBioRifle)
+        {
+            i++;
+            ServerState.ServerInfo.Length = i+1;
+            ServerState.ServerInfo[i].Key = "Modify BioRifle";
+            ServerState.ServerInfo[i].Value = Enabled;
+        }
         if(bModifyClassicSniperRifle)
         {
             i++;
             ServerState.ServerInfo.Length = i+1;
-            ServerState.ServerInfo[i].Key = "Modify SniperRifle";
+            ServerState.ServerInfo[i].Key = "Modify ClassicSniperRifle";
             ServerState.ServerInfo[i].Value = Enabled;
         }
         if(bModifyFlakCannon)
@@ -675,6 +679,8 @@ static function FillPlayInfo(PlayInfo PI)
     PI.AddSetting("Weapon ShieldGun", "ShieldPrimary_MinHoldTime", "Shield Primary Min Hold Time (0.4)", Security, Weight, "Text", "8;0.0:999.0",,False,True);
     PI.AddSetting("Weapon ShieldGun", "ShieldPrimary_MinForce", "Shield Primary Min Force (65000.0)", Security, Weight, "Text", "9;-10000000.0:10000000.0",,False,True);
     PI.AddSetting("Weapon ShieldGun", "ShieldPrimary_MaxForce", "Shield Primary Max Force (100000.0)", Security, Weight, "Text", "9;-10000000.0:10000000.0",,False,True);
+    PI.AddSetting("Weapon ShieldGun", "ShieldPrimary_MinDamage", "Shield Primary Min Damage (40.0)", Security, Weight, "Text", "8;0.0:10000.0",,False,True);
+    PI.AddSetting("Weapon ShieldGun", "ShieldPrimary_MaxDamage", "Shield Primary Max Damage (150.0)", Security, Weight, "Text", "8;0.0:10000.0",,False,True);
     PI.AddSetting("Weapon ShieldGun", "ShieldPrimary_SelfForceScale", "Shield Primary Self Force Scale (1.0)", Security, Weight, "Text", "4;0.0:1000",,False,True);
     PI.AddSetting("Weapon ShieldGun", "ShieldPrimary_SelfDamageScale", "Shield Primary Self Damage Scale (0.3)", Security, Weight, "Text", "4;0.0:1000",,False,True);
     PI.AddSetting("Weapon ShieldGun", "ShieldPrimary_MinSelfDamage", "Shield Primary Minimum Self Damage (8)", Security, Weight, "Text", "4;0:1000",,False,True);
@@ -997,6 +1003,8 @@ static event string GetDescriptionText(string PropName)
         case "ShieldPrimary_MinHoldTime": return "Shield Primary Min Hold Time (0.4)";
         case "ShieldPrimary_MinForce": return "Shield Primary Min Force (65000.0)";
         case "ShieldPrimary_MaxForce": return "Shield Primary Max Force (100000.0)";
+        case "ShieldPrimary_MinDamage": return "Shield Primary Min Damage (40.0)";
+        case "ShieldPrimary_MaxDamage": return "Shield Primary Max Damage (150.0)";
         case "ShieldPrimary_SelfForceScale": return "Shield Primary Self Force Scale (1.0)";
         case "ShieldPrimary_SelfDamageScale": return "Shield Primary Self Damage Scale (0.3)";
         case "ShieldPrimary_MinSelfDamage": return "Shield Primary Min Self Damage (8)";
@@ -1263,7 +1271,7 @@ static event string GetDescriptionText(string PropName)
         case "ONSGrenadeProj_CullDistance": return "ONS Grenade Cull Distance (5000.0)";
         case "ONSGrenadeProj_LifeSpan": return "ONS Grenade Life Span (0.0)";
         case "ONSGrenadeProj_DampenFactor": return "ONS Grenade Dampen Factor (0.5)";
-        case "ONSGrenadeProj_DampenFactor": return "ONS Grenade Dampen Factor Parallel (0.8)";
+        case "ONSGrenadeProj_DampenFactorParallel": return "ONS Grenade Dampen Factor Parallel (0.8)";
         case "bGiveONSGrenade": return "Give ONS Grenade Launcher to Player (false)";
         case "ONSGrenadeAmmoGiven": return "ONS Grenade Launcher Ammo Given (10)";
 
@@ -1463,6 +1471,8 @@ defaultproperties
     ShieldPrimary_MinHoldTime=0.4
     ShieldPrimary_MinForce=65000.0
     ShieldPrimary_MaxForce=100000.0
+    ShieldPrimary_MinDamage=40.0
+    ShieldPrimary_MaxDamage=150.0
     ShieldPrimary_SelfForceScale=1.0
     ShieldPrimary_SelfDamageScale=0.3
     ShieldPrimary_MinSelfDamage=8

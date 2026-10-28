@@ -36,6 +36,8 @@ Because WS3SPN also does some weapon modifications, there are some caveats:
 | Shield Primary Min Hold Time  | 0.4 |
 | Shield Primary Min Force  | 65000.0 |
 | Shield Primary Max Force  | 100000.0 |
+| Shield Primary Min Damage  | 40.0 |
+| Shield Primary Max Damage  | 150.0 |
 | Shield Primary Self Force Scale  | 1.0 |
 | Shield Primary Self Damage Scale  | 0.3 |
 | Shield Primary Min Self Damage  | 8 |

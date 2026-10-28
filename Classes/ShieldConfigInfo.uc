@@ -14,10 +14,7 @@ var float ShieldPrimary_SelfDamageScale;
 var float ShieldPrimary_MinSelfDamage;
 var float ShieldPrimary_AutoFireTestFreq;
 var float ShieldPrimary_FullyChargedTime;
-var bool ShieldPrimary_bAutoRelease;
-var bool ShieldPrimary_bStartedChargingForce;
 var	byte  ShieldPrimary_ChargingSoundVolume;
-var float ShieldPrimary_AutoHitTime;
 var float ShieldSecondary_FireRate;
 var float ShieldSecondary_AmmoPerFire;
 var float ShieldSecondary_AmmoRegenTime;
@@ -34,8 +31,7 @@ replication
         ShieldPrimary_FireRate, ShieldPrimary_AmmoPerFire, ShieldPrimary_ShieldRange, ShieldPrimary_MinHoldTime,
         ShieldPrimary_MinForce, ShieldPrimary_MaxForce, ShieldPrimary_MinDamage, ShieldPrimary_MaxDamage,
         ShieldPrimary_SelfForceScale, ShieldPrimary_SelfDamageScale, ShieldPrimary_MinSelfDamage,
-        ShieldPrimary_AutoFireTestFreq, ShieldPrimary_FullyChargedTime, ShieldPrimary_bAutoRelease,
-        ShieldPrimary_bStartedChargingForce, ShieldPrimary_ChargingSoundVolume, ShieldPrimary_AutoHitTime,
+        ShieldPrimary_AutoFireTestFreq, ShieldPrimary_FullyChargedTime, ShieldPrimary_ChargingSoundVolume,
         ShieldSecondary_FireRate, ShieldSecondary_AmmoPerFire, ShieldSecondary_AmmoRegenTime,
         ShieldSecondary_ChargeupTime, ShieldSecondary_ShieldSoundVolume,
         ShieldGun_BringUpTime, ShieldGun_PutDownTime, ShieldGun_MinReloadPct;
@@ -57,10 +53,7 @@ function LoadFrom(MutWeaponConfig config)
     ShieldPrimary_MinSelfDamage = config.ShieldPrimary_MinSelfDamage;
     ShieldPrimary_AutoFireTestFreq = config.ShieldPrimary_AutoFireTestFreq;
     ShieldPrimary_FullyChargedTime = config.ShieldPrimary_FullyChargedTime;
-    ShieldPrimary_bAutoRelease = config.ShieldPrimary_bAutoRelease;
-    ShieldPrimary_bStartedChargingForce = config.ShieldPrimary_bStartedChargingForce;
     ShieldPrimary_ChargingSoundVolume = config.ShieldPrimary_ChargingSoundVolume;
-    ShieldPrimary_AutoHitTime = config.ShieldPrimary_AutoHitTime;
     ShieldSecondary_FireRate = config.ShieldSecondary_FireRate;
     ShieldSecondary_AmmoPerFire = config.ShieldSecondary_AmmoPerFire;
     ShieldSecondary_AmmoRegenTime = config.ShieldSecondary_AmmoRegenTime;
@@ -83,6 +76,8 @@ simulated function Modify()
     class'ShieldFire'.default.MinHoldTime = ShieldPrimary_MinHoldTime;
     class'ShieldFire'.default.MinForce = ShieldPrimary_MinForce;
     class'ShieldFire'.default.MaxForce = ShieldPrimary_MaxForce;
+    class'ShieldFire'.default.MinDamage = ShieldPrimary_MinDamage;
+    class'ShieldFire'.default.MaxDamage = ShieldPrimary_MaxDamage;
     class'ShieldFire'.default.SelfForceScale = ShieldPrimary_SelfForceScale;
     class'ShieldFire'.default.SelfDamageScale = ShieldPrimary_SelfDamageScale;
     class'ShieldFire'.default.MinSelfDamage = ShieldPrimary_MinSelfDamage;
@@ -116,6 +111,8 @@ defaultproperties
     ShieldPrimary_MinHoldTime=0.4
     ShieldPrimary_MinForce=65000.0
     ShieldPrimary_MaxForce=100000.0
+    ShieldPrimary_MinDamage=40.0
+    ShieldPrimary_MaxDamage=150.0
     ShieldPrimary_SelfForceScale=1.0
     ShieldPrimary_SelfDamageScale=0.3
     ShieldPrimary_MinSelfDamage=8

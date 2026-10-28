@@ -31,6 +31,7 @@ replication
 
 function LoadFrom(MutWeaponConfig config)
 {
+    bModifyONSGrenadeLauncher = config.bModifyONSGrenadeLauncher;
     ONSGrenadePrimary_AmmoPerFire = config.ONSGrenadePrimary_AmmoPerFire;
     ONSGrenadePrimary_FireRate = config.ONSGrenadePrimary_FireRate;
     ONSGrenadeProj_bBounce = config.ONSGrenadeProj_bBounce;
