@@ -1,6 +1,5 @@
 class BioConfigInfo extends WeaponConfigSubInfo;
 
-var bool bModifyBioRifle;
 var float BioPrimary_FireRate;
 var int BioPrimary_AmmoPerFire;
 var float BioSecondary_FireRate;
@@ -20,7 +19,6 @@ var float BioRifle_MinReloadPct;
 replication
 {
     reliable if(bNetInitial && Role == ROLE_Authority)
-        bModifyBioRifle, 
         BioPrimary_FireRate, BioPrimary_AmmoPerFire, BioSecondary_FireRate, BioSecondary_GoopUpRate,
         BioSecondary_MaxGoopLoad, Bio_ProjBaseDamage, Bio_ProjGloblingSpeed,
         Bio_ProjRestTime, Bio_ProjTouchDetinationDelay, Bio_ProjDripTime, Bio_ProjMaxGoopLevel, Bio_ProjMergeGlobs,
@@ -29,7 +27,6 @@ replication
 
 function LoadFrom(MutWeaponConfig config)
 {
-    bModifyBioRifle = config.bModifyBioRifle;
     BioPrimary_FireRate = config.BioPrimary_FireRate;
     BioPrimary_AmmoPerFire = config.BioPrimary_AmmoPerFire;
     BioSecondary_FireRate = config.BioSecondary_FireRate;
@@ -49,9 +46,6 @@ function LoadFrom(MutWeaponConfig config)
 
 simulated function Modify()
 {
-    if(!bModifyBioRifle)
-        return;
-
     // stock
     class'BioFire'.default.FireRate = BioPrimary_FireRate;
     class'BioFire'.default.AmmoPerFire = BioPrimary_AmmoPerFire;
@@ -100,7 +94,6 @@ simulated final function ApplyGlob(class<BioGlob> G)
 
 defaultproperties
 {
-    bModifyBioRifle=false
     BioRifle_BringUpTime=0.33
     BioRifle_PutDownTime=0.33
     BioRifle_MinReloadPct=0.5

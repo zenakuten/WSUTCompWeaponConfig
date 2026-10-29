@@ -1,6 +1,5 @@
 class ONSAvrilConfigInfo extends WeaponConfigSubInfo;
 
-var bool bModifyONSAvril;
 var float ONSAvril_LockCheckFreq;
 var float ONSAvril_MaxLockRange;
 var float ONSAvril_LockAim;
@@ -22,7 +21,6 @@ var float ONSAvrilProj_LifeSpan;
 replication
 {
     reliable if(bNetInitial && Role == ROLE_Authority)
-        bModifyONSAvril,
         ONSAvril_LockCheckFreq, ONSAvril_MaxLockRange, ONSAvril_LockAim, ONSAvril_PutDownTime,
         ONSAvril_BringUpTime, ONSAvril_MinReloadPct, ONSAvrilPrimary_AmmoPerFire, ONSAvrilPrimary_FireRate,
         ONSAvrilPrimary_KickMomentum, ONSAvrilProj_LeadTargetDelay, ONSAvrilProj_bProjTarget, ONSAvrilProj_Speed,
@@ -33,7 +31,6 @@ replication
 
 function LoadFrom(MutWeaponConfig config)
 {
-    bModifyONSAvril = config.bModifyONSAvril;
     ONSAvril_LockCheckFreq = config.ONSAvril_LockCheckFreq;
     ONSAvril_MaxLockRange = config.ONSAvril_MaxLockRange;
     ONSAvril_LockAim = config.ONSAvril_LockAim;
@@ -55,9 +52,6 @@ function LoadFrom(MutWeaponConfig config)
 
 simulated function Modify()
 {
-    if(!bModifyONSAvril)
-        return;
-
     //default
     class'ONSAvril'.default.LockCheckFreq = ONSAvril_LockCheckFreq;
     class'ONSAvril'.default.MaxLockRange = ONSAvril_MaxLockRange;
@@ -96,7 +90,6 @@ simulated function Modify()
 
 defaultproperties
 {
-    bModifyONSAvril=false
     ONSAvril_LockCheckFreq=0.2
     ONSAvril_MaxLockRange=15000.0
     ONSAvril_LockAim=0.996

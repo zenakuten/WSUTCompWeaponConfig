@@ -24,7 +24,7 @@ function LoadFrom(MutWeaponConfig config)
         ShieldConfig = spawn(class'ShieldConfigInfo', self.Owner);
         ShieldConfig.LoadFrom(config);
     }
-    // assault ammo is applied server side in MutWeaponConfig.ModifyPlayer, not by this info
+    // assault ammo is applied server side in MutWeaponConfig.SetupAmmo, not by this info
     if(config.bModifyAssaultRifle)
     {
         AssaultConfig = spawn(class'AssaultConfigInfo', self.Owner);
@@ -122,6 +122,38 @@ function Modify()
         ONSAvrilConfig.Modify();
     if(ONSMineLayerConfig != None)
         ONSMineLayerConfig.Modify();
+}
+
+function RestoreStock()
+{
+    if(ShieldConfig != None)
+        ShieldConfig.RestoreStock();
+    if(AssaultConfig != None)
+        AssaultConfig.RestoreStock();
+    if(BioConfig != None)
+        BioConfig.RestoreStock();
+    if(ShockConfig != None)
+        ShockConfig.RestoreStock();
+    if(LinkConfig != None)
+        LinkConfig.RestoreStock();
+    if(MiniConfig != None)
+        MiniConfig.RestoreStock();
+    if(FlakConfig != None)
+        FlakConfig.RestoreStock();
+    if(RocketConfig != None)
+        RocketConfig.RestoreStock();
+    if(SniperConfig != None)
+        SniperConfig.RestoreStock();
+    if(ClassicSniperConfig != None)
+        ClassicSniperConfig.RestoreStock();
+    if(SuperShockConfig != None)
+        SuperShockConfig.RestoreStock();
+    if(ONSGrenadeConfig != None)
+        ONSGrenadeConfig.RestoreStock();
+    if(ONSAvrilConfig != None)
+        ONSAvrilConfig.RestoreStock();
+    if(ONSMineLayerConfig != None)
+        ONSMineLayerConfig.RestoreStock();
 }
 
 function Destroyed()

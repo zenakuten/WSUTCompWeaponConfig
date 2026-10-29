@@ -1,6 +1,5 @@
 class ShockConfigInfo extends WeaponConfigSubInfo;
 
-var bool bModifyShockRifle;
 var float ShockPrimary_TraceRange;
 var float ShockPrimary_Momentum;
 var int ShockPrimary_AmmoPerFire;
@@ -30,7 +29,6 @@ var float ShockRifle_MinReloadPct;
 replication
 {
     reliable if(Role == ROLE_Authority && bNetInitial)
-        bModifyShockRifle,
         ShockPrimary_FireRate, ShockPrimary_TraceRange, ShockPrimary_Momentum,
         ShockPrimary_AmmoPerFire, ShockPrimary_DamageMin, ShockPrimary_DamageMax, 
         ShockSecondary_AmmoPerFire, ShockSecondary_FireRate, ShockSecondary_ProjSpeed,
@@ -44,7 +42,6 @@ replication
 
 function LoadFrom(MutWeaponConfig config)
 {
-    bModifyShockRifle = config.bModifyShockRifle;
     ShockPrimary_TraceRange = config.ShockPrimary_TraceRange;
     ShockPrimary_Momentum = config.ShockPrimary_Momentum;
     ShockPrimary_AmmoPerFire = config.ShockPrimary_AmmoPerFire;
@@ -74,9 +71,6 @@ function LoadFrom(MutWeaponConfig config)
 
 simulated function Modify()
 {
-    if(!bModifyShockRifle)
-        return;
-    
     //stock
     class'ShockBeamFire'.default.TraceRange = ShockPrimary_TraceRange;
     class'ShockBeamFire'.default.Momentum = ShockPrimary_Momentum;
@@ -140,7 +134,6 @@ simulated final function ApplyShockProj(class<ShockProjectile> P)
 
 defaultproperties
 {
-    bModifyShockRifle=false
     ShockRifle_BringUpTime=0.33
     ShockRifle_PutDownTime=0.33
     ShockRifle_MinReloadPct=0.5

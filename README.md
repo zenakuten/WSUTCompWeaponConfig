@@ -26,6 +26,11 @@ Because WS3SPN also does some weapon modifications, there are some caveats:
 ## General
 The `Modify the <weapon>` toggles only apply while `Modify Weapons` is on. The give-weapon and ammo options work on their own, whether or not `Modify Weapons` is on.
 
+* An ammo amount (`<weapon> Ammo Given`, `Assault Rifle Ammo`, `Assault Rifle Grenades`) is what every fresh copy of that weapon comes with, so it also applies to the weapon's map pickups and lockers, not just to the weapon given on spawn. These amounts take precedence over WSUTComp's `Number of grenades on spawn`.
+* Weapon and ammo changes are undone on the server at the end of each map, so turning a weapon off (in the menu, with a `?ModifyX=False` URL option or in a map-vote game config) takes effect on the next map. Players who stay connected through the map change keep the old values for client-side prediction until they reconnect.
+* A `Put Down Time` or `Bring Up Time` of 0 leaves the weapon's own time unchanged.
+* `MinReloadPct` is the fraction of the refire time that has to pass after a shot before the weapon can be switched away (0 to 1).
+
 | Property | Default Value |
 |----------|---------------|
 | Modify Weapons | false |
@@ -74,6 +79,8 @@ The `Modify the <weapon>` toggles only apply while `Modify Weapons` is on. The g
 <br />
 
 ## Shield Gun
+`Shield Secondary Ammo Regen Time` is both how often the shield regains one point while lowered and how often it drains one point while raised. `Shield Secondary Chargeup Time` only ramps up the shield's glow.
+
 | Property | Default Value |
 |----------|---------------|
 | Shield Gun Put Down Time | 0.33 |
@@ -193,6 +200,8 @@ The `Modify the <weapon>` toggles only apply while `Modify Weapons` is on. The g
 <br />
 
 ## Link Gun
+Link bolts never do splash damage: `Link Projectile Damage Radius` only damages the driver when a bolt hits a vehicle.
+
 | Property | Default Value |
 |----------|---------------|
 | Link Primary Ammo Per Fire | 2 |
@@ -253,7 +262,7 @@ The `Modify the <weapon>` toggles only apply while `Modify Weapons` is on. The g
 <br />
 
 ## Flak Cannon
-`Flak Chunk Damage Atten Per Second` is how much damage a chunk loses for each second it has been flying. `Flak Shell Damage Radius` is honored by the UTComp and NewNet shells; the stock Flak Cannon (UTComp weapon stats and NewNet both off) always uses a 220 radius.
+`Flak Chunk Damage Atten Per Second` is how much damage a chunk loses for each second it has been flying. `Flak Shell Damage Radius` is honored by the UTComp and NewNet shells; the stock Flak Cannon (UTComp weapon stats and NewNet both off) always uses a 220 radius. With `Flak Chunk Bounce` off, a chunk still ricochets off the first surface it hits (each chunk rolls 0 to 2 bounces), then stops on the next floor it touches.
 
 | Property | Default Value |
 |----------|---------------|
@@ -291,7 +300,7 @@ The `Modify the <weapon>` toggles only apply while `Modify Weapons` is on. The g
 <br />
 
 ## Rocket Launcher
-Lock-on (seeking) rockets live 1.25x `Rocket Projectile Lifespan`, matching stock (10s against 8s).
+Lock-on (seeking) rockets live 1.25x `Rocket Projectile Lifespan`, matching stock (10s against 8s). So does every rocket from the UTComp weapon-stats launcher, which fires seeking-type rockets only. Alt fire loads its second rocket after `Rocket Secondary Fire Rate` and its third after twice that, so keep `Rocket Secondary Max Hold Time` above 2x the fire rate or the third rocket never loads.
 
 | Property | Default Value |
 |----------|---------------|
@@ -309,7 +318,6 @@ Lock-on (seeking) rockets live 1.25x `Rocket Projectile Lifespan`, matching stoc
 | Rocket Secondary Ammo Per Fire | 1 |
 | Rocket Secondary Tight Spread | 300.0 |
 | Rocket Secondary Loose Spread | 1000.0 |
-| Rocket Secondary Max Load | 3 |
 | Rocket Secondary Max Hold Time | 2.3 |
 | Rocket Projectile Speed | 1350.0 |
 | Rocket Projectile Max Speed | 1350.0 |
@@ -353,8 +361,7 @@ Lock-on (seeking) rockets live 1.25x `Rocket Projectile Lifespan`, matching stoc
 | Sniper Rifle Bring Up Time | 0.6 |
 | Sniper Rifle MinReloadPct | 0.5 |
 | Sniper Rifle Ammo Per Fire | 1 |
-| Sniper Rifle Damage Min | 60 |
-| Sniper Rifle Damage Max | 60 |
+| Sniper Rifle Damage | 60 |
 | Sniper Rifle Trace Range | 17000.0 |
 | Sniper Rifle Fire Rate | 1.33 |
 | Sniper Rifle Headshot Multiplier | 2.0 |
@@ -364,6 +371,8 @@ Lock-on (seeking) rockets live 1.25x `Rocket Projectile Lifespan`, matching stoc
 <br />
 
 ## Super Shock Rifle
+These settings also apply to the zoom InstaGib rifle.
+
 | Property | Default Value |
 |----------|---------------|
 | Super Shock Rifle Put Down Time | 0.33 |

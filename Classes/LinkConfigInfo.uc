@@ -1,6 +1,5 @@
 class LinkConfigInfo extends WeaponConfigSubInfo;
 
-var bool bModifyLinkGun;
 var int LinkPrimary_AmmoPerFire;
 var float LinkPrimary_FireRate;
 var float LinkProj_Damage;
@@ -24,7 +23,6 @@ var float LinkGun_MinReloadPct;
 replication
 {
     reliable if(bNetInitial && Role == ROLE_Authority)
-        bModifyLinkGun,
         LinkPrimary_AmmoPerFire, LinkPrimary_FireRate, LinkProj_Damage, LinkProj_DamageRadius,
         LinkProj_Speed, LinkProj_MaxSpeed, LinkProj_MomentumTransfer, LinkProj_LifeSpan,
         LinkProj_CullDistance, LinkSecondary_TraceRange, LinkSecondary_MomentumTransfer, LinkSecondary_AmmoPerFire,
@@ -34,7 +32,6 @@ replication
 
 function LoadFrom(MutWeaponConfig config)
 {
-    bModifyLinkGun = config.bModifyLinkGun;
     LinkPrimary_AmmoPerFire = config.LinkPrimary_AmmoPerFire;
     LinkPrimary_FireRate = config.LinkPrimary_FireRate;
     LinkProj_Damage = config.LinkProj_Damage;
@@ -58,9 +55,6 @@ function LoadFrom(MutWeaponConfig config)
 
 simulated function Modify()
 {
-    if(!bModifyLinkGun)
-        return;
-
     // stock
     class'LinkAltFire'.default.AmmoPerFire = LinkPrimary_AmmoPerFire;
     class'LinkAltFire'.default.FireRate = LinkPrimary_FireRate;
@@ -120,7 +114,6 @@ simulated final function ApplyLinkProj(class<LinkProjectile> P)
 
 defaultproperties
 {
-    bModifyLinkGun=false
     LinkPrimary_AmmoPerFire=2
     LinkPrimary_FireRate=0.2
     LinkProj_Damage=30

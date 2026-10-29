@@ -1,6 +1,5 @@
 class AssaultConfigInfo extends WeaponConfigSubInfo;
 
-var bool bModifyAssaultRifle;
 var float AssaultRifle_PutDownTime;
 var float AssaultRifle_BringUpTime;
 var float AssaultRifle_MinReloadPct;
@@ -27,7 +26,6 @@ var float AssaultGrenade_MomentumTransfer;
 replication
 {
     reliable if(bNetInitial && Role == ROLE_Authority)
-        bModifyAssaultRifle,
         AssaultRifle_PutDownTime, AssaultRifle_BringUpTime, AssaultRifle_MinReloadPct,
         AssaultPrimary_DamageMin, AssaultPrimary_DamageMax, AssaultPrimary_TraceRange, AssaultPrimary_Momentum,
         AssaultPrimary_AmmoPerFire, AssaultPrimary_FireRate, AssaultPrimary_AimError, AssaultPrimary_Spread,
@@ -38,7 +36,6 @@ replication
 
 function LoadFrom(MutWeaponConfig config)
 {
-    bModifyAssaultRifle = config.bModifyAssaultRifle;
     AssaultRifle_PutDownTime = config.AssaultRifle_PutDownTime;
     AssaultRifle_BringUpTime = config.AssaultRifle_BringUpTime;
     AssaultRifle_MinReloadPct = config.AssaultRifle_MinReloadPct;
@@ -65,9 +62,6 @@ function LoadFrom(MutWeaponConfig config)
 
 simulated function Modify()
 {
-    if(!bModifyAssaultRifle)
-        return;
-
     // same grenade used by default, utcomp, newnet
     class'Grenade'.default.ExplodeTimer = AssaultGrenade_ExplodeTimer;
     class'Grenade'.default.DampenFactor = AssaultGrenade_DampenFactor;
@@ -130,7 +124,6 @@ simulated function Modify()
 
 defaultproperties
 {
-    bModifyAssaultRifle=false
     AssaultRifle_PutDownTime=0.33
     AssaultRifle_BringUpTime=0.33
     AssaultRifle_MinReloadPct=0.5

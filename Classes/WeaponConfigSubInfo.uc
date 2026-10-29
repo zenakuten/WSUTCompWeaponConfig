@@ -14,6 +14,18 @@ simulated function PostNetBeginPlay()
 
 simulated function Modify();
 
+// class defaults outlive the map, so the server puts the stock values back before travelling.
+// a sub-info that never loaded config holds them in its defaultproperties; it is destroyed in
+// the same frame, so it never replicates
+function RestoreStock()
+{
+    local WeaponConfigSubInfo Stock;
+
+    Stock = Spawn(Class);
+    Stock.Modify();
+    Stock.Destroy();
+}
+
 // Sets the switch times and scales the anim rates by old/new time, so rate * time stays
 // constant and re-applying (map change, reconnect, listen server) never compounds.
 static final function SetSwitchTimes(class<Weapon> W, float PutDownTime, float BringUpTime)

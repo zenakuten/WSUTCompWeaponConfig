@@ -1,6 +1,5 @@
 class MiniConfigInfo extends WeaponConfigSubInfo;
 
-var bool bModifyMinigun;
 var float Minigun_PutDownTime;
 var float Minigun_BringUpTime;
 var float Minigun_MinReloadPct;
@@ -30,7 +29,6 @@ var float MinigunSecondary_WindupTime;
 replication
 {
     reliable if(bNetInitial && Role == ROLE_Authority)
-        bModifyMinigun,
         Minigun_PutDownTime, Minigun_BringUpTime, Minigun_MinReloadPct, MinigunPrimary_DamageMin,
         MinigunPrimary_DamageMax, MinigunPrimary_TraceRange, MinigunPrimary_Momentum, MinigunPrimary_AmmoPerFire,
         MinigunPrimary_RoundsPerRotation, MinigunPrimary_BarrelRotationsPerSec, MinigunPrimary_AimError, 
@@ -43,7 +41,6 @@ replication
 
 function LoadFrom(MutWeaponConfig config)
 {
-    bModifyMinigun = config.bModifyMinigun;
     Minigun_PutDownTime = config.Minigun_PutDownTime;
     Minigun_BringUpTime = config.Minigun_BringUpTime;
     Minigun_MinReloadPct = config.Minigun_MinReloadPct;
@@ -73,9 +70,6 @@ function LoadFrom(MutWeaponConfig config)
 
 simulated function Modify()
 {
-    if(!bModifyMinigun)
-        return;
-
     // stock
     SetSwitchTimes(class'Minigun', Minigun_PutDownTime, Minigun_BringUpTime);
     class'Minigun'.default.MinReloadPct = Minigun_MinReloadPct;
@@ -157,7 +151,6 @@ simulated function Modify()
 
 defaultproperties
 {
-    bModifyMinigun=false
     Minigun_PutDownTime=0.33
     Minigun_BringUpTime=0.33
     Minigun_MinReloadPct=0.5

@@ -1,6 +1,5 @@
 class SuperShockConfigInfo extends WeaponConfigSubInfo;
 
-var bool bModifySuperShockRifle;
 var float SuperShockPrimary_TraceRange;
 var float SuperShockPrimary_Momentum;
 var int SuperShockPrimary_AmmoPerFire;
@@ -14,7 +13,6 @@ var float SuperShockRifle_MinReloadPct;
 replication
 {
     reliable if(Role == ROLE_Authority && bNetInitial)
-        bModifySuperShockRifle,
         SuperShockPrimary_FireRate, SuperShockPrimary_TraceRange, SuperShockPrimary_Momentum,
         SuperShockPrimary_AmmoPerFire, SuperShockPrimary_DamageMin, SuperShockPrimary_DamageMax, 
         SuperShockRifle_BringUpTime, SuperShockRifle_PutDownTime, SuperShockRifle_MinReloadPct;    
@@ -22,7 +20,6 @@ replication
 
 function LoadFrom(MutWeaponConfig config)
 {
-    bModifySuperShockRifle = config.bModifySuperShockRifle;
     SuperShockPrimary_TraceRange = config.SuperShockPrimary_TraceRange;
     SuperShockPrimary_Momentum = config.SuperShockPrimary_Momentum;
     SuperShockPrimary_AmmoPerFire = config.SuperShockPrimary_AmmoPerFire;
@@ -36,9 +33,6 @@ function LoadFrom(MutWeaponConfig config)
 
 simulated function Modify()
 {
-    if(!bModifySuperShockRifle)
-        return;
-    
     //stock
     class'SuperShockBeamFire'.default.TraceRange = SuperShockPrimary_TraceRange;
     class'SuperShockBeamFire'.default.Momentum = SuperShockPrimary_Momentum;
@@ -68,11 +62,20 @@ simulated function Modify()
     class'NewNet_SuperShockBeamFire'.default.FireRate = SuperShockPrimary_FireRate;
     SetSwitchTimes(class'NewNet_SuperShockRifle', SuperShockRifle_PutDownTime, SuperShockRifle_BringUpTime);
     class'NewNet_SuperShockRifle'.default.MinReloadPct = SuperShockRifle_MinReloadPct;
+
+    //zoom instagib, which utcomp does not replace
+    class'ZoomSuperShockBeamFire'.default.TraceRange = SuperShockPrimary_TraceRange;
+    class'ZoomSuperShockBeamFire'.default.Momentum = SuperShockPrimary_Momentum;
+    class'ZoomSuperShockBeamFire'.default.AmmoPerFire = SuperShockPrimary_AmmoPerFire;
+    class'ZoomSuperShockBeamFire'.default.DamageMin = SuperShockPrimary_DamageMin;
+    class'ZoomSuperShockBeamFire'.default.DamageMax = SuperShockPrimary_DamageMax;
+    class'ZoomSuperShockBeamFire'.default.FireRate = SuperShockPrimary_FireRate;
+    SetSwitchTimes(class'ZoomSuperShockRifle', SuperShockRifle_PutDownTime, SuperShockRifle_BringUpTime);
+    class'ZoomSuperShockRifle'.default.MinReloadPct = SuperShockRifle_MinReloadPct;
 }
 
 defaultproperties
 {
-    bModifySuperShockRifle=false
     SuperShockRifle_BringUpTime=0.33
     SuperShockRifle_PutDownTime=0.33
     SuperShockRifle_MinReloadPct=0.5

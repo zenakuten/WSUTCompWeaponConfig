@@ -1,6 +1,5 @@
 class FlakConfigInfo extends WeaponConfigSubInfo;
 
-var bool bModifyFlakCannon;
 var float FlakCannon_BringUpTime;
 var float FlakCannon_PutDownTime;
 var float FlakCannon_MinReloadPct;
@@ -33,7 +32,7 @@ var float FlakShell_LifeSpan;
 replication
 {
     reliable if(Role == ROLE_Authority && bNetInitial)
-        bModifyFlakCannon, FlakCannon_BringUpTime, FlakCannon_PutDownTime, FlakCannon_MinReloadPct,
+        FlakCannon_BringUpTime, FlakCannon_PutDownTime, FlakCannon_MinReloadPct,
         FlakPrimary_AmmoPerFire, FlakPrimary_FireRate, FlakPrimary_ProjPerFire, FlakPrimary_Spread,
         FlakPrimary_SpreadStyle, FlakChunk_DamageAtten, FlakChunk_Speed, FlakChunk_MaxSpeed,
         FlakChunk_Damage, FlakChunk_MomentumTransfer, FlakChunk_CullDistance, FlakChunk_LifeSpan,
@@ -45,7 +44,6 @@ replication
 
 function LoadFrom(MutWeaponConfig config)
 {
-    bModifyFlakCannon = config.bModifyFlakCannon;
     FlakCannon_BringUpTime = config.FlakCannon_BringUpTime;
     FlakCannon_PutDownTime = config.FlakCannon_PutDownTime;
     FlakCannon_MinReloadPct = config.FlakCannon_MinReloadPct;
@@ -78,9 +76,6 @@ function LoadFrom(MutWeaponConfig config)
 
 simulated function Modify()
 {
-    if(!bModifyFlakCannon)
-        return;
-
     //default
     SetSwitchTimes(class'FlakCannon', FlakCannon_PutDownTime, FlakCannon_BringUpTime);
     class'FlakCannon'.default.MinReloadPct = FlakCannon_MinReloadPct;
@@ -163,7 +158,6 @@ simulated final function ApplyShell(class<FlakShell> S)
 
 defaultproperties
 {
-    bModifyFlakCannon=false
     FlakCannon_BringUpTime=0.33
     FlakCannon_PutDownTime=0.33
     FlakCannon_MinReloadPct=0.5

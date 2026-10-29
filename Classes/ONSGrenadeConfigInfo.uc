@@ -1,6 +1,5 @@
 class ONSGrenadeConfigInfo extends WeaponConfigSubInfo;
 
-var bool bModifyONSGrenadeLauncher;
 var int ONSGrenadePrimary_AmmoPerFire;
 var float ONSGrenadePrimary_FireRate;
 var bool ONSGrenadeProj_bBounce;
@@ -20,7 +19,6 @@ var float ONSGrenadeLauncher_MinReloadPct;
 replication
 {
     reliable if(bNetInitial && Role == ROLE_Authority)
-        bModifyONSGrenadeLauncher,
         ONSGrenadePrimary_AmmoPerFire, ONSGrenadePrimary_FireRate, ONSGrenadeProj_bBounce, ONSGrenadeProj_Speed,
         ONSGrenadeProj_MaxSpeed, ONSGrenadeProj_Damage, ONSGrenadeProj_DamageRadius,
         ONSGrenadeProj_MomentumTransfer, ONSGrenadeProj_CullDistance, ONSGrenadeProj_LifeSpan, ONSGrenadeProj_DampenFactor,
@@ -30,7 +28,6 @@ replication
 
 function LoadFrom(MutWeaponConfig config)
 {
-    bModifyONSGrenadeLauncher = config.bModifyONSGrenadeLauncher;
     ONSGrenadePrimary_AmmoPerFire = config.ONSGrenadePrimary_AmmoPerFire;
     ONSGrenadePrimary_FireRate = config.ONSGrenadePrimary_FireRate;
     ONSGrenadeProj_bBounce = config.ONSGrenadeProj_bBounce;
@@ -50,9 +47,6 @@ function LoadFrom(MutWeaponConfig config)
 
 simulated function Modify()
 {
-    if(!bModifyONSGrenadeLauncher)
-        return;
-
     // stock
     class'ONSGrenadeFire'.default.AmmoPerFire = ONSGrenadePrimary_AmmoPerFire;
     class'ONSGrenadeFire'.default.FireRate = ONSGrenadePrimary_FireRate;
@@ -82,7 +76,6 @@ simulated function Modify()
 
 defaultproperties
 {
-    bModifyONSGrenadeLauncher=false
     ONSGrenadePrimary_AmmoPerFire=1
     ONSGrenadePrimary_FireRate=0.65
     ONSGrenadeProj_bBounce=true

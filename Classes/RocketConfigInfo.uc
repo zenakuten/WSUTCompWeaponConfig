@@ -1,6 +1,5 @@
 class RocketConfigInfo extends WeaponConfigSubInfo;
 
-var bool bModifyRocketLauncher;
 var float RocketLauncher_PutDownTime;
 var float RocketLauncher_BringUpTime;
 var float RocketLauncher_MinReloadPct;
@@ -15,7 +14,6 @@ var int RocketSecondary_AmmoPerFire;
 var float RocketSecondary_FireRate;
 var float RocketSecondary_TightSpread;
 var float RocketSecondary_LooseSpread;
-var int RocketSecondary_MaxLoad;
 var float RocketSecondary_MaxHoldTime;
 var float RocketProj_Speed;
 var float RocketProj_MaxSpeed;
@@ -32,10 +30,10 @@ var float RocketProj_FlockCurlForce;
 replication
 {
     reliable if(Role == ROLE_Authority && bNetInitial)
-        bModifyRocketLauncher, RocketLauncher_PutDownTime, RocketLauncher_BringUpTime, RocketLauncher_MinReloadPct, RocketLauncher_SeekCheckFreq,
+        RocketLauncher_PutDownTime, RocketLauncher_BringUpTime, RocketLauncher_MinReloadPct, RocketLauncher_SeekCheckFreq,
         RocketLauncher_SeekRange, RocketLauncher_LockRequiredTime, RocketLauncher_UnLockRequiredTime, RocketLauncher_LockAim,
         RocketPrimary_AmmoPerFire, RocketPrimary_FireRate, RocketSecondary_AmmoPerFire, RocketSecondary_FireRate,
-        RocketSecondary_TightSpread, RocketSecondary_LooseSpread, RocketSecondary_MaxLoad, RocketSecondary_MaxHoldTime,
+        RocketSecondary_TightSpread, RocketSecondary_LooseSpread, RocketSecondary_MaxHoldTime,
         RocketProj_Speed, RocketProj_MaxSpeed, RocketProj_Damage, RocketProj_DamageRadius,
         RocketProj_MomentumTransfer, RocketProj_LifeSpan, RocketProj_FlockRadius, RocketProj_FlockStiffness,
         RocketProj_FlockMaxForce, RocketProj_FlockCurlForce;
@@ -43,7 +41,6 @@ replication
 
 function LoadFrom(MutWeaponConfig config)
 {
-    bModifyRocketLauncher = config.bModifyRocketLauncher;
     RocketLauncher_PutDownTime = config.RocketLauncher_PutDownTime;
     RocketLauncher_BringUpTime = config.RocketLauncher_BringUpTime;
     RocketLauncher_MinReloadPct = config.RocketLauncher_MinReloadPct;
@@ -58,7 +55,6 @@ function LoadFrom(MutWeaponConfig config)
     RocketSecondary_FireRate = config.RocketSecondary_FireRate;
     RocketSecondary_TightSpread = config.RocketSecondary_TightSpread;
     RocketSecondary_LooseSpread = config.RocketSecondary_LooseSpread;
-    RocketSecondary_MaxLoad = config.RocketSecondary_MaxLoad;
     RocketSecondary_MaxHoldTime = config.RocketSecondary_MaxHoldTime;
     RocketProj_Speed = config.RocketProj_Speed;
     RocketProj_MaxSpeed = config.RocketProj_MaxSpeed;
@@ -74,9 +70,6 @@ function LoadFrom(MutWeaponConfig config)
 
 simulated function Modify()
 {
-    if(!bModifyRocketLauncher)
-        return;
-
     // default
     SetSwitchTimes(class'RocketLauncher', RocketLauncher_PutDownTime, RocketLauncher_BringUpTime);
     class'RocketLauncher'.default.MinReloadPct = RocketLauncher_MinReloadPct;
@@ -91,7 +84,6 @@ simulated function Modify()
     class'RocketMultiFire'.default.FireRate = RocketSecondary_FireRate;
     class'RocketMultiFire'.default.TightSpread = RocketSecondary_TightSpread;
     class'RocketMultiFire'.default.LooseSpread = RocketSecondary_LooseSpread;
-    class'RocketMultiFire'.default.MaxLoad = RocketSecondary_MaxLoad;
     class'RocketMultiFire'.default.MaxHoldTime = RocketSecondary_MaxHoldTime;
 
     // utcomp
@@ -108,7 +100,6 @@ simulated function Modify()
     class'UTComp_RocketMultiFire'.default.FireRate = RocketSecondary_FireRate;
     class'UTComp_RocketMultiFire'.default.TightSpread = RocketSecondary_TightSpread;
     class'UTComp_RocketMultiFire'.default.LooseSpread = RocketSecondary_LooseSpread;
-    class'UTComp_RocketMultiFire'.default.MaxLoad = RocketSecondary_MaxLoad;
     class'UTComp_RocketMultiFire'.default.MaxHoldTime = RocketSecondary_MaxHoldTime;
 
     // newnet
@@ -125,15 +116,15 @@ simulated function Modify()
     class'NewNet_RocketMultiFire'.default.FireRate = RocketSecondary_FireRate;
     class'NewNet_RocketMultiFire'.default.TightSpread = RocketSecondary_TightSpread;
     class'NewNet_RocketMultiFire'.default.LooseSpread = RocketSecondary_LooseSpread;
-    class'NewNet_RocketMultiFire'.default.MaxLoad = RocketSecondary_MaxLoad;
     class'NewNet_RocketMultiFire'.default.MaxHoldTime = RocketSecondary_MaxHoldTime;
 
     // every rocket a launcher can spawn: stock locks fire SeekingRocketProj, UTComp_RocketLauncher
     // fires UTComp_RocketProj for every rocket, NewNet fires NewNet_(Seeking)RocketProj or, on its
     // old-net path, the TeamColor pair, and NewNet_Fake_RocketProj is the client-side prediction.
-    // Lock-on rockets live 10s in stock against 8s, so they keep that ratio.
+    // Seeking rockets live 10s in stock against 8s, so they keep that ratio; UTComp_RocketProj is
+    // a SeekingRocketProj, so every UTComp rocket does too.
     ApplyRocket(class'RocketProj', RocketProj_LifeSpan);
-    ApplyRocket(class'UTComp_RocketProj', RocketProj_LifeSpan);
+    ApplyRocket(class'UTComp_RocketProj', RocketProj_LifeSpan * 1.25);
     ApplyRocket(class'TeamColorRocketProj', RocketProj_LifeSpan);
     ApplyRocket(class'NewNet_RocketProj', RocketProj_LifeSpan);
     ApplyRocket(class'NewNet_Fake_RocketProj', RocketProj_LifeSpan);
@@ -158,7 +149,6 @@ simulated final function ApplyRocket(class<RocketProj> P, float ProjLifeSpan)
 
 defaultproperties
 {
-    bModifyRocketLauncher=false
     RocketLauncher_PutDownTime=0.33
     RocketLauncher_BringUpTime=0.33
     RocketLauncher_MinReloadPct=0.5
@@ -173,7 +163,6 @@ defaultproperties
     RocketSecondary_FireRate=0.95
     RocketSecondary_TightSpread=300.0
     RocketSecondary_LooseSpread=1000.0
-    RocketSecondary_MaxLoad=3
     RocketSecondary_MaxHoldTime=2.3
     RocketProj_Speed=1350.0
     RocketProj_MaxSpeed=1350.0

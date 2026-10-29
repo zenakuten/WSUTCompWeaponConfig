@@ -1,6 +1,5 @@
 class ONSMineLayerConfigInfo extends WeaponConfigSubInfo;
 
-var bool bModifyONSMineLayer;
 var float ONSMineLayer_ReloadDelay;
 var int ONSMineLayer_MaxMines;
 var float ONSMineLayer_PutDownTime;
@@ -23,7 +22,7 @@ var bool ONSMineProjectile_bBounce;
 replication
 {
     reliable if(bNetInitial && Role == ROLE_Authority)
-        bModifyONSMineLayer, ONSMineLayer_ReloadDelay, ONSMineLayer_MaxMines, ONSMineLayer_PutDownTime,
+        ONSMineLayer_ReloadDelay, ONSMineLayer_MaxMines, ONSMineLayer_PutDownTime,
         ONSMineLayer_BringUpTime, ONSMineLayer_MinReloadPct, ONSMineLayerPrimary_AmmoPerFire, ONSMineLayerPrimary_FireRate,
         ONSMineProjectile_DetectionTimer, ONSMineProjectile_ScurrySpeed, ONSMineProjectile_ScurryAnimRate, ONSMineProjectile_TargetLocFuzz,
         ONSMineProjectile_Speed, ONSMineProjectile_MaxSpeed, ONSMineProjectile_Damage, ONSMineProjectile_DamageRadius,
@@ -32,7 +31,6 @@ replication
 
 function LoadFrom(MutWeaponConfig config)
 {
-    bModifyONSMineLayer  = config.bModifyONSMineLayer;
     ONSMineLayer_ReloadDelay  = config.ONSMineLayer_ReloadDelay;
     ONSMineLayer_MaxMines  = config.ONSMineLayer_MaxMines;
     ONSMineLayer_PutDownTime  = config.ONSMineLayer_PutDownTime;
@@ -55,9 +53,6 @@ function LoadFrom(MutWeaponConfig config)
 
 simulated function Modify()
 {
-    if(!bModifyONSMineLayer)
-        return;
-
     //default
     class'ONSMineLayer'.default.ReloadDelay  = ONSMineLayer_ReloadDelay;
     class'ONSMineLayer'.default.MaxMines  = ONSMineLayer_MaxMines;
@@ -103,7 +98,6 @@ simulated final function ApplyMine(class<ONSMineProjectile> M)
 
 defaultproperties
 {
-    bModifyONSMineLayer=false
     ONSMineLayer_ReloadDelay=0.4
     ONSMineLayer_MaxMines=8
     ONSMineLayer_PutDownTime=0.40

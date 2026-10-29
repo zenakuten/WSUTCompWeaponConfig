@@ -1,6 +1,5 @@
 class SniperConfigInfo extends WeaponConfigSubInfo;
 
-var bool bModifySniperRifle;
 var int SniperPrimary_AmmoPerFire;
 var int SniperPrimary_DamageMin;
 var int SniperPrimary_DamageMax;
@@ -17,7 +16,6 @@ var float SniperRifle_MinReloadPct;
 replication
 {
     reliable if(bNetInitial && Role == ROLE_Authority)
-        bModifySniperRifle,
         SniperPrimary_AmmoPerFire, SniperPrimary_DamageMin, SniperPrimary_DamageMax,
         SniperPrimary_TraceRange, SniperPrimary_FireRate, SniperPrimary_NumArcs, SniperPrimary_SecDamageMult,
         SniperPrimary_SecTraceDist, SniperPrimary_HeadshotDamageMult,
@@ -26,7 +24,6 @@ replication
 
 function LoadFrom(MutWeaponConfig config)
 {
-    bModifySniperRifle = config.bModifySniperRifle;
     SniperPrimary_AmmoPerFire = config.SniperPrimary_AmmoPerFire;
     SniperPrimary_DamageMin = config.SniperPrimary_DamageMin;
     SniperPrimary_DamageMax = config.SniperPrimary_DamageMax;
@@ -43,9 +40,6 @@ function LoadFrom(MutWeaponConfig config)
 
 simulated function Modify()
 {
-    if(!bModifySniperRifle)
-        return;
-
     //stock
     class'SniperFire'.default.AmmoPerFire = SniperPrimary_AmmoPerFire;
     class'SniperFire'.default.DamageMin = SniperPrimary_DamageMin;
@@ -88,7 +82,6 @@ simulated function Modify()
 
 defaultproperties
 {
-    bModifySniperRifle=false
     SniperRifle_BringUpTime=0.36
     SniperRifle_PutDownTime=0.33
     SniperRifle_MinReloadPct=0.25

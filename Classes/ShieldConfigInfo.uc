@@ -1,6 +1,5 @@
 class ShieldConfigInfo extends WeaponConfigSubInfo;
 
-var bool bModifyShieldGun;
 var float ShieldPrimary_FireRate;
 var int ShieldPrimary_AmmoPerFire;
 var float ShieldPrimary_ShieldRange;
@@ -27,7 +26,6 @@ var float ShieldGun_MinReloadPct;
 replication
 {
     reliable if(Role == ROLE_Authority && bNetInitial)
-        bModifyShieldGun,
         ShieldPrimary_FireRate, ShieldPrimary_AmmoPerFire, ShieldPrimary_ShieldRange, ShieldPrimary_MinHoldTime,
         ShieldPrimary_MinForce, ShieldPrimary_MaxForce, ShieldPrimary_MinDamage, ShieldPrimary_MaxDamage,
         ShieldPrimary_SelfForceScale, ShieldPrimary_SelfDamageScale, ShieldPrimary_MinSelfDamage,
@@ -39,7 +37,6 @@ replication
 
 function LoadFrom(MutWeaponConfig config)
 {
-    bModifyShieldGun = config.bModifyShieldGun;
     ShieldPrimary_FireRate = config.ShieldPrimary_FireRate;
     ShieldPrimary_AmmoPerFire = config.ShieldPrimary_AmmoPerFire;
     ShieldPrimary_ShieldRange = config.ShieldPrimary_ShieldRange;
@@ -66,9 +63,6 @@ function LoadFrom(MutWeaponConfig config)
 
 simulated function Modify()
 {
-    if(!bModifyShieldGun)
-        return;
-
     // newnet and utcomp do not have custom weaponfire, they use the default impl
     class'ShieldFire'.default.FireRate = ShieldPrimary_FireRate;
     class'ShieldFire'.default.AmmoPerFire = ShieldPrimary_AmmoPerFire;
@@ -101,7 +95,6 @@ simulated function Modify()
 
 defaultproperties
 {
-    bModifyShieldGun=false
     ShieldGun_BringUpTime=0.33
     ShieldGun_PutDownTime=0.33
     ShieldGun_MinReloadPct=0.5
