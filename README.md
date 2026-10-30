@@ -79,7 +79,7 @@ The `Modify the <weapon>` toggles only apply while `Modify Weapons` is on. The g
 <br />
 
 ## Shield Gun
-`Shield Secondary Ammo Regen Time` is both how often the shield regains one point while lowered and how often it drains one point while raised. `Shield Secondary Chargeup Time` only ramps up the shield's glow.
+`Shield Secondary Ammo Regen Time` is both how often the shield regains one point while lowered and how often it drains one point while raised. `Shield Secondary Chargeup Time` only ramps up the shield's glow. With WSUTComp's enhanced netcode on, WSUTComp sets the auto fire test frequency to 0.05 itself, which may override `Shield Primary Auto Fire Test Frequency`.
 
 | Property | Default Value |
 |----------|---------------|
@@ -111,6 +111,8 @@ The `Modify the <weapon>` toggles only apply while `Modify Weapons` is on. The g
 <br />
 
 ## Assault Rifle
+`Assault Primary Spread` is the spread of the first shot after a 0.5s pause. While firing continuously, each shot adds 0.02 spread, up to 0.12; those numbers are hard-coded in the stock rifle, which UTComp and NewNet also use.
+
 | Property | Default Value |
 |----------|---------------|
 | Assault Rifle Put Down Time | 0.33 |
@@ -122,7 +124,6 @@ The `Modify the <weapon>` toggles only apply while `Modify Weapons` is on. The g
 | Assault Primary Damage Min | 7 |
 | Assault Primary Damage Max | 7 |
 | Assault Primary Fire Rate | 0.16 |
-| Assault Primary Aim Error | 800 |
 | Assault Primary Spread | 0.02 |
 | Assault Secondary Damage Atten | 1.0 |
 | Assault Secondary mHoldSpeedMin | 850.0 |
@@ -241,7 +242,6 @@ Link bolts never do splash damage: `Link Projectile Damage Radius` only damages 
 | Minigun Primary Ammo Per Fire | 1 |
 | Minigun Primary Rounds Per Rotation | 5 |
 | Minigun Primary Barrel Rotations Per Sec | 3.0 |
-| Minigun Primary Aim Error | 900 |
 | Minigun Primary Spread | 0.08 |
 | Minigun Primary Pre Fire Time | 0.27 |
 | Minigun Primary Windup Time | 0.27 |
@@ -252,7 +252,6 @@ Link bolts never do splash damage: `Link Projectile Damage Radius` only damages 
 | Minigun Secondary Ammo Per Fire | 1 |
 | Minigun Secondary Rounds Per Rotation | 5 |
 | Minigun Secondary Barrel Rotations Per Sec | 1.0 |
-| Minigun Secondary Aim Error | 900 |
 | Minigun Secondary Spread | 0.03 |
 | Minigun Secondary Pre Fire Time | 0.15 |
 | Minigun Secondary Windup Time | 0.15 |
