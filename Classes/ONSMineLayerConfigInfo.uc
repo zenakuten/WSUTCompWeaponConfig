@@ -1,6 +1,5 @@
-class ONSMineLayerConfigInfo extends ReplicationInfo;
+class ONSMineLayerConfigInfo extends WeaponConfigSubInfo;
 
-var bool bModifyONSMineLayer;
 var float ONSMineLayer_ReloadDelay;
 var int ONSMineLayer_MaxMines;
 var float ONSMineLayer_PutDownTime;
@@ -23,7 +22,7 @@ var bool ONSMineProjectile_bBounce;
 replication
 {
     reliable if(bNetInitial && Role == ROLE_Authority)
-        bModifyONSMineLayer, ONSMineLayer_ReloadDelay, ONSMineLayer_MaxMines, ONSMineLayer_PutDownTime,
+        ONSMineLayer_ReloadDelay, ONSMineLayer_MaxMines, ONSMineLayer_PutDownTime,
         ONSMineLayer_BringUpTime, ONSMineLayer_MinReloadPct, ONSMineLayerPrimary_AmmoPerFire, ONSMineLayerPrimary_FireRate,
         ONSMineProjectile_DetectionTimer, ONSMineProjectile_ScurrySpeed, ONSMineProjectile_ScurryAnimRate, ONSMineProjectile_TargetLocFuzz,
         ONSMineProjectile_Speed, ONSMineProjectile_MaxSpeed, ONSMineProjectile_Damage, ONSMineProjectile_DamageRadius,
@@ -32,7 +31,6 @@ replication
 
 function LoadFrom(MutWeaponConfig config)
 {
-    bModifyONSMineLayer  = config.bModifyONSMineLayer;
     ONSMineLayer_ReloadDelay  = config.ONSMineLayer_ReloadDelay;
     ONSMineLayer_MaxMines  = config.ONSMineLayer_MaxMines;
     ONSMineLayer_PutDownTime  = config.ONSMineLayer_PutDownTime;
@@ -53,46 +51,20 @@ function LoadFrom(MutWeaponConfig config)
     ONSMineProjectile_bBounce  = config.ONSMineProjectile_bBounce;
 }
 
-simulated function PostNetBeginPlay()
-{
-    super.PostNetBeginPlay();
-    // Apply on the client when our own replicated data has arrived. The parent
-    // WeaponConfigInfo.PostNetBeginPlay can fire before this sub-object's reference
-    // replicates, so self-applying here is what actually configures the client.
-    if(Role < ROLE_Authority)
-        Modify();
-}
-
 simulated function Modify()
 {
-    if(!bModifyONSMineLayer)
-        return;
-
     //default
     class'ONSMineLayer'.default.ReloadDelay  = ONSMineLayer_ReloadDelay;
     class'ONSMineLayer'.default.MaxMines  = ONSMineLayer_MaxMines;
-    class'ONSMineLayer'.default.PutDownTime  = ONSMineLayer_PutDownTime;
-    class'ONSMineLayer'.default.BringUpTime  = ONSMineLayer_BringUpTime;
+    SetSwitchTimes(class'ONSMineLayer', ONSMineLayer_PutDownTime, ONSMineLayer_BringUpTime);
     class'ONSMineLayer'.default.MinReloadPct  = ONSMineLayer_MinReloadPct;
     class'ONSMineThrowfire'.default.AmmoPerFire  = ONSMineLayerPrimary_AmmoPerFire;
     class'ONSMineThrowfire'.default.FireRate  = ONSMineLayerPrimary_FireRate;
-    class'ONSMineProjectile'.default.DetectionTimer  = ONSMineProjectile_DetectionTimer;
-    class'ONSMineProjectile'.default.ScurrySpeed  = ONSMineProjectile_ScurrySpeed;
-    class'ONSMineProjectile'.default.ScurryAnimRate  = ONSMineProjectile_ScurryAnimRate;
-    class'ONSMineProjectile'.default.TargetLocFuzz  = ONSMineProjectile_TargetLocFuzz;
-    class'ONSMineProjectile'.default.Speed  = ONSMineProjectile_Speed;
-    class'ONSMineProjectile'.default.MaxSpeed  = ONSMineProjectile_MaxSpeed;
-    class'ONSMineProjectile'.default.Damage  = ONSMineProjectile_Damage;
-    class'ONSMineProjectile'.default.DamageRadius  = ONSMineProjectile_DamageRadius;
-    class'ONSMineProjectile'.default.CullDistance  = ONSMineProjectile_CullDistance;
-    class'ONSMineProjectile'.default.MomentumTransfer  = ONSMineProjectile_MomentumTransfer;
-    class'ONSMineProjectile'.default.bBounce  = ONSMineProjectile_bBounce;
 
     //utcomp
     class'UTComp_ONSMineLayer'.default.ReloadDelay  = ONSMineLayer_ReloadDelay;
     class'UTComp_ONSMineLayer'.default.MaxMines  = ONSMineLayer_MaxMines;
-    class'UTComp_ONSMineLayer'.default.PutDownTime  = ONSMineLayer_PutDownTime;
-    class'UTComp_ONSMineLayer'.default.BringUpTime  = ONSMineLayer_BringUpTime;
+    SetSwitchTimes(class'UTComp_ONSMineLayer', ONSMineLayer_PutDownTime, ONSMineLayer_BringUpTime);
     class'UTComp_ONSMineLayer'.default.MinReloadPct  = ONSMineLayer_MinReloadPct;
     class'UTComp_ONSMineThrowfire'.default.AmmoPerFire  = ONSMineLayerPrimary_AmmoPerFire;
     class'UTComp_ONSMineThrowfire'.default.FireRate  = ONSMineLayerPrimary_FireRate;
@@ -100,14 +72,32 @@ simulated function Modify()
     //newnet
     class'NewNet_ONSMineLayer'.default.ReloadDelay  = ONSMineLayer_ReloadDelay;
     class'NewNet_ONSMineLayer'.default.MaxMines  = ONSMineLayer_MaxMines;
-    class'NewNet_ONSMineLayer'.default.PutDownTime  = ONSMineLayer_PutDownTime;
-    class'NewNet_ONSMineLayer'.default.BringUpTime  = ONSMineLayer_BringUpTime;
+    SetSwitchTimes(class'NewNet_ONSMineLayer', ONSMineLayer_PutDownTime, ONSMineLayer_BringUpTime);
     class'NewNet_ONSMineLayer'.default.MinReloadPct  = ONSMineLayer_MinReloadPct;
+
+    // ONSMineThrowFire spawns the RED/BLUE subclass for team 0/1 and the base class otherwise
+    ApplyMine(class'ONSMineProjectile');
+    ApplyMine(class'ONSMineProjectileRED');
+    ApplyMine(class'ONSMineProjectileBLUE');
+}
+
+simulated final function ApplyMine(class<ONSMineProjectile> M)
+{
+    M.default.DetectionTimer  = ONSMineProjectile_DetectionTimer;
+    M.default.ScurrySpeed  = ONSMineProjectile_ScurrySpeed;
+    M.default.ScurryAnimRate  = ONSMineProjectile_ScurryAnimRate;
+    M.default.TargetLocFuzz  = ONSMineProjectile_TargetLocFuzz;
+    M.default.Speed  = ONSMineProjectile_Speed;
+    M.default.MaxSpeed  = ONSMineProjectile_MaxSpeed;
+    M.default.Damage  = ONSMineProjectile_Damage;
+    M.default.DamageRadius  = ONSMineProjectile_DamageRadius;
+    M.default.CullDistance  = ONSMineProjectile_CullDistance;
+    M.default.MomentumTransfer  = ONSMineProjectile_MomentumTransfer;
+    M.default.bBounce  = ONSMineProjectile_bBounce;
 }
 
 defaultproperties
 {
-    bModifyONSMineLayer=false
     ONSMineLayer_ReloadDelay=0.4
     ONSMineLayer_MaxMines=8
     ONSMineLayer_PutDownTime=0.40

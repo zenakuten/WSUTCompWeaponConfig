@@ -1,7 +1,6 @@
-class SuperShockConfigInfo extends ReplicationInfo;
+class SuperShockConfigInfo extends WeaponConfigSubInfo;
 
-var bool bModifySuperShockRifle;
-var int SuperShockPrimary_TraceRange;
+var float SuperShockPrimary_TraceRange;
 var float SuperShockPrimary_Momentum;
 var int SuperShockPrimary_AmmoPerFire;
 var int SuperShockPrimary_DamageMin;
@@ -14,7 +13,6 @@ var float SuperShockRifle_MinReloadPct;
 replication
 {
     reliable if(Role == ROLE_Authority && bNetInitial)
-        bModifySuperShockRifle,
         SuperShockPrimary_FireRate, SuperShockPrimary_TraceRange, SuperShockPrimary_Momentum,
         SuperShockPrimary_AmmoPerFire, SuperShockPrimary_DamageMin, SuperShockPrimary_DamageMax, 
         SuperShockRifle_BringUpTime, SuperShockRifle_PutDownTime, SuperShockRifle_MinReloadPct;    
@@ -22,7 +20,6 @@ replication
 
 function LoadFrom(MutWeaponConfig config)
 {
-    bModifySuperShockRifle = config.bModifySuperShockRifle;
     SuperShockPrimary_TraceRange = config.SuperShockPrimary_TraceRange;
     SuperShockPrimary_Momentum = config.SuperShockPrimary_Momentum;
     SuperShockPrimary_AmmoPerFire = config.SuperShockPrimary_AmmoPerFire;
@@ -34,21 +31,8 @@ function LoadFrom(MutWeaponConfig config)
     SuperShockRifle_MinReloadPct = config.SuperShockRifle_MinReloadPct;
 }
 
-simulated function PostNetBeginPlay()
-{
-    super.PostNetBeginPlay();
-    // Apply on the client when our own replicated data has arrived. The parent
-    // WeaponConfigInfo.PostNetBeginPlay can fire before this sub-object's reference
-    // replicates, so self-applying here is what actually configures the client.
-    if(Role < ROLE_Authority)
-        Modify();
-}
-
 simulated function Modify()
 {
-    if(!bModifySuperShockRifle)
-        return;
-    
     //stock
     class'SuperShockBeamFire'.default.TraceRange = SuperShockPrimary_TraceRange;
     class'SuperShockBeamFire'.default.Momentum = SuperShockPrimary_Momentum;
@@ -56,12 +40,8 @@ simulated function Modify()
     class'SuperShockBeamFire'.default.DamageMin = SuperShockPrimary_DamageMin;
     class'SuperShockBeamFire'.default.DamageMax = SuperShockPrimary_DamageMax;
     class'SuperShockBeamFire'.default.FireRate = SuperShockPrimary_FireRate;
-    class'SuperShockRifle'.default.PutDownTime = SuperShockRifle_PutDownTime;
-    class'SuperShockRifle'.default.BringUpTime = SuperShockRifle_BringUpTime;
+    SetSwitchTimes(class'SuperShockRifle', SuperShockRifle_PutDownTime, SuperShockRifle_BringUpTime);
     class'SuperShockRifle'.default.MinReloadPct = SuperShockRifle_MinReloadPct;
-
-    class'SuperShockRifle'.default.PutDownAnimRate = class'SuperShockRifle'.default.PutDownAnimRate / (SuperShockRifle_PutDownTime / default.SuperShockRifle_PutDownTime);
-    class'SuperShockRifle'.default.SelectAnimRate = class'SuperShockRifle'.default.SelectAnimRate / (SuperShockRifle_BringUpTime / default.SuperShockRifle_BringUpTime);
 
     //utcomp
     class'UTComp_SuperShockBeamFire'.default.TraceRange = SuperShockPrimary_TraceRange;
@@ -70,12 +50,8 @@ simulated function Modify()
     class'UTComp_SuperShockBeamFire'.default.DamageMin = SuperShockPrimary_DamageMin;
     class'UTComp_SuperShockBeamFire'.default.DamageMax = SuperShockPrimary_DamageMax;
     class'UTComp_SuperShockBeamFire'.default.FireRate = SuperShockPrimary_FireRate;
-    class'UTComp_SuperShockRifle'.default.PutDownTime = SuperShockRifle_PutDownTime;
-    class'UTComp_SuperShockRifle'.default.BringUpTime = SuperShockRifle_BringUpTime;
+    SetSwitchTimes(class'UTComp_SuperShockRifle', SuperShockRifle_PutDownTime, SuperShockRifle_BringUpTime);
     class'UTComp_SuperShockRifle'.default.MinReloadPct = SuperShockRifle_MinReloadPct;
-
-    class'UTComp_SuperShockRifle'.default.PutDownAnimRate = class'UTComp_SuperShockRifle'.default.PutDownAnimRate / (SuperShockRifle_PutDownTime / default.SuperShockRifle_PutDownTime);
-    class'UTComp_SuperShockRifle'.default.SelectAnimRate = class'UTComp_SuperShockRifle'.default.SelectAnimRate / (SuperShockRifle_BringUpTime / default.SuperShockRifle_BringUpTime);
 
     //newnet
     class'NewNet_SuperShockBeamFire'.default.TraceRange = SuperShockPrimary_TraceRange;
@@ -84,22 +60,27 @@ simulated function Modify()
     class'NewNet_SuperShockBeamFire'.default.DamageMin = SuperShockPrimary_DamageMin;
     class'NewNet_SuperShockBeamFire'.default.DamageMax = SuperShockPrimary_DamageMax;
     class'NewNet_SuperShockBeamFire'.default.FireRate = SuperShockPrimary_FireRate;
-    class'NewNet_SuperShockRifle'.default.PutDownTime = SuperShockRifle_PutDownTime;
-    class'NewNet_SuperShockRifle'.default.BringUpTime = SuperShockRifle_BringUpTime;
+    SetSwitchTimes(class'NewNet_SuperShockRifle', SuperShockRifle_PutDownTime, SuperShockRifle_BringUpTime);
     class'NewNet_SuperShockRifle'.default.MinReloadPct = SuperShockRifle_MinReloadPct;
 
-    class'NewNet_SuperShockRifle'.default.PutDownAnimRate = class'NewNet_SuperShockRifle'.default.PutDownAnimRate / (SuperShockRifle_PutDownTime / default.SuperShockRifle_PutDownTime);
-    class'NewNet_SuperShockRifle'.default.SelectAnimRate = class'NewNet_SuperShockRifle'.default.SelectAnimRate / (SuperShockRifle_BringUpTime / default.SuperShockRifle_BringUpTime);
+    //zoom instagib, which utcomp does not replace
+    class'ZoomSuperShockBeamFire'.default.TraceRange = SuperShockPrimary_TraceRange;
+    class'ZoomSuperShockBeamFire'.default.Momentum = SuperShockPrimary_Momentum;
+    class'ZoomSuperShockBeamFire'.default.AmmoPerFire = SuperShockPrimary_AmmoPerFire;
+    class'ZoomSuperShockBeamFire'.default.DamageMin = SuperShockPrimary_DamageMin;
+    class'ZoomSuperShockBeamFire'.default.DamageMax = SuperShockPrimary_DamageMax;
+    class'ZoomSuperShockBeamFire'.default.FireRate = SuperShockPrimary_FireRate;
+    SetSwitchTimes(class'ZoomSuperShockRifle', SuperShockRifle_PutDownTime, SuperShockRifle_BringUpTime);
+    class'ZoomSuperShockRifle'.default.MinReloadPct = SuperShockRifle_MinReloadPct;
 }
 
 defaultproperties
 {
-    bModifySuperShockRifle=false
     SuperShockRifle_BringUpTime=0.33
     SuperShockRifle_PutDownTime=0.33
     SuperShockRifle_MinReloadPct=0.5
     SuperShockPrimary_TraceRange=17000
-    SuperShockPrimary_Momentum=60000.0
+    SuperShockPrimary_Momentum=100000.0
     SuperShockPrimary_AmmoPerFire=0
     SuperShockPrimary_DamageMin=1000
     SuperShockPrimary_DamageMax=1000

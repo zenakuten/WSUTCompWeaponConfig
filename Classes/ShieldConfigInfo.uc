@@ -1,8 +1,7 @@
-class ShieldConfigInfo extends ReplicationInfo;
+class ShieldConfigInfo extends WeaponConfigSubInfo;
 
-var bool bModifyShieldGun;
 var float ShieldPrimary_FireRate;
-var float ShieldPrimary_AmmoPerFire;
+var int ShieldPrimary_AmmoPerFire;
 var float ShieldPrimary_ShieldRange;
 var float ShieldPrimary_MinHoldTime;
 var float ShieldPrimary_MinForce;
@@ -14,12 +13,9 @@ var float ShieldPrimary_SelfDamageScale;
 var float ShieldPrimary_MinSelfDamage;
 var float ShieldPrimary_AutoFireTestFreq;
 var float ShieldPrimary_FullyChargedTime;
-var bool ShieldPrimary_bAutoRelease;
-var bool ShieldPrimary_bStartedChargingForce;
 var	byte  ShieldPrimary_ChargingSoundVolume;
-var float ShieldPrimary_AutoHitTime;
 var float ShieldSecondary_FireRate;
-var float ShieldSecondary_AmmoPerFire;
+var int ShieldSecondary_AmmoPerFire;
 var float ShieldSecondary_AmmoRegenTime;
 var float ShieldSecondary_ChargeupTime;
 var byte ShieldSecondary_ShieldSoundVolume;
@@ -30,12 +26,10 @@ var float ShieldGun_MinReloadPct;
 replication
 {
     reliable if(Role == ROLE_Authority && bNetInitial)
-        bModifyShieldGun,
         ShieldPrimary_FireRate, ShieldPrimary_AmmoPerFire, ShieldPrimary_ShieldRange, ShieldPrimary_MinHoldTime,
         ShieldPrimary_MinForce, ShieldPrimary_MaxForce, ShieldPrimary_MinDamage, ShieldPrimary_MaxDamage,
         ShieldPrimary_SelfForceScale, ShieldPrimary_SelfDamageScale, ShieldPrimary_MinSelfDamage,
-        ShieldPrimary_AutoFireTestFreq, ShieldPrimary_FullyChargedTime, ShieldPrimary_bAutoRelease,
-        ShieldPrimary_bStartedChargingForce, ShieldPrimary_ChargingSoundVolume, ShieldPrimary_AutoHitTime,
+        ShieldPrimary_AutoFireTestFreq, ShieldPrimary_FullyChargedTime, ShieldPrimary_ChargingSoundVolume,
         ShieldSecondary_FireRate, ShieldSecondary_AmmoPerFire, ShieldSecondary_AmmoRegenTime,
         ShieldSecondary_ChargeupTime, ShieldSecondary_ShieldSoundVolume,
         ShieldGun_BringUpTime, ShieldGun_PutDownTime, ShieldGun_MinReloadPct;
@@ -43,7 +37,6 @@ replication
 
 function LoadFrom(MutWeaponConfig config)
 {
-    bModifyShieldGun = config.bModifyShieldGun;
     ShieldPrimary_FireRate = config.ShieldPrimary_FireRate;
     ShieldPrimary_AmmoPerFire = config.ShieldPrimary_AmmoPerFire;
     ShieldPrimary_ShieldRange = config.ShieldPrimary_ShieldRange;
@@ -57,10 +50,7 @@ function LoadFrom(MutWeaponConfig config)
     ShieldPrimary_MinSelfDamage = config.ShieldPrimary_MinSelfDamage;
     ShieldPrimary_AutoFireTestFreq = config.ShieldPrimary_AutoFireTestFreq;
     ShieldPrimary_FullyChargedTime = config.ShieldPrimary_FullyChargedTime;
-    ShieldPrimary_bAutoRelease = config.ShieldPrimary_bAutoRelease;
-    ShieldPrimary_bStartedChargingForce = config.ShieldPrimary_bStartedChargingForce;
     ShieldPrimary_ChargingSoundVolume = config.ShieldPrimary_ChargingSoundVolume;
-    ShieldPrimary_AutoHitTime = config.ShieldPrimary_AutoHitTime;
     ShieldSecondary_FireRate = config.ShieldSecondary_FireRate;
     ShieldSecondary_AmmoPerFire = config.ShieldSecondary_AmmoPerFire;
     ShieldSecondary_AmmoRegenTime = config.ShieldSecondary_AmmoRegenTime;
@@ -71,21 +61,8 @@ function LoadFrom(MutWeaponConfig config)
     ShieldGun_MinReloadPct = config.ShieldGun_MinReloadPct;
 }
 
-simulated function PostNetBeginPlay()
-{
-    super.PostNetBeginPlay();
-    // Apply on the client when our own replicated data has arrived. The parent
-    // WeaponConfigInfo.PostNetBeginPlay can fire before this sub-object's reference
-    // replicates, so self-applying here is what actually configures the client.
-    if(Role < ROLE_Authority)
-        Modify();
-}
-
 simulated function Modify()
 {
-    if(!bModifyShieldGun)
-        return;
-
     // newnet and utcomp do not have custom weaponfire, they use the default impl
     class'ShieldFire'.default.FireRate = ShieldPrimary_FireRate;
     class'ShieldFire'.default.AmmoPerFire = ShieldPrimary_AmmoPerFire;
@@ -93,6 +70,8 @@ simulated function Modify()
     class'ShieldFire'.default.MinHoldTime = ShieldPrimary_MinHoldTime;
     class'ShieldFire'.default.MinForce = ShieldPrimary_MinForce;
     class'ShieldFire'.default.MaxForce = ShieldPrimary_MaxForce;
+    class'ShieldFire'.default.MinDamage = ShieldPrimary_MinDamage;
+    class'ShieldFire'.default.MaxDamage = ShieldPrimary_MaxDamage;
     class'ShieldFire'.default.SelfForceScale = ShieldPrimary_SelfForceScale;
     class'ShieldFire'.default.SelfDamageScale = ShieldPrimary_SelfDamageScale;
     class'ShieldFire'.default.MinSelfDamage = ShieldPrimary_MinSelfDamage;
@@ -106,23 +85,16 @@ simulated function Modify()
     class'ShieldAltFire'.default.ShieldSoundVolume = ShieldSecondary_ShieldSoundVolume;
 
     // stock shieldgun
-    class'ShieldGun'.default.PutDownTime = ShieldGun_PutDownTime;
-    class'ShieldGun'.default.BringUpTime = ShieldGun_BringUpTime;
+    SetSwitchTimes(class'ShieldGun', ShieldGun_PutDownTime, ShieldGun_BringUpTime);
     class'ShieldGun'.default.MinReloadPct = ShieldGun_MinReloadPct;
-    class'ShieldGun'.default.PutDownAnimRate = class'ShieldGun'.default.PutDownAnimRate / (ShieldGun_PutDownTime / default.ShieldGun_PutDownTime);
-    class'ShieldGun'.default.SelectAnimRate = class'ShieldGun'.default.SelectAnimRate / (ShieldGun_BringUpTime / default.ShieldGun_BringUpTime);
 
     // utcomp shieldgun
-    class'UTComp_ShieldGun'.default.PutDownTime = ShieldGun_PutDownTime;
-    class'UTComp_ShieldGun'.default.BringUpTime = ShieldGun_BringUpTime;
+    SetSwitchTimes(class'UTComp_ShieldGun', ShieldGun_PutDownTime, ShieldGun_BringUpTime);
     class'UTComp_ShieldGun'.default.MinReloadPct = ShieldGun_MinReloadPct;
-    class'UTComp_ShieldGun'.default.PutDownAnimRate = class'ShieldGun'.default.PutDownAnimRate / (ShieldGun_PutDownTime / default.ShieldGun_PutDownTime);
-    class'UTComp_ShieldGun'.default.SelectAnimRate = class'ShieldGun'.default.SelectAnimRate / (ShieldGun_BringUpTime / default.ShieldGun_BringUpTime);
 }
 
 defaultproperties
 {
-    bModifyShieldGun=false
     ShieldGun_BringUpTime=0.33
     ShieldGun_PutDownTime=0.33
     ShieldGun_MinReloadPct=0.5
@@ -132,6 +104,8 @@ defaultproperties
     ShieldPrimary_MinHoldTime=0.4
     ShieldPrimary_MinForce=65000.0
     ShieldPrimary_MaxForce=100000.0
+    ShieldPrimary_MinDamage=40.0
+    ShieldPrimary_MaxDamage=150.0
     ShieldPrimary_SelfForceScale=1.0
     ShieldPrimary_SelfDamageScale=0.3
     ShieldPrimary_MinSelfDamage=8
