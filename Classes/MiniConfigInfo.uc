@@ -10,7 +10,6 @@ var float MinigunPrimary_Momentum;
 var int MinigunPrimary_AmmoPerFire;
 var int MinigunPrimary_RoundsPerRotation;
 var float MinigunPrimary_BarrelRotationsPerSec;
-var float MinigunPrimary_AimError;
 var float MinigunPrimary_Spread;
 var float MinigunPrimary_PreFireTime;
 var float MinigunPrimary_WindupTime;
@@ -21,7 +20,6 @@ var float MinigunSecondary_Momentum;
 var int MinigunSecondary_AmmoPerFire;
 var int MinigunSecondary_RoundsPerRotation;
 var float MinigunSecondary_BarrelRotationsPerSec;
-var float MinigunSecondary_AimError;
 var float MinigunSecondary_Spread;
 var float MinigunSecondary_PreFireTime;
 var float MinigunSecondary_WindupTime;
@@ -31,11 +29,11 @@ replication
     reliable if(bNetInitial && Role == ROLE_Authority)
         Minigun_PutDownTime, Minigun_BringUpTime, Minigun_MinReloadPct, MinigunPrimary_DamageMin,
         MinigunPrimary_DamageMax, MinigunPrimary_TraceRange, MinigunPrimary_Momentum, MinigunPrimary_AmmoPerFire,
-        MinigunPrimary_RoundsPerRotation, MinigunPrimary_BarrelRotationsPerSec, MinigunPrimary_AimError, 
+        MinigunPrimary_RoundsPerRotation, MinigunPrimary_BarrelRotationsPerSec, 
         MinigunPrimary_Spread, MinigunPrimary_PreFireTime, MinigunPrimary_WindupTime,
         MinigunSecondary_DamageMin, MinigunSecondary_DamageMax, MinigunSecondary_TraceRange, MinigunSecondary_Momentum,
         MinigunSecondary_AmmoPerFire, MinigunSecondary_RoundsPerRotation, MinigunSecondary_BarrelRotationsPerSec, 
-        MinigunSecondary_AimError, MinigunSecondary_Spread, MinigunSecondary_PreFireTime, MinigunSecondary_WindupTime;
+        MinigunSecondary_Spread, MinigunSecondary_PreFireTime, MinigunSecondary_WindupTime;
 }
 
 
@@ -51,7 +49,6 @@ function LoadFrom(MutWeaponConfig config)
     MinigunPrimary_AmmoPerFire = config.MinigunPrimary_AmmoPerFire;
     MinigunPrimary_RoundsPerRotation = config.MinigunPrimary_RoundsPerRotation;
     MinigunPrimary_BarrelRotationsPerSec = config.MinigunPrimary_BarrelRotationsPerSec;
-    MinigunPrimary_AimError = config.MinigunPrimary_AimError;
     MinigunPrimary_Spread = config.MinigunPrimary_Spread;
     MinigunPrimary_PreFireTime = config.MinigunPrimary_PreFireTime;
     MinigunPrimary_WindupTime = config.MinigunPrimary_WindupTime;
@@ -62,7 +59,6 @@ function LoadFrom(MutWeaponConfig config)
     MinigunSecondary_AmmoPerFire = config.MinigunSecondary_AmmoPerFire;
     MinigunSecondary_RoundsPerRotation = config.MinigunSecondary_RoundsPerRotation;
     MinigunSecondary_BarrelRotationsPerSec = config.MinigunSecondary_BarrelRotationsPerSec;
-    MinigunSecondary_AimError = config.MinigunSecondary_AimError;
     MinigunSecondary_Spread = config.MinigunSecondary_Spread;
     MinigunSecondary_PreFireTime = config.MinigunSecondary_PreFireTime;
     MinigunSecondary_WindupTime = config.MinigunSecondary_WindupTime;
@@ -80,7 +76,6 @@ simulated function Modify()
     class'MinigunFire'.default.AmmoPerFire = MinigunPrimary_AmmoPerFire;
     class'MinigunFire'.default.RoundsPerRotation = MinigunPrimary_RoundsPerRotation;
     class'MinigunFire'.default.BarrelRotationsPerSec = MinigunPrimary_BarrelRotationsPerSec;
-    class'MinigunFire'.default.AimError = MinigunPrimary_AimError;
     class'MinigunFire'.default.Spread = MinigunPrimary_Spread;
     class'MinigunFire'.default.PreFireTime = MinigunPrimary_PreFireTime;
     class'MinigunFire'.default.WindupTime = MinigunPrimary_WindupTime;
@@ -91,7 +86,6 @@ simulated function Modify()
     class'MinigunAltFire'.default.AmmoPerFire = MinigunSecondary_AmmoPerFire;
     class'MinigunAltFire'.default.RoundsPerRotation = MinigunSecondary_RoundsPerRotation;
     class'MinigunAltFire'.default.BarrelRotationsPerSec = MinigunSecondary_BarrelRotationsPerSec;
-    class'MinigunAltFire'.default.AimError = MinigunSecondary_AimError;
     class'MinigunAltFire'.default.Spread = MinigunSecondary_Spread;
     class'MinigunAltFire'.default.PreFireTime = MinigunSecondary_PreFireTime;
     class'MinigunAltFire'.default.WindupTime = MinigunSecondary_WindupTime;
@@ -106,7 +100,6 @@ simulated function Modify()
     class'UTComp_MinigunFire'.default.AmmoPerFire = MinigunPrimary_AmmoPerFire;
     class'UTComp_MinigunFire'.default.RoundsPerRotation = MinigunPrimary_RoundsPerRotation;
     class'UTComp_MinigunFire'.default.BarrelRotationsPerSec = MinigunPrimary_BarrelRotationsPerSec;
-    class'UTComp_MinigunFire'.default.AimError = MinigunPrimary_AimError;
     class'UTComp_MinigunFire'.default.Spread = MinigunPrimary_Spread;
     class'UTComp_MinigunFire'.default.PreFireTime = MinigunPrimary_PreFireTime;
     class'UTComp_MinigunFire'.default.WindupTime = MinigunPrimary_WindupTime;
@@ -117,7 +110,6 @@ simulated function Modify()
     class'UTComp_MinigunAltFire'.default.AmmoPerFire = MinigunSecondary_AmmoPerFire;
     class'UTComp_MinigunAltFire'.default.RoundsPerRotation = MinigunSecondary_RoundsPerRotation;
     class'UTComp_MinigunAltFire'.default.BarrelRotationsPerSec = MinigunSecondary_BarrelRotationsPerSec;
-    class'UTComp_MinigunAltFire'.default.AimError = MinigunSecondary_AimError;
     class'UTComp_MinigunAltFire'.default.Spread = MinigunSecondary_Spread;
     class'UTComp_MinigunAltFire'.default.PreFireTime = MinigunSecondary_PreFireTime;
     class'UTComp_MinigunAltFire'.default.WindupTime = MinigunSecondary_WindupTime;
@@ -132,7 +124,6 @@ simulated function Modify()
     class'NewNet_MinigunFire'.default.AmmoPerFire = MinigunPrimary_AmmoPerFire;
     class'NewNet_MinigunFire'.default.RoundsPerRotation = MinigunPrimary_RoundsPerRotation;
     class'NewNet_MinigunFire'.default.BarrelRotationsPerSec = MinigunPrimary_BarrelRotationsPerSec;
-    class'NewNet_MinigunFire'.default.AimError = MinigunPrimary_AimError;
     class'NewNet_MinigunFire'.default.Spread = MinigunPrimary_Spread;
     class'NewNet_MinigunFire'.default.PreFireTime = MinigunPrimary_PreFireTime;
     class'NewNet_MinigunFire'.default.WindupTime = MinigunPrimary_WindupTime;
@@ -143,7 +134,6 @@ simulated function Modify()
     class'NewNet_MinigunAltFire'.default.AmmoPerFire = MinigunSecondary_AmmoPerFire;
     class'NewNet_MinigunAltFire'.default.RoundsPerRotation = MinigunSecondary_RoundsPerRotation;
     class'NewNet_MinigunAltFire'.default.BarrelRotationsPerSec = MinigunSecondary_BarrelRotationsPerSec;
-    class'NewNet_MinigunAltFire'.default.AimError = MinigunSecondary_AimError;
     class'NewNet_MinigunAltFire'.default.Spread = MinigunSecondary_Spread;
     class'NewNet_MinigunAltFire'.default.PreFireTime = MinigunSecondary_PreFireTime;
     class'NewNet_MinigunAltFire'.default.WindupTime = MinigunSecondary_WindupTime;
@@ -161,7 +151,6 @@ defaultproperties
     MinigunPrimary_AmmoPerFire=1
     MinigunPrimary_RoundsPerRotation=5
     MinigunPrimary_BarrelRotationsPerSec=3.0
-    MinigunPrimary_AimError=900.0
     MinigunPrimary_Spread=0.08
     MinigunPrimary_PreFireTime=0.27
     MinigunPrimary_WindupTime=0.27
@@ -172,7 +161,6 @@ defaultproperties
     MinigunSecondary_AmmoPerFire=1
     MinigunSecondary_RoundsPerRotation=5
     MinigunSecondary_BarrelRotationsPerSec=1.0
-    MinigunSecondary_AimError=900.0
     MinigunSecondary_Spread=0.03
     MinigunSecondary_PreFireTime=0.15
     MinigunSecondary_WindupTime=0.15

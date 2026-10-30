@@ -42,7 +42,6 @@ var config float AssaultPrimary_TraceRange;
 var config float AssaultPrimary_Momentum;
 var config int AssaultPrimary_AmmoPerFire;
 var config float AssaultPrimary_FireRate;
-var config float AssaultPrimary_AimError;
 var config float AssaultPrimary_Spread;
 var config float AssaultSecondary_DamageAtten;
 var config float AssaultSecondary_mHoldSpeedMin;
@@ -146,7 +145,6 @@ var config float MinigunPrimary_Momentum;
 var config int MinigunPrimary_AmmoPerFire;
 var config int MinigunPrimary_RoundsPerRotation;
 var config float MinigunPrimary_BarrelRotationsPerSec;
-var config float MinigunPrimary_AimError;
 var config float MinigunPrimary_Spread;
 var config float MinigunPrimary_PreFireTime;
 var config float MinigunPrimary_WindupTime;
@@ -157,7 +155,6 @@ var config float MinigunSecondary_Momentum;
 var config int MinigunSecondary_AmmoPerFire;
 var config int MinigunSecondary_RoundsPerRotation;
 var config float MinigunSecondary_BarrelRotationsPerSec;
-var config float MinigunSecondary_AimError;
 var config float MinigunSecondary_Spread;
 var config float MinigunSecondary_PreFireTime;
 var config float MinigunSecondary_WindupTime;
@@ -723,7 +720,6 @@ static function FillPlayInfo(PlayInfo PI)
     PI.AddSetting("Weapon AssaultRifle", "AssaultPrimary_DamageMin", "Assault Primary Damage Min (7)", Security, Weight, "Text", "4;0:1000",,False,True);
     PI.AddSetting("Weapon AssaultRifle", "AssaultPrimary_DamageMax", "Assault Primary Damage Max (7)", Security, Weight, "Text", "4;0:1000",,False,True);
     PI.AddSetting("Weapon AssaultRifle", "AssaultPrimary_FireRate", "Assault Primary Fire Rate (0.16)", Security, Weight, "Text", "14;0.0:1000.0",,False,True);
-    PI.AddSetting("Weapon AssaultRifle", "AssaultPrimary_AimError", "Assault Primary Aim Error (800)", Security, Weight, "Text", "14;0.0:9999.0",,False,True);
     PI.AddSetting("Weapon AssaultRifle", "AssaultPrimary_Spread", "Assault Primary Spread (0.02)", Security, Weight, "Text", "14;0.0:1000.0",,False,True);
 
     Weight++;
@@ -824,7 +820,6 @@ static function FillPlayInfo(PlayInfo PI)
     PI.AddSetting("Weapon Minigun", "MinigunPrimary_AmmoPerFire", "Minigun Primary Ammo Per Fire (1)", Security, Weight, "Text", "4;0:1000",,False,True);
     PI.AddSetting("Weapon Minigun", "MinigunPrimary_RoundsPerRotation", "Minigun Primary Rounds Per Rotation (5)", Security, Weight, "Text", "4;1:1000",,False,True);
     PI.AddSetting("Weapon Minigun", "MinigunPrimary_BarrelRotationsPerSec", "Minigun Primary Barrel Rotations Per Sec (3.0)", Security, Weight, "Text", "14;0.01:1000000.0",,False,True);
-    PI.AddSetting("Weapon Minigun", "MinigunPrimary_AimError", "Minigun Primary Aim Error (900)", Security, Weight, "Text", "14;0.0:9999.0",,False,True);
     PI.AddSetting("Weapon Minigun", "MinigunPrimary_Spread", "Minigun Primary Spread (0.08)", Security, Weight, "Text", "14;0.0:1000.0",,False,True);
     PI.AddSetting("Weapon Minigun", "MinigunPrimary_PreFireTime", "Minigun Primary Pre Fire Time (0.27)", Security, Weight, "Text", "14;0.0:1000.0",,False,True);
     PI.AddSetting("Weapon Minigun", "MinigunPrimary_WindupTime", "Minigun Primary Windup Time (0.27)", Security, Weight, "Text", "14;0.0:1000.0",,False,True);
@@ -835,7 +830,6 @@ static function FillPlayInfo(PlayInfo PI)
     PI.AddSetting("Weapon Minigun", "MinigunSecondary_AmmoPerFire", "Minigun Secondary Ammo Per Fire (1)", Security, Weight, "Text", "4;0:1000",,False,True);
     PI.AddSetting("Weapon Minigun", "MinigunSecondary_RoundsPerRotation", "Minigun Secondary Rounds Per Rotation (5)", Security, Weight, "Text", "4;1:1000",,False,True);
     PI.AddSetting("Weapon Minigun", "MinigunSecondary_BarrelRotationsPerSec", "Minigun Secondary Barrel Rotations Per Sec (1.0)", Security, Weight, "Text", "14;0.01:1000000.0",,False,True);
-    PI.AddSetting("Weapon Minigun", "MinigunSecondary_AimError", "Minigun Secondary Aim Error (900)", Security, Weight, "Text", "14;0.0:9999.0",,False,True);
     PI.AddSetting("Weapon Minigun", "MinigunSecondary_Spread", "Minigun Secondary Spread (0.03)", Security, Weight, "Text", "14;0.0:1000.0",,False,True);
     PI.AddSetting("Weapon Minigun", "MinigunSecondary_PreFireTime", "Minigun Secondary Pre Fire Time (0.15)", Security, Weight, "Text", "14;0.0:1000.0",,False,True);
     PI.AddSetting("Weapon Minigun", "MinigunSecondary_WindupTime", "Minigun Secondary Windup Time (0.15)", Security, Weight, "Text", "14;0.0:1000.0",,False,True);
@@ -1037,7 +1031,6 @@ static event string GetDescriptionText(string PropName)
         case "AssaultPrimary_DamageMin": return "Assault Primary Damage Min (7)";
         case "AssaultPrimary_DamageMax": return "Assault Primary Damage Max (7)";
         case "AssaultPrimary_FireRate": return "Assault Primary Fire Rate (0.16)";
-        case "AssaultPrimary_AimError": return "Assault Primary Aim Error (800)";
         case "AssaultPrimary_Spread": return "Assault Primary Spread (0.02)";
         case "AssaultSecondary_DamageAtten": return "Assault Secondary Damage Atten (1.0)";
         case "AssaultSecondary_mHoldSpeedMin": return "Assault Secondary mHoldSpeedMin (850.0)";
@@ -1137,7 +1130,6 @@ static event string GetDescriptionText(string PropName)
         case "MinigunPrimary_AmmoPerFire": return "Minigun Primary Ammo Per Fire (1)";
         case "MinigunPrimary_RoundsPerRotation": return "Minigun Primary Rounds Per Rotation (5)";
         case "MinigunPrimary_BarrelRotationsPerSec": return "Minigun Primary Barrel Rotations Per Sec (3.0)";
-        case "MinigunPrimary_AimError": return "Minigun Primary Aim Error (900)";
         case "MinigunPrimary_Spread": return "Minigun Primary Spread (0.08)";
         case "MinigunPrimary_PreFireTime": return "Minigun Primary Pre Fire Time (0.27)";
         case "MinigunPrimary_WindupTime": return "Minigun Primary Windup Time (0.27)";
@@ -1148,7 +1140,6 @@ static event string GetDescriptionText(string PropName)
         case "MinigunSecondary_AmmoPerFire": return "Minigun Secondary Ammo Per Fire (1)";
         case "MinigunSecondary_RoundsPerRotation": return "Minigun Secondary Rounds Per Rotation (5)";
         case "MinigunSecondary_BarrelRotationsPerSec": return "Minigun Secondary Barrel Rotations Per Sec (1.0)";
-        case "MinigunSecondary_AimError": return "Minigun Secondary Aim Error (900)";
         case "MinigunSecondary_Spread": return "Minigun Secondary Spread (0.03)";
         case "MinigunSecondary_PreFireTime": return "Minigun Secondary Pre Fire Time (0.15)";
         case "MinigunSecondary_WindupTime": return "Minigun Secondary Windup Time (0.15)";
@@ -1481,7 +1472,6 @@ defaultproperties
     AssaultPrimary_Momentum=0.0
     AssaultPrimary_AmmoPerFire=1
     AssaultPrimary_FireRate=0.16
-    AssaultPrimary_AimError=800.0
     AssaultPrimary_Spread=0.02
     AssaultSecondary_DamageAtten=1.0
     AssaultSecondary_mHoldSpeedMin=850.0
@@ -1581,7 +1571,6 @@ defaultproperties
     MinigunPrimary_AmmoPerFire=1
     MinigunPrimary_RoundsPerRotation=5
     MinigunPrimary_BarrelRotationsPerSec=3.0
-    MinigunPrimary_AimError=900.0
     MinigunPrimary_Spread=0.08
     MinigunPrimary_PreFireTime=0.27
     MinigunPrimary_WindupTime=0.27
@@ -1592,7 +1581,6 @@ defaultproperties
     MinigunSecondary_AmmoPerFire=1
     MinigunSecondary_RoundsPerRotation=5
     MinigunSecondary_BarrelRotationsPerSec=1.0
-    MinigunSecondary_AimError=900.0
     MinigunSecondary_Spread=0.03
     MinigunSecondary_PreFireTime=0.15
     MinigunSecondary_WindupTime=0.15

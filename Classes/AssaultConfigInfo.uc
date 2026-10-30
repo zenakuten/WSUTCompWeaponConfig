@@ -9,7 +9,6 @@ var float AssaultPrimary_TraceRange;
 var float AssaultPrimary_Momentum;
 var int AssaultPrimary_AmmoPerFire;
 var float AssaultPrimary_FireRate;
-var float AssaultPrimary_AimError;
 var float AssaultPrimary_Spread;
 var float AssaultSecondary_DamageAtten;
 var float AssaultSecondary_mHoldSpeedMin;
@@ -28,7 +27,7 @@ replication
     reliable if(bNetInitial && Role == ROLE_Authority)
         AssaultRifle_PutDownTime, AssaultRifle_BringUpTime, AssaultRifle_MinReloadPct,
         AssaultPrimary_DamageMin, AssaultPrimary_DamageMax, AssaultPrimary_TraceRange, AssaultPrimary_Momentum,
-        AssaultPrimary_AmmoPerFire, AssaultPrimary_FireRate, AssaultPrimary_AimError, AssaultPrimary_Spread,
+        AssaultPrimary_AmmoPerFire, AssaultPrimary_FireRate, AssaultPrimary_Spread,
         AssaultSecondary_DamageAtten, AssaultSecondary_mHoldSpeedMin, AssaultSecondary_mHoldSpeedMax, AssaultSecondary_mHoldSpeedGainPerSec,
         AssaultSecondary_mWaitTime, AssaultGrenade_ExplodeTimer, AssaultGrenade_DampenFactor, AssaultGrenade_DampenFactorParallel,
         AssaultGrenade_Damage, AssaultGrenade_DamageRadius, AssaultGrenade_MomentumTransfer;
@@ -45,7 +44,6 @@ function LoadFrom(MutWeaponConfig config)
     AssaultPrimary_Momentum = config.AssaultPrimary_Momentum;
     AssaultPrimary_AmmoPerFire = config.AssaultPrimary_AmmoPerFire;
     AssaultPrimary_FireRate = config.AssaultPrimary_FireRate;
-    AssaultPrimary_AimError = config.AssaultPrimary_AimError;
     AssaultPrimary_Spread = config.AssaultPrimary_Spread;
     AssaultSecondary_DamageAtten = config.AssaultSecondary_DamageAtten;
     AssaultSecondary_mHoldSpeedMin = config.AssaultSecondary_mHoldSpeedMin;
@@ -79,7 +77,6 @@ simulated function Modify()
     class'AssaultFire'.default.Momentum = AssaultPrimary_Momentum;
     class'AssaultFire'.default.AmmoPerFire = AssaultPrimary_AmmoPerFire;
     class'AssaultFire'.default.FireRate = AssaultPrimary_FireRate;
-    class'AssaultFire'.default.AimError = AssaultPrimary_AimError;
     class'AssaultFire'.default.Spread = AssaultPrimary_Spread;
     class'AssaultGrenade'.default.DamageAtten = AssaultSecondary_DamageAtten;
     class'AssaultGrenade'.default.mHoldSpeedMin = AssaultSecondary_mHoldSpeedMin;
@@ -96,7 +93,6 @@ simulated function Modify()
     class'UTComp_AssaultFire'.default.Momentum = AssaultPrimary_Momentum;
     class'UTComp_AssaultFire'.default.AmmoPerFire = AssaultPrimary_AmmoPerFire;
     class'UTComp_AssaultFire'.default.FireRate = AssaultPrimary_FireRate;
-    class'UTComp_AssaultFire'.default.AimError = AssaultPrimary_AimError;
     class'UTComp_AssaultFire'.default.Spread = AssaultPrimary_Spread;
     class'UTComp_AssaultGrenade'.default.DamageAtten = AssaultSecondary_DamageAtten;
     class'UTComp_AssaultGrenade'.default.mHoldSpeedMin = AssaultSecondary_mHoldSpeedMin;
@@ -113,7 +109,6 @@ simulated function Modify()
     class'NewNet_AssaultFire'.default.Momentum = AssaultPrimary_Momentum;
     class'NewNet_AssaultFire'.default.AmmoPerFire = AssaultPrimary_AmmoPerFire;
     class'NewNet_AssaultFire'.default.FireRate = AssaultPrimary_FireRate;
-    class'NewNet_AssaultFire'.default.AimError = AssaultPrimary_AimError;
     class'NewNet_AssaultFire'.default.Spread = AssaultPrimary_Spread;
     class'NewNet_AssaultGrenade'.default.DamageAtten = AssaultSecondary_DamageAtten;
     class'NewNet_AssaultGrenade'.default.mHoldSpeedMin = AssaultSecondary_mHoldSpeedMin;
@@ -133,7 +128,6 @@ defaultproperties
     AssaultPrimary_Momentum=0.0
     AssaultPrimary_AmmoPerFire=1
     AssaultPrimary_FireRate=0.16
-    AssaultPrimary_AimError=800.0
     AssaultPrimary_Spread=0.02
     AssaultSecondary_DamageAtten=1.0
     AssaultSecondary_mHoldSpeedMin=850.0
