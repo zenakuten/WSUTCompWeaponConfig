@@ -28,6 +28,7 @@ The `Modify the <weapon>` toggles only apply while `Modify Weapons` is on. The g
 
 * An ammo amount (`<weapon> Ammo Given`, `Assault Rifle Ammo`, `Assault Rifle Grenades`) is what every fresh copy of that weapon comes with, so it also applies to the weapon's map pickups and lockers, not just to the weapon given on spawn. These amounts take precedence over WSUTComp's `Number of grenades on spawn`.
 * Weapon and ammo changes are undone on the server at the end of each map, so turning a weapon off (in the menu, with a `?ModifyX=False` URL option or in a map-vote game config) takes effect on the next map. Players who stay connected through the map change keep the old values for client-side prediction until they reconnect.
+* A `<weapon> Max Ammo` (`Assault Rifle Max Ammo`, `Assault Rifle Max Grenades`) of 0 keeps the weapon's stock cap: Bio 50, Shock 50, Link 220, Minigun 300, Flak 35, Rockets 30, Lightning Gun 40, Sniper 35, Super Shock 1, ONS Grenade 50, Avril 25, Mine Layer 25, Assault Rifle 200, grenades 8. A cap works on its own, without the give-weapon or `Modify the Assault Rifle Ammo` option, and is never lower than the weapon's starting ammo. Clients are not told about a changed cap, so their HUD ammo bar can look full or short; the server still enforces it.
 * A `Put Down Time` or `Bring Up Time` of 0 leaves the weapon's own time unchanged.
 * `MinReloadPct` is the fraction of the refire time that has to pass after a shot before the weapon can be switched away (0 to 1).
 
@@ -50,28 +51,40 @@ The `Modify the <weapon>` toggles only apply while `Modify Weapons` is on. The g
 | Modify the ONS Mine Layer | false |
 | Give Bio Rifle to Player | false |
 | Bio Rifle Ammo Given | 20 |
+| Bio Rifle Max Ammo | 0 |
 | Give Shock Rifle to Player | false |
 | Shock Rifle Ammo Given | 20 |
+| Shock Rifle Max Ammo | 0 |
 | Give Link Gun to Player | false |
 | Link Gun Ammo Given | 70 |
+| Link Gun Max Ammo | 0 |
 | Give Minigun to Player | false |
 | Minigun Ammo Given | 150 |
+| Minigun Max Ammo | 0 |
 | Give Flak Cannon to Player | false |
 | Flak Cannon Ammo Given | 15 |
+| Flak Cannon Max Ammo | 0 |
 | Give Rocket Launcher to Player | false |
 | Rocket Launcher Ammo Given | 12 |
+| Rocket Launcher Max Ammo | 0 |
 | Give Lightning Gun to Player | false |
 | Lightning Gun Ammo Given | 15 |
+| Lightning Gun Max Ammo | 0 |
 | Give Sniper Rifle to Player | false |
 | Sniper Rifle Ammo Given | 15 |
+| Sniper Rifle Max Ammo | 0 |
 | Give Super Shock Rifle to Player | false |
 | Super Shock Rifle Ammo Given | 1 |
+| Super Shock Rifle Max Ammo | 0 |
 | Give ONS Grenade Launcher to Player | false |
 | ONS Grenade Launcher Ammo Given | 10 |
+| ONS Grenade Launcher Max Ammo | 0 |
 | Give ONS Avril Launcher to Player | false |
 | ONS Avril Launcher Ammo Given | 5 |
+| ONS Avril Launcher Max Ammo | 0 |
 | Give ONS Mine Layer to Player | false |
 | ONS Mine Layer Ammo Given | 4 |
+| ONS Mine Layer Max Ammo | 0 |
 | Give Dual Assault Rifle to Player | false |
 
 <br />
@@ -126,6 +139,7 @@ The `Modify the <weapon>` toggles only apply while `Modify Weapons` is on. The g
 | Assault Primary Fire Rate | 0.16 |
 | Assault Primary Spread | 0.02 |
 | Assault Secondary Damage Atten | 1.0 |
+| Assault Secondary Ammo Per Fire | 1 |
 | Assault Secondary mHoldSpeedMin | 850.0 |
 | Assault Secondary mHoldSpeedMax | 1600.0 |
 | Assault Secondary mHoldSpeedGainPerSec | 750.0 |
@@ -139,12 +153,16 @@ The `Modify the <weapon>` toggles only apply while `Modify Weapons` is on. The g
 | Modify the Assault Rifle Ammo | false |
 | Assault Rifle Ammo | 100 |
 | Assault Rifle Grenades | 4 |
+| Assault Rifle Max Ammo | 0 |
+| Assault Rifle Max Grenades | 0 |
 
 <br />
 <br />
 <br />
 
 ## Bio Rifle
+A glob hits for `Bio Projectile Base Damage` + `Bio Projectile Damage Per Goop` x its goop level, so a full 10-goop shot does 20 + 19 x 10 = 210 by default. Its damage radius and momentum scale with its size.
+
 | Property | Default Value |
 |----------|---------------|
 | Bio Rifle Put Down Time | 0.33 |
@@ -162,6 +180,10 @@ The `Modify the <weapon>` toggles only apply while `Modify Weapons` is on. The g
 | Bio Projectile Drip Time | 1.8 |
 | Bio Projectile Max Goop Level | 5 |
 | Bio Projectile Merge Globs | true |
+| Bio Projectile Damage Per Goop | 19.0 |
+| Bio Projectile Damage Radius | 120.0 |
+| Bio Projectile Momentum Transfer | 40000.0 |
+| Bio Projectile Speed | 2000.0 |
 
 <br />
 <br />
@@ -195,6 +217,7 @@ The `Modify the <weapon>` toggles only apply while `Modify Weapons` is on. The g
 | Shock Projectile Force Radius | 40.0 |
 | Shock Projectile Sound Radius | 100.0 |
 | Shock Projectile Sound Volume | 50 |
+| Shock Projectile Cull Distance | 4000.0 |
 
 <br />
 <br />
@@ -328,12 +351,15 @@ Lock-on (seeking) rockets live 1.25x `Rocket Projectile Lifespan`, matching stoc
 | Rocket Projectile Flock Stiffness | -40.0 |
 | Rocket Projectile Flock Max Force | 600.0 |
 | Rocket Projectile Flock Curl Force | 450.0 |
+| Rocket Projectile Cull Distance | 7500.0 |
 
 <br />
 <br />
 <br />
 
 ## Lightning Gun
+`Momentum` is the knockback of a hit, as with the other hitscan weapons; stock uses 1, which is none. The `Sniper Rifle Momentum` option works the same way.
+
 | Property | Default Value |
 |----------|---------------|
 | Lightning Gun Put Down Time | 0.33 |
@@ -343,6 +369,7 @@ Lock-on (seeking) rockets live 1.25x `Rocket Projectile Lifespan`, matching stoc
 | Lightning Gun Damage Min | 70 |
 | Lightning Gun Damage Max | 70 |
 | Lightning Gun Trace Range | 17000.0 |
+| Lightning Gun Momentum | 1.0 |
 | Lightning Gun Fire Rate | 1.6 |
 | Lightning Gun Num Arcs | 3 |
 | Lightning Gun Arc Damage Multiplier | 0.5 |
@@ -362,6 +389,7 @@ Lock-on (seeking) rockets live 1.25x `Rocket Projectile Lifespan`, matching stoc
 | Sniper Rifle Ammo Per Fire | 1 |
 | Sniper Rifle Damage | 60 |
 | Sniper Rifle Trace Range | 17000.0 |
+| Sniper Rifle Momentum | 1.0 |
 | Sniper Rifle Fire Rate | 1.33 |
 | Sniper Rifle Headshot Multiplier | 2.0 |
 
@@ -389,7 +417,7 @@ These settings also apply to the zoom InstaGib rifle.
 <br />
 
 ## Grenade Launcher
-A `Life Span` of 0 means grenades stay until detonated.
+A `Life Span` of 0 means grenades stay until detonated. `Max Grenades` is how many can be out at once; the HUD draws one icon for each.
 
 | Property | Default Value |
 |----------|---------------|
@@ -398,6 +426,8 @@ A `Life Span` of 0 means grenades stay until detonated.
 | ONS Grenade Launcher MinReloadPct | 0.5 |
 | ONS Grenade Primary Fire Rate | 0.65 |
 | ONS Grenade Primary Ammo Per Fire | 1 |
+| ONS Grenade Secondary Fire Rate | 1.0 |
+| ONS Grenade Launcher Max Grenades | 8 |
 | ONS Grenade Bounce | true |
 | ONS Grenade Speed | 1200.0 |
 | ONS Grenade Max Speed | 1200.0 |
@@ -439,6 +469,8 @@ A `Life Span` of 0 means grenades stay until detonated.
 <br />
 
 ## Mine Layer
+The target laser (alt fire) steers the spider mines; its range is how far it reaches. `ONS Mine Target Loc Fuzz` is how far the mines spread around the laser's point: each one runs to a random spot up to that many units from it, and 0 sends them all to the exact point. Mines already chasing an enemy ignore the laser.
+
 | Property | Default Value |
 |----------|---------------|
 | ONS Mine Layer Reload Delay | 0.4 |
@@ -448,6 +480,8 @@ A `Life Span` of 0 means grenades stay until detonated.
 | ONS Mine Layer MinReloadPct | 0.5 |
 | ONS Mine Layer Ammo Per Fire | 1 |
 | ONS Mine Layer Fire Rate | 1.1 |
+| ONS Mine Layer Target Laser Fire Rate | 0.6 |
+| ONS Mine Layer Target Laser Range | 10000.0 |
 | ONS Mine Detection Timer | 0.5 |
 | ONS Mine Scurry Speed | 525.0 |
 | ONS Mine Scurry Anim Rate | 4.1 |

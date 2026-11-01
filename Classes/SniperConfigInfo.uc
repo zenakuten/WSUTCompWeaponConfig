@@ -4,6 +4,7 @@ var int SniperPrimary_AmmoPerFire;
 var int SniperPrimary_DamageMin;
 var int SniperPrimary_DamageMax;
 var float SniperPrimary_TraceRange;
+var float SniperPrimary_Momentum;
 var float SniperPrimary_FireRate;
 var int SniperPrimary_NumArcs;
 var float SniperPrimary_SecDamageMult;
@@ -17,7 +18,7 @@ replication
 {
     reliable if(bNetInitial && Role == ROLE_Authority)
         SniperPrimary_AmmoPerFire, SniperPrimary_DamageMin, SniperPrimary_DamageMax,
-        SniperPrimary_TraceRange, SniperPrimary_FireRate, SniperPrimary_NumArcs, SniperPrimary_SecDamageMult,
+        SniperPrimary_TraceRange, SniperPrimary_Momentum, SniperPrimary_FireRate, SniperPrimary_NumArcs, SniperPrimary_SecDamageMult,
         SniperPrimary_SecTraceDist, SniperPrimary_HeadshotDamageMult,
         SniperRifle_BringUpTime, SniperRifle_PutDownTime, SniperRifle_MinReloadPct;
 }
@@ -28,6 +29,7 @@ function LoadFrom(MutWeaponConfig config)
     SniperPrimary_DamageMin = config.SniperPrimary_DamageMin;
     SniperPrimary_DamageMax = config.SniperPrimary_DamageMax;
     SniperPrimary_TraceRange = config.SniperPrimary_TraceRange;
+    SniperPrimary_Momentum = config.SniperPrimary_Momentum;
     SniperPrimary_FireRate = config.SniperPrimary_FireRate;
     SniperPrimary_NumArcs = config.SniperPrimary_NumArcs;
     SniperPrimary_SecDamageMult = config.SniperPrimary_SecDamageMult;
@@ -45,6 +47,7 @@ simulated function Modify()
     class'SniperFire'.default.DamageMin = SniperPrimary_DamageMin;
     class'SniperFire'.default.DamageMax = SniperPrimary_DamageMax;
     class'SniperFire'.default.TraceRange = SniperPrimary_TraceRange;
+    class'SniperFire'.default.Momentum = SniperPrimary_Momentum;
     class'SniperFire'.default.FireRate = SniperPrimary_FireRate;
     class'SniperFire'.default.NumArcs = SniperPrimary_NumArcs;
     class'SniperFire'.default.SecDamageMult = SniperPrimary_SecDamageMult;
@@ -58,6 +61,7 @@ simulated function Modify()
     class'UTComp_SniperFire'.default.DamageMin = SniperPrimary_DamageMin;
     class'UTComp_SniperFire'.default.DamageMax = SniperPrimary_DamageMax;
     class'UTComp_SniperFire'.default.TraceRange = SniperPrimary_TraceRange;
+    class'UTComp_SniperFire'.default.Momentum = SniperPrimary_Momentum;
     class'UTComp_SniperFire'.default.FireRate = SniperPrimary_FireRate;
     class'UTComp_SniperFire'.default.NumArcs = SniperPrimary_NumArcs;
     class'UTComp_SniperFire'.default.SecDamageMult = SniperPrimary_SecDamageMult;
@@ -71,6 +75,7 @@ simulated function Modify()
     class'NewNet_SniperFire'.default.DamageMin = SniperPrimary_DamageMin;
     class'NewNet_SniperFire'.default.DamageMax = SniperPrimary_DamageMax;
     class'NewNet_SniperFire'.default.TraceRange = SniperPrimary_TraceRange;
+    class'NewNet_SniperFire'.default.Momentum = SniperPrimary_Momentum;
     class'NewNet_SniperFire'.default.FireRate = SniperPrimary_FireRate;
     class'NewNet_SniperFire'.default.NumArcs = SniperPrimary_NumArcs;
     class'NewNet_SniperFire'.default.SecDamageMult = SniperPrimary_SecDamageMult;
@@ -89,6 +94,7 @@ defaultproperties
     SniperPrimary_DamageMin=70
     SniperPrimary_DamageMax=70
     SniperPrimary_TraceRange=17000
+    SniperPrimary_Momentum=1.0
     SniperPrimary_FireRate=1.6
     SniperPrimary_NumArcs=3
     SniperPrimary_SecDamageMult=0.5

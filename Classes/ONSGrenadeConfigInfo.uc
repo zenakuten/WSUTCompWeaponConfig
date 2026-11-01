@@ -2,6 +2,8 @@ class ONSGrenadeConfigInfo extends WeaponConfigSubInfo;
 
 var int ONSGrenadePrimary_AmmoPerFire;
 var float ONSGrenadePrimary_FireRate;
+var float ONSGrenadeSecondary_FireRate;
+var int ONSGrenadeLauncher_MaxGrenades;
 var bool ONSGrenadeProj_bBounce;
 var float ONSGrenadeProj_Speed;
 var float ONSGrenadeProj_MaxSpeed;
@@ -19,7 +21,8 @@ var float ONSGrenadeLauncher_MinReloadPct;
 replication
 {
     reliable if(bNetInitial && Role == ROLE_Authority)
-        ONSGrenadePrimary_AmmoPerFire, ONSGrenadePrimary_FireRate, ONSGrenadeProj_bBounce, ONSGrenadeProj_Speed,
+        ONSGrenadePrimary_AmmoPerFire, ONSGrenadePrimary_FireRate, ONSGrenadeSecondary_FireRate,
+        ONSGrenadeLauncher_MaxGrenades, ONSGrenadeProj_bBounce, ONSGrenadeProj_Speed,
         ONSGrenadeProj_MaxSpeed, ONSGrenadeProj_Damage, ONSGrenadeProj_DamageRadius,
         ONSGrenadeProj_MomentumTransfer, ONSGrenadeProj_CullDistance, ONSGrenadeProj_LifeSpan, ONSGrenadeProj_DampenFactor,
         ONSGrenadeProj_DampenFactorParallel, ONSGrenadeLauncher_PutDownTime, ONSGrenadeLauncher_BringUpTime, ONSGrenadeLauncher_MinReloadPct;
@@ -30,6 +33,8 @@ function LoadFrom(MutWeaponConfig config)
 {
     ONSGrenadePrimary_AmmoPerFire = config.ONSGrenadePrimary_AmmoPerFire;
     ONSGrenadePrimary_FireRate = config.ONSGrenadePrimary_FireRate;
+    ONSGrenadeSecondary_FireRate = config.ONSGrenadeSecondary_FireRate;
+    ONSGrenadeLauncher_MaxGrenades = config.ONSGrenadeLauncher_MaxGrenades;
     ONSGrenadeProj_bBounce = config.ONSGrenadeProj_bBounce;
     ONSGrenadeProj_Speed = config.ONSGrenadeProj_Speed;
     ONSGrenadeProj_MaxSpeed = config.ONSGrenadeProj_MaxSpeed;
@@ -50,6 +55,8 @@ simulated function Modify()
     // stock
     class'ONSGrenadeFire'.default.AmmoPerFire = ONSGrenadePrimary_AmmoPerFire;
     class'ONSGrenadeFire'.default.FireRate = ONSGrenadePrimary_FireRate;
+    // the utcomp and newnet launchers keep the stock detonate fire
+    class'ONSGrenadeAltFire'.default.FireRate = ONSGrenadeSecondary_FireRate;
     class'ONSGrenadeProjectile'.default.bBounce = ONSGrenadeProj_bBounce;
     class'ONSGrenadeProjectile'.default.Speed = ONSGrenadeProj_Speed;
     class'ONSGrenadeProjectile'.default.MaxSpeed = ONSGrenadeProj_MaxSpeed;
@@ -62,22 +69,27 @@ simulated function Modify()
     class'ONSGrenadeProjectile'.default.DampenFactorParallel = ONSGrenadeProj_DampenFactorParallel;
     SetSwitchTimes(class'ONSGrenadeLauncher', ONSGrenadeLauncher_PutDownTime, ONSGrenadeLauncher_BringUpTime);
     class'ONSGrenadeLauncher'.default.MinReloadPct = ONSGrenadeLauncher_MinReloadPct;
+    class'ONSGrenadeLauncher'.default.MaxGrenades = ONSGrenadeLauncher_MaxGrenades;
 
     // utcomp
     class'UTComp_ONSGrenadeFire'.default.AmmoPerFire = ONSGrenadePrimary_AmmoPerFire;
     class'UTComp_ONSGrenadeFire'.default.FireRate = ONSGrenadePrimary_FireRate;
     SetSwitchTimes(class'UTComp_ONSGrenadeLauncher', ONSGrenadeLauncher_PutDownTime, ONSGrenadeLauncher_BringUpTime);
     class'UTComp_ONSGrenadeLauncher'.default.MinReloadPct = ONSGrenadeLauncher_MinReloadPct;
+    class'UTComp_ONSGrenadeLauncher'.default.MaxGrenades = ONSGrenadeLauncher_MaxGrenades;
 
     // newnet
     SetSwitchTimes(class'NewNet_ONSGrenadeLauncher', ONSGrenadeLauncher_PutDownTime, ONSGrenadeLauncher_BringUpTime);
     class'NewNet_ONSGrenadeLauncher'.default.MinReloadPct = ONSGrenadeLauncher_MinReloadPct;
+    class'NewNet_ONSGrenadeLauncher'.default.MaxGrenades = ONSGrenadeLauncher_MaxGrenades;
 }
 
 defaultproperties
 {
     ONSGrenadePrimary_AmmoPerFire=1
     ONSGrenadePrimary_FireRate=0.65
+    ONSGrenadeSecondary_FireRate=1.0
+    ONSGrenadeLauncher_MaxGrenades=8
     ONSGrenadeProj_bBounce=true
     ONSGrenadeProj_Speed=1200.0
     ONSGrenadeProj_MaxSpeed=1200.0

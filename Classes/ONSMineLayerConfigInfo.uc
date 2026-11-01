@@ -7,6 +7,8 @@ var float ONSMineLayer_BringUpTime;
 var float ONSMineLayer_MinReloadPct;
 var int ONSMineLayerPrimary_AmmoPerFire;
 var float ONSMineLayerPrimary_FireRate;
+var float ONSMineLayerSecondary_FireRate;
+var float ONSMineLayerSecondary_TraceRange;
 var float ONSMineProjectile_DetectionTimer;
 var float ONSMineProjectile_ScurrySpeed;
 var float ONSMineProjectile_ScurryAnimRate;
@@ -24,6 +26,7 @@ replication
     reliable if(bNetInitial && Role == ROLE_Authority)
         ONSMineLayer_ReloadDelay, ONSMineLayer_MaxMines, ONSMineLayer_PutDownTime,
         ONSMineLayer_BringUpTime, ONSMineLayer_MinReloadPct, ONSMineLayerPrimary_AmmoPerFire, ONSMineLayerPrimary_FireRate,
+        ONSMineLayerSecondary_FireRate, ONSMineLayerSecondary_TraceRange,
         ONSMineProjectile_DetectionTimer, ONSMineProjectile_ScurrySpeed, ONSMineProjectile_ScurryAnimRate, ONSMineProjectile_TargetLocFuzz,
         ONSMineProjectile_Speed, ONSMineProjectile_MaxSpeed, ONSMineProjectile_Damage, ONSMineProjectile_DamageRadius,
         ONSMineProjectile_CullDistance, ONSMineProjectile_MomentumTransfer, ONSMineProjectile_bBounce;
@@ -38,6 +41,8 @@ function LoadFrom(MutWeaponConfig config)
     ONSMineLayer_MinReloadPct  = config.ONSMineLayer_MinReloadPct;
     ONSMineLayerPrimary_AmmoPerFire  = config.ONSMineLayerPrimary_AmmoPerFire;
     ONSMineLayerPrimary_FireRate  = config.ONSMineLayerPrimary_FireRate;
+    ONSMineLayerSecondary_FireRate  = config.ONSMineLayerSecondary_FireRate;
+    ONSMineLayerSecondary_TraceRange  = config.ONSMineLayerSecondary_TraceRange;
     ONSMineProjectile_DetectionTimer  = config.ONSMineProjectile_DetectionTimer;
     ONSMineProjectile_ScurrySpeed  = config.ONSMineProjectile_ScurrySpeed;
     ONSMineProjectile_ScurryAnimRate  = config.ONSMineProjectile_ScurryAnimRate;
@@ -60,6 +65,9 @@ simulated function Modify()
     class'ONSMineLayer'.default.MinReloadPct  = ONSMineLayer_MinReloadPct;
     class'ONSMineThrowfire'.default.AmmoPerFire  = ONSMineLayerPrimary_AmmoPerFire;
     class'ONSMineThrowfire'.default.FireRate  = ONSMineLayerPrimary_FireRate;
+    // the utcomp and newnet layers keep the stock target laser
+    class'ONSMineLayerAltFire'.default.FireRate  = ONSMineLayerSecondary_FireRate;
+    class'ONSMineLayerAltFire'.default.TraceRange  = ONSMineLayerSecondary_TraceRange;
 
     //utcomp
     class'UTComp_ONSMineLayer'.default.ReloadDelay  = ONSMineLayer_ReloadDelay;
@@ -105,6 +113,8 @@ defaultproperties
     ONSMineLayer_MinReloadPct=0.5
     ONSMineLayerPrimary_AmmoPerFire=1
     ONSMineLayerPrimary_FireRate=1.1
+    ONSMineLayerSecondary_FireRate=0.6
+    ONSMineLayerSecondary_TraceRange=10000.0
     ONSMineProjectile_DetectionTimer=0.5
     ONSMineProjectile_ScurrySpeed=525.0
     ONSMineProjectile_ScurryAnimRate=4.1

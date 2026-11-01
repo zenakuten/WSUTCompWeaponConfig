@@ -22,6 +22,7 @@ var float ShockSecondary_ProjForceScale;
 var float ShockSecondary_ProjForceRadius;
 var float ShockSecondary_ProjSoundRadius;
 var byte ShockSecondary_ProjSoundVolume;
+var float ShockSecondary_ProjCullDistance;
 var float ShockRifle_PutDownTime;
 var float ShockRifle_BringUpTime;
 var float ShockRifle_MinReloadPct;
@@ -36,7 +37,7 @@ replication
         ShockSecondary_ProjMomentumTransfer, ShockSecondary_ProjComboDamage, ShockSecondary_ProjComboRadius,
         ShockSecondary_ProjComboMomentumTransfer, ShockSecondary_ProjLifeSpan, 
         ShockSecondary_ProjComboAmmoCost, ShockSecondary_ProjForceScale, 
-        ShockSecondary_ProjForceRadius, ShockSecondary_ProjSoundRadius, ShockSecondary_ProjSoundVolume,
+        ShockSecondary_ProjForceRadius, ShockSecondary_ProjSoundRadius, ShockSecondary_ProjSoundVolume, ShockSecondary_ProjCullDistance,
         ShockRifle_BringUpTime, ShockRifle_PutDownTime, ShockRifle_MinReloadPct;    
 }
 
@@ -64,6 +65,7 @@ function LoadFrom(MutWeaponConfig config)
     ShockSecondary_ProjForceRadius = config.ShockSecondary_ProjForceRadius;
     ShockSecondary_ProjSoundRadius = config.ShockSecondary_ProjSoundRadius;
     ShockSecondary_ProjSoundVolume = config.ShockSecondary_ProjSoundVolume;
+    ShockSecondary_ProjCullDistance = config.ShockSecondary_ProjCullDistance;
     ShockRifle_PutDownTime = config.ShockRifle_PutDownTime;
     ShockRifle_BringUpTime = config.ShockRifle_BringUpTime;
     ShockRifle_MinReloadPct = config.ShockRifle_MinReloadPct;
@@ -130,6 +132,7 @@ simulated final function ApplyShockProj(class<ShockProjectile> P)
     P.default.ForceRadius = ShockSecondary_ProjForceRadius;
     P.default.SoundRadius = ShockSecondary_ProjSoundRadius;
     P.default.SoundVolume = ShockSecondary_ProjSoundVolume;
+    P.default.CullDistance = ShockSecondary_ProjCullDistance;
 }
 
 defaultproperties
@@ -158,5 +161,6 @@ defaultproperties
     ShockSecondary_ProjForceScale=5.0
     ShockSecondary_ProjForceRadius=40.0
     ShockSecondary_ProjSoundRadius=100
-    ShockSecondary_ProjSoundVolume=50    
+    ShockSecondary_ProjSoundVolume=50
+    ShockSecondary_ProjCullDistance=4000.0
 }

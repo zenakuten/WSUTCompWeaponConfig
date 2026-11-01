@@ -12,6 +12,10 @@ var float Bio_ProjTouchDetinationDelay;
 var float Bio_ProjDripTime;
 var int Bio_ProjMaxGoopLevel;
 var bool Bio_ProjMergeGlobs;
+var float Bio_ProjDamage;
+var float Bio_ProjDamageRadius;
+var float Bio_ProjMomentumTransfer;
+var float Bio_ProjSpeed;
 var float BioRifle_PutDownTime;
 var float BioRifle_BringUpTime;
 var float BioRifle_MinReloadPct;
@@ -22,6 +26,7 @@ replication
         BioPrimary_FireRate, BioPrimary_AmmoPerFire, BioSecondary_FireRate, BioSecondary_GoopUpRate,
         BioSecondary_MaxGoopLoad, Bio_ProjBaseDamage, Bio_ProjGloblingSpeed,
         Bio_ProjRestTime, Bio_ProjTouchDetinationDelay, Bio_ProjDripTime, Bio_ProjMaxGoopLevel, Bio_ProjMergeGlobs,
+        Bio_ProjDamage, Bio_ProjDamageRadius, Bio_ProjMomentumTransfer, Bio_ProjSpeed,
         BioRifle_BringUpTime, BioRifle_PutDownTime, BioRifle_MinReloadPct;
 }
 
@@ -39,6 +44,10 @@ function LoadFrom(MutWeaponConfig config)
     Bio_ProjDripTime = config.Bio_ProjDripTime;
     Bio_ProjMaxGoopLevel = config.Bio_ProjMaxGoopLevel;
     Bio_ProjMergeGlobs = config.Bio_ProjMergeGlobs;
+    Bio_ProjDamage = config.Bio_ProjDamage;
+    Bio_ProjDamageRadius = config.Bio_ProjDamageRadius;
+    Bio_ProjMomentumTransfer = config.Bio_ProjMomentumTransfer;
+    Bio_ProjSpeed = config.Bio_ProjSpeed;
     BioRifle_PutDownTime = config.BioRifle_PutDownTime;
     BioRifle_BringUpTime = config.BioRifle_BringUpTime;
     BioRifle_MinReloadPct = config.BioRifle_MinReloadPct;
@@ -90,6 +99,11 @@ simulated final function ApplyGlob(class<BioGlob> G)
     G.default.DripTime = Bio_ProjDripTime;
     G.default.MaxGoopLevel = Bio_ProjMaxGoopLevel;
     G.default.bMergeGlobs = Bio_ProjMergeGlobs;
+    // a glob hits for BaseDamage + Damage * GoopLevel
+    G.default.Damage = Bio_ProjDamage;
+    G.default.DamageRadius = Bio_ProjDamageRadius;
+    G.default.MomentumTransfer = Bio_ProjMomentumTransfer;
+    G.default.Speed = Bio_ProjSpeed;
 }
 
 defaultproperties
@@ -109,5 +123,9 @@ defaultproperties
     Bio_ProjDripTime=1.8
     Bio_ProjMaxGoopLevel=5
     Bio_ProjMergeGlobs=true
+    Bio_ProjDamage=19.0
+    Bio_ProjDamageRadius=120.0
+    Bio_ProjMomentumTransfer=40000.0
+    Bio_ProjSpeed=2000.0
 
 }

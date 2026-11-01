@@ -25,6 +25,7 @@ var float RocketProj_FlockRadius;
 var float RocketProj_FlockStiffness;
 var float RocketProj_FlockMaxForce;
 var float RocketProj_FlockCurlForce;
+var float RocketProj_CullDistance;
 
 
 replication
@@ -36,7 +37,7 @@ replication
         RocketSecondary_TightSpread, RocketSecondary_LooseSpread, RocketSecondary_MaxHoldTime,
         RocketProj_Speed, RocketProj_MaxSpeed, RocketProj_Damage, RocketProj_DamageRadius,
         RocketProj_MomentumTransfer, RocketProj_LifeSpan, RocketProj_FlockRadius, RocketProj_FlockStiffness,
-        RocketProj_FlockMaxForce, RocketProj_FlockCurlForce;
+        RocketProj_FlockMaxForce, RocketProj_FlockCurlForce, RocketProj_CullDistance;
 }
 
 function LoadFrom(MutWeaponConfig config)
@@ -66,6 +67,7 @@ function LoadFrom(MutWeaponConfig config)
     RocketProj_FlockStiffness = config.RocketProj_FlockStiffness;
     RocketProj_FlockMaxForce = config.RocketProj_FlockMaxForce;
     RocketProj_FlockCurlForce = config.RocketProj_FlockCurlForce;
+    RocketProj_CullDistance = config.RocketProj_CullDistance;
 }
 
 simulated function Modify()
@@ -145,6 +147,7 @@ simulated final function ApplyRocket(class<RocketProj> P, float ProjLifeSpan)
     P.default.FlockStiffness = RocketProj_FlockStiffness;
     P.default.FlockMaxForce = RocketProj_FlockMaxForce;
     P.default.FlockCurlForce = RocketProj_FlockCurlForce;
+    P.default.CullDistance = RocketProj_CullDistance;
 }
 
 defaultproperties
@@ -174,4 +177,5 @@ defaultproperties
     RocketProj_FlockStiffness=-40.0
     RocketProj_FlockMaxForce=600.0
     RocketProj_FlockCurlForce=450.0
+    RocketProj_CullDistance=7500.0
 }

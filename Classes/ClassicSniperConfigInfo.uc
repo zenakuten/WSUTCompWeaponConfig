@@ -3,6 +3,7 @@ class ClassicSniperConfigInfo extends WeaponConfigSubInfo;
 var int ClassicSniperPrimary_AmmoPerFire;
 var int ClassicSniperPrimary_DamageMax;
 var float ClassicSniperPrimary_TraceRange;
+var float ClassicSniperPrimary_Momentum;
 var float ClassicSniperPrimary_FireRate;
 var float ClassicSniperPrimary_HeadshotDamageMult;
 var float ClassicSniperRifle_PutDownTime;
@@ -16,7 +17,7 @@ replication
 {
     reliable if(bNetInitial && Role == ROLE_Authority)
         ClassicSniperPrimary_AmmoPerFire, ClassicSniperPrimary_DamageMax,
-        ClassicSniperPrimary_TraceRange, ClassicSniperPrimary_FireRate, ClassicSniperPrimary_HeadshotDamageMult,
+        ClassicSniperPrimary_TraceRange, ClassicSniperPrimary_Momentum, ClassicSniperPrimary_FireRate, ClassicSniperPrimary_HeadshotDamageMult,
         ClassicSniperRifle_BringUpTime, ClassicSniperRifle_PutDownTime, ClassicSniperRifle_MinReloadPct;
 }
 
@@ -25,6 +26,7 @@ function LoadFrom(MutWeaponConfig config)
     ClassicSniperPrimary_AmmoPerFire = config.ClassicSniperPrimary_AmmoPerFire;
     ClassicSniperPrimary_DamageMax = config.ClassicSniperPrimary_DamageMax;
     ClassicSniperPrimary_TraceRange = config.ClassicSniperPrimary_TraceRange;
+    ClassicSniperPrimary_Momentum = config.ClassicSniperPrimary_Momentum;
     ClassicSniperPrimary_FireRate = config.ClassicSniperPrimary_FireRate;
     ClassicSniperPrimary_HeadshotDamageMult = config.ClassicSniperPrimary_HeadshotDamageMult;
     ClassicSniperRifle_PutDownTime = config.ClassicSniperRifle_PutDownTime;
@@ -44,6 +46,7 @@ simulated function Modify()
     class'ClassicSniperFire'.default.AmmoPerFire = ClassicSniperPrimary_AmmoPerFire;
     class'ClassicSniperFire'.default.DamageMax = ClassicSniperPrimary_DamageMax;
     class'ClassicSniperFire'.default.TraceRange = ClassicSniperPrimary_TraceRange;
+    class'ClassicSniperFire'.default.Momentum = ClassicSniperPrimary_Momentum;
     class'ClassicSniperFire'.default.FireRate = ClassicSniperPrimary_FireRate;
     class'ClassicSniperFire'.default.HeadshotDamageMult = ClassicSniperPrimary_HeadshotDamageMult;
     SetSwitchTimes(class'ClassicSniperRifle', ClassicSniperRifle_PutDownTime, ClassicSniperRifle_BringUpTime);
@@ -53,6 +56,7 @@ simulated function Modify()
     class'UTComp_ClassicSniperFire'.default.AmmoPerFire = ClassicSniperPrimary_AmmoPerFire;
     class'UTComp_ClassicSniperFire'.default.DamageMax = ClassicSniperPrimary_DamageMax;
     class'UTComp_ClassicSniperFire'.default.TraceRange = ClassicSniperPrimary_TraceRange;
+    class'UTComp_ClassicSniperFire'.default.Momentum = ClassicSniperPrimary_Momentum;
     class'UTComp_ClassicSniperFire'.default.FireRate = ClassicSniperPrimary_FireRate;
     class'UTComp_ClassicSniperFire'.default.HeadshotDamageMult = ClassicSniperPrimary_HeadshotDamageMult;
     SetSwitchTimes(class'UTComp_ClassicSniperRifle', ClassicSniperRifle_PutDownTime, ClassicSniperRifle_BringUpTime);
@@ -62,6 +66,7 @@ simulated function Modify()
     class'NewNet_ClassicSniperFire'.default.AmmoPerFire = ClassicSniperPrimary_AmmoPerFire;
     class'NewNet_ClassicSniperFire'.default.DamageMax = ClassicSniperPrimary_DamageMax;
     class'NewNet_ClassicSniperFire'.default.TraceRange = ClassicSniperPrimary_TraceRange;
+    class'NewNet_ClassicSniperFire'.default.Momentum = ClassicSniperPrimary_Momentum;
     class'NewNet_ClassicSniperFire'.default.FireRate = ClassicSniperPrimary_FireRate;
     class'NewNet_ClassicSniperFire'.default.HeadshotDamageMult = ClassicSniperPrimary_HeadshotDamageMult;
     SetSwitchTimes(class'NewNet_ClassicSniperRifle', ClassicSniperRifle_PutDownTime, ClassicSniperRifle_BringUpTime);
@@ -83,6 +88,7 @@ defaultproperties
     ClassicSniperPrimary_AmmoPerFire=1
     ClassicSniperPrimary_DamageMax=60
     ClassicSniperPrimary_TraceRange=17000
+    ClassicSniperPrimary_Momentum=1.0
     ClassicSniperPrimary_FireRate=1.33
     ClassicSniperPrimary_HeadshotDamageMult=2.0
 }
